@@ -1,0 +1,17 @@
+# Fenwick tree (Binary Indexed Tree): O(log n) prefix sums + point updates
+# 1-indexed; the lowest set bit (i & -i) is the range each node covers
+
+function add(i, delta):                    # add delta at index i
+    i += 1                                  # to 1-indexed
+    while i <= n:
+        bit[i] += delta
+        i += i & (-i)                       # jump to the next responsible node
+
+function prefix(i):                         # sum of the first i elements [0, i)
+    s = 0
+    while i > 0:
+        s += bit[i]
+        i -= i & (-i)                       # strip the lowest set bit
+    return s
+
+# range sum [l, r) = prefix(r) - prefix(l)

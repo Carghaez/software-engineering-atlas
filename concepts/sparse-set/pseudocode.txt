@@ -1,0 +1,21 @@
+# Sparse set: O(1) insert / remove / membership for integer keys; fast clear
+# Two arrays: dense (packed values) + sparse (value -> index into dense)
+
+function contains(x):
+    i = sparse[x]
+    return i < n and dense[i] == x          # the cross-check makes garbage safe
+
+function insert(x):
+    if contains(x): return
+    sparse[x] = n
+    dense[n] = x
+    n += 1
+
+function remove(x):
+    if not contains(x): return
+    i = sparse[x]
+    last = dense[n - 1]
+    dense[i] = last; sparse[last] = i        # move last into the hole
+    n -= 1
+
+function clear():  n = 0                     # O(1): no need to zero memory

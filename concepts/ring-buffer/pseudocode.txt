@@ -1,0 +1,18 @@
+# Ring buffer: fixed-capacity FIFO over a circular array (indices wrap with mod)
+
+structure Ring:
+    buf[CAP]
+    head            # index of the oldest element
+    count           # number of live elements
+
+function push(r, v):
+    assert r.count < CAP                  # (or overwrite oldest, by design)
+    r.buf[(r.head + r.count) mod CAP] = v
+    r.count = r.count + 1
+
+function pop(r):
+    assert r.count > 0
+    v = r.buf[r.head]
+    r.head = (r.head + 1) mod CAP         # advance, wrapping around
+    r.count = r.count - 1
+    return v

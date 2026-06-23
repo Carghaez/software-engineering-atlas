@@ -1,0 +1,19 @@
+# Segment tree: O(log n) range query + point update over an array
+# Iterative array layout: leaves at [n, 2n), internal node i = combine(2i, 2i+1)
+
+function build(a):                        # n = len(a), a power of two here
+    for i in 0 .. n-1: seg[n + i] = a[i]
+    for i from n-1 down to 1: seg[i] = seg[2i] + seg[2i+1]
+
+function update(pos, value):
+    pos += n; seg[pos] = value
+    pos /= 2
+    while pos >= 1: seg[pos] = seg[2*pos] + seg[2*pos+1]; pos /= 2
+
+function query(l, r):                     # sum over [l, r)
+    res = 0; l += n; r += n
+    while l < r:
+        if l is odd: res += seg[l]; l += 1
+        if r is odd: r -= 1; res += seg[r]
+        l /= 2; r /= 2
+    return res

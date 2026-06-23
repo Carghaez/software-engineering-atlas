@@ -1,0 +1,11 @@
+# Deque (double-ended queue): O(1) insert/remove at BOTH ends
+
+operations:
+    push_front(v)   add at the front
+    push_back(v)    add at the back
+    pop_front()     remove & return the front
+    pop_back()      remove & return the back
+    front() / back()  peek either end
+
+# Typically backed by a growable ring buffer (circular array) or a doubly
+# linked list, so both ends are amortised O(1).

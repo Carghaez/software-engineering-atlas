@@ -1,0 +1,15 @@
+# Bloom filter: probabilistic set membership; no false negatives, some false positives
+
+structure Bloom:
+    bits[m]                                # all zero initially
+    k hash functions h_1 .. h_k
+
+function add(x):
+    for j in 1 .. k:
+        bits[h_j(x) mod m] = 1
+
+function maybe_contains(x):
+    for j in 1 .. k:
+        if bits[h_j(x) mod m] == 0:
+            return false                   # definitely absent
+    return true                            # probably present (may be a false positive)
