@@ -1,0 +1,20 @@
+# Boyer-Moore(-Horspool): substring search that skips ahead using a bad-character table
+
+function build_shift(pattern):            # how far to jump when a char mismatches
+    m = len(pattern)
+    for every byte c: shift[c] = m        # unseen char -> skip the whole window
+    for i in 0 .. m-2:                     # last char excluded
+        shift[pattern[i]] = m - 1 - i      # distance from the window's end
+    return shift
+
+function search(text, pattern):
+    m = len(pattern); n = len(text)
+    shift = build_shift(pattern)
+    i = 0
+    while i <= n - m:
+        j = m - 1
+        while j >= 0 and text[i+j] == pattern[j]:   # compare right-to-left
+            j = j - 1
+        if j < 0: return i                          # full match
+        i = i + shift[text[i + m - 1]]              # jump by the table
+    return NOT_FOUND
