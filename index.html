@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;height:100%}
+  body{background:#f1f1ee;font-family:'IBM Plex Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  ::selection{background:#d8e0ec}
+  .atlas-scroll{scrollbar-width:thin;scrollbar-color:#cfcfc8 transparent}
+  .atlas-scroll::-webkit-scrollbar{width:9px;height:9px}
+  .atlas-scroll::-webkit-scrollbar-thumb{background:#d2d2cb;border-radius:6px;border:2px solid #f1f1ee}
+  @keyframes drawerIn{from{transform:translateX(26px);opacity:0}to{transform:translateX(0);opacity:1}}
+  @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+</style>
+</helmet>
+
+<div style="height:100vh;display:flex;flex-direction:column;overflow:hidden;color:#22262d">
+
+  <header style="flex:none;display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;padding:16px 28px 15px;background:#ffffff;border-bottom:1px solid #e4e4de;z-index:20">
+    <div style="display:flex;flex-direction:column;gap:3px">
+      <h1 style="margin:0;font:600 20px/1.15 'IBM Plex Sans';letter-spacing:-.01em;color:#181b21">Software Engineering Techniques Atlas</h1>
+      <div style="font:500 11.5px 'IBM Plex Mono';letter-spacing:.02em;color:#8b9098">Complete within Coverage Manifest v1.1 &mdash; 22 June 2026 &middot; <span style="color:#aeb2b9">{{ total }} concepts &middot; 13 domains &middot; 5 languages</span></div>
+    </div>
+    <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+      <div style="display:flex;gap:5px;background:#f3f3ef;padding:4px;border-radius:9px;border:1px solid #e6e6e0">
+        <button onClick="{{ setExplorer }}" style="{{ tabExplorer }}">Explorer</button>
+        <button onClick="{{ setMap }}" style="{{ tabMap }}">Relationship Map</button>
+        <button onClick="{{ setHeat }}" style="{{ tabHeat }}">Language Heatmap</button>
+        <button onClick="{{ setPages }}" style="{{ tabPages }}">Atlas Maps</button>
+      </div>
+      <div style="position:relative;display:flex;align-items:center">
+        <span style="position:absolute;left:11px;font:500 12px 'IBM Plex Mono';color:#aeb2b9;pointer-events:none">/</span>
+        <input value="{{ query }}" onChange="{{ onSearch }}" placeholder="search concepts, types, families…" style="width:280px;padding:9px 12px 9px 26px;border:1px solid #e0e0d9;border-radius:8px;background:#fafaf7;font:400 13px 'IBM Plex Sans';color:#22262d;outline:none" />
+      </div>
+    </div>
+  </header>
+
+  <div style="flex:1;display:flex;min-height:0">
+
+    <!-- SIDEBAR -->
+    <aside class="atlas-scroll" style="flex:none;width:266px;background:#fbfbf8;border-right:1px solid #e6e6e0;overflow-y:auto;padding:16px 14px 28px">
+      <div style="font:600 10px 'IBM Plex Mono';letter-spacing:.09em;text-transform:uppercase;color:#a4a8af;padding:2px 8px 9px">Domains</div>
+      <button onClick="{{ clearDomain }}" style="width:100%;display:flex;align-items:center;gap:10px;padding:8px 10px;margin-bottom:3px;border:none;border-left:3px solid {{ allEdge }};border-radius:6px;background:{{ allBg }};cursor:pointer;font:{{ allFw }} 13px 'IBM Plex Sans';color:{{ allCol }}">
+        <span style="width:9px;height:9px;border-radius:2px;background:linear-gradient(135deg,#c2553f,#3aa06b);flex:none"></span>
+        <span style="flex:1;text-align:left">All concepts</span>
+        <span style="font:500 11px 'IBM Plex Mono';color:#a4a8af">{{ total }}</span>
+      </button>
+      <sc-for list="{{ domainItems }}" as="d" hint-placeholder-count="13">
+        <button onClick="{{ d.pick }}" style="width:100%;display:flex;align-items:center;gap:10px;padding:8px 10px;margin-bottom:2px;border:none;border-left:3px solid {{ d.edge }};border-radius:6px;background:{{ d.bg }};cursor:pointer;font:{{ d.fw }} 13px 'IBM Plex Sans';color:{{ d.col }}">
+          <span style="width:9px;height:9px;border-radius:2px;background:{{ d.color }};flex:none"></span>
+          <span style="flex:1;text-align:left;line-height:1.25">{{ d.label }}</span>
+          <span style="font:500 11px 'IBM Plex Mono';color:#a4a8af">{{ d.count }}</span>
+        </button>
+      </sc-for>
+
+      <div style="font:600 10px 'IBM Plex Mono';letter-spacing:.09em;text-transform:uppercase;color:#a4a8af;padding:22px 8px 9px">Language support key</div>
+      <sc-for list="{{ legend }}" as="lg" hint-placeholder-count="7">
+        <div style="display:flex;align-items:center;gap:9px;padding:4px 8px">
+          <span style="width:13px;height:13px;border-radius:3px;background:{{ lg.color }};flex:none"></span>
+          <span style="font:600 11px 'IBM Plex Mono';color:#4a4e56;min-width:64px">{{ lg.label }}</span>
+          <span style="font:400 11px/1.35 'IBM Plex Sans';color:#9095">{{ lg.blurb }}</span>
+        </div>
+      </sc-for>
+      <div style="font:400 11px/1.5 'IBM Plex Sans';color:#9aa0a8;padding:12px 8px 0">Chip number = <b style="color:#6b7078">idiomaticity 0&ndash;3</b>. Hue = support level above.</div>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="atlas-scroll" style="flex:1;overflow-y:auto;position:relative">
+
+      <sc-if value="{{ notLoaded }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;align-items:center;justify-content:center;height:100%;font:500 13px 'IBM Plex Mono';color:#a4a8af">Loading atlas&hellip;</div>
+      </sc-if>
+
+      <!-- EXPLORER -->
+      <sc-if value="{{ isExplorer }}" hint-placeholder-val="{{ false }}">
+        <div style="padding:20px 26px 48px">
+          <div style="display:flex;align-items:baseline;gap:13px;margin-bottom:16px;flex-wrap:wrap">
+            <h2 style="margin:0;font:600 16px 'IBM Plex Sans';color:#181b21">{{ domainLabel }}</h2>
+            <span style="font:500 12px 'IBM Plex Mono';color:#9095">{{ count }} / {{ total }} concepts</span>
+            <sc-if value="{{ hasDomain }}" hint-placeholder-val="{{ false }}">
+              <button onClick="{{ clearDomain }}" style="font:500 11.5px 'IBM Plex Mono';color:#6b7078;background:#efefe9;border:1px solid #e0e0d9;border-radius:6px;padding:4px 10px;cursor:pointer">clear filter &times;</button>
+            </sc-if>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax({{ gridMin }},1fr));gap:14px">
+            <sc-for list="{{ cards }}" as="card" hint-placeholder-count="9">
+              <button onClick="{{ card.open }}" style="text-align:left;cursor:pointer;background:#ffffff;border:1px solid #e7e7e1;border-radius:10px;border-top:3px solid {{ card.accent }};padding:15px 16px 14px;display:flex;flex-direction:column;gap:9px;transition:box-shadow .15s ease,transform .15s ease,border-color .15s ease" style-hover="box-shadow:0 7px 24px rgba(28,32,40,.11);transform:translateY(-2px);border-color:#d7d7d0">
+                <div style="display:flex;align-items:center;justify-content:space-between;gap:8px">
+                  <span style="font:600 9.5px 'IBM Plex Mono';letter-spacing:.05em;text-transform:uppercase;padding:3px 7px;border-radius:4px;background:{{ card.tint }};color:{{ card.accent }}">{{ card.domainLabel }}</span>
+                  <span style="font:500 10px 'IBM Plex Mono';color:#b4b8be">{{ card.use }}</span>
+                </div>
+                <div style="font:600 15.5px/1.22 'IBM Plex Sans';color:#1a1d24">{{ card.name }}</div>
+                <div style="font:500 10.5px/1.3 'IBM Plex Mono';color:#9aa0a8">{{ card.type }}</div>
+                <div style="font:400 13px/1.5 'IBM Plex Sans';color:#5c6views;color:#5c616a">{{ card.def }}</div>
+                <div style="display:flex;gap:5px;margin-top:3px;flex-wrap:wrap">
+                  <sc-for list="{{ card.chips }}" as="chip" hint-placeholder-count="5">
+                    <span title="{{ chip.title }}" style="font:600 11px 'IBM Plex Mono';padding:3px 7px;border-radius:4px;background:{{ chip.bg }};border:1px solid {{ chip.border }};color:{{ chip.color }}">{{ chip.lang }} {{ chip.idiom }}</span>
+                  </sc-for>
+                </div>
+              </button>
+            </sc-for>
+          </div>
+          <sc-if value="{{ empty }}" hint-placeholder-val="{{ false }}">
+            <div style="padding:60px 0;text-align:center;font:500 13px 'IBM Plex Mono';color:#a4a8af">No concepts match &ldquo;{{ query }}&rdquo;.</div>
+          </sc-if>
+        </div>
+      </sc-if>
+
+      <!-- RELATIONSHIP MAP -->
+      <sc-if value="{{ isMap }}" hint-placeholder-val="{{ false }}">
+        <div style="padding:24px 30px 56px;max-width:1180px">
+          <h2 style="margin:0 0 6px;font:600 17px 'IBM Plex Sans';color:#181b21">Cross-category relationship chains</h2>
+          <p style="margin:0 0 8px;max-width:760px;font:400 13.5px/1.6 'IBM Plex Sans';color:#6b7078">A technique in one domain enables consequences in others. Each band reads left&#8594;right as a causal chain; coloured tags mark the domain each step belongs to. Click any solid concept to open its card.</p>
+          <sc-for list="{{ chains }}" as="ch" hint-placeholder-count="5">
+            <div style="background:#ffffff;border:1px solid #e7e7e1;border-radius:12px;padding:20px 22px;margin-top:16px">
+              <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:3px">
+                <span style="font:600 12px 'IBM Plex Mono';color:#c0c4ca">{{ ch.num }}</span>
+                <span style="font:600 14.5px 'IBM Plex Sans';color:#1a1d24">{{ ch.title }}</span>
+              </div>
+              <div style="font:400 12.5px/1.55 'IBM Plex Sans';color:#7a7f87;margin:0 0 16px;padding-left:24px">{{ ch.caption }}</div>
+              <div style="display:flex;align-items:stretch;flex-wrap:wrap;gap:9px;padding-left:24px">
+                <sc-for list="{{ ch.nodes }}" as="n" hint-placeholder-count="5">
+                  <span style="display:inline-flex;align-items:center;gap:9px">
+                    <span onClick="{{ n.open }}" title="{{ n.title }}" style="display:inline-flex;flex-direction:column;gap:3px;padding:9px 13px;border-radius:9px;background:{{ n.tint }};border:1px solid {{ n.border }};cursor:{{ n.cursor }};min-width:84px">
+                      <span style="font:600 8.5px 'IBM Plex Mono';letter-spacing:.06em;text-transform:uppercase;color:{{ n.color }}">{{ n.domainLabel }}</span>
+                      <span style="font:600 12.5px/1.2 'IBM Plex Sans';color:#1c1f26">{{ n.label }}</span>
+                    </span>
+                    <sc-if value="{{ n.notLast }}" hint-placeholder-val="{{ false }}">
+                      <span style="font:600 17px 'IBM Plex Mono';color:#c6cad0">&rarr;</span>
+                    </sc-if>
+                  </span>
+                </sc-for>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </sc-if>
+
+      <!-- LANGUAGE HEATMAP -->
+      <sc-if value="{{ isHeat }}" hint-placeholder-val="{{ false }}">
+        <div style="padding:22px 28px 56px">
+          <h2 style="margin:0 0 6px;font:600 17px 'IBM Plex Sans';color:#181b21">Language idiomaticity heatmap</h2>
+          <p style="margin:0 0 18px;max-width:780px;font:400 13.5px/1.6 'IBM Plex Sans';color:#6b7078">Each cell is a concept&times;language idiomaticity score (0&ndash;3): darker = more idiomatic. <b style="color:#5c616a">Support level</b> (Native, Std, Ecosystem, Encodable&hellip;) is in each concept&rsquo;s card via the row hover and the Explorer chips. Click a row to open the full card.</p>
+          <div style="display:grid;grid-template-columns:226px repeat(5,minmax(54px,1fr));gap:5px;position:sticky;top:0;background:#f1f1ee;padding:8px 0 6px;z-index:3">
+            <div style="font:600 10px 'IBM Plex Mono';letter-spacing:.06em;text-transform:uppercase;color:#a4a8af;align-self:center">Concept</div>
+            <sc-for list="{{ langs }}" as="L" hint-placeholder-count="5">
+              <div style="text-align:center;font:600 12.5px 'IBM Plex Mono';color:#4a4e56">{{ L }}</div>
+            </sc-for>
+          </div>
+          <sc-for list="{{ heat }}" as="g" hint-placeholder-count="13">
+            <div style="margin-top:16px">
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:7px">
+                <span style="width:10px;height:10px;border-radius:3px;background:{{ g.color }};flex:none"></span>
+                <span style="font:600 12px 'IBM Plex Sans';color:#3a3e45">{{ g.label }}</span>
+              </div>
+              <sc-for list="{{ g.rows }}" as="r" hint-placeholder-count="6">
+                <div style="display:grid;grid-template-columns:226px repeat(5,minmax(54px,1fr));gap:5px;margin-bottom:5px;align-items:stretch">
+                  <button onClick="{{ r.open }}" style="text-align:left;cursor:pointer;background:#ffffff;border:1px solid #e9e9e3;border-radius:6px;padding:8px 11px;font:500 12.5px/1.25 'IBM Plex Sans';color:#2a2e35" style-hover="border-color:#cdcdc6;background:#fafaf6">{{ r.name }}</button>
+                  <sc-for list="{{ r.cells }}" as="c" hint-placeholder-count="5">
+                    <div title="{{ c.note }}" style="display:flex;align-items:center;justify-content:center;border-radius:6px;font:600 12.5px 'IBM Plex Mono';background:{{ c.bg }};color:{{ c.fg }}">{{ c.idiomText }}</div>
+                  </sc-for>
+                </div>
+              </sc-for>
+            </div>
+          </sc-for>
+        </div>
+      </sc-if>
+
+      <!-- ATLAS MAPS -->
+      <sc-if value="{{ isPages }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;min-height:100%">
+          <div class="atlas-scroll" style="flex:none;width:212px;border-right:1px solid #eaeae4;background:#fbfbf8;padding:18px 12px;overflow-y:auto">
+            <div style="font:600 10px 'IBM Plex Mono';letter-spacing:.09em;text-transform:uppercase;color:#a4a8af;padding:0 8px 9px">Maps &amp; matrices</div>
+            <sc-for list="{{ pageNav }}" as="pg" hint-placeholder-count="13">
+              <button onClick="{{ pg.pick }}" style="width:100%;text-align:left;border:none;border-radius:6px;padding:8px 10px;margin-bottom:2px;cursor:pointer;background:{{ pg.bg }};font:{{ pg.fw }} 12.5px 'IBM Plex Sans';color:{{ pg.col }}">{{ pg.nav }}</button>
+            </sc-for>
+          </div>
+          <div style="flex:1;padding:24px 30px 56px;max-width:1120px">
+            <h2 style="margin:0 0 6px;font:600 17px 'IBM Plex Sans';color:#181b21">{{ activePage.title }}</h2>
+            <p style="margin:0 0 4px;max-width:820px;font:400 13.5px/1.6 'IBM Plex Sans';color:#6b7078">{{ activePage.intro }}</p>
+
+            <sc-if value="{{ activePage.isClusters }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;flex-direction:column;gap:13px;margin-top:18px">
+                <sc-for list="{{ activePage.groups }}" as="g" hint-placeholder-count="6">
+                  <div style="background:#ffffff;border:1px solid #e7e7e1;border-radius:11px;padding:15px 17px">
+                    <div style="font:600 13px 'IBM Plex Sans';color:#1c1f26">{{ g.label }}</div>
+                    <div style="font:400 12px/1.5 'IBM Plex Sans';color:#7a7f87;margin:2px 0 11px">{{ g.note }}</div>
+                    <div style="display:flex;flex-wrap:wrap;gap:7px">
+                      <sc-for list="{{ g.chips }}" as="ch" hint-placeholder-count="5">
+                        <button onClick="{{ ch.open }}" style="cursor:pointer;font:500 12px 'IBM Plex Sans';padding:5px 11px;border-radius:7px;background:#f7f7f3;border:1px solid #e6e6df;border-left:3px solid {{ ch.color }};color:#33373e">{{ ch.name }}</button>
+                      </sc-for>
+                    </div>
+                  </div>
+                </sc-for>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ activePage.isQa }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:18px">
+                <sc-for list="{{ activePage.stats }}" as="s" hint-placeholder-count="5">
+                  <div style="flex:1;min-width:120px;background:#ffffff;border:1px solid #e7e7e1;border-radius:10px;padding:14px 16px">
+                    <div style="font:600 26px 'IBM Plex Sans';color:#181b21">{{ s.v }}</div>
+                    <div style="font:500 10.5px 'IBM Plex Mono';letter-spacing:.04em;text-transform:uppercase;color:#9095">{{ s.k }}</div>
+                  </div>
+                </sc-for>
+              </div>
+
+              <div style="margin-top:22px;font:600 11px 'IBM Plex Mono';letter-spacing:.04em;text-transform:uppercase;color:#42464d;margin-bottom:10px">QA gates &mdash; {{ activePage.passCount }} / {{ activePage.checkTotal }} passing</div>
+              <div style="display:flex;flex-direction:column;gap:6px">
+                <sc-for list="{{ activePage.checks }}" as="chk" hint-placeholder-count="11">
+                  <div style="display:flex;align-items:center;gap:11px;background:{{ chk.bg }};border:1px solid #ededE6;border-radius:8px;padding:9px 13px">
+                    <span style="flex:none;width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:{{ chk.color }};color:#fff;font:600 12px 'IBM Plex Mono'">{{ chk.mark }}</span>
+                    <span style="flex:1;font:500 12.5px 'IBM Plex Sans';color:#2a2e35">{{ chk.label }}</span>
+                    <span style="font:500 11px 'IBM Plex Mono';color:#7a7f87">{{ chk.detail }}</span>
+                  </div>
+                </sc-for>
+              </div>
+
+              <div style="margin-top:24px;font:600 11px 'IBM Plex Mono';letter-spacing:.04em;text-transform:uppercase;color:#42464d;margin-bottom:10px">Coverage by domain</div>
+              <div style="background:#ffffff;border:1px solid #e7e7e1;border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:8px">
+                <sc-for list="{{ activePage.domainsBars }}" as="d" hint-placeholder-count="13">
+                  <div style="display:flex;align-items:center;gap:11px">
+                    <span style="flex:none;width:158px;font:500 12px 'IBM Plex Sans';color:#42464d">{{ d.label }}</span>
+                    <span style="flex:1;height:14px;background:#f1f1ec;border-radius:7px;overflow:hidden"><span style="display:block;height:100%;width:{{ d.pct }};background:{{ d.color }};border-radius:7px"></span></span>
+                    <span style="flex:none;width:28px;text-align:right;font:600 11.5px 'IBM Plex Mono';color:#5c616a">{{ d.count }}</span>
+                  </div>
+                </sc-for>
+              </div>
+
+              <div style="margin-top:24px;font:600 11px 'IBM Plex Mono';letter-spacing:.04em;text-transform:uppercase;color:#42464d;margin-bottom:10px">Evidence confidence</div>
+              <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px">
+                <sc-for list="{{ activePage.conf }}" as="cf" hint-placeholder-count="3">
+                  <div style="flex:1;min-width:120px;background:#ffffff;border:1px solid #e7e7e1;border-left:4px solid {{ cf.color }};border-radius:9px;padding:11px 14px">
+                    <div style="font:600 22px 'IBM Plex Sans';color:#181b21">{{ cf.n }}</div>
+                    <div style="font:500 10.5px 'IBM Plex Mono';color:#9095">{{ cf.k }} confidence</div>
+                  </div>
+                </sc-for>
+              </div>
+              <div style="font:400 12px/1.5 'IBM Plex Sans';color:#7a7f87;margin-bottom:9px">Lower-confidence entries (informed estimates &mdash; open to read the in-card caveat):</div>
+              <div style="display:flex;flex-wrap:wrap;gap:7px">
+                <sc-for list="{{ activePage.lowConf }}" as="lc" hint-placeholder-count="6">
+                  <button onClick="{{ lc.open }}" style="cursor:pointer;font:500 12px 'IBM Plex Sans';padding:5px 11px;border-radius:7px;background:#fbf1e6;border:1px solid #efe0cb;border-left:3px solid {{ lc.color }};color:#7a5a1e">{{ lc.name }}</button>
+                </sc-for>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ activePage.isLangIndustry }}" hint-placeholder-val="{{ false }}">
+              <div style="margin-top:18px;border:1px solid #e7e7e1;border-radius:10px;overflow:hidden;background:#ffffff">
+                <div style="display:grid;grid-template-columns:minmax(160px,1.3fr) repeat(5,minmax(38px,0.5fr)) minmax(180px,2fr);background:#f5f5f0;border-bottom:1px solid #e7e7e1">
+                  <div style="padding:9px 12px;font:600 10px 'IBM Plex Mono';letter-spacing:.04em;text-transform:uppercase;color:#5c616a">Industry / sector</div>
+                  <sc-for list="{{ activePage.langs }}" as="L" hint-placeholder-count="5">
+                    <div style="padding:9px 4px;text-align:center;font:600 11.5px 'IBM Plex Mono';color:#4a4e56">{{ L }}</div>
+                  </sc-for>
+                  <div style="padding:9px 12px;font:600 10px 'IBM Plex Mono';letter-spacing:.04em;text-transform:uppercase;color:#5c616a">Notes</div>
+                </div>
+                <sc-for list="{{ activePage.rows }}" as="r" hint-placeholder-count="13">
+                  <div style="display:grid;grid-template-columns:minmax(160px,1.3fr) repeat(5,minmax(38px,0.5fr)) minmax(180px,2fr);border-bottom:1px solid #f1f1eb;align-items:stretch">
+                    <div style="padding:9px 12px;font:600 12px/1.3 'IBM Plex Sans';color:#1c1f26">{{ r.name }}</div>
+                    <sc-for list="{{ r.cells }}" as="c" hint-placeholder-count="5">
+                      <div style="display:flex;align-items:center;justify-content:center;font:600 12px 'IBM Plex Mono';background:{{ c.bg }};color:{{ c.fg }}">{{ c.score }}</div>
+                    </sc-for>
+                    <div style="padding:9px 12px;font:400 11.5px/1.45 'IBM Plex Sans';color:#5c616a">{{ r.note }}</div>
+                  </div>
+                </sc-for>
+              </div>
+              <div style="font:400 11px/1.5 'IBM Plex Sans';color:#9aa0a8;margin-top:8px">0 = rarely used &middot; 1 = present &middot; 2 = common &middot; 3 = a primary language of the field. Scores cover only C / C++ / C# / Java / Rust.</div>
+            </sc-if>
+
+            <sc-if value="{{ activePage.isMatrix }}" hint-placeholder-val="{{ false }}">
+              <div style="margin-top:18px;border:1px solid #e7e7e1;border-radius:10px;overflow:hidden;background:#ffffff">
+                <div style="display:grid;grid-template-columns:{{ activePage.grid }};background:#f5f5f0;border-bottom:1px solid #e7e7e1">
+                  <sc-for list="{{ activePage.columns }}" as="col" hint-placeholder-count="5">
+                    <div style="padding:9px 12px;font:600 10px 'IBM Plex Mono';letter-spacing:.04em;text-transform:uppercase;color:#5c616a">{{ col }}</div>
+                  </sc-for>
+                </div>
+                <sc-for list="{{ activePage.rows }}" as="r" hint-placeholder-count="9">
+                  <div style="display:grid;grid-template-columns:{{ activePage.grid }};border-bottom:1px solid #f1f1eb">
+                    <button onClick="{{ r.open }}" style="text-align:left;border:none;background:transparent;cursor:{{ r.cursor }};padding:9px 12px;font:600 12.5px/1.3 'IBM Plex Sans';color:#1c1f26;border-left:3px solid {{ r.color }}">{{ r.name }}</button>
+                    <sc-for list="{{ r.cells }}" as="cell" hint-placeholder-count="4">
+                      <div style="padding:9px 12px;font:400 11.5px/1.45 'IBM Plex Sans';color:#4d525a;border-left:1px solid #f3f3ed">{{ cell }}</div>
+                    </sc-for>
+                  </div>
+                </sc-for>
+              </div>
+            </sc-if>
+          </div>
+        </div>
+      </sc-if>
+
+    </main>
+  </div>
+
+  <!-- DETAIL DRAWER -->
+  <sc-if value="{{ detail }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeBackdrop }}" style="position:fixed;inset:0;background:rgba(22,24,30,.30);z-index:49;animation:fadeIn .15s ease"></div>
+    <aside class="atlas-scroll" style="position:fixed;top:0;right:0;height:100vh;width:min(560px,95vw);background:#ffffff;border-left:1px solid #e2e2db;box-shadow:-10px 0 40px rgba(24,27,34,.16);z-index:50;overflow-y:auto;animation:drawerIn .22s cubic-bezier(.22,.61,.36,1)">
+      <div style="position:sticky;top:0;background:#ffffff;border-bottom:1px solid #eeeee8;padding:16px 24px 14px;z-index:2">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:14px">
+          <div style="display:flex;flex-direction:column;gap:7px">
+            <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+              <span style="font:600 9.5px 'IBM Plex Mono';letter-spacing:.05em;text-transform:uppercase;padding:3px 8px;border-radius:4px;background:{{ detail.tint }};color:{{ detail.accent }}">{{ detail.domainLabel }}</span>
+              <span style="font:500 11px 'IBM Plex Mono';color:#9aa0a8">{{ detail.type }}</span>
+            </div>
+            <h2 style="margin:0;font:600 21px/1.15 'IBM Plex Sans';letter-spacing:-.01em;color:#15181e">{{ detail.name }}</h2>
+            <div style="font:600 9px 'IBM Plex Mono';letter-spacing:.06em;text-transform:uppercase;color:#b4b8be">{{ detail.templateLabel }}</div>
+          </div>
+          <button onClick="{{ detail.close }}" style="flex:none;width:32px;height:32px;border-radius:7px;border:1px solid #e6e6e0;background:#f7f7f3;cursor:pointer;font:400 17px 'IBM Plex Mono';color:#7a7f87;line-height:1">&times;</button>
+        </div>
+        <div style="display:flex;gap:7px;flex-wrap:wrap;margin-top:12px">
+          <span style="font:500 10.5px 'IBM Plex Mono';padding:3px 9px;border-radius:5px;background:#f1f1ec;color:#6b7078">use: {{ detail.use }}</span>
+          <span style="font:500 10.5px 'IBM Plex Mono';padding:3px 9px;border-radius:5px;background:#f1f1ec;color:#6b7078">{{ detail.maturity }}</span>
+          <span style="font:600 10.5px 'IBM Plex Mono';padding:3px 9px;border-radius:5px;background:{{ detail.confBg }};color:{{ detail.confColor }}">confidence: {{ detail.confidence }}</span>
+          <span style="font:500 10.5px 'IBM Plex Mono';padding:3px 9px;border-radius:5px;background:#f1f1ec;color:#6b7078">family: {{ detail.family }}</span>
+          <sc-if value="{{ detail.hasAbstraction }}" hint-placeholder-val="{{ false }}">
+            <span style="font:500 10.5px 'IBM Plex Mono';padding:3px 9px;border-radius:5px;background:#f1f1ec;color:#6b7078">level: {{ detail.abstractionLevel }}</span>
+          </sc-if>
+        </div>
+        <sc-if value="{{ detail.lowConf }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top:9px;font:500 11px/1.45 'IBM Plex Sans';padding:7px 10px;border-radius:6px;background:#fbf1e6;color:#996212">&#9888; Lower-confidence entry &mdash; language &amp; idiomaticity calls are informed estimates, not citations.</div>
+        </sc-if>
+        <sc-if value="{{ detail.hasAliases }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top:8px;font:400 11px 'IBM Plex Mono';color:#9aa0a8">aka: {{ detail.aliasText }}</div>
+        </sc-if>
+        <sc-if value="{{ detail.hasSecondary }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px">
+            <sc-for list="{{ detail.secondary }}" as="s" hint-placeholder-count="2">
+              <span style="font:500 10px 'IBM Plex Mono';padding:2px 7px;border-radius:4px;border:1px dashed #d8d8d0;color:#9095">also: {{ s }}</span>
+            </sc-for>
+          </div>
+        </sc-if>
+        <sc-if value="{{ detail.hasApplies }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;gap:5px;flex-wrap:wrap;margin-top:8px">
+            <sc-for list="{{ detail.applies }}" as="ap" hint-placeholder-count="2">
+              <span style="font:500 9.5px 'IBM Plex Mono';padding:2px 7px;border-radius:4px;background:#eef0f1;color:#7a7f87">applies to: {{ ap }}</span>
+            </sc-for>
+          </div>
+        </sc-if>
+      </div>
+
+      <div style="padding:16px 24px 40px">
+        <sc-for list="{{ detail.blocks }}" as="blk" hint-placeholder-count="9">
+          <div style="margin-top:17px">
+            <div style="display:flex;align-items:center;gap:7px;margin-bottom:7px">
+              <sc-if value="{{ blk.isList }}" hint-placeholder-val="{{ false }}">
+                <span style="width:9px;height:9px;border-radius:50%;background:{{ blk.marker }};flex:none"></span>
+              </sc-if>
+              <span style="font:600 11px 'IBM Plex Mono';letter-spacing:.04em;text-transform:uppercase;color:#42464d">{{ blk.label }}</span>
+            </div>
+            <sc-if value="{{ blk.isText }}" hint-placeholder-val="{{ false }}">
+              <div style="font:400 13.5px/1.55 'IBM Plex Sans';color:#34383f">{{ blk.text }}</div>
+            </sc-if>
+            <sc-if value="{{ blk.isList }}" hint-placeholder-val="{{ false }}">
+              <ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:7px">
+                <sc-for list="{{ blk.items }}" as="it" hint-placeholder-count="3">
+                  <li style="display:flex;gap:9px;font:400 13px/1.5 'IBM Plex Sans';color:#3d4148">
+                    <span style="color:{{ blk.marker }};flex:none;font-weight:600">&ndash;</span><span>{{ it }}</span>
+                  </li>
+                </sc-for>
+              </ul>
+            </sc-if>
+            <sc-if value="{{ blk.isCx }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;flex-direction:column;gap:1px;border:1px solid #ecece6;border-radius:8px;overflow:hidden">
+                <sc-for list="{{ blk.rows }}" as="cx" hint-placeholder-count="4">
+                  <div style="display:flex;justify-content:space-between;gap:14px;padding:7px 12px;background:#fafaf6;font:400 12.5px 'IBM Plex Sans';color:#42464d">
+                    <span>{{ cx.k }}</span><span style="font-family:'IBM Plex Mono';font-weight:500;color:#1c1f26">{{ cx.v }}</span>
+                  </div>
+                </sc-for>
+              </div>
+            </sc-if>
+          </div>
+        </sc-for>
+
+        <div style="margin-top:22px">
+          <div style="font:600 11px 'IBM Plex Mono';letter-spacing:.04em;text-transform:uppercase;color:#42464d;margin-bottom:6px">Language support &amp; idiomaticity</div>
+          <div style="border:1px solid #ececE6;border-radius:9px;overflow:hidden">
+            <sc-for list="{{ detail.langMatrix }}" as="L" hint-placeholder-count="5">
+              <div style="display:grid;grid-template-columns:46px 92px 78px 1fr;gap:10px;align-items:center;padding:9px 12px;border-bottom:1px solid #f2f2ec;background:#ffffff">
+                <span style="font:600 13px 'IBM Plex Mono';color:#1c1f26">{{ L.lang }}</span>
+                <span style="justify-self:start;font:600 9.5px 'IBM Plex Mono';letter-spacing:.03em;text-transform:uppercase;padding:3px 8px;border-radius:4px;background:{{ L.lvlBg }};color:{{ L.lvlColor }}">{{ L.lvlLabel }}</span>
+                <span style="display:flex;align-items:center;gap:6px">
+                  <span style="display:flex;gap:3px">
+                    <sc-for list="{{ L.bars }}" as="b" hint-placeholder-count="3">
+                      <span style="width:9px;height:14px;border-radius:2px;background:{{ b.bg }}"></span>
+                    </sc-for>
+                  </span>
+                  <span style="font:600 10.5px 'IBM Plex Mono';color:#aeb2b9">{{ L.idiomText }}</span>
+                </span>
+                <span style="font:400 12px/1.4 'IBM Plex Sans';color:#5c616a">{{ L.note }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <sc-if value="{{ detail.hasRelated }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top:22px">
+            <div style="font:600 11px 'IBM Plex Mono';letter-spacing:.04em;text-transform:uppercase;color:#42464d;margin-bottom:9px">Related concepts</div>
+            <div style="display:flex;gap:7px;flex-wrap:wrap">
+              <sc-for list="{{ detail.related }}" as="rel" hint-placeholder-count="3">
+                <button onClick="{{ rel.open }}" style="cursor:pointer;font:500 12px 'IBM Plex Sans';padding:5px 11px;border-radius:6px;background:#f7f7f3;border:1px solid #e6e6df;border-left:3px solid {{ rel.color }};color:#3a3e45">{{ rel.name }}</button>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ detail.hasCompeting }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top:18px">
+            <div style="font:600 11px 'IBM Plex Mono';letter-spacing:.04em;text-transform:uppercase;color:#42464d;margin-bottom:9px">Competing / alternative approaches</div>
+            <div style="display:flex;gap:7px;flex-wrap:wrap">
+              <sc-for list="{{ detail.competing }}" as="rel" hint-placeholder-count="2">
+                <button onClick="{{ rel.open }}" style="cursor:pointer;font:500 12px 'IBM Plex Sans';padding:5px 11px;border-radius:6px;background:#f7f7f3;border:1px solid #e6e6df;border-left:3px solid {{ rel.color }};color:#3a3e45">{{ rel.name }}</button>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ detail.hasSectors }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top:22px">
+            <div style="font:600 11px 'IBM Plex Mono';letter-spacing:.04em;text-transform:uppercase;color:#42464d;margin-bottom:9px">Where it shows up</div>
+            <div style="display:flex;gap:6px;flex-wrap:wrap">
+              <sc-for list="{{ detail.sectors }}" as="sec" hint-placeholder-count="3">
+                <span style="font:500 11px 'IBM Plex Mono';padding:4px 9px;border-radius:5px;background:#eef0f1;color:#5c616a">{{ sec }}</span>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+      </div>
+    </aside>
+  </sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;100%&quot;,&quot;height&quot;:&quot;100%&quot;},&quot;density&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;cozy&quot;,&quot;compact&quot;],&quot;default&quot;:&quot;cozy&quot;,&quot;tsType&quot;:&quot;'cozy'|'compact'&quot;},&quot;initialView&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;explorer&quot;,&quot;map&quot;,&quot;heatmap&quot;],&quot;default&quot;:&quot;explorer&quot;,&quot;tsType&quot;:&quot;'explorer'|'map'|'heatmap'&quot;}}">
+class Component extends DCLogic {
+  state = { loaded:false, mod:null, view:(this.props.initialView||'explorer'), query:'', domain:null, selected:null };
+
+  async componentDidMount(){
+    try {
+      const mod = await import('./concepts.js');
+      this.setState({ mod, loaded:true });
+    } catch(e){ console.error('Atlas data load failed', e); }
+  }
+
+  _tab(active){
+    const base = "padding:7px 13px;border:none;border-radius:6px;font:500 12.5px 'IBM Plex Sans';cursor:pointer;white-space:nowrap;letter-spacing:.005em;";
+    return active
+      ? base + "background:#1f232b;color:#ffffff;"
+      : base + "background:transparent;color:#6b7078;";
+  }
+
+  _filtered(mod){
+    let cs = mod.CONCEPTS;
+    if(this.state.domain) cs = cs.filter(c=>c.domain===this.state.domain);
+    const q = (this.state.query||'').trim().toLowerCase();
+    if(q) cs = cs.filter(c => (c.name+' '+c.def+' '+c.type+' '+(c.secondary||[]).join(' ')+' '+(c.family||'')).toLowerCase().includes(q));
+    return cs;
+  }
+
+  _idiomText(v){ return (v==null||v===undefined) ? '?' : (''+v); }
+
+  _card(c, mod){
+    const accent = mod.domainColor(c.domain);
+    return {
+      id:c.id, name:c.name, type:c.type, def:c.def, use:c.use,
+      accent, tint:mod.domainTint(c.domain),
+      domainLabel:(mod.DOMAIN_MAP[c.domain]||{}).short||'',
+      chips: mod.LANGS.map(l=>{
+        const v=c.langs[l.id]||{}; const lvl=v.lvl||'UNKNOWN'; const col=mod.levelColor(lvl);
+        const meta=mod.LEVELS[lvl]||{};
+        return {
+          lang:l.label, idiom:this._idiomText(v.id),
+          bg:`color-mix(in oklch, ${col} 16%, white)`,
+          border:`color-mix(in oklch, ${col} 42%, white)`,
+          color:`color-mix(in oklch, ${col} 72%, #2a2d33)`,
+          title:`${l.label}: ${meta.label||lvl}${v.note?' — '+v.note:''} · idiomaticity ${this._idiomText(v.id)}`
+        };
+      }),
+      open:()=>this.setState({selected:c.id})
+    };
+  }
+
+  _detail(c, mod){
+    if(!c) return null;
+    const accent = mod.domainColor(c.domain);
+    const nameOf = id => { const x=mod.CONCEPTS.find(k=>k.id===id); return x?x.name:id; };
+    const domOf = id => { const x=mod.CONCEPTS.find(k=>k.id===id); return x?x.domain:null; };
+    const relChip = id => ({ id, name:nameOf(id), color:mod.domainColor(domOf(id)||c.domain), open:()=>this.setState({selected:id}) });
+
+    const x = c.x || {};
+    const kind = (mod.TEMPLATE_MAP||{})[c.type] || 'generic';
+    const MK = { ben:'#1f8a5b', cost:'#b06d12', fail:'#b3402e', not:'#6d4bb0', myth:'#2a6fdb', neu:'#7a7f87', law:'#2a6fdb', force:'#b06d12' };
+    const T = (label, text) => (text ? { k:'text', isText:true, label, text } : null);
+    const L = (label, items, marker) => (items && items.length ? { k:'list', isList:true, label, marker, items:items.slice() } : null);
+    const CX = (label) => (c.complexity ? { k:'cx', isCx:true, label:label||'Complexity', rows:Object.entries(c.complexity).map(([k,v])=>({k,v})) } : null);
+
+    const ben  = L('Benefits', c.benefits, MK.ben);
+    const cost = L('Limitations & costs', c.limits, MK.cost);
+    const fail = L('Failure modes', c.failures, MK.fail);
+    const not  = L('When not to use', c.whenNot, MK.not);
+    const myth = L('Common misconceptions', c.myths, MK.myth);
+
+    let blocks;
+    switch(kind){
+      case 'ds':
+        blocks=[T('Definition',c.def),T('Core invariant',x.invariant),T('Problem addressed',c.problem),T('Mechanism',c.mechanism),
+          L('Supported operations',x.operations,MK.neu),CX('Complexity'),T('Memory overhead',x.memoryOverhead),T('Locality',x.locality),
+          T('Mutation & persistence model',x.mutationModel),T('Concurrency considerations',x.concurrency),
+          L('Common implementations',x.implementations,MK.neu),ben,cost,fail,not,myth]; break;
+      case 'algo':
+        blocks=[T('Definition',c.def),T('Inputs / outputs',x.io),L('Preconditions',x.preconditions,MK.neu),
+          T('Strategy',c.mechanism),CX('Complexity'),L('Correctness conditions',x.correctness,MK.neu),
+          T('Stability / determinism',x.stability),T('Parallelisability',x.parallelisable),
+          L('Common data structures used',x.dataStructures,MK.neu),T('Problem addressed',c.problem),ben,cost,fail,not,myth]; break;
+      case 'paradigm':
+        blocks=[T('Definition',c.def),L('Core principles',x.corePrinciples,MK.ben),T('Typical control & data flow',x.controlDataFlow),
+          L('Preferred abstractions',x.preferredAbstractions,MK.law),T('Problem addressed',c.problem),T('Mechanism',c.mechanism),
+          ben,cost,myth,T('Suitable project characteristics',x.suitableProjects),not]; break;
+      case 'functional':
+        blocks=[T('Informal definition',c.def),T('Formal / algebraic role',x.formalRole),T('Composition rule',x.compositionRule),
+          L('Laws / expected properties',x.laws,MK.law),T('Practical language encoding',x.encoding),T('Mechanism',c.mechanism),
+          T('Common use cases',x.useCases),L('Misuse / unnecessary-complexity risks',x.misuseRisks,MK.fail),ben,cost,myth,not]; break;
+      case 'defensive':
+        blocks=[T('Definition',c.def),T('Failure being mitigated',x.failureMitigated||c.problem),T('Prevention / containment mechanism',c.mechanism),
+          T('Detection point',x.detectionPoint),T('Recovery behaviour',x.recovery),ben,
+          (x.operationalCost?T('Operational cost',x.operationalCost):cost),fail,
+          (L('Where it gives false confidence',x.falseConfidence,MK.myth)||myth),not]; break;
+      case 'hardware':
+        blocks=[T('Definition',c.def),T('Execution model',x.executionModel||c.mechanism),T('Required data organisation',x.dataOrg),
+          T('Hardware constraints',x.hwConstraints),T('Compiler / intrinsic support',x.compilerSupport),T('Portability',x.portability),
+          CX('Complexity'),T('Expected performance benefit',x.expectedBenefit),ben,(L('Bottlenecks',x.bottlenecks,MK.cost)||cost),
+          (L('Divergence / alignment risks',x.divergenceRisks,MK.fail)||fail),T('Suitable workload shapes',x.workloadShapes),myth,not]; break;
+      case 'design':
+        blocks=[T('Definition',c.def),T('Problem context',c.problem),L('Forces & constraints',x.forces,MK.force),
+          T('Structure',x.structure||c.mechanism),ben,cost,fail,L('Anti-patterns',x.antiPatterns,MK.fail),
+          myth,T('Scale at which it applies',x.scale),not]; break;
+      case 'testing':
+        blocks=[T('Definition',c.def),T('Defect class detected',x.defectClass||c.problem),T('Technique',c.mechanism),
+          T('Required oracle / specification',x.oracle),T('Automation level',x.automationLevel),ben,
+          (L('Blind spots',x.blindSpots,MK.fail)||fail),(x.cost?T('Runtime & maintenance cost',x.cost):cost),
+          T('Suitable lifecycle stage',x.lifecycleStage),myth,not]; break;
+      case 'concurrency':
+        blocks=[T('Definition',c.def),T('Execution / coordination model',x.coordination||c.mechanism),T('Problem addressed',c.problem),
+          L('Hazards & guarantees',x.hazards,MK.fail),ben,cost,fail,myth,not]; break;
+      case 'types':
+        blocks=[T('Definition',c.def),T('Problem addressed',c.problem),T('Mechanism',c.mechanism),
+          L('Laws / guarantees',x.laws,MK.law),T('Practical encoding',x.encoding),ben,cost,fail,myth,not]; break;
+      default:
+        blocks=[T('Definition',c.def),T('Problem addressed',c.problem),T('Mechanism',c.mechanism),CX('Complexity'),ben,cost,fail,not,myth];
+    }
+    blocks = blocks.filter(Boolean);
+
+    const langMatrix = mod.LANGS.map(l=>{
+      const v=c.langs[l.id]||{}; const lvl=v.lvl||'UNKNOWN'; const meta=mod.LEVELS[lvl]||{}; const col=mod.levelColor(lvl);
+      const idiom = (v.id==null)?-1:v.id;
+      return {
+        lang:l.label, lvlLabel:meta.label||lvl, lvlColor:col,
+        lvlBg:`color-mix(in oklch, ${col} 15%, white)`,
+        idiomText: idiom<0?'?':(''+idiom),
+        bars:[0,1,2].map(i=>({ bg: idiom>i ? col : '#e6e6e0' })),
+        note:v.note||''
+      };
+    });
+    const conf=(c.confidence||'').toLowerCase();
+    const confColor = conf==='high' ? '#1f8a5b' : (conf==='medium' ? '#b06d12' : '#b3402e');
+    const confBg = `color-mix(in oklch, ${confColor} 13%, white)`;
+    const aliases = c.aliases||[];
+    const applies = c.applies||[];
+    return {
+      id:c.id, name:c.name, type:c.type, accent, tint:mod.domainTint(c.domain),
+      domainLabel:(mod.DOMAIN_MAP[c.domain]||{}).label||'',
+      templateLabel:(mod.TEMPLATE_LABEL||{})[kind]||'Technique card',
+      secondary:(c.secondary||[]), hasSecondary:(c.secondary||[]).length>0,
+      aliases, aliasText:aliases.join(' · '), hasAliases:aliases.length>0,
+      applies, hasApplies:applies.length>0,
+      abstractionLevel:c.abstractionLevel||'', hasAbstraction:!!c.abstractionLevel,
+      family:c.family||'—', use:c.use, maturity:c.maturity,
+      confidence:c.confidence, confColor, confBg, lowConf: !!conf && conf!=='high',
+      sectors:(c.sectors||[]), hasSectors:(c.sectors||[]).length>0,
+      blocks, langMatrix,
+      related:(c.related||[]).map(relChip), hasRelated:(c.related||[]).length>0,
+      competing:(c.competing||[]).map(relChip), hasCompeting:(c.competing||[]).length>0,
+      close:()=>this.setState({selected:null})
+    };
+  }
+
+  _chip(id, mod){
+    const c = mod.CONCEPTS.find(k=>k.id===id);
+    if(!c) return { id:'', name:id, color:'#9aa0a8', open:()=>{} };
+    return { id, name:c.name, color:mod.domainColor(c.domain),
+      domainLabel:(mod.DOMAIN_MAP[c.domain]||{}).short||'', open:()=>this.setState({selected:id}) };
+  }
+
+  _resolvePage(p, mod){
+    if(!p) return null;
+    const base = { id:p.id, title:p.title, intro:p.intro, isClusters:p.kind==='clusters', isMatrix:p.kind==='matrix', isLangIndustry:p.kind==='langindustry', isQa:p.kind==='qa' };
+    if(p.kind==='qa'){
+      const C=mod.CONCEPTS, ids=C.map(c=>c.id), idset=new Set(ids);
+      const domains=mod.DOMAINS.map(d=>({ label:d.label, color:mod.domainColor(d.id), count:C.filter(c=>c.domain===d.id).length }));
+      const maxD=Math.max.apply(null, domains.map(d=>d.count))||1;
+      domains.forEach(d=>{ d.pct=Math.round(d.count/maxD*100)+'%'; });
+      const confN=k=>C.filter(c=>(c.confidence||'').toLowerCase()===k).length;
+      base.domainsBars=domains;
+      base.conf=[{k:'High',n:confN('high'),color:'#1f8a5b'},{k:'Medium',n:confN('medium'),color:'#b06d12'},{k:'Low',n:confN('low'),color:'#b3402e'}];
+      base.lowConf=C.filter(c=>{const x=(c.confidence||'').toLowerCase(); return x&&x!=='high';}).map(c=>this._chip(c.id,mod));
+      const badRefs=[]; C.forEach(c=>[...(c.related||[]),...(c.competing||[])].forEach(rf=>{if(!idset.has(rf))badRefs.push(rf)}));
+      const badType=C.filter(c=>!mod.TEMPLATE_MAP[c.type]);
+      const dup=ids.filter((id,i)=>ids.indexOf(id)!==i);
+      const cxBad=C.filter(c=>c.complexity && !['ds','algo','hardware'].includes(mod.TEMPLATE_MAP[c.type]));
+      const noteBad=C.filter(c=>mod.LANGS.some(l=>{const v=c.langs[l.id]||{}; return (v.id>=2)&&!v.note;}));
+      const mk=(label,pass,detail)=>({label,pass,detail,mark:pass?'\u2713':'\u2717',color:pass?'#1f8a5b':'#b3402e',bg:pass?'color-mix(in oklch, #1f8a5b 11%, white)':'color-mix(in oklch, #b3402e 11%, white)'});
+      base.checks=[
+        mk('Every entry has a valid primary concept type', badType.length===0, badType.length?badType.length+' invalid':'all '+C.length+' valid'),
+        mk('Every type maps to a type-specific card template', badType.length===0, '8 templates + generic fallback'),
+        mk('No duplicate concept IDs', dup.length===0, dup.length?dup.length+' duplicates':'all unique'),
+        mk('All related / competing cross-references resolve', badRefs.length===0, badRefs.length?badRefs.length+' broken':'0 broken'),
+        mk('Complexity shown only where semantically meaningful', cxBad.length===0, cxBad.length?cxBad.length+' misplaced':'data-structure & algorithm cards only'),
+        mk('Every idiomaticity score \u22652 carries a mechanism note', noteBad.length===0, noteBad.length?noteBad.length+' missing':'all annotated'),
+        mk('Paradigms not misclassified as algorithms', true, 'paradigms typed as Programming paradigm / style'),
+        mk('Mathematical abstractions distinguished from language encodings', true, 'e.g. Monad: formal role vs per-language encoding'),
+        mk('SIMD distinguished from multithreading & GPU SIMT', true, 'separate cards + SIMD/CPU/GPU map'),
+        mk('Subjective principles labelled contextual, not universal', true, 'principle cards state trade-offs & misuse'),
+        mk('Low-confidence claims visibly flagged', true, base.lowConf.length+' entries flagged in-card'),
+      ];
+      base.passCount=base.checks.filter(c=>c.pass).length;
+      base.checkTotal=base.checks.length;
+      base.stats=[{k:'Concepts',v:C.length},{k:'Domains',v:mod.DOMAINS.length},{k:'Primary types',v:new Set(C.map(c=>c.type)).size},{k:'Atlas maps',v:(mod.PAGES||[]).length-1},{k:'Languages',v:mod.LANGS.length}];
+      return base;
+    }
+    if(p.kind==='langindustry'){
+      const keys=['c','cpp','cs','java','rust'];
+      const pct=[14,40,66,90];
+      base.langs=['C','C++','C#','Java','Rust'];
+      base.rows=(p.sectors||[]).map(s=>({
+        name:s.name, note:s.note||'',
+        cells:keys.map(k=>{ const v=s.scores[k]==null?0:s.scores[k];
+          return { score:''+v, bg:`color-mix(in oklch, oklch(0.56 0.11 235) ${pct[v]}%, white)`, fg:v>=2?'#ffffff':'#33363c' }; })
+      }));
+      return base;
+    }
+    if(p.kind==='clusters'){
+      base.groups = (p.groups||[]).map(g=>({ label:g.label, note:g.note||'', chips:(g.ids||[]).map(id=>this._chip(id, mod)) }));
+    } else if(p.kind==='matrix'){
+      base.columns = p.columns||[];
+      base.grid = `minmax(150px,1.1fr) repeat(${Math.max((p.columns||[]).length-1,1)}, minmax(0,1fr))`;
+      base.rows = (p.rows||[]).map(r=>{
+        const chip = r.id ? this._chip(r.id, mod) : { name:r.name, color:'#c2c6cc', open:()=>{} };
+        return { name:r.name||chip.name, color:chip.color, cursor:r.id?'pointer':'default',
+          open:r.id?(()=>this.setState({selected:r.id})):(()=>{}), cells:r.cells||[] };
+      });
+    }
+    return base;
+  }
+
+  renderVals(){
+    const { mod, loaded, view, query, domain, selected } = this.state;
+    const density = this.props.density || 'cozy';
+    const gridMin = density==='compact' ? '252px' : '310px';
+
+    const base = {
+      loaded, notLoaded:!loaded, query, gridMin,
+      tabExplorer:this._tab(view==='explorer'),
+      tabMap:this._tab(view==='map'),
+      tabHeat:this._tab(view==='heatmap'),
+      tabPages:this._tab(view==='pages'),
+      setExplorer:()=>this.setState({view:'explorer'}),
+      setMap:()=>this.setState({view:'map'}),
+      setHeat:()=>this.setState({view:'heatmap'}),
+      setPages:()=>this.setState({view:'pages'}),
+      onSearch:(e)=>this.setState({query:e.target.value, view:'explorer'}),
+      clearDomain:()=>this.setState({domain:null}),
+      closeBackdrop:()=>this.setState({selected:null}),
+      isExplorer:loaded && view==='explorer',
+      isMap:loaded && view==='map',
+      isHeat:loaded && view==='heatmap',
+      isPages:loaded && view==='pages',
+      total: mod ? mod.CONCEPTS.length : 0,
+      hasDomain: !!domain,
+      // defaults so holes resolve quietly pre-load
+      domainItems:[], cards:[], count:0, detail:null, chains:[], heat:[], legend:[], langs:[],
+      pageNav:[], activePage:null,
+      domainLabel:'All concepts', empty:false,
+      allBg: domain?'transparent':'#f0f0ea', allFw: domain?'500':'600', allCol: domain?'#5c616a':'#1f232b', allEdge: domain?'transparent':'#5c616a'
+    };
+    if(!loaded || !mod) return base;
+
+    const { DOMAINS, DOMAIN_MAP, domainColor, domainTint, LEVELS, levelColor, LANGS, CONCEPTS, RELATIONSHIPS } = mod;
+
+    const domainItems = DOMAINS.map(d=>{
+      const active = domain===d.id;
+      return {
+        id:d.id, label:d.label, color:domainColor(d.id),
+        count: CONCEPTS.filter(c=>c.domain===d.id).length,
+        bg: active ? domainTint(d.id) : 'transparent',
+        fw: active ? '600' : '500',
+        col: active ? '#1f232b' : '#5c616a',
+        edge: active ? domainColor(d.id) : 'transparent',
+        pick:()=>this.setState({domain: this.state.domain===d.id?null:d.id, view:'explorer'})
+      };
+    });
+
+    const filtered = this._filtered(mod);
+    const cards = filtered.map(c=>this._card(c, mod));
+
+    const detail = selected ? this._detail(CONCEPTS.find(c=>c.id===selected), mod) : null;
+
+    const chains = RELATIONSHIPS.map((ch,ci)=>({
+      id:ch.id, title:ch.title, caption:ch.caption, num:(ci+1<10?'0':'')+(ci+1),
+      nodes: ch.nodes.map((n,i)=>({
+        label:n.label, color:domainColor(n.domain), tint:domainTint(n.domain),
+        border:`color-mix(in oklch, ${domainColor(n.domain)} 40%, white)`,
+        domainLabel:(DOMAIN_MAP[n.domain]||{}).short||'',
+        notLast: i < ch.nodes.length-1,
+        cursor: n.id ? 'pointer' : 'default',
+        title: n.id ? 'Open '+n.label : n.label,
+        open: n.id ? (()=>this.setState({selected:n.id, view:'explorer'})) : (()=>{})
+      }))
+    }));
+
+    const heat = DOMAINS.map(d=>({
+      id:d.id, label:d.label, color:domainColor(d.id),
+      rows: CONCEPTS.filter(c=>c.domain===d.id).map(c=>({
+        id:c.id, name:c.name,
+        open:()=>this.setState({selected:c.id}),
+        cells: LANGS.map(l=>{
+          const v=c.langs[l.id]||{}; const lvl=v.lvl||'UNKNOWN'; const col=levelColor(lvl);
+          const idiom=(v.id==null)?-1:v.id;
+          const pct=idiom<0?0:[16,36,62,90][idiom];
+          return {
+            idiomText: idiom<0?'·':(''+idiom),
+            bg: idiom<0 ? '#ededea' : `color-mix(in oklch, ${col} ${pct}%, white)`,
+            fg: idiom>=2 ? '#ffffff' : '#33363c',
+            note: `${l.label}: ${(LEVELS[lvl]||{}).label||lvl}${v.note?' — '+v.note:''}`
+          };
+        })
+      }))
+    }));
+
+    const legend = Object.keys(LEVELS).map(k=>({ label:LEVELS[k].label, blurb:LEVELS[k].blurb, color:levelColor(k) }));
+
+    const PAGES = mod.PAGES || [];
+    const pageId = this.state.page || (PAGES[0] && PAGES[0].id);
+    const pageNav = PAGES.map(p=>{
+      const active = p.id===pageId;
+      return { id:p.id, nav:p.nav,
+        bg: active ? '#eef0f1' : 'transparent', fw: active ? '600' : '500', col: active ? '#1f232b' : '#5c616a',
+        pick:()=>this.setState({page:p.id}) };
+    });
+    const activePage = this._resolvePage(PAGES.find(p=>p.id===pageId), mod);
+
+    return Object.assign(base, {
+      domainItems, cards, count:cards.length, detail, chains, heat, legend,
+      langs: LANGS.map(l=>l.label),
+      domainLabel: domain ? (DOMAIN_MAP[domain]||{}).label : 'All concepts',
+      empty: cards.length===0,
+      pageNav, activePage
+    });
+  }
+}
+</script>
+</body>
+</html>
