@@ -1,0 +1,16 @@
+# Divide and conquer: split into subproblems, solve each, combine the results
+# Example: maximum-subarray sum
+
+function max_subarray(a, lo, hi):
+    if lo == hi:
+        return a[lo]                      # base case: single element
+    mid = (lo + hi) / 2
+    left  = max_subarray(a, lo, mid)      # best entirely in the left half
+    right = max_subarray(a, mid+1, hi)    # best entirely in the right half
+    cross = max_crossing(a, lo, mid, hi)  # best straddling the midpoint
+    return max(left, right, cross)        # combine
+
+function max_crossing(a, lo, mid, hi):
+    best_left  = max suffix sum of a[lo..mid]
+    best_right = max prefix sum of a[mid+1..hi]
+    return best_left + best_right

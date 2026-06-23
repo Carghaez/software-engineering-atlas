@@ -1,0 +1,12 @@
+# Greedy: make the locally optimal choice each step, never reconsider
+# Example: change-making with a canonical coin system (greedy is optimal there)
+
+function make_change(coins, amount):      # coins sorted descending
+    chosen = []
+    for c in coins:
+        while amount >= c:                # take the largest coin that fits
+            amount = amount - c
+            append c to chosen
+    if amount > 0:
+        error "cannot make exact change"
+    return chosen

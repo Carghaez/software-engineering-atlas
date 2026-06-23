@@ -1,0 +1,13 @@
+# Memoisation: cache results of pure calls so each subproblem runs once (top-down)
+
+memo = empty map
+
+function fib(n):
+    if n < 2:
+        return n
+    if n in memo:
+        return memo[n]                    # cache hit — O(1)
+    result = fib(n - 1) + fib(n - 2)      # cache miss — compute once
+    memo[n] = result
+    return result
+# Turns exponential naive recursion into O(n) by reusing overlapping subproblems.

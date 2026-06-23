@@ -1,0 +1,20 @@
+# Backtracking: extend a partial solution; abandon ("backtrack") on a dead end
+# Example: count N-queens placements
+
+function solve(row, board, n):
+    if row == n:
+        return 1                          # a complete valid placement
+    total = 0
+    for col in 0 .. n-1:
+        if safe(board, row, col):         # prune invalid choices early
+            board[row] = col              # choose
+            total = total + solve(row + 1, board, n)
+            # implicit undo: next iteration overwrites board[row]
+    return total
+
+function safe(board, row, col):
+    for r in 0 .. row-1:
+        c = board[r]
+        if c == col or |r - row| == |c - col|:   # same column or diagonal
+            return false
+    return true

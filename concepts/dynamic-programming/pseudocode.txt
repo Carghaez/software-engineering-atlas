@@ -1,0 +1,9 @@
+# Dynamic programming: solve overlapping subproblems once, combine optimally
+# Example: 0/1 knapsack — maximise value within a weight capacity
+
+function knapsack(weights, values, W):
+    dp = array[0..W] filled with 0          # dp[c] = best value at capacity c
+    for i in 0 .. n-1:                       # each item once (0/1)
+        for c from W down to weights[i]:     # reverse: item used at most once
+            dp[c] = max(dp[c], dp[c - weights[i]] + values[i])
+    return dp[W]
