@@ -56,6 +56,8 @@
   .atlas-scroll::-webkit-scrollbar-thumb{background:#d2d2cb;border-radius:6px;border:2px solid #f1f1ee}
   @keyframes drawerIn{from{transform:translateX(26px);opacity:0}to{transform:translateX(0);opacity:1}}
   @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+  /* Full-screen concept view: widen the drawer to the viewport, centre the content. */
+  .atlas-drawer.is-full{width:100vw !important;left:0;border-left:none;padding-left:max(0px,calc((100vw - 1080px)/2));padding-right:max(0px,calc((100vw - 1080px)/2))}
   /* Hamburger button: shown only on small screens */
   .atlas-burger{display:none;flex:none;align-items:center;justify-content:center;width:38px;height:38px;border:1px solid #e0e0d9;border-radius:8px;background:#fafaf7;cursor:pointer;font-size:18px;line-height:1;color:#42464d}
   .atlas-nav-backdrop{display:none}
@@ -388,7 +390,7 @@
   <!-- DETAIL DRAWER -->
   <sc-if value="{{ detail }}" hint-placeholder-val="{{ false }}">
     <div onClick="{{ closeBackdrop }}" style="position:fixed;inset:0;background:rgba(22,24,30,.30);z-index:49;animation:fadeIn .15s ease"></div>
-    <aside class="atlas-scroll atlas-drawer" style="position:fixed;top:0;right:0;height:100vh;width:min(560px,95vw);background:#ffffff;border-left:1px solid #e2e2db;box-shadow:-10px 0 40px rgba(24,27,34,.16);z-index:50;overflow-y:auto;animation:drawerIn .22s cubic-bezier(.22,.61,.36,1)">
+    <aside class="atlas-scroll atlas-drawer {{ drawerFull }}" style="position:fixed;top:0;right:0;height:100vh;width:min(560px,95vw);background:#ffffff;border-left:1px solid #e2e2db;box-shadow:-10px 0 40px rgba(24,27,34,.16);z-index:50;overflow-y:auto;animation:drawerIn .22s cubic-bezier(.22,.61,.36,1)">
       <div style="position:sticky;top:0;background:#ffffff;border-bottom:1px solid #eeeee8;padding:16px 24px 14px;z-index:2">
         <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:14px">
           <div style="display:flex;flex-direction:column;gap:7px">
@@ -399,7 +401,10 @@
             <h2 style="margin:0;font:600 21px/1.15 'IBM Plex Sans';letter-spacing:-.01em;color:#15181e">{{ detail.name }}</h2>
             <div style="font:600 9px 'IBM Plex Mono';letter-spacing:.06em;text-transform:uppercase;color:#b4b8be">{{ detail.templateLabel }}</div>
           </div>
-          <button onClick="{{ detail.close }}" style="flex:none;width:32px;height:32px;border-radius:7px;border:1px solid #e6e6e0;background:#f7f7f3;cursor:pointer;font:400 17px 'IBM Plex Mono';color:#7a7f87;line-height:1">&times;</button>
+          <div style="display:flex;gap:7px;flex:none">
+            <button onClick="{{ detail.toggleFull }}" title="{{ detail.fullTitle }}" style="width:32px;height:32px;border-radius:7px;border:1px solid #e6e6e0;background:#f7f7f3;cursor:pointer;font:400 15px 'IBM Plex Mono';color:#7a7f87;line-height:1">{{ detail.fullIcon }}</button>
+            <button onClick="{{ detail.close }}" style="width:32px;height:32px;border-radius:7px;border:1px solid #e6e6e0;background:#f7f7f3;cursor:pointer;font:400 17px 'IBM Plex Mono';color:#7a7f87;line-height:1">&times;</button>
+          </div>
         </div>
         <div style="display:flex;gap:7px;flex-wrap:wrap;margin-top:12px">
           <span style="font:500 10.5px 'IBM Plex Mono';padding:3px 9px;border-radius:5px;background:#f1f1ec;color:#6b7078">use: {{ detail.use }}</span>
@@ -464,6 +469,26 @@
             </sc-if>
           </div>
         </sc-for>
+
+        <sc-if value="{{ detail.hasCode }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top:22px">
+            <div style="font:600 11px 'IBM Plex Mono';letter-spacing:.04em;text-transform:uppercase;color:#42464d;margin-bottom:9px">Code</div>
+            <div style="background:#fbfbf8;border:1px solid #e7e7e1;border-radius:9px;overflow:hidden">
+              <div style="display:flex;gap:4px;align-items:center;padding:7px 9px;background:#f3f3ef;border-bottom:1px solid #e7e7e1;flex-wrap:wrap">
+                <sc-for list="{{ detail.code.tabs }}" as="tb" hint-placeholder-count="3">
+                  <button onClick="{{ tb.pick }}" style="{{ tb.style }}">{{ tb.label }}</button>
+                </sc-for>
+                <button onClick="{{ detail.code.copy }}" style="margin-left:auto;font:600 11px 'IBM Plex Mono';padding:5px 10px;border:1px solid #e0e0d9;border-radius:6px;background:#fafaf7;color:#42464d;cursor:pointer">Copy</button>
+              </div>
+              <sc-if value="{{ detail.code.loading }}" hint-placeholder-val="{{ false }}">
+                <div style="padding:14px 16px;font:500 12px 'IBM Plex Mono';color:#a4a8af">Loading code&hellip;</div>
+              </sc-if>
+              <sc-if value="{{ detail.code.lines }}" hint-placeholder-val="{{ false }}">
+                <pre style="margin:0;padding:14px 16px;overflow-x:auto;font:500 12.5px/1.6 'IBM Plex Mono';white-space:pre;color:#2a2e35"><sc-for list="{{ detail.code.lines }}" as="ln" hint-placeholder-count="8"><div><sc-for list="{{ ln }}" as="tok" hint-placeholder-count="6"><span style="color:{{ tok.color }}">{{ tok.text }}</span></sc-for></div></sc-for></pre>
+              </sc-if>
+            </div>
+          </div>
+        </sc-if>
 
         <div style="margin-top:22px">
           <div style="font:600 11px 'IBM Plex Mono';letter-spacing:.04em;text-transform:uppercase;color:#42464d;margin-bottom:6px">Language support &amp; idiomaticity</div>
@@ -538,16 +563,22 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;100%&quot;,&quot;height&quot;:&quot;100%&quot;},&quot;density&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;cozy&quot;,&quot;compact&quot;],&quot;default&quot;:&quot;cozy&quot;,&quot;tsType&quot;:&quot;'cozy'|'compact'&quot;},&quot;initialView&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;explorer&quot;,&quot;map&quot;,&quot;heatmap&quot;],&quot;default&quot;:&quot;explorer&quot;,&quot;tsType&quot;:&quot;'explorer'|'map'|'heatmap'&quot;}}">
 class Component extends DCLogic {
-  state = { loaded:false, mod:null, view:(this.props.initialView||'explorer'), query:'', domain:null, selected:null, mobileNav:false };
+  state = { loaded:false, mod:null, view:(this.props.initialView||'explorer'), query:'', domain:null, selected:null, mobileNav:false, codeIndex:null, codeLang:null, fullscreen:false };
 
   async componentDidMount(){
     this._defaultTitle = document.title;
     this._defaultDesc = (document.querySelector('meta[name="description"]')||{}).content || '';
     this._onPop = ()=>this.setState(this._readUrl());
     window.addEventListener('popstate', this._onPop);
+    this._codeCache = {}; this._codeInFlight = {};
     try {
-      const mod = await import('./concepts.js');
-      this.setState(Object.assign({ mod, loaded:true }, this._readUrl()));
+      const [mod, hl, idx] = await Promise.all([
+        import('./concepts.js'),
+        import('./lib/highlight.js').catch(()=>null),
+        fetch('./code-index.json').then(r=>r.ok?r.json():{}).catch(()=>({}))
+      ]);
+      if(hl){ this._tokenize = hl.tokenize; this._langLabels = hl.LANG_LABELS; this._langExt = hl.LANG_EXT; }
+      this.setState(Object.assign({ mod, loaded:true, codeIndex: idx||{} }, this._readUrl()));
     } catch(e){ console.error('Atlas data load failed', e); }
   }
 
@@ -570,6 +601,47 @@ class Component extends DCLogic {
       document.title = this._defaultTitle;
       this._setMeta(this._defaultDesc);
     }
+    this._ensureCode();
+  }
+
+  // Lazily fetch + tokenize the code for the open concept's current language.
+  // Cached on the instance; guarded so it can't loop through componentDidUpdate.
+  _ensureCode(){
+    const { selected, codeIndex, codeLang } = this.state;
+    if(!selected || !codeIndex || !this._tokenize) return;
+    const langs = codeIndex[selected];
+    if(!langs || !langs.length) return;
+    const lang = langs.includes(codeLang) ? codeLang : langs[0];
+    if(lang !== codeLang){ this.setState({codeLang:lang}); return; }
+    const key = selected+'|'+lang;
+    if(this._codeCache[key] || this._codeInFlight[key]) return;
+    this._codeInFlight[key] = true;
+    const ext = (this._langExt||{})[lang] || 'txt';
+    fetch('./concepts/'+selected+'/'+lang+'.'+ext)
+      .then(r=> r.ok ? r.text() : Promise.reject(new Error('missing')))
+      .then(txt=>{ this._codeCache[key] = this._tokenize(txt.replace(/\s+$/,''), lang); })
+      .catch(()=>{ this._codeCache[key] = []; })
+      .finally(()=>{ this._codeInFlight[key]=false; this.setState({codeTick:(this.state.codeTick||0)+1}); });
+  }
+
+  _codeTab(active){
+    const base="font:600 11.5px 'IBM Plex Mono';padding:5px 11px;border:none;border-radius:6px;cursor:pointer;white-space:nowrap;";
+    return active ? base+"background:#1f232b;color:#ffffff;" : base+"background:transparent;color:#6b7078;";
+  }
+
+  _codeView(id, langs){
+    const cur = langs.includes(this.state.codeLang) ? this.state.codeLang : langs[0];
+    const key = id+'|'+cur;
+    const raw = this._codeCache ? this._codeCache[key] : null;
+    // For display, blank lines need a space so the per-line <div> keeps its height;
+    // the copy handler reads the untouched cache so copied text stays clean.
+    const lines = (raw && raw.length) ? raw.map(ln=> ln.length ? ln : [{text:' ', color:'#2a2e35'}]) : null;
+    return {
+      tabs: langs.map(l=>({ lang:l, label:(this._langLabels||{})[l]||l, style:this._codeTab(l===cur), pick:()=>this.setState({codeLang:l}) })),
+      lines,
+      loading: !raw,
+      copy:()=>{ const ls=(this._codeCache&&this._codeCache[key])||[]; const text=ls.map(line=>line.map(t=>t.text).join('')).join('\n'); if(navigator.clipboard) navigator.clipboard.writeText(text); }
+    };
   }
 
   _readUrl(){
@@ -578,13 +650,18 @@ class Component extends DCLogic {
     const v = p.get('view'); if(v && ['explorer','map','heatmap','pages'].includes(v)) out.view = v;
     const d = p.get('domain'); if(d!==null) out.domain = d || null;
     const q = p.get('q'); if(q!==null) out.query = q || '';
+    out.fullscreen = p.get('full')==='1';
+    const lang = p.get('lang'); if(lang) out.codeLang = lang;
     return out;
   }
 
   _syncUrl(push){
-    const { view, query, domain, selected } = this.state;
+    const { view, query, domain, selected, fullscreen, codeLang } = this.state;
     const p = new URLSearchParams();
     if(selected) p.set('c', selected);
+    if(selected && fullscreen) p.set('full', '1');
+    const codeLangs = (this.state.codeIndex && selected) ? this.state.codeIndex[selected] : null;
+    if(selected && codeLang && codeLangs && codeLangs.length && codeLang!==codeLangs[0] && codeLangs.includes(codeLang)) p.set('lang', codeLang);
     if(view && view!=='explorer') p.set('view', view);
     if(domain) p.set('domain', domain);
     if(query) p.set('q', query);
@@ -725,6 +802,7 @@ class Component extends DCLogic {
     const confBg = `color-mix(in oklch, ${confColor} 13%, white)`;
     const aliases = c.aliases||[];
     const applies = c.applies||[];
+    const codeLangs = ((this.state.codeIndex||{})[c.id])||[];
     return {
       id:c.id, name:c.name, type:c.type, accent, tint:mod.domainTint(c.domain),
       domainLabel:(mod.DOMAIN_MAP[c.domain]||{}).label||'',
@@ -741,7 +819,12 @@ class Component extends DCLogic {
       competing:(c.competing||[]).map(relChip), hasCompeting:(c.competing||[]).length>0,
       sources:(mod.conceptSources?mod.conceptSources(c):[]).map(s=>({ key:s.key, label:s.label, url:s.url, scope:s.scope, hasUrl:!!s.url })),
       hasSources:(mod.conceptSources?mod.conceptSources(c):[]).length>0,
-      close:()=>this.setState({selected:null})
+      hasCode: codeLangs.length>0,
+      code: codeLangs.length ? this._codeView(c.id, codeLangs) : null,
+      toggleFull:()=>this.setState({fullscreen:!this.state.fullscreen}),
+      fullIcon: this.state.fullscreen ? '⤡' : '⤢',
+      fullTitle: this.state.fullscreen ? 'Exit full screen' : 'Full screen',
+      close:()=>this.setState({selected:null, fullscreen:false})
     };
   }
 
@@ -847,10 +930,11 @@ class Component extends DCLogic {
       setPages:()=>this.setState({view:'pages'}),
       onSearch:(e)=>this.setState({query:e.target.value, view:'explorer'}),
       clearDomain:()=>this.setState({domain:null, mobileNav:false}),
-      closeBackdrop:()=>this.setState({selected:null}),
+      closeBackdrop:()=>this.setState({selected:null, fullscreen:false}),
       navOpen: this.state.mobileNav ? 'open' : '',
       toggleNav:()=>this.setState({mobileNav:!this.state.mobileNav}),
       closeNav:()=>this.setState({mobileNav:false}),
+      drawerFull: this.state.fullscreen ? 'is-full' : '',
       isExplorer:loaded && view==='explorer',
       isMap:loaded && view==='map',
       isHeat:loaded && view==='heatmap',

@@ -12,7 +12,7 @@
 import { writeFile, mkdir, readFile, readdir } from 'node:fs/promises';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { dirname, join } from 'node:path';
-import { tokenize, LANG_LABELS, LANG_EXT, CODE_LANG_ORDER } from './lib/highlight.mjs';
+import { tokenize, LANG_LABELS, LANG_EXT, CODE_LANG_ORDER } from './lib/highlight.js';
 
 const ROOT = dirname(fileURLToPath(import.meta.url));
 

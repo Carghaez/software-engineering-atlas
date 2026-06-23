@@ -100,7 +100,7 @@ concepts.data.js  Generated, committed: the bundle the app imports (do not edit)
 concepts.js       Global metadata/helpers; re-exports CONCEPTS from the bundle
 pages.js          Atlas Maps infographic definitions
 build.mjs         Generates static per-concept SEO pages + sitemap (+ embeds code)
-lib/highlight.mjs Zero-dep syntax tokenizer (shared by app + static pages)
+lib/highlight.js  Zero-dep syntax tokenizer (shared by app + static pages)
 robots.txt        Points crawlers at the sitemap
 test/             Test suite (node --test)
 .github/workflows/
