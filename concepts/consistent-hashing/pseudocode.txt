@@ -1,0 +1,15 @@
+# Consistent hashing: place nodes and keys on a hash ring; moving a node remaps
+# only ~1/N of keys instead of (almost) all of them
+
+function add_node(ring, node):
+    for i in 0 .. V-1:                    # V virtual nodes -> even load
+        ring[hash(node, i)] = node        # ring is a sorted map of position -> node
+
+function lookup(ring, key):
+    h = hash(key)
+    pos = smallest ring position >= h     # walk clockwise...
+    if none: pos = first ring position    # ...wrapping past the end
+    return ring[pos]
+
+# Remove a node => delete its positions. Only keys that landed on it move (to the
+# next node clockwise); every other key keeps its owner. That stability is the point.

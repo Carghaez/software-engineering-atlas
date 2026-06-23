@@ -1,0 +1,14 @@
+# Huffman coding: optimal prefix-free code by greedily merging rarest symbols
+
+function huffman(frequencies):
+    heap = min-heap of (freq, leaf) for each symbol
+    while heap has more than one entry:
+        a = extract_min(heap)
+        b = extract_min(heap)
+        merge = internal node with children a, b and freq = a.freq + b.freq
+        insert merge into heap
+    return extract_min(heap)              # root of the Huffman tree
+
+# A symbol's codeword length = its depth in the tree; rarer symbols sit deeper.
+# Total encoded bits = sum(freq * depth) = sum of the freq of every internal node
+# created during merging (a handy way to score the code without walking the tree).

@@ -1,0 +1,19 @@
+# Strongly connected components (Kosaraju): two DFS passes find maximal groups
+# where every vertex can reach every other
+
+function kosaraju(graph):
+    order = empty stack
+    for each unvisited vertex u:
+        dfs1(u)                           # push u onto `order` AFTER visiting its descendants
+
+    transpose = graph with every edge reversed
+    component[] = unassigned
+    c = 0
+    for u in order from last-finished to first:
+        if component[u] is unassigned:
+            dfs2(u, c) over transpose     # all vertices reached form one SCC
+            c = c + 1
+    return component, c                    # c = number of SCCs
+
+# Why it works: the last-finishing vertex lies in a "source" SCC of the condensation;
+# DFS on the transpose from it cannot leak into other components.
