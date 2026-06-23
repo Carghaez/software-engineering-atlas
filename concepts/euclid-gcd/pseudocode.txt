@@ -1,0 +1,6 @@
+# Euclid's algorithm: gcd(a, b) by repeated remainder, O(log min(a,b))
+
+function gcd(a, b):
+    while b != 0:
+        (a, b) = (b, a mod b)        # replace (a,b) with (b, a mod b)
+    return |a|                       # b is 0; a is the greatest common divisor

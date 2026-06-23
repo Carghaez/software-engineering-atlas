@@ -1,0 +1,17 @@
+# Depth-first search: follow each branch to its end before backtracking
+
+function dfs(graph, u, visited):
+    mark u as visited
+    visit(u)                              # pre-order action
+    for each neighbour v of u:
+        if v not visited:
+            dfs(graph, v, visited)        # recurse deeper first
+
+# Iterative form uses an explicit LIFO stack in place of the call stack:
+function dfs_iterative(graph, source):
+    stack = [source]
+    while stack not empty:
+        u = pop(stack)
+        if u not visited:
+            mark u visited; visit(u)
+            push each neighbour of u onto stack

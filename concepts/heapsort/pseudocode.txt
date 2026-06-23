@@ -1,0 +1,9 @@
+# Heapsort: build a max-heap, then repeatedly extract the max (in place, O(n log n))
+
+function heapsort(a):
+    build_max_heap(a)                     # O(n): sift_down from last parent to root
+    for end from length(a) - 1 down to 1:
+        swap(a[0], a[end])                # largest element to its final slot
+        heap_size = end                   # shrink the heap
+        sift_down(a, 0, heap_size)        # restore the max-heap property
+    # a is now sorted ascending

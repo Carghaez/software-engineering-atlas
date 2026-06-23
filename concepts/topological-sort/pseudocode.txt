@@ -1,0 +1,16 @@
+# Topological sort (Kahn's algorithm): linear order of a DAG respecting edges
+
+function topo_sort(graph):
+    compute indegree[v] for every vertex
+    queue = all vertices with indegree 0
+    order = []
+    while queue not empty:
+        u = dequeue(queue)
+        append u to order
+        for each edge u -> v:
+            indegree[v] = indegree[v] - 1
+            if indegree[v] == 0:
+                enqueue(queue, v)
+    if length(order) < vertex count:
+        error "graph has a cycle"         # no valid ordering
+    return order                          # u always appears before v for edge u->v

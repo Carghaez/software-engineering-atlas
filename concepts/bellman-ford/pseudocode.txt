@@ -1,0 +1,15 @@
+# Bellman-Ford: single-source shortest paths, handles negative edge weights
+
+function bellman_ford(vertices, edges, source):
+    for each vertex v: dist[v] = INFINITY
+    dist[source] = 0
+
+    repeat (V - 1) times:                 # longest shortest path has <= V-1 edges
+        for each edge (u, v, w) in edges:
+            if dist[u] + w < dist[v]:
+                dist[v] = dist[u] + w     # relax
+
+    for each edge (u, v, w) in edges:     # one more pass detects a negative cycle
+        if dist[u] + w < dist[v]:
+            error "negative-weight cycle reachable from source"
+    return dist

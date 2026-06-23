@@ -1,0 +1,12 @@
+# Kruskal's MST: add the lightest edge that doesn't form a cycle (greedy + DSU)
+
+function kruskal(vertices, edges):
+    sort edges by weight ascending
+    make_set(v) for each vertex v       # disjoint-set forest
+    mst = []
+    for each edge (u, v, w) in sorted order:
+        if find(u) != find(v):          # endpoints in different trees
+            union(u, v)                 # joining them adds no cycle
+            append (u, v, w) to mst
+            if length(mst) == V - 1: break
+    return mst                          # a minimum spanning tree

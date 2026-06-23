@@ -1,0 +1,16 @@
+# Union-Find (disjoint-set): near-O(1) union/find with path compression + rank
+
+function make_set(x):  parent[x] = x;  rank[x] = 0
+
+function find(x):                         # representative of x's set
+    while parent[x] != x:
+        parent[x] = parent[parent[x]]     # path compression (halving)
+        x = parent[x]
+    return x
+
+function union(a, b):
+    a = find(a);  b = find(b)
+    if a == b: return
+    if rank[a] < rank[b]: swap(a, b)      # attach shorter tree under taller
+    parent[b] = a
+    if rank[a] == rank[b]: rank[a] = rank[a] + 1

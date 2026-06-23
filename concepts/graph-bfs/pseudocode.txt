@@ -1,0 +1,13 @@
+# Breadth-first search: explore a graph level by level using a FIFO queue
+
+function bfs(graph, source):
+    for each vertex v: dist[v] = INFINITY
+    dist[source] = 0
+    queue = [source]
+    while queue not empty:
+        u = dequeue(queue)                # FIFO -> nearest vertices first
+        for each neighbour v of u:
+            if dist[v] == INFINITY:       # unvisited
+                dist[v] = dist[u] + 1     # one level deeper
+                enqueue(queue, v)
+    return dist                           # shortest #edges from source
