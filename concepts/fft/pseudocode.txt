@@ -1,0 +1,14 @@
+# Cooley-Tukey FFT: O(n log n) DFT by recursively splitting even/odd indices
+# (radix-2; n must be a power of 2)
+
+function fft(a, invert):                   # a has length n = 2^m
+    if n == 1: return
+    even = fft( a[0], a[2], a[4], ... )
+    odd  = fft( a[1], a[3], a[5], ... )
+    for k in 0 .. n/2 - 1:
+        w = exp(sign * 2*pi*i * k / n) * odd[k]    # sign = -1 forward, +1 inverse
+        a[k]       = even[k] + w                    # "butterfly"
+        a[k + n/2] = even[k] - w
+
+# Inverse transform: run with invert = true, then divide every output by n.
+# Replaces the naive O(n^2) DFT; the basis of fast convolution and spectral methods.

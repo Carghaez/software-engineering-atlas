@@ -1,0 +1,15 @@
+# k-means (Lloyd's algorithm): partition points into k clusters by nearest centroid
+
+function kmeans(points, k):
+    centroids = k initial centres (random, or k-means++ seeding)
+    repeat until assignments stop changing:
+        # assignment step
+        for each point p:
+            assign p to the cluster whose centroid is nearest (Euclidean)
+        # update step
+        for each cluster c:
+            centroid[c] = mean of all points assigned to c
+    return assignments, centroids
+
+# Minimises total within-cluster squared distance, but only to a LOCAL optimum,
+# so the result depends on the initial centroids.
