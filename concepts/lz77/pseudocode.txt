@@ -1,0 +1,21 @@
+# LZ77: compress by replacing repeats with (offset, length) back-references
+# into a sliding window of recently seen data
+
+function compress(data):
+    i = 0; tokens = []
+    while i < len(data):
+        # longest match of data[i..] starting inside the window data[i-W .. i)
+        (offset, length) = longest_match(data, i, W)
+        next = data[i + length]            # the literal that follows the match
+        tokens.append( (offset, length, next) )
+        i += length + 1
+    return tokens
+
+function decompress(tokens):
+    out = []
+    for (offset, length, next) in tokens:
+        start = len(out) - offset
+        for k in 0 .. length-1:
+            out.append(out[start + k])     # copy earlier output (may overlap itself)
+        out.append(next)
+    return out

@@ -1,0 +1,12 @@
+# Gradient descent: step downhill along the negative gradient toward a minimum
+
+function minimise(grad_f, x0, lr, steps):
+    x = x0
+    repeat steps times:
+        g = grad_f(x)                      # slope at the current point
+        x = x - lr * g                     # move opposite the gradient
+    return x
+
+# lr (learning rate) too large -> overshoot / diverge; too small -> slow convergence.
+# Example: f(x) = (x-3)^2, grad_f(x) = 2*(x-3)  =>  converges to x = 3.
+# Generalises to many dimensions: x and g become vectors.
