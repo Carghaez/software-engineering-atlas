@@ -1,0 +1,18 @@
+# Quicksort: partition around a pivot, then recurse on each side (avg O(n log n))
+
+function quicksort(a, lo, hi):
+    if lo >= hi:
+        return
+    p = partition(a, lo, hi)             # pivot lands at its final index p
+    quicksort(a, lo, p - 1)
+    quicksort(a, p + 1, hi)
+
+function partition(a, lo, hi):           # Lomuto scheme, pivot = a[hi]
+    pivot = a[hi]
+    i = lo
+    for j from lo to hi - 1:
+        if a[j] < pivot:
+            swap(a[i], a[j])
+            i = i + 1
+    swap(a[i], a[hi])                    # move pivot after the smaller elements
+    return i

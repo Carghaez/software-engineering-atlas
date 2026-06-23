@@ -1,0 +1,18 @@
+# Stack (LIFO): push/pop/peek at one end, all O(1)
+
+structure Stack:
+    items                                 # backing sequence; top = last item
+
+function push(s, value):
+    append value to s.items               # O(1)
+
+function pop(s):
+    assert not is_empty(s)
+    return remove_last(s.items)           # O(1); last in, first out
+
+function peek(s):
+    assert not is_empty(s)
+    return s.items[last]                  # inspect without removing
+
+function is_empty(s):
+    return length(s.items) == 0

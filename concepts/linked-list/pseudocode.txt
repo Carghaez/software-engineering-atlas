@@ -1,0 +1,23 @@
+# Singly linked list: nodes chained by pointers; O(1) push-front, O(n) traversal
+
+structure Node:
+    value
+    next                                  # pointer to the next node, or NULL
+
+function push_front(head, value):
+    node = allocate(Node)
+    node.value = value
+    node.next = head                      # new node points at the old head
+    return node                           # node becomes the new head
+
+function traverse(head):
+    p = head
+    while p != NULL:
+        visit(p.value)
+        p = p.next
+
+function free_list(head):
+    while head != NULL:
+        next = head.next
+        free(head)                        # release before losing the pointer
+        head = next

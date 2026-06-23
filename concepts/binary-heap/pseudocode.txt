@@ -1,0 +1,27 @@
+# Binary heap: array-backed complete tree; parent ⪰ children (max-heap)
+
+# Children of index i are 2i+1 and 2i+2; parent is (i-1)/2.
+
+function push(heap, value):
+    append value to heap
+    sift_up(heap, length(heap) - 1)
+
+function sift_up(heap, i):
+    while i > 0 and heap[(i-1)/2] < heap[i]:
+        swap(heap[(i-1)/2], heap[i])
+        i = (i-1)/2
+
+function pop_max(heap):                    # remove and return the root
+    max = heap[0]
+    heap[0] = heap[last]; remove last
+    sift_down(heap, 0)
+    return max
+
+function sift_down(heap, i):
+    loop:
+        largest = i
+        for child in (2i+1, 2i+2):
+            if child < length(heap) and heap[child] > heap[largest]:
+                largest = child
+        if largest == i: return
+        swap(heap[i], heap[largest]); i = largest

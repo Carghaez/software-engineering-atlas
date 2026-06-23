@@ -1,0 +1,14 @@
+# Binary search: O(log n) lookup in a sorted sequence by halving the range
+
+function binary_search(a, key):          # a is sorted ascending
+    lo = 0
+    hi = length(a)                       # half-open interval [lo, hi)
+    while lo < hi:
+        mid = lo + (hi - lo) / 2         # midpoint without overflow
+        if a[mid] == key:
+            return mid                   # found
+        else if a[mid] < key:
+            lo = mid + 1                 # discard the lower half
+        else:
+            hi = mid                     # discard the upper half
+    return NOT_FOUND                     # lo is the insertion point

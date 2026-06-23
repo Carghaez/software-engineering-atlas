@@ -1,0 +1,65 @@
+name: Code Verify
+
+# Compiles AND runs every code snippet under concepts/**, per language, so only
+# correct, self-verifying code merges. Each matrix job installs only its own
+# toolchain. These compilers/runtimes are CI-only and do NOT change the app's
+# zero-runtime-dependency stance — the deployed site stays static HTML + JS.
+#
+# Kept separate from the fast unit CI (ci.yml): that one needs no toolchains and
+# stays quick; this one is the correctness gate for the example code. Mark the
+# matrix job a required status check in branch protection.
+
+on:
+  push:
+    paths:
+      - 'concepts/**'
+      - 'verify-code.mjs'
+      - '.github/workflows/code-verify.yml'
+  pull_request:
+    paths:
+      - 'concepts/**'
+      - 'verify-code.mjs'
+      - '.github/workflows/code-verify.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: verify (${{ matrix.lang }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        lang: [c, cpp, cs, java, rust]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      # C and C++ — gcc/g++ ship with ubuntu-latest; ensure they're present.
+      - name: Install C/C++ toolchain
+        if: matrix.lang == 'c' || matrix.lang == 'cpp'
+        run: sudo apt-get update && sudo apt-get install -y build-essential
+
+      - name: Install Java toolchain
+        if: matrix.lang == 'java'
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      - name: Install .NET toolchain
+        if: matrix.lang == 'cs'
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Install Rust toolchain
+        if: matrix.lang == 'rust'
+        run: rustup default stable && rustc --version
+
+      - name: Verify ${{ matrix.lang }} snippets compile and run
+        run: node verify-code.mjs ${{ matrix.lang }}

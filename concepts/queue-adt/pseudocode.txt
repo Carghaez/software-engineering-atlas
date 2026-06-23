@@ -1,0 +1,18 @@
+# Queue (FIFO): enqueue at the back, dequeue from the front, all O(1)
+
+structure Queue:
+    data                                  # circular buffer
+    head                                  # index of the front element
+    len                                   # number of elements
+
+function enqueue(q, value):
+    assert q.len < capacity(q.data)
+    q.data[(q.head + q.len) mod capacity] = value
+    q.len = q.len + 1
+
+function dequeue(q):
+    assert q.len > 0
+    value = q.data[q.head]
+    q.head = (q.head + 1) mod capacity     # wrap around
+    q.len = q.len - 1
+    return value                           # first in, first out

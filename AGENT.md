@@ -79,6 +79,41 @@ migrate.mjs                 One-time data/*.js -> concepts/ migration (historica
   ds/algo/hardware types, etc.
 - **Code examples:** drop real files in the concept folder. Keep them short, idiomatic, and
   correct. The highlighter (`lib/highlight.js`) is shared, so the app and static pages match.
+  See **Code examples: authoring & verification** below for the rules and the merge workflow.
+
+## Code examples: authoring & verification
+
+Per-concept runnable code lives at `concepts/<id>/<lang>.<ext>` (`c.c cpp.cpp cs.cs java.java
+rust.rs`) plus a language-agnostic `pseudocode.txt`. Rules (all CI-enforced):
+
+- **Idiomatic only.** Add a file for language `L` *only if* `concept.json` `langs[L].id >= 2`.
+  `test/code.test.mjs` fails on any snippet for a language scored below 2. Don't force awkward
+  snippets — that's the point of the rule. `pseudocode.txt` is always allowed and never compiled.
+- **Self-verifying.** Each file is a complete, single-file, std-lib-only program with a `main`
+  that demonstrates the mechanism and **at least one assertion**, and it must **exit 0 on success,
+  non-zero on failure** — CI checks the exit code, not just that it compiles. Keep it < ~40 lines.
+- **Assertion idiom per language:** C/C++ `assert()` (`<assert.h>`/`<cassert>`, no `NDEBUG`); Rust
+  `assert!`/`assert_eq!`; Java `assert` (the runner uses `java -ea`); **C# has no always-on assert
+  in Release** — define `static void Check(bool, string)` that throws (see `concepts/*/cs.cs`).
+
+`verify-code.mjs` compiles **and runs** every snippet for one language and fails on any
+compile/run/missing-toolchain error: `node verify-code.mjs <c|cpp|cs|java|rust>`. The compilers and
+runtimes it drives (`gcc`, `g++`, `rustc`, `javac`/`java`, `dotnet`) are **CI-only** — they are not
+app dependencies and do not change the project's zero-runtime-dependency stance.
+
+### Merge workflow — DECISION (do not re-litigate)
+
+1. **CI is the authoritative gate. Example code merges only via a branch + PR with
+   `.github/workflows/code-verify.yml` green.** Never push example code straight to `main`, and
+   never call a batch "verified" on the strength of local runs alone — CI runs the real
+   `ubuntu-latest` per-language matrix and is the final word.
+2. **Pre-verify locally before pushing.** For every toolchain available in your environment, run
+   `node verify-code.mjs <lang>` (for each of `c cpp cs java rust`) and get it green first; CI then
+   confirms the rest. Treat local green as "ready to push", CI green as "ready to merge". (A Linux
+   environment matching CI — e.g. via the standard package manager — gives the closest parity; any
+   toolchains you don't have locally are covered by CI.)
+3. **Scale only after the pilot's `code-verify.yml` is green.** Author in batches (idiomatic-only),
+   pre-verify locally, push to a branch, let CI confirm, then continue.
 
 ## Quality
 

@@ -36,6 +36,11 @@ Concepts live in `concepts/<id>/`:
   `schema/concept.schema.json` (via the file's `$schema` key).
 - Add **code examples** by dropping real files in the same folder: `pseudocode.txt`, `rust.rs`,
   `cpp.cpp`, `c.c`, `cs.cs`, `java.java` (any subset). Keep snippets short, idiomatic, and correct.
+  Two rules CI enforces: add a runnable file for a language **only where the concept is idiomatic**
+  in it (`concept.json` `langs[L].id >= 2`), and make each one a complete, std-lib-only program with
+  a `main` and **at least one assertion** that aborts non-zero on failure — `code-verify.yml`
+  compiles *and runs* every snippet. Check one locally with `node verify-code.mjs <lang>`
+  (`pseudocode.txt` is language-agnostic and is never compiled).
 - To add a **new concept**, create `concepts/<new-id>/concept.json` (use an existing one as a
   template; the `id` must equal the folder name).
 - Then run `npm run build` to refresh the generated bundle and `npm test`.

@@ -1,0 +1,17 @@
+# Dijkstra: single-source shortest paths on non-negative edge weights
+
+function dijkstra(graph, source):
+    for each vertex v: dist[v] = INFINITY
+    dist[source] = 0
+    pq = min-priority-queue of (distance, vertex)
+    push (0, source) onto pq
+
+    while pq not empty:
+        (d, u) = pop-min(pq)
+        if d > dist[u]:
+            continue                       # stale entry, already improved
+        for each edge (u -> v, weight w) in graph:
+            if d + w < dist[v]:
+                dist[v] = d + w            # relax the edge
+                push (dist[v], v) onto pq
+    return dist

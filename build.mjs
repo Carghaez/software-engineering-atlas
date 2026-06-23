@@ -344,7 +344,7 @@ async function main() {
   await writeFile(join(ROOT, 'c', 'index.html'), glossaryPage(), 'utf8');
   await writeFile(join(ROOT, 'sitemap.xml'), sitemap(), 'utf8');
   await writeFile(join(ROOT, 'code-index.json'), JSON.stringify(codeIndex), 'utf8');
-  console.log(`Built ${n} concept pages + glossary + sitemap (${CONCEPTS.length + 2} URLs); code for ${CODE.size} concept(s). Base: ${BASE}`);
+  console.log(`Built ${n} concept pages + glossary + sitemap (${CONCEPTS.length + 2} URLs); ${CODE.size}/${CONCEPTS.length} concepts have code. Base: ${BASE}`);
 }
 
 if (import.meta.url === pathToFileURL(process.argv[1] || '').href) await main();

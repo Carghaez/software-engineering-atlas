@@ -54,9 +54,20 @@ node --test        # or: npm test
 
 - [`test/data.test.mjs`](./test/data.test.mjs) — data-integrity gates (unique ids, valid types, related/competing & chip references resolve, idiomaticity notes, every concept cited, …) — the CI counterpart of the app's live QA audit.
 - [`test/build.test.mjs`](./test/build.test.mjs) — `build.mjs` output: required SEO tags, parseable JSON-LD, and a complete sitemap.
+- [`test/code.test.mjs`](./test/code.test.mjs) — keeps code coverage honest: a snippet may exist for a language only where the concept is idiomatic (`concept.json` `langs[L].id >= 2`).
 - [`test/parity.test.mjs`](./test/parity.test.mjs) — guards that `index.html` and `Atlas.dc.html` stay byte-identical.
 
 [`.github/workflows/ci.yml`](./.github/workflows/ci.yml) runs the suite on every push and pull request; the Pages deploy ([`pages.yml`](./.github/workflows/pages.yml)) runs the tests first, so broken data never ships.
+
+### Code-example verification
+
+The per-language code examples under `concepts/<id>/` are not just compiled — they're **compiled and run**, so only correct, self-verifying code merges. [`verify-code.mjs`](./verify-code.mjs) builds and executes every snippet for one language and checks the **exit code** (each snippet asserts and aborts non-zero on failure):
+
+```bash
+node verify-code.mjs cs      # or: c | cpp | java | rust
+```
+
+[`.github/workflows/code-verify.yml`](./.github/workflows/code-verify.yml) runs this as a **per-language matrix** (each job installs only its own toolchain) on pushes/PRs that touch `concepts/**`. These compilers/runtimes (`gcc`, `g++`, `rustc`, `javac`/`java`, `dotnet`) are **CI-only** and do **not** change the app's zero-runtime-dependency stance — the deployed site stays static HTML + JS with no backend.
 
 ## Concept data (source of truth)
 
@@ -100,11 +111,13 @@ concepts.data.js  Generated, committed: the bundle the app imports (do not edit)
 concepts.js       Global metadata/helpers; re-exports CONCEPTS from the bundle
 pages.js          Atlas Maps infographic definitions
 build.mjs         Generates static per-concept SEO pages + sitemap (+ embeds code)
+verify-code.mjs   Compiles AND runs every code snippet for one language (CI gate)
 lib/highlight.js  Zero-dep syntax tokenizer (shared by app + static pages)
 robots.txt        Points crawlers at the sitemap
 test/             Test suite (node --test)
 .github/workflows/
   ci.yml          Runs tests on every push / PR
+  code-verify.yml Compiles + runs code snippets (per-language matrix, CI-only toolchains)
   pages.yml       Assembles + builds + deploys to GitHub Pages
 
 # generated at deploy time, git-ignored (not in the repo):

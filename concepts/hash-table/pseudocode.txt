@@ -1,0 +1,23 @@
+# Hash table: average O(1) lookup/insert via a hash function + collision handling
+
+structure HashTable:
+    buckets        # array of slots/chains
+    size           # number of stored entries
+
+function put(table, key, value):
+    i = hash(key) mod length(table.buckets)
+    for entry in table.buckets[i]:        # walk the collision chain
+        if entry.key == key:
+            entry.value = value           # update existing
+            return
+    append (key, value) to table.buckets[i]
+    table.size = table.size + 1
+    if table.size / length(table.buckets) > LOAD_FACTOR:
+        resize(table)                     # rehash into a larger array
+
+function get(table, key):
+    i = hash(key) mod length(table.buckets)
+    for entry in table.buckets[i]:
+        if entry.key == key:
+            return entry.value
+    return NOT_FOUND
