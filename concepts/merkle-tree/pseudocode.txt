@@ -1,0 +1,16 @@
+# Merkle tree: a binary hash tree; the root hash commits to every leaf
+
+function merkle_root(leaves):
+    level = [ hash(leaf) for leaf in leaves ]
+    while length(level) > 1:
+        if length(level) is odd:
+            duplicate the last node           # pad to an even count
+        next = []
+        for i in steps of 2:
+            next.append( hash(level[i] concat level[i+1]) )
+        level = next
+    return level[0]                           # the Merkle root
+
+# Tamper-evidence: changing any leaf changes its hash, which changes every
+# ancestor up to the root. A Merkle proof (the sibling hashes along one path)
+# lets a verifier confirm a single leaf in O(log n) without the whole set.

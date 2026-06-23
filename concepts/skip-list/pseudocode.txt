@@ -1,0 +1,18 @@
+# Skip list: layered linked lists giving expected O(log n) search via random levels
+
+# Each node is promoted to level i with probability p^i (e.g. p = 1/2), so upper
+# levels are sparse express lanes over the full bottom-level list.
+
+function search(list, key):
+    node = list.head
+    for level from top down to 0:
+        while node.next[level] != NULL and node.next[level].key < key:
+            node = node.next[level]          # skip ahead on this level
+    node = node.next[0]
+    return node if node and node.key == key else NOT_FOUND
+
+function insert(list, key):
+    lvl = random_level(p)                     # coin-flip the new node's height
+    splice the node into levels 0..lvl at the positions found during search
+
+# Java's std library: ConcurrentSkipListMap / ConcurrentSkipListSet.

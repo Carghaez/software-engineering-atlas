@@ -1,0 +1,18 @@
+# B-tree: balanced search tree with wide nodes (many keys) — disk/cache friendly
+
+# A B-tree of minimum degree t keeps every node (except the root) between
+# t-1 and 2t-1 keys, and all leaves at the same depth.
+
+function search(node, key):
+    i = first index with key <= node.keys[i]
+    if found exact key at i: return (node, i)
+    if node is a leaf: return NOT_FOUND
+    return search(node.child[i], key)        # descend one level
+
+function insert(tree, key):
+    if root is full (2t-1 keys):
+        split the root        # height grows only here, keeping leaves level
+    insert_nonfull(root, key) # split any full child before descending into it
+
+# Wide nodes mean few levels and few page reads — why databases/filesystems use them.
+# Rust's std::collections::BTreeMap is a cache-efficient B-tree.

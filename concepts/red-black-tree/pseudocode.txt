@@ -1,0 +1,20 @@
+# Red-black tree: a self-balancing BST; rebalances via colours + rotations
+# (the standard ordered-map structure in most libraries)
+
+# Invariants that bound height to O(log n):
+#   1. every node is red or black
+#   2. the root is black
+#   3. red nodes have black children (no two reds in a row)
+#   4. every root->leaf path has the same number of black nodes
+
+function insert(tree, key):
+    do a normal BST insert; colour the new node RED
+    fix_up(node):                          # restore invariants bottom-up
+        while node's parent is RED:
+            if uncle is RED:               # case 1: recolour, move up
+                recolour parent, uncle, grandparent; node = grandparent
+            else:                          # cases 2/3: rotate + recolour
+                rotate around parent/grandparent to remove the red-red violation
+        colour the root BLACK
+
+# In practice: C++ std::map, Java TreeMap, C# SortedDictionary.
