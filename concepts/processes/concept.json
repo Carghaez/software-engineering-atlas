@@ -1,0 +1,76 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "processes",
+  "name": "Processes",
+  "type": "Concurrency model",
+  "secondary": [],
+  "domain": "concurrency",
+  "family": "Isolation",
+  "def": "Independent execution units with their own isolated address space, scheduled by the OS.",
+  "problem": "Run isolated programs/tasks with fault and security boundaries between them.",
+  "mechanism": "The OS gives each process a private virtual address space; communication is explicit via IPC (pipes, sockets, shared memory).",
+  "benefits": [
+    "Strong isolation & fault containment",
+    "Security boundary",
+    "One crash does not corrupt others"
+  ],
+  "limits": [
+    "Heavier than threads (memory, switch cost)",
+    "IPC is explicit and slower than shared memory",
+    "Coordination overhead"
+  ],
+  "failures": [
+    "IPC serialization overhead",
+    "Zombie/orphan processes; resource leaks"
+  ],
+  "whenNot": [
+    "Fine-grained shared-state parallelism (use threads)"
+  ],
+  "myths": [
+    "\"Processes are always too slow\" — isolation is often worth it (browsers, servers)"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "OS",
+    "Browsers",
+    "Servers",
+    "Security sandboxes"
+  ],
+  "complexity": null,
+  "related": [
+    "threads",
+    "actors"
+  ],
+  "competing": [
+    "threads"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "fork/exec (POSIX)"
+    },
+    "cpp": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "OS APIs"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "Process class"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "ProcessBuilder"
+    },
+    "rust": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "std::process"
+    }
+  }
+}

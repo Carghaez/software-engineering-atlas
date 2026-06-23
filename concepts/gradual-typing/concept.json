@@ -1,0 +1,72 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "gradual-typing",
+  "name": "Gradual Typing",
+  "type": "Type-system technique",
+  "secondary": [],
+  "domain": "types",
+  "family": "Type ergonomics",
+  "def": "Mixing statically- and dynamically-typed code, with checks inserted at the boundary.",
+  "problem": "Add static guarantees to dynamic code incrementally without rewriting everything at once.",
+  "mechanism": "A \"dynamic\"/\"any\" type opts out of static checks; runtime casts guard the static/dynamic boundary.",
+  "benefits": [
+    "Incremental migration to static typing",
+    "Flexibility where types are hard to state",
+    "Pragmatic interop"
+  ],
+  "limits": [
+    "Boundary checks cost at runtime",
+    "\"any\" can silently erode guarantees",
+    "Blame tracking is subtle"
+  ],
+  "failures": [
+    "\"any\" spreading and defeating typing",
+    "Boundary cast failures at runtime"
+  ],
+  "whenNot": [
+    "Greenfield code that can be fully static",
+    "Hard real-time paths sensitive to boundary checks"
+  ],
+  "myths": [
+    "\"Gradual typing is free\" — boundaries add runtime checks"
+  ],
+  "use": "Both",
+  "sectors": [
+    "Large migrations",
+    "Scripting interop"
+  ],
+  "complexity": null,
+  "related": [
+    "type-inference"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "Medium",
+  "langs": {
+    "c": {
+      "lvl": "UNSUITABLE",
+      "id": 0,
+      "note": "static only"
+    },
+    "cpp": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "std::any (limited)"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 1,
+      "note": "dynamic keyword"
+    },
+    "java": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "Object + casts only"
+    },
+    "rust": {
+      "lvl": "UNSUITABLE",
+      "id": 0,
+      "note": "static only"
+    }
+  }
+}

@@ -1,0 +1,80 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "two-phase-commit",
+  "name": "Two-Phase Commit",
+  "type": "Algorithm",
+  "secondary": [
+    "Distributed-systems pattern"
+  ],
+  "domain": "algos",
+  "family": "Distributed / transactions",
+  "def": "An atomic-commit protocol where a coordinator drives prepare then commit/abort across participants.",
+  "problem": "Commit a distributed transaction atomically — all participants commit or all abort.",
+  "mechanism": "Phase 1: coordinator asks all to prepare (vote); phase 2: if all vote yes, it tells all to commit, else abort. Participants durably log votes.",
+  "benefits": [
+    "Atomicity across nodes",
+    "Conceptually simple",
+    "Widely supported (XA)"
+  ],
+  "limits": [
+    "Blocking: a coordinator crash can leave participants stuck",
+    "Synchronous; latency + locking",
+    "Poor availability"
+  ],
+  "failures": [
+    "Coordinator failure mid-protocol → indefinite blocking",
+    "Holding locks during the window kills throughput"
+  ],
+  "whenNot": [
+    "High-availability systems (prefer sagas / 3PC / consensus)"
+  ],
+  "myths": [
+    "\"2PC guarantees availability\" — it trades availability for atomicity and can block"
+  ],
+  "use": "Indirect",
+  "sectors": [
+    "Databases (XA)",
+    "Payments",
+    "Enterprise integration"
+  ],
+  "complexity": {
+    "Note": "2 round-trips; blocking on coordinator failure"
+  },
+  "related": [
+    "raft",
+    "idempotency",
+    "circuit-breaker"
+  ],
+  "competing": [
+    "raft"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ECO",
+      "id": 0,
+      "note": "rare"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "XA libs"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "System.Transactions"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "JTA/XA"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "manual"
+    }
+  }
+}

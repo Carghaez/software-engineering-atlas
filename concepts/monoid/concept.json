@@ -1,0 +1,90 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "monoid",
+  "name": "Monoid & Semigroup",
+  "type": "Functional abstraction",
+  "secondary": [
+    "Type-system technique",
+    "Mathematical method"
+  ],
+  "domain": "fp",
+  "family": "Algebraic structure",
+  "def": "A type with an associative binary combine operation; a monoid also has an identity element.",
+  "problem": "Generalise \"combining\" (sums, concatenation, merges) so it parallelises and composes uniformly.",
+  "mechanism": "Define combine: (A, A) → A that is associative (semigroup) plus an identity empty (monoid); laws guarantee safe reassociation and parallel folds.",
+  "benefits": [
+    "Parallelisable reduction (any grouping)",
+    "Uniform combine across many types",
+    "Empty enables clean folds"
+  ],
+  "limits": [
+    "Abstract; payoff needs recognition",
+    "No HKTs to express it generically in mainstream langs"
+  ],
+  "failures": [
+    "Non-associative \"combine\" giving order-dependent results",
+    "Wrong identity element"
+  ],
+  "whenNot": [
+    "One-off combine on a single concrete type"
+  ],
+  "myths": [
+    "\"Monoid is academic\" — every parallel reduce and string concat relies on it"
+  ],
+  "use": "Both",
+  "sectors": [
+    "Big-data aggregation",
+    "Functional libs",
+    "Metrics"
+  ],
+  "complexity": null,
+  "related": [
+    "functor",
+    "monad",
+    "mapreduce"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "x": {
+    "formalRole": "A semigroup is a set with an associative binary operation •; a monoid adds an identity e with e•a = a•e = a.",
+    "compositionRule": "combine : (A, A) → A, associative: (a•b)•c = a•(b•c).",
+    "laws": [
+      "Associativity: (a•b)•c ≡ a•(b•c)",
+      "Identity (monoid): empty•a ≡ a ≡ a•empty"
+    ],
+    "encoding": "No generic Monoid interface across types without HKTs; expressed ad-hoc (reduce + identity, or per-type concat/combine).",
+    "useCases": "Parallel/associative aggregation (sum, max, set-union, string concat), CRDT merges, metric rollups.",
+    "misuseRisks": [
+      "Calling a non-associative op a monoid breaks parallel correctness",
+      "Identity element chosen incorrectly"
+    ]
+  },
+  "langs": {
+    "c": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "no generics"
+    },
+    "cpp": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "std::reduce + identity"
+    },
+    "cs": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "Aggregate + seed"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "Collector / reduce + identity"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "trait impls"
+    }
+  }
+}

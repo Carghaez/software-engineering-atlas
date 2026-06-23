@@ -1,0 +1,73 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "structured-logging",
+  "name": "Structured Logging",
+  "type": "Debugging or observability technique",
+  "secondary": [],
+  "domain": "observability",
+  "family": "Telemetry",
+  "def": "Emitting logs as machine-parseable key-value records rather than free-form text.",
+  "problem": "Make logs queryable, filterable and aggregatable at scale instead of grep-only text.",
+  "mechanism": "Log events as structured fields (often JSON) with consistent keys, levels and correlation IDs, ingested by a searchable store.",
+  "benefits": [
+    "Queryable/aggregatable across services",
+    "Correlation via IDs",
+    "Reliable alerting on fields"
+  ],
+  "limits": [
+    "More verbose; schema discipline needed",
+    "Higher storage/ingest cost",
+    "PII leakage risk in fields"
+  ],
+  "failures": [
+    "Inconsistent field names defeating queries",
+    "Logging secrets/PII; log-volume cost blow-up"
+  ],
+  "whenNot": [
+    "Tiny scripts/CLIs where text logs suffice"
+  ],
+  "myths": [
+    "\"Structured logging is just JSON\" — consistency and correlation are the point"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Cloud",
+    "Backends",
+    "SaaS"
+  ],
+  "complexity": null,
+  "related": [
+    "distributed-tracing",
+    "profiling"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "manual / zlog"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "spdlog"
+    },
+    "cs": {
+      "lvl": "ECO",
+      "id": 3,
+      "note": "Serilog; ILogger"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 3,
+      "note": "SLF4J/Logback + MDC"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 3,
+      "note": "tracing / slog"
+    }
+  }
+}

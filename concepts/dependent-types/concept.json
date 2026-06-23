@@ -1,0 +1,77 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "dependent-types",
+  "name": "Dependent Types",
+  "type": "Type-system technique",
+  "secondary": [
+    "Verification technique"
+  ],
+  "domain": "types",
+  "family": "Advanced types",
+  "def": "Types that can depend on values, letting the type encode rich correctness properties.",
+  "problem": "Prove program properties (e.g. array bounds, protocol states) statically within the type system.",
+  "mechanism": "Types are indexed by values (e.g. Vector<n>); the type checker becomes a proof checker verifying constraints at compile time.",
+  "benefits": [
+    "Eliminate whole bug classes by construction",
+    "Specifications and code unified",
+    "Strongest static guarantees"
+  ],
+  "limits": [
+    "Steep learning curve; proofs are work",
+    "Mainstream langs lack them — only encodings",
+    "Slower development"
+  ],
+  "failures": [
+    "Proof obligations ballooning",
+    "Misusing partial encodings as full guarantees"
+  ],
+  "whenNot": [
+    "Most application code — cost rarely justified",
+    "Teams without formal-methods background"
+  ],
+  "myths": [
+    "\"Available in mainstream languages\" — only weak encodings (const generics, phantom types)"
+  ],
+  "use": "Indirect",
+  "sectors": [
+    "Safety-critical",
+    "Cryptography",
+    "Research"
+  ],
+  "complexity": null,
+  "related": [
+    "phantom-types",
+    "linear-affine-types",
+    "refinement-types"
+  ],
+  "competing": [],
+  "maturity": "Emerging",
+  "confidence": "Medium",
+  "langs": {
+    "c": {
+      "lvl": "UNSUITABLE",
+      "id": 0,
+      "note": "none"
+    },
+    "cpp": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "NTTP / template values (partial)"
+    },
+    "cs": {
+      "lvl": "UNSUITABLE",
+      "id": 0,
+      "note": "none"
+    },
+    "java": {
+      "lvl": "UNSUITABLE",
+      "id": 0,
+      "note": "none"
+    },
+    "rust": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "const generics (partial)"
+    }
+  }
+}

@@ -1,0 +1,76 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "sanitizers",
+  "name": "Runtime Sanitizers",
+  "type": "Debugging or observability technique",
+  "secondary": [
+    "Testing technique"
+  ],
+  "domain": "observability",
+  "family": "Dynamic analysis",
+  "def": "Compiler-instrumented runtime checks that detect memory, threading and UB errors during execution.",
+  "problem": "Catch memory-safety and data-race bugs that crash rarely or corrupt silently.",
+  "mechanism": "Tools like ASan, TSan, UBSan, MSan instrument the binary to detect out-of-bounds, use-after-free, races and undefined behaviour at the moment they occur.",
+  "benefits": [
+    "Pinpoints memory/race bugs at the fault",
+    "Far better than random crashes later",
+    "Pairs with fuzzing"
+  ],
+  "limits": [
+    "Runtime/memory overhead (2–20×)",
+    "Only finds executed-path bugs",
+    "Some need recompilation"
+  ],
+  "failures": [
+    "Shipping without ever running sanitizers",
+    "Ignoring \"harmless\" UBSan reports"
+  ],
+  "whenNot": [
+    "Memory-safe languages (less need); production hot paths"
+  ],
+  "myths": [
+    "\"Memory-safe languages need sanitizers too\" — Rust/Java rarely need ASan; C/C++ critically do"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Systems",
+    "Security",
+    "C/C++ projects"
+  ],
+  "complexity": null,
+  "related": [
+    "fuzz-testing",
+    "static-analysis",
+    "profiling"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "ASan/TSan/UBSan"
+    },
+    "cpp": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "sanitizers"
+    },
+    "cs": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "managed; less needed"
+    },
+    "java": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "managed"
+    },
+    "rust": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "ASan/TSan on nightly; Miri"
+    }
+  }
+}

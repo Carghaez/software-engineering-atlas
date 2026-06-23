@@ -1,0 +1,75 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "composite",
+  "name": "Composite",
+  "type": "Design pattern",
+  "secondary": [
+    "Data structure"
+  ],
+  "domain": "architecture",
+  "family": "GoF · Structural",
+  "def": "Treats individual objects and compositions of objects uniformly through a common interface.",
+  "problem": "Build and operate on part-whole tree hierarchies (UI trees, file systems, scene graphs) uniformly.",
+  "mechanism": "Leaf and composite nodes share an interface; composites hold children and forward operations recursively.",
+  "benefits": [
+    "Uniform treatment of leaves & trees",
+    "Natural recursion over hierarchies",
+    "Easy to add node types"
+  ],
+  "limits": [
+    "Overly general interface (leaf must ignore child ops)",
+    "Type-safety vs uniformity tension"
+  ],
+  "failures": [
+    "Leaf nodes forced to implement child operations",
+    "Unbounded recursion on cyclic graphs"
+  ],
+  "whenNot": [
+    "Flat, non-hierarchical data"
+  ],
+  "myths": [
+    "\"Composite is just a tree\" — it is the uniform-interface treatment of the tree"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "UI toolkits",
+    "Compilers (ASTs)",
+    "Graphics scene graphs"
+  ],
+  "complexity": null,
+  "related": [
+    "visitor",
+    "iterator-pattern",
+    "red-black-tree"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "tagged nodes"
+    },
+    "cpp": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "virtual tree"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "interface tree"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "common (UI)"
+    },
+    "rust": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "enum tree + match"
+    }
+  }
+}

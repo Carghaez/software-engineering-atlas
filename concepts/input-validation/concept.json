@@ -1,0 +1,76 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "input-validation",
+  "name": "Input Validation",
+  "type": "Defensive-programming practice",
+  "secondary": [
+    "Security practice"
+  ],
+  "domain": "reliability",
+  "family": "Boundary defence",
+  "def": "Checking that inputs meet expected format, type, range and constraints before use.",
+  "problem": "Reject malformed or malicious input at the boundary before it corrupts state or enables attacks.",
+  "mechanism": "Validate against an allowlist of acceptable values (type, length, range, pattern) at trust boundaries, rejecting or canonicalising the rest.",
+  "benefits": [
+    "Stops a huge class of bugs & attacks (injection, overflow)",
+    "Fails fast at the boundary",
+    "Simplifies inner code"
+  ],
+  "limits": [
+    "Allowlist design effort",
+    "Validation drift from real schema",
+    "Can give false confidence if incomplete"
+  ],
+  "failures": [
+    "Blocklist (vs allowlist) missing cases",
+    "Validating at the wrong layer; TOCTOU gaps"
+  ],
+  "whenNot": [
+    "Already-validated internal trusted data (avoid redundant checks everywhere)"
+  ],
+  "myths": [
+    "\"Client-side validation is enough\" — always validate again server-side"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Web",
+    "Security",
+    "All input boundaries"
+  ],
+  "complexity": null,
+  "related": [
+    "fail-fast",
+    "defense-in-depth",
+    "design-by-contract"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "manual checks"
+    },
+    "cpp": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "manual"
+    },
+    "cs": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "DataAnnotations / FluentValidation"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 3,
+      "note": "Bean Validation (JSR-380)"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "validator / serde"
+    }
+  }
+}

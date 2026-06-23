@@ -1,0 +1,21 @@
+# Dynamic array: amortised O(1) append via capacity doubling
+
+structure DynamicArray:
+    buffer      # backing storage block
+    length      # number of live elements
+    capacity    # size of the buffer
+
+function push(arr, value):
+    if arr.length == arr.capacity:
+        grow(arr)
+    arr.buffer[arr.length] = value
+    arr.length = arr.length + 1
+
+function grow(arr):
+    new_capacity = max(1, arr.capacity * 2)
+    new_buffer = allocate(new_capacity)
+    for i from 0 to arr.length - 1:
+        new_buffer[i] = arr.buffer[i]      # copy live elements
+    free(arr.buffer)
+    arr.buffer = new_buffer
+    arr.capacity = new_capacity

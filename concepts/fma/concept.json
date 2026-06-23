@@ -1,0 +1,76 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "fma",
+  "name": "Fused Multiply-Add (FMA)",
+  "type": "Hardware-execution model",
+  "secondary": [
+    "Performance-optimisation technique"
+  ],
+  "domain": "hardware",
+  "family": "Arithmetic",
+  "def": "A single instruction computing a×b + c with one rounding step.",
+  "problem": "Speed up and improve the accuracy of the ubiquitous multiply-then-add pattern.",
+  "mechanism": "The FPU computes a×b+c in one fused operation, doubling throughput vs separate ops and rounding only once (less error).",
+  "benefits": [
+    "~2× FLOP throughput on dot products",
+    "Single rounding → higher accuracy",
+    "Vectorises with SIMD"
+  ],
+  "limits": [
+    "Different rounding can change results bit-for-bit",
+    "Not all hardware/paths use it",
+    "Reproducibility concerns"
+  ],
+  "failures": [
+    "Bit-level result differences breaking golden tests",
+    "Assuming FMA where the compiler did not emit it"
+  ],
+  "whenNot": [
+    "Code requiring bit-identical results across machines"
+  ],
+  "myths": [
+    "\"FMA is just faster multiply-add\" — it also rounds once, changing numeric results subtly"
+  ],
+  "use": "Indirect",
+  "sectors": [
+    "HPC",
+    "ML",
+    "DSP",
+    "Graphics"
+  ],
+  "complexity": null,
+  "related": [
+    "simd",
+    "auto-vectorization"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "fma(); -mfma"
+    },
+    "cpp": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "std::fma; intrinsics"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 1,
+      "note": "MathF.FusedMultiplyAdd"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 1,
+      "note": "Math.fma"
+    },
+    "rust": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "f64::mul_add"
+    }
+  }
+}

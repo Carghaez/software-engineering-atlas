@@ -1,0 +1,73 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "snapshot-testing",
+  "name": "Snapshot / Golden-Master Testing",
+  "type": "Testing technique",
+  "secondary": [],
+  "domain": "testing",
+  "family": "Approval testing",
+  "def": "Comparing current output against a stored reference (\"snapshot\"/\"golden\") to detect changes.",
+  "problem": "Lock in complex output (UI trees, serialized data, reports) without hand-writing every assertion.",
+  "mechanism": "On first run, capture output as the approved snapshot; later runs diff against it, failing on any change until the snapshot is reviewed and updated.",
+  "benefits": [
+    "Cheap coverage of large outputs",
+    "Catches unintended changes",
+    "Great for legacy characterization"
+  ],
+  "limits": [
+    "Reviewers rubber-stamp updates",
+    "Brittle to intentional/noise changes",
+    "Hides intent (what is actually asserted?)"
+  ],
+  "failures": [
+    "Blindly accepting snapshot updates",
+    "Non-deterministic output (timestamps) → flaky"
+  ],
+  "whenNot": [
+    "Behaviour better expressed by explicit assertions"
+  ],
+  "myths": [
+    "\"Snapshot tests verify correctness\" — they verify stability, not that output is right"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Frontend",
+    "Compilers",
+    "Report generation"
+  ],
+  "complexity": null,
+  "related": [
+    "regression-testing",
+    "unit-testing"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "golden files"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "golden files"
+    },
+    "cs": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "Verify"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "ApprovalTests"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 3,
+      "note": "insta"
+    }
+  }
+}

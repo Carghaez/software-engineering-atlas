@@ -1,0 +1,75 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "scope-guards",
+  "name": "Scope Guards / defer",
+  "type": "Resource-management technique",
+  "secondary": [
+    "Defensive-programming practice",
+    "Language idiom"
+  ],
+  "domain": "reliability",
+  "family": "Cleanup",
+  "def": "Registering cleanup actions that run automatically when a scope exits, however it exits.",
+  "problem": "Guarantee resource release / undo on every exit path (return, break, exception) without duplication.",
+  "mechanism": "A guard object runs a closure in its destructor (RAII) or a defer statement queues cleanup to run on scope exit; commit() can dismiss the rollback.",
+  "benefits": [
+    "Cleanup on all exit paths",
+    "Local, readable resource handling",
+    "Exception-safe by construction"
+  ],
+  "limits": [
+    "Ordering (LIFO) must be understood",
+    "Overhead of capturing closures",
+    "Not available natively everywhere"
+  ],
+  "failures": [
+    "Forgetting to dismiss a rollback guard on success",
+    "Throwing from a guard"
+  ],
+  "whenNot": [
+    "Languages with full RAII often need no explicit guard"
+  ],
+  "myths": [
+    "\"Only Go has defer\" — C++ scope guards, C# using, Java try-with-resources are equivalents"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Systems",
+    "Resource-heavy code"
+  ],
+  "complexity": null,
+  "related": [
+    "raii",
+    "exception-safety"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "AWKWARD",
+      "id": 1,
+      "note": "goto cleanup; __attribute__((cleanup))"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "scope_guard / gsl::finally"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "using / try-finally"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "try-with-resources"
+    },
+    "rust": {
+      "lvl": "NATIVE",
+      "id": 2,
+      "note": "Drop; scopeguard crate"
+    }
+  }
+}

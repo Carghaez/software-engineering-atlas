@@ -1,0 +1,81 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "bulk-synchronous-parallel",
+  "name": "Bulk Synchronous Parallel (BSP)",
+  "type": "Parallel-computing model",
+  "secondary": [
+    "Distributed-systems pattern"
+  ],
+  "domain": "hardware",
+  "family": "Parallel model",
+  "def": "A parallel model structuring computation as a sequence of supersteps, each one: local compute, then communication, then a global barrier.",
+  "problem": "Reason about and cost parallel/distributed algorithms with a clean separation of computation from communication, avoiding ad-hoc synchronisation.",
+  "mechanism": "Each processor computes on local data, exchanges messages, and synchronises at a barrier that ends the superstep; messages sent in one superstep are guaranteed delivered before the next. Cost models as w + g·h + l (compute + communication + barrier latency).",
+  "benefits": [
+    "Simple, deadlock-free structure — no fine-grained locking",
+    "Analytic cost model predicts scaling",
+    "Maps cleanly to iterative graph processing (Pregel-style)"
+  ],
+  "limits": [
+    "The barrier gates every superstep on the slowest worker (stragglers)",
+    "Poor fit for irregular or asynchronous, low-latency work",
+    "Per-superstep batched communication adds latency"
+  ],
+  "failures": [
+    "Load imbalance stalling every superstep on one straggler",
+    "Too many supersteps for fine-grained iterative algorithms"
+  ],
+  "whenNot": [
+    "Latency-critical or highly irregular workloads",
+    "Asynchronous algorithms that tolerate stale state (use gossip / async)"
+  ],
+  "myths": [
+    "\"BSP is just MapReduce\" — BSP is iterative with stateful supersteps; MapReduce is a single map/shuffle/reduce pass"
+  ],
+  "use": "Indirect",
+  "sectors": [
+    "Large-scale graph processing (Pregel / Giraph)",
+    "HPC",
+    "Scientific simulation"
+  ],
+  "complexity": {
+    "Note": "Per-superstep ≈ w + g·h + l; total = Σ over supersteps"
+  },
+  "related": [
+    "mapreduce",
+    "spmd",
+    "threads"
+  ],
+  "competing": [
+    "mapreduce"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "BSPlib / MPI"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "BSPlib / MPI collectives"
+    },
+    "cs": {
+      "lvl": "ECO",
+      "id": 0,
+      "note": "rare"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "Apache Hama / Giraph (Pregel)"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "timely-dataflow (related)"
+    }
+  }
+}

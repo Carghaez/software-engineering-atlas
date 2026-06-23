@@ -1,0 +1,76 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "continuation-passing-style",
+  "name": "Continuation-Passing Style",
+  "type": "Functional abstraction",
+  "secondary": [
+    "Language idiom"
+  ],
+  "domain": "fp",
+  "family": "Control",
+  "def": "A style where functions take an explicit continuation (callback) instead of returning, making control flow first-class.",
+  "problem": "Make control flow (returns, exceptions, async, coroutines) explicit and manipulable as data.",
+  "mechanism": "Every function receives a continuation k and calls k(result) rather than returning; the rest of the computation is reified as a function.",
+  "benefits": [
+    "Control flow as first-class values",
+    "Foundation for async, generators, backtracking",
+    "Compiler IR technique"
+  ],
+  "limits": [
+    "Code becomes hard to read (\"callback hell\")",
+    "Stack/allocation overhead without TCO",
+    "Rarely written by hand"
+  ],
+  "failures": [
+    "Deep CPS without TCO → stack growth",
+    "Unreadable manual CPS code"
+  ],
+  "whenNot": [
+    "Application code (use async/await sugar instead)"
+  ],
+  "myths": [
+    "\"CPS is obsolete\" — it underlies how async/await and generators are compiled"
+  ],
+  "use": "Indirect",
+  "sectors": [
+    "Compilers",
+    "Runtimes",
+    "Async libraries"
+  ],
+  "complexity": null,
+  "related": [
+    "algebraic-effects",
+    "async-await",
+    "tail-call-optimization"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "Medium",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "callbacks"
+    },
+    "cpp": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "callbacks/coroutines"
+    },
+    "cs": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "compiler uses for async"
+    },
+    "java": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "callbacks"
+    },
+    "rust": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "compiler async lowering"
+    }
+  }
+}

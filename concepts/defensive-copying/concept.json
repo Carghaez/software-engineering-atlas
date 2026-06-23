@@ -1,0 +1,79 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "defensive-copying",
+  "name": "Defensive Copying",
+  "type": "Defensive-programming practice",
+  "secondary": [
+    "Resource-management technique"
+  ],
+  "domain": "reliability",
+  "family": "Encapsulation",
+  "def": "Copying mutable inputs/outputs at trust boundaries so callers cannot mutate internal state.",
+  "problem": "Protect an object’s invariants from external code holding aliases to its mutable internals.",
+  "mechanism": "Copy mutable arguments on the way in and mutable fields on the way out, so no shared alias can corrupt internal state after validation.",
+  "benefits": [
+    "Preserves invariants against aliasing",
+    "Critical for thread-safety and security boundaries",
+    "Predictable behaviour"
+  ],
+  "limits": [
+    "Allocation/copy cost",
+    "Deep vs shallow copy subtleties",
+    "Redundant where data is already immutable"
+  ],
+  "failures": [
+    "Shallow copy leaving nested mutability exposed",
+    "Copy storms in hot paths"
+  ],
+  "whenNot": [
+    "Immutable data (no copy needed)",
+    "Performance-critical paths with trusted callers"
+  ],
+  "myths": [
+    "\"Always copy defensively\" — immutability makes it unnecessary"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Libraries",
+    "Security boundaries",
+    "Concurrency"
+  ],
+  "complexity": null,
+  "related": [
+    "immutability",
+    "design-by-contract",
+    "defensive-copying"
+  ],
+  "competing": [
+    "immutability"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "memcpy by hand"
+    },
+    "cpp": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "value semantics / copy ctor"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "clone / records"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "copy ctor / List.copyOf"
+    },
+    "rust": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "Clone; ownership reduces need"
+    }
+  }
+}

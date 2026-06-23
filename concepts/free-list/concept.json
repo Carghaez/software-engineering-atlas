@@ -1,0 +1,109 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "free-list",
+  "name": "Free List",
+  "type": "Data structure",
+  "secondary": [
+    "Resource-management technique"
+  ],
+  "aliases": [
+    "Freelist",
+    "Free-block list"
+  ],
+  "x": {
+    "invariant": "every block is either handed out to a caller or linked into the free list; no block is in both states.",
+    "operations": [
+      "allocate (O(1): pop a block / O(n) on first-fit search for variable sizes)",
+      "free (O(1): push block back)",
+      "optional coalescing of adjacent free blocks"
+    ],
+    "memoryOverhead": "The free pointer is stored inside free blocks themselves (intrusive), so near-zero metadata while allocated.",
+    "locality": "Reused blocks may be cold/scattered; LIFO reuse tends to be warmer than FIFO.",
+    "mutationModel": "Mutable pool; freed blocks are recycled rather than returned to the OS.",
+    "concurrency": "Not thread-safe by default; per-thread free lists or lock-free stacks avoid contention.",
+    "implementations": [
+      "malloc internals",
+      "slab / pool allocators",
+      "embedded fixed-block allocators"
+    ]
+  },
+  "domain": "memory",
+  "family": "Allocation",
+  "def": "A linked list of reusable memory blocks that an allocator pops to allocate and pushes to free, giving O(1) fixed-size allocation without per-block OS calls.",
+  "problem": "Calling the OS / general allocator for every small same-sized object is slow and fragmenting.",
+  "mechanism": "Pre-allocates a pool and threads free blocks into an intrusive singly-linked list (the next pointer lives in the free block). Allocation pops the head; freeing pushes it back. Variable-size variants search (first/best-fit) and coalesce neighbours.",
+  "benefits": [
+    "O(1) allocate/free for fixed sizes",
+    "No syscalls; intrusive → near-zero overhead",
+    "Predictable latency (good for real-time/embedded)"
+  ],
+  "limits": [
+    "Fixed-size pools waste space for mixed sizes",
+    "Variable-size fitting → external fragmentation",
+    "Memory not returned to the OS"
+  ],
+  "failures": [
+    "Use-after-free / double-free corrupt the intrusive links",
+    "Fragmentation from poor fit strategy",
+    "ABA in naive lock-free free lists"
+  ],
+  "whenNot": [
+    "Highly variable allocation sizes (use a general allocator / arena)",
+    "When freed memory must return to the OS promptly"
+  ],
+  "myths": [
+    "\"Free lists eliminate fragmentation\" — fixed-size ones do; variable-size ones still fragment"
+  ],
+  "use": "Indirect",
+  "sectors": [
+    "Allocators / runtimes",
+    "Embedded / RTOS",
+    "Game engines",
+    "Kernels"
+  ],
+  "complexity": {
+    "Allocate": "O(1) fixed / O(n) fit",
+    "Free": "O(1)",
+    "Space": "O(pool)"
+  },
+  "related": [
+    "slab-buddy-allocation",
+    "arena-allocation",
+    "object-pool",
+    "stack-vs-heap",
+    "ring-buffer"
+  ],
+  "competing": [
+    "slab-buddy-allocation",
+    "arena-allocation"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 3,
+      "note": "idiomatic; intrusive lists"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "pool_allocator / custom"
+    },
+    "cs": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "ArrayPool over GC"
+    },
+    "java": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "pools over GC"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "slab / typed-arena crates"
+    }
+  }
+}

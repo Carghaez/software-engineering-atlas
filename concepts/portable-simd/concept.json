@@ -1,0 +1,105 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "portable-simd",
+  "name": "Portable SIMD",
+  "type": "Performance-optimisation technique",
+  "secondary": [
+    "Hardware-execution model"
+  ],
+  "aliases": [
+    "SIMD abstraction",
+    "std::simd / std::experimental::simd"
+  ],
+  "x": {
+    "executionModel": "A width-agnostic vector type and operations that the compiler lowers to the best instructions for the target ISA, instead of hand-written per-architecture intrinsics.",
+    "dataOrg": "Same SoA / aligned, contiguous data SIMD always wants; the abstraction handles lane width and masking generically.",
+    "hwConstraints": "Bounded by the target ISA’s real capabilities; the abstraction cannot invent hardware features.",
+    "compilerSupport": "Library + compiler lowering: Rust core::simd, C++ std::simd (WD), Highway; .NET Vector<T>; Java Vector API.",
+    "portability": "Its whole purpose: one source compiles to SSE/AVX/NEON/SVE/WASM-SIMD with graceful scaling.",
+    "expectedBenefit": "Vectorisation portability and maintainability without N hand-tuned intrinsic paths.",
+    "bottlenecks": [
+      "May not reach hand-tuned-intrinsic peak",
+      "Feature-detection / dispatch overhead",
+      "Abstraction gaps for exotic instructions"
+    ],
+    "divergenceRisks": [
+      "Assuming a fixed lane width",
+      "Falling off the optimised path silently"
+    ],
+    "workloadShapes": "Cross-platform numeric kernels, libraries shipping one codebase to many ISAs."
+  },
+  "domain": "hardware",
+  "family": "Vectorisation portability",
+  "def": "A width-agnostic vector programming model that expresses SIMD once and lets the compiler target each architecture’s instructions, replacing per-ISA intrinsics.",
+  "problem": "Hand-written intrinsics must be rewritten per architecture (SSE/AVX/NEON/SVE), multiplying code and bugs.",
+  "mechanism": "Programs use generic vector types and operations (with masks for control flow); the compiler/library selects lane width and lowers to native instructions per target, often with runtime feature dispatch for the best available ISA.",
+  "benefits": [
+    "One source → many ISAs",
+    "Far less code than per-arch intrinsics",
+    "Safer, more maintainable vector code"
+  ],
+  "limits": [
+    "May trail hand-tuned intrinsics on peak kernels",
+    "Coverage gaps for exotic instructions",
+    "Maturity varies (some still experimental)"
+  ],
+  "failures": [
+    "Hard-coding lane counts, breaking portability",
+    "Silently dropping off the vectorised path"
+  ],
+  "whenNot": [
+    "A single fixed target where peak intrinsics are worth it",
+    "No vectorisable data-parallel work"
+  ],
+  "myths": [
+    "\"Portable SIMD is always slower than intrinsics\" — it is usually close, and far cheaper to maintain"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Cross-platform libraries",
+    "Media / codecs",
+    "Scientific computing"
+  ],
+  "complexity": {
+    "Performance": "≈ intrinsics (often within a few %)"
+  },
+  "related": [
+    "simd",
+    "auto-vectorization",
+    "gather-scatter",
+    "predication",
+    "structure-of-arrays"
+  ],
+  "competing": [
+    "auto-vectorization"
+  ],
+  "maturity": "Established",
+  "confidence": "Medium",
+  "langs": {
+    "c": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "Highway / GCC vectors"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "std::simd (WD) / Highway"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "Vector<T> / Vector128/256"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "Vector API (incubator)"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "core::simd (nightly) / wide"
+    }
+  }
+}

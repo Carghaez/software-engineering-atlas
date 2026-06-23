@@ -1,0 +1,95 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "model-based-testing",
+  "name": "Model-Based Testing",
+  "type": "Testing technique",
+  "secondary": [
+    "Verification technique"
+  ],
+  "aliases": [
+    "MBT"
+  ],
+  "x": {
+    "defectClass": "Behavioural / state-transition bugs revealed by comparing an implementation against an explicit behavioural model.",
+    "oracle": "A formal/behavioural model (state machine, spec) from which both test cases and expected outputs are derived.",
+    "automationLevel": "High — tools generate test sequences and oracles from the model.",
+    "blindSpots": [
+      "Bugs in the model propagate to the tests",
+      "Behaviour outside the model is untested",
+      "State-space explosion limits coverage"
+    ],
+    "cost": "High — building and maintaining the model is the investment.",
+    "lifecycleStage": "Design / system testing of protocols, embedded, and stateful systems."
+  },
+  "domain": "testing",
+  "family": "Model-derived testing",
+  "def": "Deriving test cases and their expected results automatically from an explicit behavioural model (often a state machine) of the system.",
+  "problem": "Hand-writing test cases for complex stateful behaviour is incomplete and misses transition combinations.",
+  "mechanism": "Engineers build a model of intended behaviour (states, transitions, guards). A tool traverses the model to generate input sequences and the expected outputs (the oracle), then runs them against the implementation and reports divergence.",
+  "benefits": [
+    "Systematic transition / sequence coverage",
+    "Tests + oracle generated together",
+    "Model doubles as documentation"
+  ],
+  "limits": [
+    "Modelling effort and skill required",
+    "Model bugs become test bugs",
+    "State explosion needs abstraction"
+  ],
+  "failures": [
+    "Out-of-sync model vs implementation",
+    "Over-large models that cannot be traversed"
+  ],
+  "whenNot": [
+    "Simple stateless logic (example tests suffice)",
+    "No stable behavioural spec to model"
+  ],
+  "myths": [
+    "\"The model guarantees correctness\" — it only checks the implementation against the model, which may be wrong"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Protocols / telecom",
+    "Embedded / automotive",
+    "Stateful UIs",
+    "Distributed systems"
+  ],
+  "related": [
+    "model-checking",
+    "property-based-testing",
+    "formal-verification",
+    "state-pattern"
+  ],
+  "competing": [
+    "property-based-testing"
+  ],
+  "maturity": "Established",
+  "confidence": "Medium",
+  "langs": {
+    "c": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "tooling"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "tooling"
+    },
+    "cs": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "SpecExplorer-style"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "GraphWalker"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "tooling"
+    }
+  }
+}

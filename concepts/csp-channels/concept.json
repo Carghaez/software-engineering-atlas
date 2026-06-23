@@ -1,0 +1,78 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "csp-channels",
+  "name": "CSP & Channels",
+  "type": "Concurrency model",
+  "secondary": [
+    "Synchronisation mechanism"
+  ],
+  "domain": "concurrency",
+  "family": "Message-passing",
+  "def": "Communicating Sequential Processes: independent processes coordinate by passing messages over channels.",
+  "problem": "Coordinate concurrent work via communication instead of shared memory and locks.",
+  "mechanism": "Channels (buffered or rendezvous) transfer values between tasks; select waits on multiple channels. \"Share memory by communicating.\"",
+  "benefits": [
+    "Explicit, composable coordination",
+    "Avoids shared-state locking",
+    "Natural backpressure via bounded channels"
+  ],
+  "limits": [
+    "Channel overhead vs direct shared memory",
+    "Deadlocks from cyclic channel waits",
+    "Plumbing can get elaborate"
+  ],
+  "failures": [
+    "Deadlock on full/empty unbuffered channels",
+    "Goroutine/task leaks blocked on channels"
+  ],
+  "whenNot": [
+    "Fine-grained shared-memory hot paths"
+  ],
+  "myths": [
+    "\"CSP = actors\" — CSP channels are first-class and often synchronous; actors address mailboxes"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Backends",
+    "Pipelines",
+    "Systems"
+  ],
+  "complexity": null,
+  "related": [
+    "actors",
+    "async-await",
+    "ring-buffer"
+  ],
+  "competing": [
+    "actors"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "manual queues"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "libraries"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "System.Threading.Channels"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 1,
+      "note": "SynchronousQueue / BlockingQueue"
+    },
+    "rust": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "mpsc; crossbeam; tokio channels"
+    }
+  }
+}

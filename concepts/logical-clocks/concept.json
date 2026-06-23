@@ -1,0 +1,80 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "logical-clocks",
+  "name": "Logical Clocks (Lamport & Vector)",
+  "type": "Algorithm",
+  "secondary": [
+    "Distributed-systems pattern"
+  ],
+  "domain": "algos",
+  "family": "Distributed / time",
+  "def": "Counters that order events by causality rather than wall-clock time across distributed nodes.",
+  "problem": "Establish a consistent \"happens-before\" ordering of events when clocks are unsynchronised and there is no global time.",
+  "mechanism": "A Lamport clock increments per event and on receive takes max(local, sent)+1, giving a total order consistent with causality. A vector clock keeps one counter per node, capturing causality exactly and detecting concurrent events.",
+  "benefits": [
+    "Causal ordering without synchronised clocks",
+    "Vector clocks detect concurrency / conflicts",
+    "Foundation for CRDTs, snapshots and replication"
+  ],
+  "limits": [
+    "Lamport order discards concurrency information",
+    "Vector clocks grow O(N) with node count",
+    "Neither yields real wall-clock time"
+  ],
+  "failures": [
+    "Inferring causality from Lamport timestamps (they cannot)",
+    "Unbounded vector-clock growth with churning membership"
+  ],
+  "whenNot": [
+    "Single-node systems",
+    "When physical timestamps (or hybrid logical clocks) are required"
+  ],
+  "myths": [
+    "\"Timestamps order distributed events\" — wall clocks skew; only logical clocks track causality"
+  ],
+  "use": "Indirect",
+  "sectors": [
+    "Distributed databases",
+    "Collaborative editing",
+    "Messaging / replication"
+  ],
+  "complexity": {
+    "Lamport": "O(1) time & space per event",
+    "Vector": "O(N) time & space per event"
+  },
+  "related": [
+    "crdt",
+    "raft",
+    "consistent-hashing"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "manual counters"
+    },
+    "cpp": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "manual"
+    },
+    "cs": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "manual"
+    },
+    "java": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "manual; Akka uses vclocks"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "crdts crates"
+    }
+  }
+}

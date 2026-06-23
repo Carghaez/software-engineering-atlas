@@ -1,0 +1,80 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "k-means",
+  "name": "k-Means Clustering",
+  "type": "Algorithm",
+  "secondary": [
+    "Machine learning",
+    "Heuristic and metaheuristic search"
+  ],
+  "domain": "algos",
+  "family": "Unsupervised ML",
+  "def": "Partitions points into k clusters by alternately assigning points to nearest centroids and recomputing centroids.",
+  "problem": "Find natural groupings in unlabelled data with a simple, scalable method.",
+  "mechanism": "Initialise k centroids (k-means++), assign each point to its nearest, recompute centroids as cluster means, repeat to convergence.",
+  "benefits": [
+    "Simple, fast, scalable",
+    "Works well on globular clusters",
+    "k-means++ improves init"
+  ],
+  "limits": [
+    "Must choose k upfront",
+    "Sensitive to init and outliers",
+    "Assumes spherical, similar-size clusters"
+  ],
+  "failures": [
+    "Bad init → poor local optimum",
+    "Forcing k clusters on non-clustered data"
+  ],
+  "whenNot": [
+    "Non-convex / varying-density clusters (use DBSCAN)",
+    "Unknown, hard-to-estimate k"
+  ],
+  "myths": [
+    "\"k-means finds the best clustering\" — it finds a local optimum dependent on init"
+  ],
+  "use": "Indirect",
+  "sectors": [
+    "Analytics",
+    "Vision",
+    "Segmentation",
+    "Compression (vector quant.)"
+  ],
+  "complexity": {
+    "Time": "O(n·k·d·iters)",
+    "Space": "O(n·d)"
+  },
+  "related": [
+    "gradient-descent"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "manual"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "mlpack / OpenCV"
+    },
+    "cs": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "ML.NET / Accord"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "Weka / Smile"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "linfa"
+    }
+  }
+}

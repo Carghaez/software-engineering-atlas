@@ -1,0 +1,73 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "structured-programming",
+  "name": "Structured Programming",
+  "type": "Programming paradigm",
+  "secondary": [
+    "Programming style",
+    "Design principle"
+  ],
+  "domain": "paradigms",
+  "family": "Imperative",
+  "def": "Imperative programming restricted to sequence, selection and iteration — no arbitrary goto.",
+  "problem": "Tame the \"goto spaghetti\" of early code with disciplined, nestable control structures.",
+  "mechanism": "Build all control flow from three composable constructs (sequence, if/switch, loops) plus subroutines; single-entry/single-exit blocks.",
+  "benefits": [
+    "Far more readable, analysable flow",
+    "Enables reasoning & static analysis",
+    "Foundation of every modern language"
+  ],
+  "limits": [
+    "Early-exit dogma can hurt clarity",
+    "Says nothing about data/state organisation"
+  ],
+  "failures": [
+    "Deeply nested arrow code",
+    "Boolean flags emulating goto"
+  ],
+  "whenNot": [
+    "Rare low-level cases where a guarded jump is clearest (e.g. C error cleanup)"
+  ],
+  "myths": [
+    "\"goto is always evil\" — disciplined jumps (error cleanup) are sometimes the clearest option"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "All sectors (now assumed)"
+  ],
+  "complexity": null,
+  "related": [
+    "imperative-programming",
+    "procedural"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "core"
+    },
+    "cpp": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "core"
+    },
+    "cs": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "core"
+    },
+    "java": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "core"
+    },
+    "rust": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "core; no goto"
+    }
+  }
+}

@@ -1,0 +1,78 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "object-pool",
+  "name": "Object Pool",
+  "type": "Resource-management technique",
+  "secondary": [
+    "Design pattern"
+  ],
+  "domain": "memory",
+  "family": "Reuse",
+  "def": "Reuses a fixed set of pre-allocated objects instead of repeatedly allocating and freeing.",
+  "problem": "Avoid allocation churn and GC pressure for expensive or high-frequency short-lived objects.",
+  "mechanism": "A free list hands out idle objects and reclaims them on release; objects are reset between uses rather than reallocated.",
+  "benefits": [
+    "Eliminates alloc/GC churn in hot loops",
+    "Predictable, bounded memory",
+    "Amortises expensive construction"
+  ],
+  "limits": [
+    "Stale state if objects not reset",
+    "Pool sizing is a tuning problem",
+    "Can mask real ownership/lifetime bugs"
+  ],
+  "failures": [
+    "Using an object still \"in use\" (double-checkout)",
+    "Leaked objects never returned to the pool"
+  ],
+  "whenNot": [
+    "Cheap objects (pooling adds complexity for no gain)",
+    "When GC/alloc is already not a bottleneck"
+  ],
+  "myths": [
+    "\"Pooling always helps\" — modern allocators/GCs often beat naive pools"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Games",
+    "High-throughput servers",
+    "Connection pools"
+  ],
+  "complexity": null,
+  "related": [
+    "arena-allocation",
+    "ring-buffer"
+  ],
+  "competing": [
+    "arena-allocation"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "free list"
+    },
+    "cpp": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "custom pool allocator"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "ObjectPool / ArrayPool"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "Apache Commons Pool"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "object-pool crate"
+    }
+  }
+}

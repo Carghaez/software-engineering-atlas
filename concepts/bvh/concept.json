@@ -1,0 +1,107 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "bvh",
+  "name": "Bounding Volume Hierarchy (BVH)",
+  "type": "Spatial structure",
+  "secondary": [
+    "Data structure"
+  ],
+  "aliases": [
+    "BVH tree"
+  ],
+  "x": {
+    "invariant": "a tree of nested bounding volumes (usually AABBs); a parent’s volume encloses all of its children’s primitives.",
+    "operations": [
+      "build (O(n log n))",
+      "ray / frustum query (O(log n) expected)",
+      "refit on small motion (O(n))",
+      "rebuild on large change"
+    ],
+    "memoryOverhead": "Two child pointers + a bounding box per node; ~2n nodes for n leaves.",
+    "locality": "Linearised (flattened) BVHs are traversed front-to-back for good cache behaviour on GPUs/CPUs.",
+    "mutationModel": "Built then queried; dynamic scenes refit or rebuild per frame.",
+    "concurrency": "Read-only queries parallelise trivially; parallel build (e.g. LBVH) is common on GPUs.",
+    "implementations": [
+      "game / ray-tracing engines",
+      "Embree",
+      "PhysX broadphase"
+    ]
+  },
+  "domain": "structures",
+  "family": "Spatial / acceleration",
+  "def": "A tree of nested bounding volumes used to prune spatial queries — the standard acceleration structure for ray tracing and collision broad-phase.",
+  "problem": "Avoid testing a ray or moving object against every primitive in a large scene.",
+  "mechanism": "Recursively groups primitives into bounding volumes (often AABBs); a query descends only into volumes it intersects, skipping whole subtrees. Build quality (e.g. SAH) trades build time for query speed.",
+  "benefits": [
+    "Expected O(log n) spatial queries",
+    "Handles arbitrary / unevenly distributed geometry",
+    "Refit cheaply for small motion"
+  ],
+  "limits": [
+    "Build cost and quality sensitivity (SAH)",
+    "Overlapping volumes reduce pruning",
+    "Rebuild needed for large scene changes"
+  ],
+  "failures": [
+    "Degenerate splits → near-linear traversal",
+    "Stale bounds after un-refitted motion → missed hits"
+  ],
+  "whenNot": [
+    "Uniform grids fit the data better (use a grid / k-d tree)",
+    "Static 2D point queries (use a k-d tree / quadtree)"
+  ],
+  "myths": [
+    "\"BVH and k-d tree are interchangeable\" — BVHs bound objects; k-d trees partition space"
+  ],
+  "use": "Indirect",
+  "sectors": [
+    "Games / rendering",
+    "Ray tracing",
+    "Physics engines",
+    "Robotics"
+  ],
+  "complexity": {
+    "Build": "O(n log n)",
+    "Query": "O(log n) expected",
+    "Space": "O(n)"
+  },
+  "related": [
+    "kd-tree",
+    "quadtree-octree",
+    "bsp-tree",
+    "r-tree"
+  ],
+  "competing": [
+    "kd-tree",
+    "r-tree"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "engine code"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 3,
+      "note": "Embree / engines"
+    },
+    "cs": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "Unity / engines"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "libs"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "bvh crate / engines"
+    }
+  }
+}

@@ -1,0 +1,103 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "approximation-algorithms",
+  "name": "Approximation Algorithms",
+  "type": "Algorithmic paradigm",
+  "secondary": [],
+  "aliases": [
+    "Bounded-suboptimal algorithms"
+  ],
+  "x": {
+    "io": "Instance of an NP-hard optimisation problem → a feasible solution with a proven ratio to the optimum.",
+    "preconditions": [
+      "Exact optimum is intractable at the required scale",
+      "A measurable objective with a known/boundable optimum"
+    ],
+    "correctness": [
+      "Approximation ratio ρ proven for all instances",
+      "Feasibility always maintained, only optimality relaxed"
+    ],
+    "stability": "Deterministic ratio (or expected ratio for randomised approximations).",
+    "parallelisable": "Often — many are greedy or LP-rounding based and parallelise per element/constraint.",
+    "dataStructures": [
+      "priority queues",
+      "disjoint-set",
+      "LP solvers"
+    ]
+  },
+  "domain": "algos",
+  "family": "Optimisation strategy",
+  "def": "A strategy for NP-hard optimisation problems that returns a provably near-optimal answer within a guaranteed factor of the true optimum, in polynomial time.",
+  "problem": "When the exact optimum is intractable, get a solution with a hard quality guarantee rather than an unbounded heuristic.",
+  "mechanism": "Designs a polynomial-time procedure (greedy, LP relaxation + rounding, local search, primal-dual) plus a proof bounding its output relative to the optimum (e.g. 2-approx vertex cover, (1−1/e) for submodular maximisation).",
+  "benefits": [
+    "Polynomial time on intractable problems",
+    "Provable worst-case quality bound",
+    "Often simple and fast in practice"
+  ],
+  "limits": [
+    "Ratio is worst-case, not typical-case",
+    "Some problems are hard to approximate at all (inapproximability)",
+    "Constant factors / ratios may be too loose to be useful"
+  ],
+  "failures": [
+    "Confusing an approximation guarantee with a heuristic with no bound",
+    "Using on problems with proven inapproximability"
+  ],
+  "whenNot": [
+    "Exact solution feasible at scale",
+    "A good heuristic with empirical validation suffices and no guarantee is needed"
+  ],
+  "myths": [
+    "\"Approximate = heuristic\" — approximation algorithms carry a proven ratio; heuristics do not"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Operations research",
+    "Networking",
+    "Scheduling",
+    "Bioinformatics"
+  ],
+  "complexity": {
+    "Time": "Polynomial",
+    "Quality": "Within ratio ρ of optimum"
+  },
+  "related": [
+    "greedy",
+    "dynamic-programming",
+    "sat-solving"
+  ],
+  "competing": [
+    "branch-and-bound",
+    "greedy"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "manual"
+    },
+    "cpp": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "OR-Tools / manual"
+    },
+    "cs": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "libs"
+    },
+    "java": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "OR-Tools / OptaPlanner"
+    },
+    "rust": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "manual"
+    }
+  }
+}

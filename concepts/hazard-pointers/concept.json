@@ -1,0 +1,93 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "hazard-pointers",
+  "name": "Hazard Pointers",
+  "type": "Synchronisation mechanism",
+  "secondary": [
+    "Concurrent data structure"
+  ],
+  "aliases": [
+    "Safe memory reclamation (SMR)"
+  ],
+  "x": {
+    "coordination": "A lock-free reclamation scheme: a thread publishes pointers it is about to dereference as \"hazardous\"; memory is freed only once no thread lists it as hazardous.",
+    "hazards": [
+      "Per-access publish/scan overhead",
+      "Bounded number of hazard pointers per thread",
+      "Subtle ordering bugs (publish before re-check)",
+      "Reclamation latency vs memory usage trade-off"
+    ]
+  },
+  "domain": "concurrency",
+  "family": "Nonblocking reclamation",
+  "def": "A safe-memory-reclamation technique for lock-free structures: threads announce the nodes they are accessing so those nodes are not freed until no one references them.",
+  "problem": "In lock-free structures, a thread may hold a pointer to a node another thread wants to free — freeing it causes use-after-free (the core SMR problem).",
+  "mechanism": "Each thread has a small set of hazard-pointer slots. Before dereferencing a shared node it stores the pointer in a slot and re-validates. A reclaimer scans all threads’ hazard slots and only frees nodes that appear in none, deferring the rest.",
+  "benefits": [
+    "Lock-free, bounded memory reclamation",
+    "No global quiescence needed (vs epoch/RCU)",
+    "Strong progress guarantees"
+  ],
+  "limits": [
+    "Per-dereference overhead (publish + fence + recheck)",
+    "Fixed number of protectable pointers per thread",
+    "Complex to implement correctly"
+  ],
+  "failures": [
+    "Publishing the hazard after the dereference (UAF window)",
+    "Missing a memory fence between publish and recheck"
+  ],
+  "whenNot": [
+    "Read-mostly data where RCU/epoch is cheaper",
+    "Code that can use GC or reference counting acceptably"
+  ],
+  "myths": [
+    "\"Lock-free means no memory management problem\" — reclamation is the hard part, which hazard pointers solve"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Lock-free libraries",
+    "Databases / runtimes",
+    "Low-latency systems"
+  ],
+  "related": [
+    "lock-free",
+    "rcu",
+    "atomics-cas",
+    "memory-ordering",
+    "reference-counting"
+  ],
+  "competing": [
+    "rcu",
+    "reference-counting"
+  ],
+  "maturity": "Established",
+  "confidence": "Medium",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "manual / liburcu"
+    },
+    "cpp": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "std::hazard_pointer (C++26) / folly"
+    },
+    "cs": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "GC instead"
+    },
+    "java": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "GC instead"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "haphazard / seize crates"
+    }
+  }
+}

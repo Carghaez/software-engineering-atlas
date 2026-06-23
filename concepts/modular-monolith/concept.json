@@ -1,0 +1,94 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "modular-monolith",
+  "name": "Modular Monolith",
+  "type": "Architectural pattern",
+  "secondary": [],
+  "aliases": [
+    "Well-structured monolith"
+  ],
+  "x": {
+    "forces": [
+      "Module independence ↔ single deployable simplicity",
+      "Strong internal boundaries ↔ in-process convenience",
+      "Future extraction to services ↔ avoiding premature distribution"
+    ],
+    "structure": "One deployable process internally partitioned into modules with explicit, enforced boundaries and contracts; modules communicate in-process but do not reach into each other’s internals or databases.",
+    "antiPatterns": [
+      "Big ball of mud (no real boundaries)",
+      "Shared database tables across modules",
+      "Circular module dependencies"
+    ],
+    "scale": "Whole application; a disciplined alternative to microservices."
+  },
+  "domain": "architecture",
+  "family": "Application architecture",
+  "def": "A single deployable application that is internally divided into well-bounded, loosely-coupled modules — the modularity benefits of microservices without distributed-systems cost.",
+  "problem": "Microservices add network, deployment, and consistency complexity that many systems do not need; an unstructured monolith decays into a big ball of mud.",
+  "mechanism": "Enforce module boundaries within one process (separate packages/assemblies, explicit public contracts, per-module data ownership, dependency rules checked in CI). Modules can later be extracted into services if and when scaling demands it.",
+  "benefits": [
+    "Modularity without network / ops overhead",
+    "Simple deployment, debugging, transactions",
+    "Clear path to extract services later"
+  ],
+  "limits": [
+    "Boundaries are convention — easy to erode without enforcement",
+    "Single deploy / scaling unit",
+    "Shared runtime failure domain"
+  ],
+  "failures": [
+    "Boundaries decaying into a ball of mud",
+    "Modules sharing a database schema directly",
+    "Cyclic dependencies between modules"
+  ],
+  "whenNot": [
+    "Independent scaling / deployment per component is essential",
+    "Teams must release fully autonomously"
+  ],
+  "myths": [
+    "\"Monolith = unmaintainable\" — a modular monolith is often the right default before microservices"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Startups / SMB SaaS",
+    "Domains not needing independent scaling"
+  ],
+  "related": [
+    "microservices",
+    "layered-architecture",
+    "hexagonal-architecture",
+    "clean-architecture"
+  ],
+  "competing": [
+    "microservices"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "discipline"
+    },
+    "cpp": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "libraries / targets"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "projects / assemblies"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "modules / Spring Modulith"
+    },
+    "rust": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "crates / workspaces"
+    }
+  }
+}

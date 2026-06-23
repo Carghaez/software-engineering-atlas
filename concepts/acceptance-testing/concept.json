@@ -1,0 +1,92 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "acceptance-testing",
+  "name": "Acceptance Testing",
+  "type": "Testing technique",
+  "secondary": [],
+  "aliases": [
+    "UAT",
+    "User acceptance testing",
+    "Functional acceptance"
+  ],
+  "x": {
+    "defectClass": "Mismatches between delivered behaviour and agreed requirements / user expectations.",
+    "oracle": "Acceptance criteria / requirements agreed with the customer or product owner.",
+    "automationLevel": "Medium — often automated (Gherkin/FitNesse) but may include manual UAT.",
+    "blindSpots": [
+      "Only checks specified scenarios; unspecified behaviour untested",
+      "Quality of criteria bounds the value",
+      "Not a substitute for unit/integration depth"
+    ],
+    "cost": "Medium–high — scenario authoring and environment realism.",
+    "lifecycleStage": "System / pre-release; the contract-level \"is it acceptable?\" gate."
+  },
+  "domain": "testing",
+  "family": "Requirement verification",
+  "def": "Testing that verifies the system meets agreed business / user acceptance criteria — the gate that decides whether the work is \"done\" and shippable.",
+  "problem": "Code can pass developer tests yet still fail to deliver what the customer actually agreed to.",
+  "mechanism": "Acceptance criteria (often written as Given/When/Then scenarios) are executed against the system end-to-end, ideally in a realistic environment. Passing all criteria signals the feature satisfies the contract; some organisations include manual user acceptance testing (UAT).",
+  "benefits": [
+    "Validates real requirements, not just code",
+    "Shared, customer-facing definition of done",
+    "Living documentation (BDD scenarios)"
+  ],
+  "limits": [
+    "Only covers specified scenarios",
+    "Slow / brittle if end-to-end and UI-driven",
+    "Depends on criteria quality"
+  ],
+  "failures": [
+    "Vague criteria → ambiguous pass/fail",
+    "Acceptance tests duplicating low-level unit coverage"
+  ],
+  "whenNot": [
+    "Low-level logic (use unit tests)",
+    "Exploratory work without agreed criteria"
+  ],
+  "myths": [
+    "\"Acceptance tests replace unit tests\" — they sit atop the pyramid, not instead of it"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Product / enterprise software",
+    "Agile / BDD teams",
+    "Contracted delivery"
+  ],
+  "related": [
+    "bdd",
+    "integration-testing",
+    "contract-testing",
+    "unit-testing"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "harness"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "harness"
+    },
+    "cs": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "SpecFlow"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 3,
+      "note": "Cucumber / FitNesse"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "cucumber-rs"
+    }
+  }
+}

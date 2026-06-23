@@ -1,0 +1,72 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "dry",
+  "name": "DRY / KISS / YAGNI",
+  "type": "Design principle",
+  "secondary": [],
+  "domain": "architecture",
+  "family": "Pragmatic principles",
+  "def": "Don’t Repeat Yourself, Keep It Simple, You Aren’t Gonna Need It — three pragmatic maxims.",
+  "problem": "Counter the opposite failure modes: duplication, over-complexity, and speculative features.",
+  "mechanism": "DRY: single source of truth for each piece of knowledge. KISS: prefer the simplest design that works. YAGNI: build only what is needed now.",
+  "benefits": [
+    "Less duplication-driven bugs (DRY)",
+    "Maintainable simplicity (KISS)",
+    "No wasted speculative work (YAGNI)"
+  ],
+  "limits": [
+    "DRY can over-couple unrelated code that merely looks alike",
+    "KISS/YAGNI can under-build for known futures",
+    "Tension between them"
+  ],
+  "failures": [
+    "Forcing DRY on coincidental duplication → wrong abstraction",
+    "YAGNI used to dodge necessary design"
+  ],
+  "whenNot": [
+    "When a known, near-certain requirement justifies upfront design"
+  ],
+  "myths": [
+    "\"DRY means never duplicate anything\" — duplicate knowledge is the enemy, not duplicate text"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "All sectors"
+  ],
+  "complexity": null,
+  "related": [
+    "separation-of-concerns",
+    "single-responsibility",
+    "composition-over-inheritance"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "Medium",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "discipline"
+    },
+    "cpp": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "discipline"
+    },
+    "cs": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "discipline"
+    },
+    "java": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "discipline"
+    },
+    "rust": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "discipline"
+    }
+  }
+}

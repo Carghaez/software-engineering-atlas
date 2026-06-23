@@ -1,0 +1,92 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "fork-join",
+  "name": "Fork-Join Parallelism",
+  "type": "Concurrency model",
+  "secondary": [
+    "Parallel-computing model"
+  ],
+  "aliases": [
+    "Divide-and-conquer parallelism"
+  ],
+  "x": {
+    "coordination": "A task recursively forks subtasks, which run in parallel, then joins (waits) for their results before combining — a structured, nested parallel decomposition.",
+    "hazards": [
+      "Too-fine granularity → scheduling overhead dominates",
+      "Too-coarse → load imbalance / idle cores",
+      "Blocking inside tasks can deadlock the pool",
+      "Oversubscription from nested parallel libraries"
+    ]
+  },
+  "domain": "concurrency",
+  "family": "Structured parallelism",
+  "def": "A structured model where a problem is recursively split into subtasks that run in parallel and are then joined, ideal for divide-and-conquer algorithms.",
+  "problem": "Parallelise recursive divide-and-conquer work while keeping cores busy and the structure easy to reason about.",
+  "mechanism": "fork submits subtasks to a pool (usually with work-stealing deques for load balancing); join waits for them and combines results. A cutoff switches to sequential execution for small subproblems to amortise overhead.",
+  "benefits": [
+    "Natural fit for divide-and-conquer",
+    "Work-stealing gives good load balance",
+    "Structured: lifetimes nest cleanly"
+  ],
+  "limits": [
+    "Granularity tuning is critical",
+    "Synchronisation at joins limits scaling",
+    "Not for irregular streaming workloads"
+  ],
+  "failures": [
+    "Tiny tasks where overhead beats useful work",
+    "Blocking I/O inside compute tasks stalling the pool"
+  ],
+  "whenNot": [
+    "Streaming / pipeline workloads",
+    "Heavily I/O-bound tasks (use async)"
+  ],
+  "myths": [
+    "\"More forking = more speed\" — past a point, overhead and contention dominate"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "HPC / scientific",
+    "Parallel sorting / search",
+    "Data processing"
+  ],
+  "related": [
+    "work-stealing",
+    "thread-pool",
+    "divide-and-conquer",
+    "structured-concurrency",
+    "pipeline-parallelism"
+  ],
+  "competing": [
+    "pipeline-parallelism"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "OpenMP tasks"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "TBB / OpenMP"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "Task / Parallel.Invoke"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "ForkJoinPool"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 3,
+      "note": "rayon join"
+    }
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "graceful-degradation",
+  "name": "Graceful Degradation",
+  "type": "Reliability or resilience practice",
+  "secondary": [
+    "Design principle"
+  ],
+  "domain": "reliability",
+  "family": "Resilience",
+  "def": "Designing a system to keep core function working (with reduced quality) when parts fail.",
+  "problem": "Avoid total outage when a dependency or feature fails — degrade instead of collapse.",
+  "mechanism": "Fallbacks (cached/stale data, default responses, disabled non-critical features) keep the critical path alive when a component is unavailable.",
+  "benefits": [
+    "Partial availability beats total outage",
+    "Better UX under failure",
+    "Contains blast radius"
+  ],
+  "limits": [
+    "Fallbacks add code paths to test",
+    "Stale/degraded data risks",
+    "Hard to define \"core\" function"
+  ],
+  "failures": [
+    "Fallback path itself untested and broken",
+    "Silent degradation users cannot detect"
+  ],
+  "whenNot": [
+    "All-or-nothing correctness domains (some financial ops)"
+  ],
+  "myths": [
+    "\"High availability means never degrading\" — controlled degradation is how you stay up"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Cloud",
+    "Web",
+    "Fintech",
+    "Streaming"
+  ],
+  "complexity": null,
+  "related": [
+    "circuit-breaker",
+    "bulkhead",
+    "feature-flags"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "design"
+    },
+    "cpp": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "design"
+    },
+    "cs": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "Polly fallback"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "Resilience4j fallback"
+    },
+    "rust": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "design + tower"
+    }
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "strategy-pattern",
+  "name": "Strategy / Observer / Factory (GoF)",
+  "type": "Design pattern",
+  "secondary": [],
+  "domain": "architecture",
+  "family": "GoF patterns",
+  "def": "Classic object-oriented design patterns: encapsulating an algorithm (Strategy), notifying dependents (Observer), and abstracting creation (Factory).",
+  "problem": "Capture recurring OO design solutions for varying behaviour, change notification and object creation.",
+  "mechanism": "Strategy injects interchangeable algorithm objects; Observer registers subscribers notified on change; Factory centralises and abstracts instantiation.",
+  "benefits": [
+    "Named, shared vocabulary",
+    "Decoupled, swappable behaviour",
+    "Proven solutions to common problems"
+  ],
+  "limits": [
+    "Over-application adds needless indirection",
+    "Some patterns are language workarounds (now built-in)",
+    "Pattern-itis"
+  ],
+  "failures": [
+    "Patterns applied where a function/closure suffices",
+    "Observer leaks (unremoved subscribers)"
+  ],
+  "whenNot": [
+    "When a first-class function or built-in feature is simpler"
+  ],
+  "myths": [
+    "\"More design patterns = better design\" — many GoF patterns are workarounds for missing language features"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "OO codebases",
+    "Frameworks",
+    "Games"
+  ],
+  "complexity": null,
+  "related": [
+    "composition-over-inheritance",
+    "dependency-injection",
+    "event-driven",
+    "higher-order-functions"
+  ],
+  "competing": [
+    "higher-order-functions"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "fn pointers"
+    },
+    "cpp": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "classic GoF home"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "common; events for Observer"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "classic GoF home"
+    },
+    "rust": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "closures/enums often replace"
+    }
+  }
+}

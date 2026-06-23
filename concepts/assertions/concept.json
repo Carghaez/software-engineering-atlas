@@ -1,0 +1,75 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "assertions",
+  "name": "Assertions & Invariants",
+  "type": "Defensive-programming practice",
+  "secondary": [
+    "Verification technique"
+  ],
+  "domain": "reliability",
+  "family": "Correctness checks",
+  "def": "Runtime checks of conditions that must always hold, documenting and enforcing invariants.",
+  "problem": "Catch impossible states and broken assumptions immediately, near their cause.",
+  "mechanism": "assert(condition) aborts (or throws) if a should-always-be-true condition is false; often compiled out in release builds.",
+  "benefits": [
+    "Surface bugs at their source",
+    "Executable documentation of invariants",
+    "Cheap during development"
+  ],
+  "limits": [
+    "Usually disabled in release (no protection then)",
+    "Not for validating untrusted input",
+    "Side-effectful asserts are a trap"
+  ],
+  "failures": [
+    "Putting effects inside assert (vanish in release)",
+    "Using asserts for user input validation"
+  ],
+  "whenNot": [
+    "Validating external/untrusted input (use real checks)"
+  ],
+  "myths": [
+    "\"Assertions protect production\" — they are typically compiled out in release"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "All sectors",
+    "Safety-critical"
+  ],
+  "complexity": null,
+  "related": [
+    "design-by-contract",
+    "fail-fast",
+    "input-validation"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "assert; static_assert"
+    },
+    "cpp": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "assert; static_assert"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "Debug.Assert"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 1,
+      "note": "assert (off by default)"
+    },
+    "rust": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "assert!/debug_assert!"
+    }
+  }
+}

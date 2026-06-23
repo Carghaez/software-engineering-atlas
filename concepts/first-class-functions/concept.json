@@ -1,0 +1,73 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "first-class-functions",
+  "name": "First-Class Functions",
+  "type": "Language idiom",
+  "secondary": [
+    "Functional abstraction"
+  ],
+  "domain": "fp",
+  "family": "Core FP",
+  "def": "Functions are values: storable in variables, passed as arguments, and returned from functions.",
+  "problem": "Treat behaviour as data so it can be abstracted, composed and injected like any other value.",
+  "mechanism": "The language represents functions as first-class values (function pointers, closures, delegates) usable anywhere a value is.",
+  "benefits": [
+    "Enables higher-order functions & callbacks",
+    "Behaviour parameterisation",
+    "Foundation of FP"
+  ],
+  "limits": [
+    "Indirection cost (dispatch, capture)",
+    "Can obscure control flow"
+  ],
+  "failures": [
+    "Capturing unintended state in closures",
+    "Hot-path indirect calls defeating inlining"
+  ],
+  "whenNot": [
+    "Trivial inline logic"
+  ],
+  "myths": [
+    "\"All languages have first-class functions\" — C has function pointers but not closures"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "All sectors"
+  ],
+  "complexity": null,
+  "related": [
+    "higher-order-functions",
+    "closures",
+    "functional-programming"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "AWKWARD",
+      "id": 1,
+      "note": "fn pointers; no closures"
+    },
+    "cpp": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "lambdas / std::function"
+    },
+    "cs": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "delegates"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "method refs / lambdas"
+    },
+    "rust": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "fn / closures"
+    }
+  }
+}

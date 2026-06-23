@@ -1,0 +1,98 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "monad",
+  "name": "Monad",
+  "type": "Functional abstraction",
+  "secondary": [
+    "Type-system technique"
+  ],
+  "abstractionLevel": "Mathematical abstraction",
+  "x": {
+    "formalRole": "A monad is a monoid in the category of endofunctors: a type constructor M with a unit (return) and a multiplication (join/bind) that structure composition of context-carrying computations.",
+    "compositionRule": "bind : M<A> → (A → M<B>) → M<B>. Kleisli arrows A→M<B> compose associatively, with return as the identity.",
+    "laws": [
+      "Left identity:  return(a) >>= f  ≡  f(a)",
+      "Right identity:  m >>= return  ≡  m",
+      "Associativity:  (m >>= f) >>= g  ≡  m >>= (x → f(x) >>= g)"
+    ],
+    "encoding": "None of C/C++/C#/Java/Rust has higher-kinded types, so each monad (Option, Result, Future, list) implements flatMap / and_then concretely — there is no generic Monad interface spanning them.",
+    "useCases": "Sequencing fallible (Result), optional (Option), asynchronous (Future/Task), stateful or logging computations without hand-threading the context.",
+    "misuseRisks": [
+      "Monadic machinery over straight-line logic adds ceremony with no payoff",
+      "Deep monad-transformer stacks become unreadable",
+      "The “container/burrito” mental model misleads on effects like IO and State"
+    ]
+  },
+  "domain": "fp",
+  "family": "Compositional abstraction",
+  "def": "An abstraction for sequencing context-dependent computations via bind (>>=) and a wrapping unit.",
+  "problem": "Compose computations that carry context (optionality, failure, state, async, I/O) without manual plumbing.",
+  "mechanism": "Provides `of`/`return` to lift a value and `bind`/`flatMap` to chain a value→M<value> function, threading context. Must satisfy left/right identity and associativity laws.",
+  "benefits": [
+    "Uniform composition of effectful pipelines",
+    "Separates effect plumbing from business logic",
+    "Enables do-notation / for-comprehensions"
+  ],
+  "limits": [
+    "High abstraction cost for newcomers",
+    "No HKTs in C/C++/C#/Java/Rust → encodings are clumsy",
+    "Monad transformers compound complexity"
+  ],
+  "failures": [
+    "Over-monadic code obscuring simple logic",
+    "Law-violating \"monads\" breaking refactors"
+  ],
+  "whenNot": [
+    "Simple straight-line logic",
+    "Teams without FP fluency under deadline"
+  ],
+  "myths": [
+    "\"A monad is a container/burrito\" — it is a composition interface; containers are one instance"
+  ],
+  "use": "Both",
+  "sectors": [
+    "Compilers",
+    "Finance",
+    "Functional codebases"
+  ],
+  "complexity": null,
+  "related": [
+    "functor",
+    "option-maybe",
+    "result-either",
+    "functional-programming",
+    "higher-kinded-types"
+  ],
+  "competing": [
+    "result-either"
+  ],
+  "maturity": "Mature",
+  "confidence": "Medium",
+  "langs": {
+    "c": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "no generics; manual"
+    },
+    "cpp": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "no HKT; optional/expected monadic ops"
+    },
+    "cs": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "SelectMany ≈ bind; no HKT"
+    },
+    "java": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "flatMap per type; no HKT"
+    },
+    "rust": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "?-operator, and_then; no HKT"
+    }
+  }
+}

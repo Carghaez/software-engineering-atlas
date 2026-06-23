@@ -1,0 +1,75 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "false-sharing",
+  "name": "False Sharing (avoidance)",
+  "type": "Performance-optimisation technique",
+  "secondary": [
+    "Synchronisation mechanism"
+  ],
+  "domain": "hardware",
+  "family": "Concurrency locality",
+  "def": "When independent variables on the same cache line cause cores to ping-pong ownership, killing scaling.",
+  "problem": "Diagnose and remove silent multicore slowdowns from unrelated data sharing a cache line.",
+  "mechanism": "Cache coherence works at cache-line granularity; writes by different cores to the same line invalidate each other. Fix by padding/aligning hot per-thread data to separate lines.",
+  "benefits": [
+    "Removing it can multiply throughput",
+    "Cheap fix (padding/alignment) once found"
+  ],
+  "limits": [
+    "Invisible without profiling/HW counters",
+    "Padding wastes memory",
+    "Hard to spot in shared structures"
+  ],
+  "failures": [
+    "Per-thread counters packed in one array",
+    "Lock + protected data on the same line"
+  ],
+  "whenNot": [
+    "Single-threaded code (irrelevant)"
+  ],
+  "myths": [
+    "\"A correctness bug\" — it is purely a performance pathology"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "HPC",
+    "Databases",
+    "Concurrent systems"
+  ],
+  "complexity": null,
+  "related": [
+    "lock-free",
+    "ring-buffer",
+    "cache-blocking"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "alignas / padding"
+    },
+    "cpp": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "alignas(64); hardware_destructive_*"
+    },
+    "cs": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "StructLayout padding"
+    },
+    "java": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "@Contended"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "crossbeam CachePadded"
+    }
+  }
+}

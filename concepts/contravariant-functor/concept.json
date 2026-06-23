@@ -1,0 +1,87 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "contravariant-functor",
+  "name": "Contravariant Functor",
+  "type": "Functional abstraction",
+  "secondary": [],
+  "aliases": [
+    "Contravariant"
+  ],
+  "x": {
+    "formalRole": "A functor that maps morphisms backwards: it can pre-process inputs, not transform outputs.",
+    "compositionRule": "contramap : (b → a) → F a → F b — adapt an F a to consume bs by converting b→a first.",
+    "laws": [
+      "contramap id = id",
+      "contramap (g∘h) = contramap h ∘ contramap g (order reverses)"
+    ],
+    "encoding": "Instances for predicates (a→Bool), comparators, serialisers/encoders, and consumers. Common in ordering and codec libraries.",
+    "useCases": "Reusing a comparator/serialiser for a new type by supplying a projection; adapting consumers to new inputs.",
+    "misuseRisks": [
+      "Confusing contramap with map (direction matters)",
+      "Forcing it where a plain adapter function is clearer"
+    ]
+  },
+  "domain": "fp",
+  "family": "Algebraic composition",
+  "def": "A functor over \"consumers\" of values: instead of transforming outputs (map), it adapts inputs by composing a function on the way in (contramap).",
+  "problem": "Reuse something that consumes an A (a comparator, predicate, encoder) to instead consume a B, given B→A.",
+  "mechanism": "Provides contramap : (b→a) → F a → F b. Because F uses its parameter in negative position, mapping composes in reverse order.",
+  "benefits": [
+    "Reuse consumers/encoders across types",
+    "Captures the \"input adapter\" pattern lawfully",
+    "Pairs with covariant functors for profunctors"
+  ],
+  "limits": [
+    "Counter-intuitive reversed composition",
+    "Only applies to input-consuming types"
+  ],
+  "failures": [
+    "Applying map where contramap is required (type error or wrong semantics)"
+  ],
+  "whenNot": [
+    "Output-producing containers (use a normal functor)"
+  ],
+  "myths": [
+    "\"All functors map outputs\" — contravariant ones map inputs"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Serialisation libraries",
+    "Ordering / comparison",
+    "Validation"
+  ],
+  "related": [
+    "functor",
+    "bifunctor"
+  ],
+  "competing": [],
+  "maturity": "Established",
+  "confidence": "Medium",
+  "langs": {
+    "c": {
+      "lvl": "UNSUITABLE",
+      "id": 0,
+      "note": "n/a"
+    },
+    "cpp": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "comparator adapters"
+    },
+    "cs": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "Comparer.Create / projections"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "Comparator.comparing"
+    },
+    "rust": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "key fns / closures"
+    }
+  }
+}

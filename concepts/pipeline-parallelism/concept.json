@@ -1,0 +1,94 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "pipeline-parallelism",
+  "name": "Pipeline Parallelism",
+  "type": "Concurrency model",
+  "secondary": [
+    "Parallel-computing model"
+  ],
+  "aliases": [
+    "Stage parallelism",
+    "Assembly-line parallelism"
+  ],
+  "x": {
+    "coordination": "Work is split into ordered stages connected by queues; each stage runs concurrently on different items, like an assembly line. Throughput is set by the slowest stage.",
+    "hazards": [
+      "Slowest stage bottlenecks the whole pipeline",
+      "Bounded queues need backpressure; unbounded ones leak memory",
+      "Ordering / latency vs throughput trade-offs",
+      "Stage imbalance wastes workers"
+    ]
+  },
+  "domain": "concurrency",
+  "family": "Parallel structure",
+  "def": "A parallel pattern that divides processing into a sequence of stages, each running concurrently on a stream of items, so different items occupy different stages at once.",
+  "problem": "A long sequential transformation can overlap in time when many items flow through it — increasing throughput without parallelising a single item.",
+  "mechanism": "Stages are connected by (usually bounded) queues; stage k processes item i while stage k−1 processes item i+1. Steady-state throughput equals 1/(slowest stage time); balancing and backpressure keep it efficient.",
+  "benefits": [
+    "Overlaps heterogeneous work for high throughput",
+    "Each stage can scale independently",
+    "Maps to CPU cores, GPU streams, or services"
+  ],
+  "limits": [
+    "Throughput bounded by the slowest stage",
+    "Per-item latency unchanged (or worse)",
+    "Buffering and ordering complexity"
+  ],
+  "failures": [
+    "Unbalanced stages starving downstream workers",
+    "Unbounded queues → memory blow-up under load"
+  ],
+  "whenNot": [
+    "A single item must be sped up (use data parallelism)",
+    "Few items (pipeline fill/drain dominates)"
+  ],
+  "myths": [
+    "\"Pipelining lowers latency\" — it raises throughput; latency may rise"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Media / codecs",
+    "Data processing",
+    "Networking",
+    "GPU rendering"
+  ],
+  "related": [
+    "fork-join",
+    "work-stealing",
+    "backpressure",
+    "stream-processing",
+    "spmd"
+  ],
+  "competing": [
+    "fork-join"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "threads + queues"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "TBB pipeline"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "TPL Dataflow"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "queues / Disruptor"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "channels / rayon"
+    }
+  }
+}

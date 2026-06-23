@@ -1,0 +1,107 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "sat-solving",
+  "name": "SAT / Constraint Solving",
+  "type": "Algorithm",
+  "secondary": [
+    "Algorithmic paradigm"
+  ],
+  "aliases": [
+    "Boolean satisfiability",
+    "CDCL",
+    "SMT (extended)"
+  ],
+  "x": {
+    "io": "A set of Boolean (or richer) constraints → a satisfying assignment, or a proof of unsatisfiability.",
+    "preconditions": [
+      "Problem expressible as clauses / constraints",
+      "Willingness to encode the domain into CNF or a theory"
+    ],
+    "correctness": [
+      "Sound and complete: returns SAT with a model or UNSAT with a refutation",
+      "Modern solvers are decision procedures, not heuristics"
+    ],
+    "stability": "Deterministic given fixed solver settings; restarts/heuristics make timing vary.",
+    "parallelisable": "Portfolio and clause-sharing parallel solvers exist; not trivially linear.",
+    "dataStructures": [
+      "implication graph",
+      "watched literals",
+      "conflict clause database"
+    ]
+  },
+  "domain": "algos",
+  "family": "Search with learning",
+  "def": "The engine behind solving NP-complete decision problems: modern CDCL SAT (and SMT) solvers decide satisfiability of huge constraint sets by learning from conflicts.",
+  "problem": "Decide whether a large set of logical constraints can be satisfied — verification, planning, scheduling, configuration.",
+  "mechanism": "Conflict-Driven Clause Learning: assign variables, propagate implications (unit propagation via watched literals), and on conflict, analyse it to learn a new clause and backjump non-chronologically. Restarts and activity-based heuristics (VSIDS) tame the search.",
+  "benefits": [
+    "Decides industrial instances with millions of clauses",
+    "Sound + complete (model or UNSAT proof)",
+    "General: many problems reduce to SAT/SMT"
+  ],
+  "limits": [
+    "Worst case exponential (NP-complete)",
+    "Encoding quality dominates performance",
+    "Opaque models; hard to predict runtime"
+  ],
+  "failures": [
+    "Naive encodings blow up clause count",
+    "Treating a timeout as UNSAT"
+  ],
+  "whenNot": [
+    "A polynomial special-case algorithm exists",
+    "Optimisation (use ILP / MaxSAT) rather than pure decision"
+  ],
+  "myths": [
+    "\"NP-complete means hopeless in practice\" — CDCL solvers routinely crush real instances"
+  ],
+  "use": "Indirect",
+  "sectors": [
+    "Formal verification",
+    "EDA / chip design",
+    "Planning",
+    "Package managers"
+  ],
+  "complexity": {
+    "Worst": "Exponential (NP-complete)",
+    "Practice": "Often feasible via CDCL"
+  },
+  "related": [
+    "backtracking",
+    "branch-and-bound",
+    "model-checking",
+    "symbolic-execution"
+  ],
+  "competing": [
+    "branch-and-bound"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "MiniSat / Kissat"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 3,
+      "note": "Z3 / CaDiCaL"
+    },
+    "cs": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "Z3 bindings"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "Sat4j"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "varisat / splr"
+    }
+  }
+}

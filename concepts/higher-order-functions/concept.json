@@ -1,0 +1,73 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "higher-order-functions",
+  "name": "Higher-Order Functions",
+  "type": "Functional abstraction",
+  "secondary": [
+    "Language idiom"
+  ],
+  "domain": "fp",
+  "family": "Core FP",
+  "def": "Functions that take or return other functions.",
+  "problem": "Abstract over behaviour, not just data, to remove duplicated control structure.",
+  "mechanism": "Functions are first-class values: passed as arguments (map/filter/sort comparators), returned, and captured in closures.",
+  "benefits": [
+    "Powerful reuse of control patterns",
+    "Enables map/filter/fold pipelines",
+    "Strategy injection without class ceremony"
+  ],
+  "limits": [
+    "Indirection can obscure control flow",
+    "Closure allocation/capture costs",
+    "Stack traces less obvious"
+  ],
+  "failures": [
+    "Accidental capture of large/mutable state",
+    "Hot-loop closures defeating inlining"
+  ],
+  "whenNot": [
+    "Trivial inline logic where a loop is clearer"
+  ],
+  "myths": [
+    "\"Lambdas are free\" — capture and dispatch can cost in hot paths"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "All sectors"
+  ],
+  "complexity": null,
+  "related": [
+    "functional-programming",
+    "pure-functions"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "fn pointers + void* ctx"
+    },
+    "cpp": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "lambdas, std::function"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "delegates, Func<>"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "functional interfaces"
+    },
+    "rust": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "Fn/FnMut/FnOnce closures"
+    }
+  }
+}

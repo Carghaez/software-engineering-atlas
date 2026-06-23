@@ -1,0 +1,77 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "compute-shaders",
+  "name": "Compute Shaders / GPGPU Kernels",
+  "type": "Hardware-execution model",
+  "secondary": [
+    "Parallel-computing model"
+  ],
+  "domain": "hardware",
+  "family": "GPU",
+  "def": "General-purpose programs run on the GPU outside the graphics pipeline, over thread groups.",
+  "problem": "Run massively-parallel non-graphics compute on the GPU from graphics or compute APIs.",
+  "mechanism": "Kernels execute over a grid of work-groups; threads share fast group-local memory and synchronise within a group; the API dispatches and manages buffers.",
+  "benefits": [
+    "Massive parallel throughput",
+    "Shared local memory for cooperation",
+    "Integrates with rendering pipelines"
+  ],
+  "limits": [
+    "Host/device data transfer cost",
+    "Divergence and occupancy tuning",
+    "API/portability fragmentation"
+  ],
+  "failures": [
+    "Group-shared memory race/sync bugs",
+    "Poor occupancy from register/LDS pressure"
+  ],
+  "whenNot": [
+    "Small/irregular/latency-critical tasks"
+  ],
+  "myths": [
+    "\"Compute shaders are only for graphics\" — used for physics, ML, simulation, crypto"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Games",
+    "ML",
+    "Scientific computing",
+    "Media"
+  ],
+  "complexity": null,
+  "related": [
+    "gpu-computing",
+    "simd",
+    "spmd"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "OpenCL / CUDA"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 3,
+      "note": "CUDA / HLSL / GLSL / SYCL"
+    },
+    "cs": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "compute shaders (Unity)"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "LWJGL / bindings"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "wgpu / rust-gpu"
+    }
+  }
+}

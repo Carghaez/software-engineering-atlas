@@ -1,0 +1,90 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "coordinated-omission",
+  "name": "Coordinated Omission",
+  "type": "Debugging or observability technique",
+  "secondary": [],
+  "aliases": [
+    "Latency measurement bias"
+  ],
+  "x": {
+    "defectClass": "Systematically under-reported tail latency in load tests and benchmarks.",
+    "oracle": "A correct latency model that counts the latency every request *should* have experienced, including requests delayed or never sent during a stall.",
+    "automationLevel": "High — corrected tools (HdrHistogram, wrk2, Gatling) compensate automatically.",
+    "blindSpots": [
+      "Average and even p99 can look fine while real tail latency is orders of magnitude worse",
+      "Closed-model load generators hide it by design"
+    ],
+    "cost": "Low — mostly a matter of using corrected tools and open-model load.",
+    "lifecycleStage": "Benchmarking / performance testing / SLO validation."
+  },
+  "domain": "observability",
+  "family": "Measurement pitfall",
+  "def": "A pervasive benchmarking error where a load generator that waits for slow responses stops issuing requests during a stall, so the latency of the requests it \"omitted\" is never recorded — drastically understating tail latency.",
+  "problem": "Closed-loop load tests that send the next request only after the previous returns hide exactly the latency spikes that hurt users.",
+  "mechanism": "When the system stalls, a coordinated (synchronous) generator pauses too, omitting the requests that should have been sent — and their long waits. Correction: use an open-model generator (fixed send rate) or back-fill the missing samples (e.g. HdrHistogram / wrk2) so the recorded distribution reflects what users would have seen.",
+  "benefits": [
+    "Naming and correcting it reveals true tail latency",
+    "Aligns benchmarks with user-perceived behaviour",
+    "Cheap to fix with the right tools"
+  ],
+  "limits": [
+    "Awareness problem more than a technique",
+    "Correction assumes an intended request rate",
+    "Does not fix the underlying latency, only the measurement"
+  ],
+  "failures": [
+    "Reporting p99 from a closed-model tool as if it were real",
+    "Trusting averages that mask multi-second stalls",
+    "Capacity planning on omission-biased numbers"
+  ],
+  "whenNot": [
+    "n/a — always account for it when measuring latency under load"
+  ],
+  "myths": [
+    "\"Our p99 is 5 ms\" — under coordinated omission the true p99 can be seconds"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Performance engineering",
+    "Low-latency systems",
+    "SRE / capacity planning"
+  ],
+  "related": [
+    "benchmarking",
+    "load-testing",
+    "slo-sli",
+    "metrics",
+    "profiling"
+  ],
+  "competing": [],
+  "maturity": "Established",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "HdrHistogram_c"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "HdrHistogram"
+    },
+    "cs": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "HdrHistogram.NET"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 3,
+      "note": "HdrHistogram / wrk2"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "hdrhistogram crate"
+    }
+  }
+}

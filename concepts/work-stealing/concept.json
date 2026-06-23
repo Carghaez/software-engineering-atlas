@@ -1,0 +1,76 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "work-stealing",
+  "name": "Work-Stealing Scheduler",
+  "type": "Parallel-computing model",
+  "secondary": [
+    "Performance-optimisation technique"
+  ],
+  "domain": "concurrency",
+  "family": "Task parallelism",
+  "def": "A scheduler where idle worker threads steal tasks from busy workers’ queues to balance load.",
+  "problem": "Keep all cores busy on irregular, dynamically-generated task graphs without central bottlenecks.",
+  "mechanism": "Each worker has a double-ended queue; it pushes/pops its own end (LIFO, cache-warm) and steals from the other end of victims when idle.",
+  "benefits": [
+    "Automatic load balancing",
+    "Good locality for own tasks",
+    "Scales to many cores"
+  ],
+  "limits": [
+    "Steal contention and overhead",
+    "Poor for fine-grained or imbalanced tasks",
+    "Non-deterministic ordering"
+  ],
+  "failures": [
+    "Task granularity too small → overhead dominates",
+    "Unbounded task spawning → memory blow-up"
+  ],
+  "whenNot": [
+    "Regular, evenly-divisible data parallelism (simple partitioning wins)"
+  ],
+  "myths": [
+    "\"Always optimal\" — overhead can exceed benefit for tiny tasks"
+  ],
+  "use": "Indirect",
+  "sectors": [
+    "Runtimes",
+    "Game engines",
+    "HPC"
+  ],
+  "complexity": null,
+  "related": [
+    "threads",
+    "async-await",
+    "divide-and-conquer"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "OpenMP tasks / TBB"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "Intel TBB"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "TPL / ThreadPool"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "ForkJoinPool"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 3,
+      "note": "rayon; tokio"
+    }
+  }
+}

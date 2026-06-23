@@ -1,0 +1,93 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "trampolining",
+  "name": "Trampolining",
+  "type": "Functional abstraction",
+  "secondary": [
+    "Performance-optimisation technique"
+  ],
+  "aliases": [
+    "Trampoline"
+  ],
+  "x": {
+    "formalRole": "Reifies recursion as data so a flat loop (\"trampoline\") drives it, converting stack recursion into heap-bounded iteration.",
+    "compositionRule": "A step returns either Done(value) or More(thunk); the trampoline loops, calling thunks until Done.",
+    "laws": [
+      "Preserves the semantics of the original recursion; only the evaluation strategy changes"
+    ],
+    "encoding": "A sum type Done|More plus a driver loop. Manual in most languages; needed where there is no tail-call optimisation.",
+    "useCases": "Deep / mutual recursion in languages without TCO (Java, C#) to avoid stack overflow.",
+    "misuseRisks": [
+      "Adding trampolines where TCO or a plain loop already works",
+      "Allocation overhead from thunks in hot paths"
+    ]
+  },
+  "domain": "fp",
+  "family": "Evaluation strategy",
+  "def": "A technique that turns deep or mutual recursion into a heap-driven loop, avoiding stack overflow in languages without guaranteed tail-call optimisation.",
+  "problem": "Recursive (especially mutually-recursive) algorithms blow the call stack where the runtime does not eliminate tail calls.",
+  "mechanism": "Each recursive step returns a value (Done) or a thunk describing the next step (More) instead of calling itself. A driver loop repeatedly invokes returned thunks, keeping stack depth constant at the cost of heap thunks.",
+  "benefits": [
+    "Constant stack usage for deep recursion",
+    "Enables mutual recursion safely",
+    "Pure / explicit control flow"
+  ],
+  "limits": [
+    "Thunk allocation overhead",
+    "More verbose than direct recursion",
+    "Slower than native TCO when available"
+  ],
+  "failures": [
+    "Forgetting to return More (re-introducing stack growth)",
+    "Using in hot loops where allocation dominates"
+  ],
+  "whenNot": [
+    "Languages/compilers with guaranteed TCO (use tail recursion)",
+    "Shallow recursion or simple loops"
+  ],
+  "myths": [
+    "\"Functional code can’t overflow the stack\" — without TCO it can; trampolines fix it"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "JVM / .NET functional code",
+    "Interpreters",
+    "Parser combinators"
+  ],
+  "related": [
+    "tail-call-optimization",
+    "continuation-passing-style"
+  ],
+  "competing": [
+    "tail-call-optimization"
+  ],
+  "maturity": "Established",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "manual"
+    },
+    "cpp": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "manual"
+    },
+    "cs": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "common (no TCO)"
+    },
+    "java": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "common (no TCO)"
+    },
+    "rust": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "loop / no guaranteed TCO"
+    }
+  }
+}

@@ -1,0 +1,76 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "lazy-evaluation",
+  "name": "Lazy Evaluation",
+  "type": "Functional abstraction",
+  "secondary": [
+    "Performance-optimisation technique"
+  ],
+  "domain": "fp",
+  "family": "Evaluation strategy",
+  "def": "Defers computing a value until it is actually needed, and memoises the result.",
+  "problem": "Avoid wasted work and enable infinite/large structures by computing on demand.",
+  "mechanism": "Expressions become thunks evaluated on first use; results cached. Enables infinite sequences and short-circuiting.",
+  "benefits": [
+    "Skips unneeded work",
+    "Infinite/streaming sequences",
+    "Decouples definition from consumption"
+  ],
+  "limits": [
+    "Space leaks from retained thunks",
+    "Unpredictable timing of evaluation/effects",
+    "Debugging when-it-runs is hard"
+  ],
+  "failures": [
+    "Thunk build-up → memory blow-up",
+    "Effects firing at surprising times"
+  ],
+  "whenNot": [
+    "Strict, predictable timing required",
+    "Effectful code where order matters"
+  ],
+  "myths": [
+    "\"Lazy is always faster\" — thunk overhead can lose for always-needed values"
+  ],
+  "use": "Both",
+  "sectors": [
+    "Data pipelines",
+    "Functional langs",
+    "Iterators/streams"
+  ],
+  "complexity": null,
+  "related": [
+    "higher-order-functions",
+    "functional-programming"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 0,
+      "note": "manual thunks"
+    },
+    "cpp": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "ranges (lazy views)"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "IEnumerable, Lazy<T>"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "Stream (lazy), Supplier"
+    },
+    "rust": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "Iterator adapters lazy"
+    }
+  }
+}

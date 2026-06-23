@@ -1,0 +1,79 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "kruskal-mst",
+  "name": "Minimum Spanning Tree (Kruskal/Prim)",
+  "type": "Algorithm",
+  "secondary": [
+    "Greedy algorithm",
+    "Graph algorithm"
+  ],
+  "domain": "algos",
+  "family": "Graph / optimisation",
+  "def": "Finds a minimum-total-weight set of edges connecting all nodes of a weighted graph.",
+  "problem": "Connect all nodes as cheaply as possible — network/grid/cluster design.",
+  "mechanism": "Kruskal greedily adds the cheapest edge that does not form a cycle (using union-find); Prim grows a tree from a node via a priority queue.",
+  "benefits": [
+    "Provably optimal (greedy on a matroid)",
+    "O(E log V)",
+    "Two complementary strategies (sparse vs dense)"
+  ],
+  "limits": [
+    "Undirected graphs only",
+    "Ties give non-unique trees"
+  ],
+  "failures": [
+    "Cycle check errors (Kruskal) producing invalid trees",
+    "Wrong on directed graphs"
+  ],
+  "whenNot": [
+    "Directed graphs (use arborescence algorithms)"
+  ],
+  "myths": [
+    "\"Kruskal and Prim give different trees\" — both are optimal; weights tie-break the shape"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Network design",
+    "Clustering",
+    "Circuit layout"
+  ],
+  "complexity": {
+    "Time": "O(E log V)",
+    "Space": "O(V+E)"
+  },
+  "related": [
+    "union-find",
+    "dijkstra",
+    "greedy"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "manual + union-find"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "Boost.Graph"
+    },
+    "cs": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "manual"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "JGraphT"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "petgraph"
+    }
+  }
+}

@@ -1,0 +1,80 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "binary-search",
+  "name": "Binary Search",
+  "type": "Algorithm",
+  "secondary": [
+    "Decrease and conquer"
+  ],
+  "domain": "algos",
+  "family": "Searching",
+  "def": "Finds a target in a sorted sequence by halving the search interval each step.",
+  "problem": "Locate an element (or insertion point) in O(log n) over sorted, randomly-accessible data.",
+  "mechanism": "Compare against the midpoint and discard the half that cannot contain the target; repeat until found or the interval is empty.",
+  "benefits": [
+    "O(log n) with trivial memory",
+    "Generalises to lower_bound / predicate search",
+    "Branch-predictable variants exist"
+  ],
+  "limits": [
+    "Requires sorted, random-access data",
+    "Poor locality on huge arrays vs. interpolation/B-tree",
+    "Off-by-one and overflow bugs are classic"
+  ],
+  "failures": [
+    "mid = (lo+hi)/2 integer overflow",
+    "Incorrect boundary updates causing infinite loops"
+  ],
+  "whenNot": [
+    "Unsorted data; linked structures",
+    "When a hash lookup suffices and order is irrelevant"
+  ],
+  "myths": [
+    "\"Trivial to get right\" — boundary handling is famously error-prone"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "All sectors"
+  ],
+  "complexity": {
+    "Best": "O(1)",
+    "Average": "O(log n)",
+    "Worst": "O(log n)",
+    "Space": "O(1)"
+  },
+  "related": [
+    "quicksort"
+  ],
+  "competing": [
+    "hash-table"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "bsearch"
+    },
+    "cpp": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "lower_bound/binary_search"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "Array.BinarySearch"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "Collections.binarySearch"
+    },
+    "rust": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "slice::binary_search"
+    }
+  }
+}

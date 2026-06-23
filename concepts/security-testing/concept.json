@@ -1,0 +1,96 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "security-testing",
+  "name": "Security Testing",
+  "type": "Testing technique",
+  "secondary": [
+    "Security practice"
+  ],
+  "aliases": [
+    "AppSec testing",
+    "Penetration testing (subset)",
+    "SAST / DAST"
+  ],
+  "x": {
+    "defectClass": "Exploitable vulnerabilities: injection, broken auth/access control, misconfiguration, vulnerable dependencies, secrets exposure.",
+    "oracle": "Security requirements / threat model and known vulnerability classes (e.g. OWASP ASVS, CWE) — a finding is a violated control or exploitable flaw.",
+    "automationLevel": "Mixed — SAST/DAST/SCA automate broadly; manual pentest finds logic/auth flaws tools miss.",
+    "blindSpots": [
+      "Tools miss business-logic / authz flaws",
+      "Coverage limited to known vulnerability classes",
+      "False positives drown signal if untuned"
+    ],
+    "cost": "Medium–high — tooling plus expert manual assessment.",
+    "lifecycleStage": "Across the SDLC: SAST at build, DAST/pentest pre-release, continuous SCA & DAST in CI."
+  },
+  "domain": "testing",
+  "family": "Security verification",
+  "def": "Testing aimed at finding exploitable weaknesses — combining static analysis (SAST), dynamic scanning (DAST), dependency scanning (SCA), and manual penetration testing against a threat model.",
+  "problem": "Functional tests confirm features work; they do not reveal how the system can be abused or attacked.",
+  "mechanism": "Layered: SAST inspects source for unsafe patterns, DAST attacks the running app, SCA flags vulnerable dependencies, and human pentesters probe auth, access control, and business logic. Findings are triaged against a threat model and standards like OWASP ASVS.",
+  "benefits": [
+    "Surfaces vulnerabilities before attackers do",
+    "Maps coverage to standards (ASVS/CWE)",
+    "Combines automation breadth with expert depth"
+  ],
+  "limits": [
+    "Automated tools miss logic/authz flaws",
+    "High false-positive noise if untuned",
+    "Manual testing is expensive and point-in-time"
+  ],
+  "failures": [
+    "Treating a clean scan as \"secure\"",
+    "Ignoring business-logic and authorization flaws",
+    "Alert fatigue from unfiltered findings"
+  ],
+  "whenNot": [
+    "Never skip for internet-facing / sensitive systems",
+    "As the only control (it complements secure design)"
+  ],
+  "myths": [
+    "\"A passing scanner means the app is secure\" — scanners cover known classes, not logic or design flaws"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Web / cloud",
+    "Fintech / healthcare",
+    "Any internet-facing system"
+  ],
+  "related": [
+    "fuzz-testing",
+    "threat-modeling",
+    "static-analysis",
+    "input-validation",
+    "supply-chain-security"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "sanitizers / fuzz / SAST"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "sanitizers / SAST"
+    },
+    "cs": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "Roslyn analyzers / DAST"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 3,
+      "note": "SpotBugs / OWASP tools"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "cargo-audit / fuzz"
+    }
+  }
+}

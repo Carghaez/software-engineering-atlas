@@ -1,0 +1,76 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "facade",
+  "name": "Facade",
+  "type": "Design pattern",
+  "secondary": [],
+  "domain": "architecture",
+  "family": "GoF · Structural",
+  "def": "Provides a simplified, unified interface over a complex subsystem.",
+  "problem": "Shield clients from the complexity and coupling of a large subsystem.",
+  "mechanism": "A facade object exposes a small high-level API that orchestrates the subsystem’s parts internally.",
+  "benefits": [
+    "Simpler client API",
+    "Decouples clients from subsystem internals",
+    "Easy entry point"
+  ],
+  "limits": [
+    "Can become a god object",
+    "May hide needed flexibility",
+    "Another layer"
+  ],
+  "failures": [
+    "Facade growing into a bloated mediator",
+    "Leaking subsystem types through it"
+  ],
+  "whenNot": [
+    "Small subsystems that need no simplification"
+  ],
+  "myths": [
+    "\"Facade reduces coupling everywhere\" — it can centralise coupling into the facade"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Libraries",
+    "SDKs",
+    "Service layers"
+  ],
+  "complexity": null,
+  "related": [
+    "adapter",
+    "mvc",
+    "layered-architecture"
+  ],
+  "competing": [
+    "adapter"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "api module"
+    },
+    "cpp": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "wrapper class"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "service class"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "service facade"
+    },
+    "rust": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "module API"
+    }
+  }
+}

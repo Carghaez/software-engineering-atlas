@@ -1,0 +1,92 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "law-of-demeter",
+  "name": "Law of Demeter",
+  "type": "Design principle",
+  "secondary": [],
+  "aliases": [
+    "Principle of least knowledge",
+    "Don’t talk to strangers"
+  ],
+  "x": {
+    "forces": [
+      "Coupling to a collaborator’s internal structure ↔ convenience of reaching through it",
+      "Encapsulation ↔ chatty navigation",
+      "Stability of interfaces ↔ deep object graphs"
+    ],
+    "structure": "A method should only call methods on: itself, its parameters, objects it creates, and its direct fields — not objects returned by those (no a.getB().getC().doX()).",
+    "antiPatterns": [
+      "Train-wreck chains (a.b().c().d())",
+      "Feature envy reaching into another object’s internals",
+      "Exposing internal collaborators via getters"
+    ],
+    "scale": "Method / class level; an object-design heuristic, not an architecture rule."
+  },
+  "domain": "architecture",
+  "family": "Coupling principle",
+  "def": "A coupling guideline: an object should talk only to its immediate collaborators, not reach through them into their internals.",
+  "problem": "Chained navigation (a.getB().getC()...) couples callers to the internal structure of unrelated objects, so distant changes ripple widely.",
+  "mechanism": "Restrict each method’s calls to \"close\" objects (self, parameters, created objects, direct fields). Where you would reach through, add a delegating method to the collaborator instead (\"tell, don’t ask\").",
+  "benefits": [
+    "Lower structural coupling",
+    "Changes stay local behind interfaces",
+    "Easier mocking / testing"
+  ],
+  "limits": [
+    "Can spawn many delegating wrapper methods",
+    "Misapplied to data/DTOs and fluent builders",
+    "A heuristic, not a hard law"
+  ],
+  "failures": [
+    "\"Law\" treated literally, wrapping trivial data access",
+    "Fluent / builder APIs flagged as violations"
+  ],
+  "whenNot": [
+    "Plain data structures / DTOs",
+    "Intentional fluent interfaces and builders"
+  ],
+  "myths": [
+    "\"Any method chain violates Demeter\" — chains on the same fluent object or on data are fine"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "OO codebases",
+    "Domain modelling"
+  ],
+  "related": [
+    "encapsulation",
+    "information-hiding",
+    "separation-of-concerns",
+    "composition-over-inheritance"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "discipline"
+    },
+    "cpp": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "discipline"
+    },
+    "cs": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "discipline"
+    },
+    "java": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "discipline"
+    },
+    "rust": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "discipline"
+    }
+  }
+}

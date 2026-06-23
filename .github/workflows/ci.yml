@@ -1,0 +1,22 @@
+name: CI
+
+# Runs the test suite (data integrity, build output, index/Atlas parity) on every
+# push and pull request. No dependencies to install — Node's built-in test runner.
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Run tests
+        run: node --test

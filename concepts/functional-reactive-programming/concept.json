@@ -1,0 +1,99 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "functional-reactive-programming",
+  "name": "Functional Reactive Programming (FRP)",
+  "type": "Programming paradigm",
+  "secondary": [
+    "Programming style"
+  ],
+  "aliases": [
+    "FRP"
+  ],
+  "x": {
+    "corePrinciples": [
+      "Time-varying values (behaviours / signals) are first-class",
+      "Events are discrete streams",
+      "Composition by pure transformation, not callbacks"
+    ],
+    "controlDataFlow": "Declarative dataflow: you describe how outputs derive from time-varying inputs; the runtime propagates changes.",
+    "preferredAbstractions": [
+      "signals / behaviours",
+      "event streams",
+      "map / filter / fold over streams",
+      "combinators (merge, switch)"
+    ],
+    "suitableProjects": "UIs, animation, simulations, and anything modelling values that change continuously or discretely over time."
+  },
+  "domain": "paradigms",
+  "family": "Declarative / dataflow",
+  "def": "A declarative paradigm that models time-varying values and event streams as first-class, composable values transformed by pure functions.",
+  "problem": "Callback-driven state updates become tangled (\"callback hell\") and hard to reason about as interactions grow.",
+  "mechanism": "Represents inputs as continuous behaviours and discrete event streams; outputs are pure functions of them. A propagation engine recomputes dependents when sources change, ideally glitch-free.",
+  "benefits": [
+    "Declarative, composable handling of change",
+    "Eliminates ad-hoc callback state machines",
+    "Strong reasoning about data dependencies"
+  ],
+  "limits": [
+    "Learning curve; leaky abstractions in big graphs",
+    "Glitches / ordering issues in naive implementations",
+    "Debugging propagation can be opaque"
+  ],
+  "failures": [
+    "Memory leaks from un-disposed subscriptions",
+    "Confusing FRP with general reactive (Rx) libraries"
+  ],
+  "whenNot": [
+    "Simple, mostly-static UIs",
+    "Hard real-time where propagation cost is unpredictable"
+  ],
+  "myths": [
+    "\"FRP = reactive programming\" — classical FRP has precise continuous-time semantics; most Rx libraries are reactive but not FRP"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "UI / front-end",
+    "Games",
+    "Robotics / control",
+    "Simulation"
+  ],
+  "related": [
+    "reactive-programming",
+    "dataflow-programming",
+    "event-driven",
+    "higher-order-functions"
+  ],
+  "competing": [
+    "event-driven",
+    "reactive-programming"
+  ],
+  "maturity": "Mature",
+  "confidence": "Medium",
+  "langs": {
+    "c": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "rare"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "libs"
+    },
+    "cs": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "Rx.NET (reactive)"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "RxJava (reactive)"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "crates"
+    }
+  }
+}

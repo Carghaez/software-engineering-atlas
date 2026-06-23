@@ -1,0 +1,79 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "memoisation",
+  "name": "Memoisation",
+  "type": "Performance-optimisation technique",
+  "secondary": [
+    "Algorithmic paradigm"
+  ],
+  "domain": "algos",
+  "family": "Caching / optimisation",
+  "def": "Caching a function’s results by argument so repeated calls return instantly.",
+  "problem": "Eliminate recomputation of pure functions with overlapping inputs (top-down DP).",
+  "mechanism": "Wrap a (pure) function in a cache keyed by arguments; on a hit return the stored result, otherwise compute, store, and return.",
+  "benefits": [
+    "Turns exponential recursion into polynomial",
+    "Transparent (same interface)",
+    "Top-down, only computes needed states"
+  ],
+  "limits": [
+    "Only sound for pure functions",
+    "Cache memory growth; eviction needed",
+    "Key construction/equality cost"
+  ],
+  "failures": [
+    "Memoising impure functions → stale/wrong results",
+    "Unbounded cache → memory leak"
+  ],
+  "whenNot": [
+    "Inputs rarely repeat; non-deterministic functions"
+  ],
+  "myths": [
+    "\"Memoisation = caching = DP\" — related but distinct: memoisation is top-down caching of a pure function"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "All sectors",
+    "Compilers",
+    "UI (React useMemo)"
+  ],
+  "complexity": {
+    "Note": "Trades O(states) space for avoided recomputation"
+  },
+  "related": [
+    "dynamic-programming",
+    "pure-functions"
+  ],
+  "competing": [
+    "dynamic-programming"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "manual table"
+    },
+    "cpp": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "map cache"
+    },
+    "cs": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "Dictionary / Lazy<T>"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "computeIfAbsent"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "cached crate"
+    }
+  }
+}

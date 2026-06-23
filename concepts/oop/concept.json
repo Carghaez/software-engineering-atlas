@@ -1,0 +1,79 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "oop",
+  "name": "Object-Oriented Programming",
+  "type": "Programming paradigm",
+  "secondary": [],
+  "domain": "paradigms",
+  "family": "Imperative descendant",
+  "def": "Organises software as objects bundling state with behaviour, communicating via messages/methods.",
+  "problem": "Model domains as interacting entities while encapsulating state and enabling polymorphic substitution.",
+  "mechanism": "Encapsulation hides state behind methods; inheritance and interfaces enable subtype polymorphism and dynamic dispatch; composition assembles behaviour.",
+  "benefits": [
+    "Maps well to domain entities and GUIs",
+    "Encapsulation localises invariants",
+    "Polymorphism enables open extension"
+  ],
+  "limits": [
+    "Deep inheritance hierarchies become brittle",
+    "Hidden mutable state complicates concurrency",
+    "Can obscure data layout / hurt performance"
+  ],
+  "failures": [
+    "God objects and fragile base classes",
+    "Anemic models where logic leaks out"
+  ],
+  "whenNot": [
+    "Data-parallel / cache-critical hot paths (prefer DOD)",
+    "Simple transformations better expressed functionally"
+  ],
+  "myths": [
+    "\"OOP = inheritance\" — composition and interfaces matter more than class trees"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Enterprise apps",
+    "GUIs",
+    "Tooling",
+    "Most general software"
+  ],
+  "complexity": null,
+  "related": [
+    "data-oriented-design",
+    "functional-programming",
+    "composition-over-inheritance"
+  ],
+  "competing": [
+    "functional-programming",
+    "data-oriented-design"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "structs + fn pointers"
+    },
+    "cpp": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "classes, virtual"
+    },
+    "cs": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "classes, interfaces"
+    },
+    "java": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "class-central language"
+    },
+    "rust": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "traits, no inheritance"
+    }
+  }
+}

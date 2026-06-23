@@ -1,0 +1,80 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "count-min-sketch",
+  "name": "Count-Min Sketch",
+  "type": "Data structure",
+  "secondary": [
+    "Probabilistic structure"
+  ],
+  "domain": "structures",
+  "family": "Probabilistic",
+  "def": "A probabilistic frequency table estimating item counts in sublinear space, never underestimating.",
+  "problem": "Track approximate frequencies / heavy hitters over a huge stream within a tiny memory budget.",
+  "mechanism": "A 2-D counter array with d hash functions; each item increments d cells, and a query returns the minimum of its cells (overestimates only).",
+  "benefits": [
+    "Sublinear memory for frequency estimates",
+    "Mergeable; streaming-friendly",
+    "Bounded error with tunable d/w"
+  ],
+  "limits": [
+    "Overestimates (collisions add counts)",
+    "No item enumeration",
+    "Heavy hitters need extra tracking"
+  ],
+  "failures": [
+    "Under-sized sketch inflating counts",
+    "Reading exact counts from it"
+  ],
+  "whenNot": [
+    "Exact counts needed; small key space"
+  ],
+  "myths": [
+    "\"Count-min can underestimate\" — it never underestimates, only overestimates"
+  ],
+  "use": "Indirect",
+  "sectors": [
+    "Streaming analytics",
+    "Networking",
+    "Databases"
+  ],
+  "complexity": {
+    "Update/query": "O(d)",
+    "Space": "O(d·w)"
+  },
+  "related": [
+    "hyperloglog",
+    "bloom-filter"
+  ],
+  "competing": [
+    "hyperloglog"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "manual"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "libs"
+    },
+    "cs": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "libs"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "stream-lib"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "crates"
+    }
+  }
+}

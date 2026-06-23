@@ -1,0 +1,98 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "quicksort",
+  "name": "Quicksort",
+  "type": "Algorithm",
+  "secondary": [
+    "Divide and conquer"
+  ],
+  "x": {
+    "io": "Input: a mutable random-access sequence and a comparator. Output: the same sequence permuted into sorted order, in place.",
+    "preconditions": [
+      "Elements admit a strict weak ordering",
+      "Random-access (O(1)) indexing for pivot selection and partition"
+    ],
+    "correctness": [
+      "Partition invariant: everything left of the pivot ≤ pivot ≤ everything right, at every level",
+      "Terminates: each recursive call operates on a strictly smaller range"
+    ],
+    "stability": "Not stable — equal elements may be reordered. Determinism depends on pivot choice; randomised/median pivots make the worst case input-independent.",
+    "parallelisable": "Yes — the two partitions are independent and recurse in parallel (fork/join); the partition step itself is mostly sequential.",
+    "dataStructures": [
+      "Implicit call stack (recursion)",
+      "Often an explicit stack to bound depth (introsort)"
+    ]
+  },
+  "domain": "algos",
+  "family": "Comparison sort",
+  "def": "An in-place comparison sort that partitions around a pivot and recurses on each side.",
+  "problem": "Sort a sequence in-place with excellent average performance and low constants.",
+  "mechanism": "Choose a pivot, partition elements ≤/≥ pivot, recurse. Real implementations (introsort) switch to heapsort on bad recursion depth and insertion sort for small runs.",
+  "benefits": [
+    "O(n log n) average with tiny constants",
+    "In-place, cache-friendly partitioning",
+    "Tunable pivot strategies"
+  ],
+  "limits": [
+    "O(n²) worst case with naive pivots",
+    "Not stable",
+    "Recursion depth on adversarial inputs"
+  ],
+  "failures": [
+    "Quadratic blow-up on sorted/adversarial input",
+    "Stack overflow without depth guarding"
+  ],
+  "whenNot": [
+    "Stability required (use mergesort/Timsort)",
+    "Worst-case guarantees needed (use heapsort/introsort)"
+  ],
+  "myths": [
+    "\"Always O(n log n)\" — only average; worst case is quadratic"
+  ],
+  "use": "Indirect",
+  "sectors": [
+    "All sectors via std lib sorts"
+  ],
+  "complexity": {
+    "Best": "O(n log n)",
+    "Average": "O(n log n)",
+    "Worst": "O(n²)",
+    "Space": "O(log n)"
+  },
+  "related": [
+    "binary-search",
+    "divide-and-conquer"
+  ],
+  "competing": [
+    "binary-search"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "qsort (unstable)"
+    },
+    "cpp": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "std::sort (introsort)"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "Array.Sort (introsort)"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "dual-pivot quicksort"
+    },
+    "rust": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "sort_unstable (pdqsort)"
+    }
+  }
+}

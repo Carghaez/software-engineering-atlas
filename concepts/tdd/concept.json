@@ -1,0 +1,74 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "tdd",
+  "name": "Test-Driven Development",
+  "type": "Testing technique",
+  "secondary": [
+    "Build or deployment practice"
+  ],
+  "domain": "testing",
+  "family": "Process",
+  "def": "Writing a failing test before the code, then implementing the minimum to pass, then refactoring.",
+  "problem": "Drive design from requirements and keep a safety net that enables fearless refactoring.",
+  "mechanism": "Red-green-refactor: write a failing test (red), make it pass simply (green), then clean up (refactor) with the test guarding behaviour.",
+  "benefits": [
+    "Tests-as-spec; high coverage by construction",
+    "Designs for testability",
+    "Confidence to refactor"
+  ],
+  "limits": [
+    "Slower upfront; discipline required",
+    "Can over-test trivial code",
+    "Bad tests calcify bad design"
+  ],
+  "failures": [
+    "Testing implementation details (brittle tests)",
+    "Mock-heavy tests that verify nothing real"
+  ],
+  "whenNot": [
+    "Exploratory spikes/prototypes",
+    "Hard-to-specify UI/research code"
+  ],
+  "myths": [
+    "\"TDD guarantees good design\" — only if you actually refactor and write meaningful tests"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "All sectors"
+  ],
+  "complexity": null,
+  "related": [
+    "property-based-testing",
+    "mutation-testing"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "Unity/CMocka"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "GoogleTest/Catch2"
+    },
+    "cs": {
+      "lvl": "ECO",
+      "id": 3,
+      "note": "xUnit/NUnit"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 3,
+      "note": "JUnit"
+    },
+    "rust": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "built-in #[test]"
+    }
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "dependency-injection",
+  "name": "Dependency Injection",
+  "type": "Design pattern",
+  "secondary": [
+    "Design principle"
+  ],
+  "domain": "architecture",
+  "family": "Inversion of control",
+  "def": "Providing a component’s dependencies from outside rather than having it construct them.",
+  "problem": "Decouple components from concrete collaborators so they are testable and swappable.",
+  "mechanism": "Dependencies are passed via constructor/setter/parameters (or wired by a container) against interfaces, inverting who controls construction.",
+  "benefits": [
+    "Easy substitution (mocks, alternative impls)",
+    "Loose coupling, clearer dependencies",
+    "Centralised wiring/configuration"
+  ],
+  "limits": [
+    "Container \"magic\" obscures flow",
+    "Over-abstraction / interface explosion",
+    "Runtime wiring errors vs compile-time"
+  ],
+  "failures": [
+    "Service-locator anti-pattern hiding deps",
+    "Huge object graphs with unclear lifetimes"
+  ],
+  "whenNot": [
+    "Tiny apps where direct construction is clearer",
+    "Stable, single-implementation dependencies"
+  ],
+  "myths": [
+    "\"DI requires a framework\" — constructor injection is plain code"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Enterprise",
+    "Backends",
+    "Testable systems"
+  ],
+  "complexity": null,
+  "related": [
+    "typeclasses-traits",
+    "hexagonal-architecture",
+    "composition-over-inheritance"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "pass fn pointers/structs"
+    },
+    "cpp": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "constructor injection"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "built-in DI container"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 3,
+      "note": "Spring / Guice / CDI"
+    },
+    "rust": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "generics / trait objects"
+    }
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "zero-trust",
+  "name": "Zero-Trust Architecture",
+  "type": "Security practice",
+  "secondary": [
+    "Architectural pattern"
+  ],
+  "domain": "security",
+  "family": "Access model",
+  "def": "Trusting no network location implicitly; verifying every request regardless of origin.",
+  "problem": "Replace the broken \"trusted internal network\" perimeter model with continuous verification.",
+  "mechanism": "Every request is authenticated, authorised and encrypted based on identity and device posture; \"never trust, always verify\", with micro-segmentation and least privilege.",
+  "benefits": [
+    "No implicit network trust",
+    "Contains lateral movement",
+    "Fits cloud/remote work"
+  ],
+  "limits": [
+    "Significant re-architecture",
+    "Identity infra dependency",
+    "Latency of per-request checks"
+  ],
+  "failures": [
+    "\"Zero trust\" in name but flat trusted network underneath",
+    "Identity provider as single point of failure"
+  ],
+  "whenNot": [
+    "Tiny isolated systems"
+  ],
+  "myths": [
+    "\"Zero trust is a product you buy\" — it is an architecture and operating model"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Enterprise",
+    "Cloud",
+    "Government"
+  ],
+  "complexity": null,
+  "related": [
+    "authentication",
+    "authorization",
+    "least-privilege",
+    "defense-in-depth"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "infra-level"
+    },
+    "cpp": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "infra-level"
+    },
+    "cs": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "infra/identity"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "infra/identity"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "mTLS infra"
+    }
+  }
+}

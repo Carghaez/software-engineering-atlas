@@ -1,0 +1,77 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "authentication",
+  "name": "Authentication",
+  "type": "Security practice",
+  "secondary": [
+    "Protocol"
+  ],
+  "domain": "security",
+  "family": "Identity",
+  "def": "Verifying that an entity is who it claims to be.",
+  "problem": "Establish identity before granting any access or trust.",
+  "mechanism": "Verify one or more factors (something you know/have/are) — passwords, tokens, certificates, biometrics — often via standard protocols (OIDC, SAML) and MFA.",
+  "benefits": [
+    "Establishes identity for access control",
+    "MFA dramatically reduces account takeover",
+    "Standardised, federated options (SSO)"
+  ],
+  "limits": [
+    "Credential theft/phishing remains",
+    "UX vs security tension",
+    "Secret/session management burden"
+  ],
+  "failures": [
+    "Storing plaintext/weakly-hashed passwords",
+    "Long-lived, unrevoked sessions/tokens"
+  ],
+  "whenNot": [
+    "Truly public, identity-free resources"
+  ],
+  "myths": [
+    "\"Authentication = authorisation\" — authn is who you are; authz is what you may do"
+  ],
+  "use": "Both",
+  "sectors": [
+    "Web",
+    "Enterprise",
+    "Fintech",
+    "Any access-controlled system"
+  ],
+  "complexity": null,
+  "related": [
+    "authorization",
+    "least-privilege",
+    "zero-trust"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "libs"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "libs"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "ASP.NET Identity"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 3,
+      "note": "Spring Security"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "oauth2 / jsonwebtoken"
+    }
+  }
+}

@@ -1,0 +1,76 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "capacity-planning",
+  "name": "Capacity Planning",
+  "type": "Debugging or observability technique",
+  "secondary": [
+    "Reliability or resilience practice"
+  ],
+  "domain": "observability",
+  "family": "Performance engineering",
+  "def": "Forecasting resource needs to meet demand reliably and cost-effectively.",
+  "problem": "Provision enough capacity for growth and peaks without overspending.",
+  "mechanism": "Model demand from historical metrics and growth, relate it to resource use via load tests, and plan headroom, autoscaling and scaling limits.",
+  "benefits": [
+    "Avoids capacity-driven outages",
+    "Controls cost (right-sizing)",
+    "Informs autoscaling policy"
+  ],
+  "limits": [
+    "Forecasts are uncertain",
+    "Bursty/viral demand hard to predict",
+    "Needs good historical data"
+  ],
+  "failures": [
+    "Planning for averages, not peaks",
+    "Hitting hard scaling limits unexpectedly"
+  ],
+  "whenNot": [
+    "Trivial, low-traffic systems"
+  ],
+  "myths": [
+    "\"Autoscaling removes the need to plan\" — limits, costs and cold capacity still need planning"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Cloud",
+    "SRE",
+    "Large-scale services"
+  ],
+  "complexity": null,
+  "related": [
+    "load-testing",
+    "slo-sli",
+    "metrics"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "Medium",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "process + metrics"
+    },
+    "cpp": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "process"
+    },
+    "cs": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "process + metrics"
+    },
+    "java": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "process + metrics"
+    },
+    "rust": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "process + metrics"
+    }
+  }
+}

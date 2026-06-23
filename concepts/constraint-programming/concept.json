@@ -1,0 +1,100 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "constraint-programming",
+  "name": "Constraint Programming",
+  "type": "Programming paradigm",
+  "secondary": [
+    "Declarative"
+  ],
+  "aliases": [
+    "CP",
+    "Constraint satisfaction"
+  ],
+  "x": {
+    "corePrinciples": [
+      "State the relations that must hold, not the steps",
+      "Variables have domains; constraints prune them",
+      "A solver searches + propagates to find assignments"
+    ],
+    "controlDataFlow": "Declarative: you model variables, domains and constraints; a constraint solver does search with propagation.",
+    "preferredAbstractions": [
+      "decision variables",
+      "global constraints (alldifferent, cumulative)",
+      "propagators",
+      "search strategies"
+    ],
+    "suitableProjects": "Scheduling, rostering, configuration, timetabling, and combinatorial optimisation with rich rules."
+  },
+  "domain": "paradigms",
+  "family": "Declarative / relational",
+  "def": "A declarative paradigm where you describe a problem as variables, domains and constraints, and a solver finds assignments satisfying them all.",
+  "problem": "Combinatorial problems with many interacting rules are tedious and error-prone to solve with hand-written imperative search.",
+  "mechanism": "Constraints propagate to shrink variable domains; the solver interleaves propagation with backtracking search and heuristics. Global constraints encode common substructures efficiently.",
+  "benefits": [
+    "Concise, high-level problem statements",
+    "Solver reuse across problems",
+    "Global constraints exploit structure"
+  ],
+  "limits": [
+    "NP-hard cores → can be slow / unpredictable",
+    "Modelling skill strongly affects performance",
+    "Optimisation needs branch-and-bound on top"
+  ],
+  "failures": [
+    "Poor model / weak propagation → combinatorial blow-up",
+    "Treating the solver as a black box without tuning search"
+  ],
+  "whenNot": [
+    "Continuous numeric optimisation (use LP/NLP)",
+    "Problems with a known polynomial algorithm"
+  ],
+  "myths": [
+    "\"Just write the constraints and it’s solved\" — modelling and search strategy decide feasibility"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Logistics / scheduling",
+    "Manufacturing",
+    "Configuration",
+    "Operations research"
+  ],
+  "related": [
+    "logic-programming",
+    "sat-solving",
+    "backtracking",
+    "branch-and-bound"
+  ],
+  "competing": [
+    "sat-solving",
+    "logic-programming"
+  ],
+  "maturity": "Mature",
+  "confidence": "Medium",
+  "langs": {
+    "c": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "rare"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "Gecode / OR-Tools"
+    },
+    "cs": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "OR-Tools"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "Choco / OR-Tools"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "crates"
+    }
+  }
+}

@@ -1,0 +1,84 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "a-star",
+  "name": "A* Search",
+  "type": "Algorithm",
+  "secondary": [
+    "Greedy algorithm",
+    "Graph algorithm",
+    "Heuristic and metaheuristic search"
+  ],
+  "domain": "algos",
+  "family": "Pathfinding",
+  "def": "A best-first shortest-path search guided by a heuristic estimate of remaining cost.",
+  "problem": "Find the cheapest path to a single target faster than uninformed search like Dijkstra.",
+  "mechanism": "Expands the node minimising f = g (cost so far) + h (admissible heuristic estimate to goal); an admissible/consistent h guarantees optimality.",
+  "benefits": [
+    "Optimal with an admissible heuristic",
+    "Far fewer expansions than Dijkstra for point-to-point",
+    "Tunable via heuristic"
+  ],
+  "limits": [
+    "Heuristic quality is everything",
+    "Memory holds the open/closed sets",
+    "Inadmissible h → suboptimal paths"
+  ],
+  "failures": [
+    "Inadmissible/inconsistent heuristic → wrong path",
+    "Memory blow-up on huge maps (use IDA*/jump-point)"
+  ],
+  "whenNot": [
+    "No good heuristic available (use Dijkstra)",
+    "All-pairs / all-targets queries"
+  ],
+  "myths": [
+    "\"A* is always optimal\" — only with an admissible (and ideally consistent) heuristic"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Games",
+    "Robotics",
+    "Routing",
+    "Planning"
+  ],
+  "complexity": {
+    "Time": "O(E) with good h; exp. worst",
+    "Space": "O(V)"
+  },
+  "related": [
+    "dijkstra",
+    "graph-bfs"
+  ],
+  "competing": [
+    "dijkstra"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "manual + heap"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "Boost / manual"
+    },
+    "cs": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "manual"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "libs"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "pathfinding crate"
+    }
+  }
+}

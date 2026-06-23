@@ -1,0 +1,72 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "single-responsibility",
+  "name": "Single-Responsibility Principle",
+  "type": "Design principle",
+  "secondary": [],
+  "domain": "architecture",
+  "family": "SOLID",
+  "def": "A module should have one reason to change — one responsibility to one actor.",
+  "problem": "Avoid modules that many unrelated stakeholders force to change, causing churn and conflicts.",
+  "mechanism": "Identify the actors/reasons a unit changes; split so each unit answers to a single source of change.",
+  "benefits": [
+    "Lower change-coupling",
+    "Focused, testable units",
+    "Fewer merge conflicts"
+  ],
+  "limits": [
+    "\"Responsibility\" is subjective",
+    "Over-zealous splitting fragments logic",
+    "Can hurt cohesion if misapplied"
+  ],
+  "failures": [
+    "Classes doing parsing + IO + business logic",
+    "Splitting until logic is scattered everywhere"
+  ],
+  "whenNot": [
+    "Trivial value objects; tiny scripts"
+  ],
+  "myths": [
+    "\"SRP means one method per class\" — it means one reason to change, not one operation"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "All sectors"
+  ],
+  "complexity": null,
+  "related": [
+    "separation-of-concerns",
+    "open-closed-principle",
+    "interface-segregation"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "Medium",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "discipline"
+    },
+    "cpp": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "discipline"
+    },
+    "cs": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "discipline"
+    },
+    "java": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "discipline"
+    },
+    "rust": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "discipline"
+    }
+  }
+}

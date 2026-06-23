@@ -1,0 +1,81 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "crdt",
+  "name": "CRDT",
+  "type": "Distributed structure",
+  "secondary": [
+    "Data structure",
+    "Concurrency model"
+  ],
+  "domain": "structures",
+  "family": "Distributed",
+  "def": "Conflict-free Replicated Data Type: a structure replicas can update independently and merge without conflict.",
+  "problem": "Allow concurrent, offline-tolerant edits across replicas that converge automatically — no central coordination.",
+  "mechanism": "Operations/states are designed to be commutative, associative and idempotent so merges are deterministic; state-based CRDTs merge via a join (least upper bound), op-based via commutative ops.",
+  "benefits": [
+    "Strong eventual consistency without consensus",
+    "Offline edits merge cleanly",
+    "High availability under partition"
+  ],
+  "limits": [
+    "Metadata growth (tombstones, version vectors)",
+    "Limited to expressible merge semantics",
+    "Garbage collection of history is hard"
+  ],
+  "failures": [
+    "Unbounded tombstone/metadata growth",
+    "Semantics that \"converge\" but not to user intent"
+  ],
+  "whenNot": [
+    "Strong consistency / invariants across keys required",
+    "Operations with no commutative merge"
+  ],
+  "myths": [
+    "\"CRDTs remove all conflicts\" — they remove merge conflicts, not semantic surprises"
+  ],
+  "use": "Indirect",
+  "sectors": [
+    "Collaborative editing",
+    "Local-first apps",
+    "Distributed DBs (Riak)"
+  ],
+  "complexity": {
+    "Note": "Merge O(state); metadata overhead varies by type"
+  },
+  "related": [
+    "immutability",
+    "merkle-tree",
+    "actors",
+    "logical-clocks"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "Medium",
+  "langs": {
+    "c": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "rare"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "libs"
+    },
+    "cs": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "libs"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "libs"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "yrs / automerge"
+    }
+  }
+}

@@ -1,0 +1,107 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "streaming-algorithms",
+  "name": "Streaming Algorithms",
+  "type": "Algorithmic paradigm",
+  "secondary": [
+    "Online algorithm"
+  ],
+  "aliases": [
+    "Online / single-pass algorithms",
+    "Data-stream model"
+  ],
+  "x": {
+    "io": "A stream of items seen once, in order, with sublinear memory → an approximate aggregate / summary.",
+    "preconditions": [
+      "Data too large to store or revisit",
+      "An approximate answer with error bounds is acceptable"
+    ],
+    "correctness": [
+      "(ε, δ) guarantees: within ε relative error with probability ≥ 1−δ",
+      "Bounds proven over adversarial stream orderings"
+    ],
+    "stability": "Deterministic structure, randomised estimates; reproducible with a fixed seed.",
+    "parallelisable": "Mergeable sketches combine partial summaries across shards.",
+    "dataStructures": [
+      "Count-Min sketch",
+      "HyperLogLog",
+      "reservoir sample",
+      "exponential histograms"
+    ]
+  },
+  "domain": "algos",
+  "family": "Online / bounded-memory",
+  "def": "Algorithms that process a massive input in one pass using sublinear memory, producing approximate answers with provable error bounds.",
+  "problem": "Compute aggregates (counts, distinct values, quantiles, heavy hitters) over data far larger than memory, in a single pass.",
+  "mechanism": "Maintains a small randomised summary (sketch) updated per item; the summary supports the target query with (ε, δ) accuracy. Many sketches are mergeable, enabling distributed aggregation.",
+  "benefits": [
+    "Sublinear, often constant memory",
+    "Single pass — fits unbounded streams",
+    "Mergeable across partitions"
+  ],
+  "limits": [
+    "Answers are approximate with error bounds",
+    "Each sketch answers a narrow query class",
+    "Tuning ε/δ trades memory for accuracy"
+  ],
+  "failures": [
+    "Using a point-query sketch for the wrong aggregate",
+    "Underestimating memory for tight error bounds"
+  ],
+  "whenNot": [
+    "Exact answers required and data fits in memory",
+    "Random access / multiple passes are available and cheap"
+  ],
+  "myths": [
+    "\"You must store the data to aggregate it\" — sketches summarise in passing"
+  ],
+  "use": "Indirect",
+  "sectors": [
+    "Observability / metrics",
+    "Networking",
+    "Databases",
+    "Real-time analytics"
+  ],
+  "complexity": {
+    "Memory": "Sublinear (often O(1/ε·log)) ",
+    "Time": "O(1) per item"
+  },
+  "related": [
+    "count-min-sketch",
+    "hyperloglog",
+    "bloom-filter",
+    "mapreduce"
+  ],
+  "competing": [
+    "mapreduce"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "manual"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "DataSketches"
+    },
+    "cs": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "libs"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 3,
+      "note": "Apache DataSketches"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "crates"
+    }
+  }
+}

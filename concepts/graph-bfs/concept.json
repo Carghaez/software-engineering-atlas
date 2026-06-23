@@ -1,0 +1,82 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "graph-bfs",
+  "name": "Breadth-First Search",
+  "type": "Algorithm",
+  "secondary": [
+    "Graph algorithm"
+  ],
+  "domain": "algos",
+  "family": "Graph traversal",
+  "def": "Explores a graph level by level from a source using a FIFO queue.",
+  "problem": "Find shortest paths in unweighted graphs and visit nodes in order of distance.",
+  "mechanism": "Enqueue the source, then repeatedly dequeue a node and enqueue its unvisited neighbours, marking visited to avoid revisits.",
+  "benefits": [
+    "Shortest path in unweighted graphs",
+    "Simple, O(V+E)",
+    "Finds connected components / levels"
+  ],
+  "limits": [
+    "Ignores edge weights (use Dijkstra)",
+    "Queue can hold O(V) nodes (memory)"
+  ],
+  "failures": [
+    "Revisiting nodes without a visited set (blow-up)",
+    "Wrong results on weighted graphs"
+  ],
+  "whenNot": [
+    "Weighted shortest paths",
+    "Deep targets where DFS is more memory-frugal"
+  ],
+  "myths": [
+    "\"BFS gives shortest weighted paths\" — only for unit/unweighted edges"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Networking",
+    "Social graphs",
+    "Games",
+    "Crawlers"
+  ],
+  "complexity": {
+    "Time": "O(V+E)",
+    "Space": "O(V)"
+  },
+  "related": [
+    "graph-dfs",
+    "dijkstra",
+    "a-star"
+  ],
+  "competing": [
+    "graph-dfs"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "queue + adj list"
+    },
+    "cpp": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "queue + adj"
+    },
+    "cs": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "Queue<T>"
+    },
+    "java": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "ArrayDeque"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "petgraph / VecDeque"
+    }
+  }
+}

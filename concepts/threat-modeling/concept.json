@@ -1,0 +1,77 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "threat-modeling",
+  "name": "Threat Modelling",
+  "type": "Security practice",
+  "secondary": [
+    "Design principle"
+  ],
+  "domain": "security",
+  "family": "Secure design",
+  "def": "Systematically identifying assets, threats and mitigations early in design.",
+  "problem": "Find and address security weaknesses before they are built in and expensive to fix.",
+  "mechanism": "Diagram data flows/trust boundaries and enumerate threats (e.g. STRIDE), then prioritise and assign mitigations.",
+  "benefits": [
+    "Catches design-level flaws early",
+    "Shared security understanding",
+    "Prioritises limited security effort"
+  ],
+  "limits": [
+    "Quality depends on participants’ expertise",
+    "Can become a checkbox ritual",
+    "Models drift from the system"
+  ],
+  "failures": [
+    "One-off exercise never revisited",
+    "Threats identified but never mitigated"
+  ],
+  "whenNot": [
+    "Trivial, low-risk internal tools (lightweight version only)"
+  ],
+  "myths": [
+    "\"A one-time activity\" — it must evolve with the system"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Security",
+    "Fintech",
+    "Healthcare",
+    "Any sensitive system"
+  ],
+  "complexity": null,
+  "related": [
+    "defense-in-depth",
+    "least-privilege",
+    "supply-chain-security"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "process, language-agnostic"
+    },
+    "cpp": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "process"
+    },
+    "cs": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "process; MS Threat Modeling Tool"
+    },
+    "java": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "process"
+    },
+    "rust": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "process"
+    }
+  }
+}

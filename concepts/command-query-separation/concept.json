@@ -1,0 +1,92 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "command-query-separation",
+  "name": "Command-Query Separation (CQS)",
+  "type": "Design principle",
+  "secondary": [],
+  "aliases": [
+    "CQS"
+  ],
+  "x": {
+    "forces": [
+      "Predictability of read-only calls ↔ convenience of \"do and return\"",
+      "Referential transparency ↔ practical APIs (pop, getAndIncrement)",
+      "Clarity of side effects ↔ fewer round-trips"
+    ],
+    "structure": "Every method is either a command (changes state, returns nothing) or a query (returns a value, no observable side effect) — never both.",
+    "antiPatterns": [
+      "Getters that mutate / lazily initialise observably",
+      "Methods that both write and return derived results",
+      "Hidden side effects in \"read\" calls"
+    ],
+    "scale": "Method level; informs API design and the larger CQRS pattern."
+  },
+  "domain": "architecture",
+  "family": "API design principle",
+  "def": "A principle that each operation should either change state (command) or return data (query), but not both — so reads are safe to call freely.",
+  "problem": "Methods that mutate AND return make it impossible to reason about whether calling them is safe / repeatable.",
+  "mechanism": "Separate commands (void, side-effecting) from queries (pure, return value). Queries can then be reordered, cached, and called without surprise; commands localise change. Scaled up to whole models, it becomes CQRS.",
+  "benefits": [
+    "Reads are side-effect-free and safe to repeat",
+    "Clearer reasoning and testing",
+    "Foundation for CQRS at system scale"
+  ],
+  "limits": [
+    "Some idioms inherently combine both (stack.pop, CAS)",
+    "Extra calls / round-trips",
+    "Pragmatic exceptions are common"
+  ],
+  "failures": [
+    "Queries with hidden mutation (lazy init that’s observable)",
+    "Dogmatic application breaking natural APIs"
+  ],
+  "whenNot": [
+    "Atomic get-and-set style operations",
+    "Performance paths needing combined read-modify-return"
+  ],
+  "myths": [
+    "\"CQS and CQRS are the same\" — CQS is a method-level rule; CQRS splits read/write models"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "API / library design",
+    "Domain modelling",
+    "Backend services"
+  ],
+  "related": [
+    "cqrs",
+    "separation-of-concerns",
+    "pure-functions",
+    "single-responsibility"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "discipline"
+    },
+    "cpp": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "const-correctness helps"
+    },
+    "cs": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "discipline"
+    },
+    "java": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "discipline"
+    },
+    "rust": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "&self vs &mut self helps"
+    }
+  }
+}

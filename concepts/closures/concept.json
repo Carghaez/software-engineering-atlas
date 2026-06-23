@@ -1,0 +1,74 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "closures",
+  "name": "Closures",
+  "type": "Language idiom",
+  "secondary": [
+    "Functional abstraction"
+  ],
+  "domain": "fp",
+  "family": "Core FP",
+  "def": "Functions that capture and carry the variables of their defining scope.",
+  "problem": "Bundle behaviour with the state it needs, enabling callbacks, factories and partial application.",
+  "mechanism": "The function value retains references (by value or reference) to free variables from its enclosing scope, kept alive as long as the closure lives.",
+  "benefits": [
+    "Encapsulate state with behaviour",
+    "Enable callbacks & higher-order patterns",
+    "Concise factories"
+  ],
+  "limits": [
+    "Lifetime/capture subtleties",
+    "Accidental large captures → memory",
+    "Reference vs value capture confusion"
+  ],
+  "failures": [
+    "Capturing a loop variable by reference (classic bug)",
+    "Reference cycles via captured state"
+  ],
+  "whenNot": [
+    "When a plain function/parameter is clearer"
+  ],
+  "myths": [
+    "\"Closures are free\" — captures allocate and can extend object lifetimes"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "All sectors"
+  ],
+  "complexity": null,
+  "related": [
+    "first-class-functions",
+    "higher-order-functions",
+    "currying"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "no closures; ctx pointers"
+    },
+    "cpp": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "lambda captures"
+    },
+    "cs": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "closures"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "effectively-final capture"
+    },
+    "rust": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "move / borrow captures"
+    }
+  }
+}

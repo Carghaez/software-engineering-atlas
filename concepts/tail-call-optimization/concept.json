@@ -1,0 +1,74 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "tail-call-optimization",
+  "name": "Tail-Call Optimisation",
+  "type": "Performance-optimisation technique",
+  "secondary": [
+    "Functional abstraction"
+  ],
+  "domain": "fp",
+  "family": "Recursion",
+  "def": "Reusing the current stack frame for a function call in tail position, making recursion iterative.",
+  "problem": "Allow deep/infinite recursion without growing the call stack — essential for recursive FP style.",
+  "mechanism": "When a call is the last action of a function, the compiler reuses the frame instead of pushing a new one, turning tail recursion into a loop.",
+  "benefits": [
+    "Constant stack for tail recursion",
+    "Enables recursive style at scale",
+    "No stack-overflow on deep loops"
+  ],
+  "limits": [
+    "Only applies to true tail calls",
+    "Not guaranteed in many languages",
+    "Trampolining needed where absent"
+  ],
+  "failures": [
+    "Assuming TCO where the runtime does not do it → stack overflow",
+    "Non-tail recursion mistaken for tail"
+  ],
+  "whenNot": [
+    "Languages/runtimes without TCO (use loops or trampolines)"
+  ],
+  "myths": [
+    "\"All compilers do TCO\" — JVM and CPython notably do not guarantee it"
+  ],
+  "use": "Indirect",
+  "sectors": [
+    "Functional langs",
+    "Interpreters"
+  ],
+  "complexity": null,
+  "related": [
+    "pure-functions",
+    "lazy-evaluation"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "STD",
+      "id": 1,
+      "note": "compiler may at -O2; not guaranteed"
+    },
+    "cpp": {
+      "lvl": "STD",
+      "id": 1,
+      "note": "often optimised; not guaranteed"
+    },
+    "cs": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": ".tail IL; not by C#"
+    },
+    "java": {
+      "lvl": "UNSUITABLE",
+      "id": 0,
+      "note": "JVM lacks TCO"
+    },
+    "rust": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "no guaranteed TCO; use loops"
+    }
+  }
+}

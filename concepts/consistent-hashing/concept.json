@@ -1,0 +1,79 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "consistent-hashing",
+  "name": "Consistent Hashing",
+  "type": "Algorithm",
+  "secondary": [
+    "Distributed-systems pattern"
+  ],
+  "domain": "algos",
+  "family": "Distributed",
+  "def": "Maps keys to nodes on a hash ring so adding/removing a node moves only a small fraction of keys.",
+  "problem": "Distribute data across a changing set of nodes without massive reshuffling on membership change.",
+  "mechanism": "Hash both keys and nodes onto a ring; a key belongs to the next node clockwise. Virtual nodes smooth load imbalance.",
+  "benefits": [
+    "Only ~1/N keys move when a node joins/leaves",
+    "Decentralised, scalable",
+    "Smooth scaling of caches/shards"
+  ],
+  "limits": [
+    "Load skew without virtual nodes",
+    "Hot keys still hot",
+    "Ring metadata management"
+  ],
+  "failures": [
+    "Skewed distribution with too few vnodes",
+    "Ignoring replication/failure handling"
+  ],
+  "whenNot": [
+    "Fixed small cluster (modulo hashing is fine)"
+  ],
+  "myths": [
+    "\"Consistent hashing balances load perfectly\" — needs virtual nodes; hot keys remain"
+  ],
+  "use": "Indirect",
+  "sectors": [
+    "Distributed caches",
+    "Sharded DBs",
+    "CDNs",
+    "Load balancers"
+  ],
+  "complexity": {
+    "Lookup": "O(log N) ring search",
+    "Space": "O(N·vnodes)"
+  },
+  "related": [
+    "hash-table",
+    "raft"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "libketama"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "libs"
+    },
+    "cs": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "libs"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "libs (Cassandra)"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "crates"
+    }
+  }
+}

@@ -1,0 +1,84 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "kd-tree",
+  "name": "k-d Tree",
+  "type": "Data structure",
+  "secondary": [
+    "Spatial structure"
+  ],
+  "domain": "structures",
+  "family": "Spatial",
+  "def": "A binary space-partitioning tree that splits k-dimensional points along alternating axes.",
+  "problem": "Nearest-neighbour and range search over low-to-moderate-dimensional points.",
+  "mechanism": "Each level splits on one axis at the median; search prunes subtrees that cannot contain a closer point.",
+  "benefits": [
+    "O(log n) average NN search in low dimensions",
+    "Simple, memory-light",
+    "Good for static point sets"
+  ],
+  "limits": [
+    "Degrades to O(n) in high dimensions (curse of dimensionality)",
+    "Rebalancing after inserts is awkward",
+    "Poor for dynamic data"
+  ],
+  "failures": [
+    "Using it beyond ~10–20 dims (no better than brute force)",
+    "Skewed trees from non-median splits"
+  ],
+  "whenNot": [
+    "High-dimensional data (use LSH/ANN)",
+    "Heavily dynamic point sets"
+  ],
+  "myths": [
+    "\"k-d trees scale to any dimension\" — they collapse in high dimensions"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Graphics/games",
+    "Robotics",
+    "ML (low-dim NN)",
+    "GIS"
+  ],
+  "complexity": {
+    "NN query": "O(log n) avg",
+    "Build": "O(n log n)",
+    "Space": "O(n)"
+  },
+  "related": [
+    "r-tree",
+    "bsp-tree",
+    "quadtree-octree"
+  ],
+  "competing": [
+    "r-tree"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "manual / libs"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "nanoflann/CGAL"
+    },
+    "cs": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "libs"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "libs"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "kdtree crate"
+    }
+  }
+}

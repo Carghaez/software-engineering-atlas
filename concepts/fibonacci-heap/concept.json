@@ -1,0 +1,84 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "fibonacci-heap",
+  "name": "Fibonacci / Pairing Heap",
+  "type": "Data structure",
+  "secondary": [
+    "Abstract data type"
+  ],
+  "domain": "structures",
+  "family": "Tree / heap",
+  "def": "A priority queue with O(1) amortised insert and decrease-key, lazily restructured to defer balancing work.",
+  "problem": "Cut the decrease-key cost that dominates Dijkstra and Prim on dense graphs, where a binary heap pays O(log n) per relaxation.",
+  "mechanism": "Maintains a forest of heap-ordered trees; insert and decrease-key just splice or cut nodes and mark parents, deferring consolidation until extract-min, which pays the amortised O(log n).",
+  "benefits": [
+    "O(1) amortised insert, merge and decrease-key",
+    "Improves Dijkstra/Prim to O(E + V log V)",
+    "Meldable (merge) in O(1)"
+  ],
+  "limits": [
+    "Large constant factors and pointer overhead",
+    "Poor cache locality — often slower in practice",
+    "Notoriously fiddly to implement correctly"
+  ],
+  "failures": [
+    "Real-world slower than a binary heap despite better bounds",
+    "Amortised — individual operations can still spike"
+  ],
+  "whenNot": [
+    "Most workloads (a binary or pairing heap is simpler and faster)",
+    "Cache-sensitive hot paths"
+  ],
+  "myths": [
+    "\"Fibonacci heaps speed up Dijkstra in practice\" — the constants usually lose to a binary heap; the pairing heap is the practical compromise"
+  ],
+  "use": "Indirect",
+  "sectors": [
+    "Graph algorithms (theory)",
+    "Network optimisation",
+    "Operations research"
+  ],
+  "complexity": {
+    "Insert": "O(1) amortised",
+    "Decrease-key": "O(1) amortised",
+    "Extract-min": "O(log n) amortised",
+    "Space": "O(n)"
+  },
+  "related": [
+    "binary-heap",
+    "dijkstra",
+    "kruskal-mst"
+  ],
+  "competing": [
+    "binary-heap"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "manual; rare"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "Boost.Heap (fibonacci/pairing)"
+    },
+    "cs": {
+      "lvl": "ENCODABLE",
+      "id": 0,
+      "note": "manual"
+    },
+    "java": {
+      "lvl": "ENCODABLE",
+      "id": 0,
+      "note": "manual / JGraphT"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "pairing-heap crates"
+    }
+  }
+}

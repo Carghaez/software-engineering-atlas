@@ -1,0 +1,91 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "information-hiding",
+  "name": "Information Hiding",
+  "type": "Design principle",
+  "secondary": [],
+  "aliases": [
+    "Parnas’ principle"
+  ],
+  "x": {
+    "forces": [
+      "Hiding likely-to-change decisions ↔ exposing useful capability",
+      "Module independence ↔ cross-module optimisation",
+      "Stable interfaces ↔ revealing internals for performance"
+    ],
+    "structure": "Each module hides a design decision likely to change behind a stable interface, so changes to that decision do not ripple outward.",
+    "antiPatterns": [
+      "Leaky abstractions exposing implementation detail",
+      "Interfaces that mirror the implementation 1:1",
+      "Shared global structures everyone depends on"
+    ],
+    "scale": "Module / component level; Parnas’ basis for decomposing systems."
+  },
+  "domain": "architecture",
+  "family": "Modularity principle",
+  "def": "Decomposing a system so each module conceals a design decision likely to change, exposing only a stable interface (Parnas).",
+  "problem": "If volatile decisions (formats, algorithms, representations) are visible across modules, every change forces wide edits.",
+  "mechanism": "Identify what is likely to change, assign each such decision to a module, and hide it behind an interface that does not reveal it. Other modules depend on the interface, not the secret — so the secret can change freely.",
+  "benefits": [
+    "Localises the impact of change",
+    "Enables independent development / substitution",
+    "Clarifies module responsibilities"
+  ],
+  "limits": [
+    "Predicting \"what will change\" is hard",
+    "Hiding too much can obscure needed capability",
+    "Interface design effort"
+  ],
+  "failures": [
+    "Leaky abstractions that expose the hidden decision",
+    "Hiding stable things while exposing volatile ones"
+  ],
+  "whenNot": [
+    "Throwaway code",
+    "Decisions that genuinely never change and need raw access"
+  ],
+  "myths": [
+    "\"Information hiding = encapsulation\" — related, but Parnas’ idea is about hiding *change-prone decisions*, not just data"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Module / library design",
+    "Large systems"
+  ],
+  "related": [
+    "encapsulation",
+    "separation-of-concerns",
+    "dependency-inversion",
+    "single-responsibility"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "opaque pointers / headers"
+    },
+    "cpp": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "pimpl / interfaces"
+    },
+    "cs": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "interfaces / access"
+    },
+    "java": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "interfaces / packages"
+    },
+    "rust": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "modules / traits"
+    }
+  }
+}

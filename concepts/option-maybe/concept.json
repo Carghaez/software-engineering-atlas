@@ -1,0 +1,78 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "option-maybe",
+  "name": "Option / Maybe",
+  "type": "Functional abstraction",
+  "secondary": [
+    "Error-handling technique",
+    "Type-system technique"
+  ],
+  "domain": "fp",
+  "family": "Effect type",
+  "def": "A type representing presence (Some) or absence (None) of a value, making optionality explicit.",
+  "problem": "Eliminate null-dereference errors by encoding \"no value\" in the type system.",
+  "mechanism": "A sum type Some(T) | None; access forces handling both cases via map/and_then/unwrap_or or pattern matching.",
+  "benefits": [
+    "Compiler-enforced absence handling",
+    "No null-pointer surprises",
+    "Composes via map/flatMap"
+  ],
+  "limits": [
+    "Verbose vs nullable in shallow code",
+    "Nested options need flattening",
+    "Discipline needed to avoid unwrap() panics"
+  ],
+  "failures": [
+    "Reflexive .unwrap()/.get() reintroducing crashes",
+    "Option<Option<T>> confusion"
+  ],
+  "whenNot": [
+    "Errors needing a reason (use Result/Either)"
+  ],
+  "myths": [
+    "\"Option is just null with steps\" — the difference is compiler-enforced handling"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "All sectors"
+  ],
+  "complexity": null,
+  "related": [
+    "result-either",
+    "monad",
+    "pattern-matching",
+    "functional-programming"
+  ],
+  "competing": [
+    "result-either"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "sentinel / out-param"
+    },
+    "cpp": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "std::optional"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "Nullable<T> / null"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "Optional<T>"
+    },
+    "rust": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "Option<T>, no null"
+    }
+  }
+}

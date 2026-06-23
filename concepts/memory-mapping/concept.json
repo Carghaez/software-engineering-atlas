@@ -1,0 +1,75 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "memory-mapping",
+  "name": "Memory-Mapped I/O",
+  "type": "Resource-management technique",
+  "secondary": [
+    "Performance-optimisation technique"
+  ],
+  "domain": "memory",
+  "family": "I/O",
+  "def": "Mapping a file or device into the address space so it is accessed as memory.",
+  "problem": "Access large files lazily and share them between processes without explicit read/write syscalls.",
+  "mechanism": "mmap maps file pages into virtual memory; the OS demand-pages on access and writes back dirty pages, with the page cache as the buffer.",
+  "benefits": [
+    "Lazy demand paging of huge files",
+    "Zero-copy sharing between processes",
+    "Simple pointer access to file data"
+  ],
+  "limits": [
+    "Page faults cause unpredictable latency",
+    "SIGBUS on truncation/IO errors",
+    "Harder error handling than read/write"
+  ],
+  "failures": [
+    "SIGBUS when the underlying file shrinks",
+    "Thrashing when the mapping exceeds RAM"
+  ],
+  "whenNot": [
+    "Small files; streaming sequential I/O with simple semantics"
+  ],
+  "myths": [
+    "\"mmap is always faster than read\" — for sequential streaming, buffered read can win"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Databases",
+    "Search indexes",
+    "Large-file processing"
+  ],
+  "complexity": null,
+  "related": [
+    "stack-vs-heap",
+    "lsm-tree"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "mmap"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "mmap / Boost"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "MemoryMappedFile"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "MappedByteBuffer"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "memmap2"
+    }
+  }
+}

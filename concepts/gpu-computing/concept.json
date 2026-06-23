@@ -1,0 +1,80 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "gpu-computing",
+  "name": "GPU Computing (SIMT)",
+  "type": "Hardware-execution model",
+  "secondary": [
+    "Parallel-computing model"
+  ],
+  "domain": "hardware",
+  "family": "Massive data parallelism",
+  "def": "Offloading massively-parallel work to GPUs that run thousands of threads in SIMT lockstep groups.",
+  "problem": "Achieve throughput far beyond CPUs on highly-parallel, arithmetic-dense workloads.",
+  "mechanism": "Threads grouped into warps/wavefronts execute the same instruction; kernels run over huge grids. Performance hinges on occupancy, coalesced memory access and minimal divergence.",
+  "benefits": [
+    "Orders-of-magnitude throughput on parallel kernels",
+    "High memory bandwidth",
+    "Mature for ML/graphics/HPC"
+  ],
+  "limits": [
+    "Host↔device transfer latency/cost",
+    "Branch divergence serialises a warp",
+    "Hard to program; limited per-thread resources"
+  ],
+  "failures": [
+    "Transfer overhead dwarfing compute on small jobs",
+    "Uncoalesced access / divergence destroying throughput"
+  ],
+  "whenNot": [
+    "Small/irregular/latency-sensitive work",
+    "Heavy branching or pointer-chasing"
+  ],
+  "myths": [
+    "\"GPU is just a faster CPU\" — SIMT, memory model and divergence change everything"
+  ],
+  "use": "Both",
+  "sectors": [
+    "ML/AI",
+    "Graphics",
+    "HPC",
+    "Scientific computing"
+  ],
+  "complexity": null,
+  "related": [
+    "simd",
+    "data-oriented-design",
+    "structure-of-arrays"
+  ],
+  "competing": [
+    "simd"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "CUDA C / OpenCL"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 3,
+      "note": "CUDA / SYCL / HIP"
+    },
+    "cs": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "ILGPU / ComputeSharp"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "TornadoVM / JCuda"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "wgpu / cust / rust-gpu"
+    }
+  }
+}

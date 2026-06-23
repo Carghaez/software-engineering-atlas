@@ -1,0 +1,79 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "saga-pattern",
+  "name": "Saga Pattern",
+  "type": "Distributed-systems pattern",
+  "secondary": [
+    "Architectural pattern"
+  ],
+  "domain": "architecture",
+  "family": "Distributed transactions",
+  "def": "Manages a distributed transaction as a sequence of local transactions with compensating actions on failure.",
+  "problem": "Maintain consistency across services without a blocking distributed (2PC) transaction.",
+  "mechanism": "Each step commits locally and publishes an event; if a later step fails, previously completed steps run compensating transactions to undo their effects. Orchestrated or choreographed.",
+  "benefits": [
+    "No distributed locks/2PC blocking",
+    "High availability across services",
+    "Each step locally consistent"
+  ],
+  "limits": [
+    "Compensations are hard to design (no true rollback)",
+    "Eventual, not atomic, consistency",
+    "Complex failure reasoning"
+  ],
+  "failures": [
+    "Missing/incorrect compensations leaving inconsistency",
+    "Lost events stalling the saga"
+  ],
+  "whenNot": [
+    "Single-database transactions; strict atomicity needs"
+  ],
+  "myths": [
+    "\"Sagas give ACID across services\" — they give eventual consistency via compensation, not atomicity"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Microservices",
+    "E-commerce",
+    "Fintech"
+  ],
+  "complexity": null,
+  "related": [
+    "event-driven-architecture",
+    "idempotency",
+    "transactional-outbox",
+    "two-phase-commit"
+  ],
+  "competing": [
+    "two-phase-commit"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "rare"
+    },
+    "cpp": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "rare"
+    },
+    "cs": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "MassTransit Saga"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "Axon / Camunda"
+    },
+    "rust": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "manual"
+    }
+  }
+}

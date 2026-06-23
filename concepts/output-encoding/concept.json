@@ -1,0 +1,76 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "output-encoding",
+  "name": "Output Encoding & Safe Deserialisation",
+  "type": "Security practice",
+  "secondary": [
+    "Defensive-programming practice"
+  ],
+  "domain": "security",
+  "family": "Injection defence",
+  "def": "Encoding output for its sink (HTML, SQL, shell) and safely handling untrusted serialized data.",
+  "problem": "Prevent injection (XSS, SQLi, command injection) and deserialisation attacks.",
+  "mechanism": "Context-aware output encoding/escaping per sink, parameterised queries, and deserialising only known types from trusted sources (allowlists, schemas).",
+  "benefits": [
+    "Stops injection at the sink",
+    "Parameterised queries kill SQLi",
+    "Schema/allowlist blocks gadget attacks"
+  ],
+  "limits": [
+    "Must encode for the right context",
+    "Easy to miss a sink",
+    "Deserialisation gadgets are subtle"
+  ],
+  "failures": [
+    "String-concatenated SQL/HTML",
+    "Deserialising arbitrary types (RCE gadgets)"
+  ],
+  "whenNot": [
+    "No untrusted data reaching a sink (rare)"
+  ],
+  "myths": [
+    "\"Input validation alone stops XSS\" — output encoding for the sink is the real defence"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Web",
+    "APIs",
+    "Any data-handling system"
+  ],
+  "complexity": null,
+  "related": [
+    "input-validation",
+    "defense-in-depth",
+    "threat-modeling"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "manual"
+    },
+    "cpp": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "manual"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "parameterised SQL; Razor auto-encode"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "OWASP Encoder; PreparedStatement"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "askama auto-escape; sqlx"
+    }
+  }
+}

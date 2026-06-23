@@ -1,0 +1,79 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "heapsort",
+  "name": "Heapsort",
+  "type": "Algorithm",
+  "secondary": [],
+  "domain": "algos",
+  "family": "Comparison sort",
+  "def": "An in-place comparison sort that builds a heap then repeatedly extracts the max.",
+  "problem": "Sort in place with guaranteed O(n log n) and no extra memory or worst-case blow-up.",
+  "mechanism": "Heapify the array (O(n)), then swap the root to the end and sift-down the reduced heap, n times.",
+  "benefits": [
+    "O(n log n) worst case, O(1) extra space",
+    "No adversarial quadratic case",
+    "Used as introsort’s fallback"
+  ],
+  "limits": [
+    "Poor cache locality (sift jumps)",
+    "Not stable",
+    "Slower in practice than quicksort"
+  ],
+  "failures": [
+    "Comparator inconsistency corrupting the heap"
+  ],
+  "whenNot": [
+    "Stability needed; cache-sensitive hot paths"
+  ],
+  "myths": [
+    "\"Heapsort is fast\" — same asymptotics but worse constants/locality than quicksort"
+  ],
+  "use": "Indirect",
+  "sectors": [
+    "Worst-case guarantees",
+    "Embedded (bounded memory)"
+  ],
+  "complexity": {
+    "Best": "O(n log n)",
+    "Average": "O(n log n)",
+    "Worst": "O(n log n)",
+    "Space": "O(1)"
+  },
+  "related": [
+    "quicksort",
+    "binary-heap"
+  ],
+  "competing": [
+    "quicksort",
+    "mergesort"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "manual"
+    },
+    "cpp": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "sort_heap / introsort fallback"
+    },
+    "cs": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "manual"
+    },
+    "java": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "manual"
+    },
+    "rust": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "BinaryHeap into_sorted_vec"
+    }
+  }
+}

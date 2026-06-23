@@ -1,0 +1,78 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "exception-safety",
+  "name": "Exception Safety",
+  "type": "Defensive-programming practice",
+  "secondary": [
+    "Error-handling technique"
+  ],
+  "domain": "reliability",
+  "family": "Error policy",
+  "def": "Guarantees about program state when an operation is interrupted by an exception.",
+  "problem": "Ensure that a failure mid-operation does not leak resources or leave invariants broken.",
+  "mechanism": "Tiers of guarantee — no-throw, strong (commit-or-rollback), basic (valid but unspecified state); achieved via RAII, copy-and-swap and careful ordering.",
+  "benefits": [
+    "Leak-free, invariant-preserving failures",
+    "Predictable rollback semantics",
+    "Composability under errors"
+  ],
+  "limits": [
+    "Strong guarantee can cost copies",
+    "Reasoning burden; subtle",
+    "Mixed error-model code is hard"
+  ],
+  "failures": [
+    "Throwing from destructors / cleanup",
+    "Half-updated state on the basic guarantee"
+  ],
+  "whenNot": [
+    "Languages/styles using error returns instead of exceptions"
+  ],
+  "myths": [
+    "\"Exceptions automatically clean up\" — only RAII/finally make that true"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Libraries",
+    "Systems",
+    "Anything with exceptions"
+  ],
+  "complexity": null,
+  "related": [
+    "raii",
+    "result-either",
+    "fail-fast"
+  ],
+  "competing": [
+    "result-either"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "UNSUITABLE",
+      "id": 0,
+      "note": "no exceptions; error codes"
+    },
+    "cpp": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "RAII + guarantees (canonical)"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "try/finally; using"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "try-with-resources"
+    },
+    "rust": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "Drop + panic=unwind"
+    }
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "associated-types",
+  "name": "Associated Types",
+  "type": "Type-system technique",
+  "secondary": [],
+  "aliases": [
+    "Associated type members",
+    "Type families (related)"
+  ],
+  "x": {
+    "laws": [
+      "Each implementer fixes the associated type(s) for itself",
+      "Associated types are determined by the implementing type, not chosen by the caller",
+      "They participate in type inference of generic code"
+    ],
+    "encoding": "Rust trait associated types (Iterator::Item), Swift protocol associatedtype, C++ member typedefs / traits, Scala type members. Java/C# use generic type parameters instead."
+  },
+  "domain": "types",
+  "family": "Reuse & dispatch",
+  "def": "Type members declared by an interface/trait that each implementation fills in, letting a generic contract refer to related types without extra type parameters.",
+  "problem": "Expressing \"this trait has an output/element type fixed by the implementer\" with plain generic parameters is verbose and over-flexible.",
+  "mechanism": "A trait/protocol declares an associated type (e.g. Iterator::Item); each impl specifies it. Generic code refers to Self::Item, and inference resolves it — unlike a type parameter, the implementer (not the caller) decides it.",
+  "benefits": [
+    "Cleaner signatures than extra generic params",
+    "Implementer-determined output types",
+    "Better inference for fluent generic APIs"
+  ],
+  "limits": [
+    "One associated type per impl (not caller-chosen)",
+    "Conceptually subtle vs type parameters",
+    "Absent in Java/C# (use generics)"
+  ],
+  "failures": [
+    "Reaching for associated types where multiple impls per type are needed (use a parameter)",
+    "Over-constraining generic bounds"
+  ],
+  "whenNot": [
+    "You need many implementations differing only by the related type for one base type",
+    "Languages without the feature"
+  ],
+  "myths": [
+    "\"Associated types and generic parameters are interchangeable\" — they differ in who chooses the type"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Systems / Rust",
+    "Generic libraries",
+    "Swift / Scala ecosystems"
+  ],
+  "related": [
+    "typeclasses-traits",
+    "parametric-polymorphism",
+    "generic-programming",
+    "higher-kinded-types"
+  ],
+  "competing": [
+    "parametric-polymorphism"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "UNSUITABLE",
+      "id": 0,
+      "note": "n/a"
+    },
+    "cpp": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "member typedefs / traits"
+    },
+    "cs": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "generics instead"
+    },
+    "java": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "generics instead"
+    },
+    "rust": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "trait associated types"
+    }
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "contract-testing",
+  "name": "Contract Testing",
+  "type": "Testing technique",
+  "secondary": [
+    "Verification technique"
+  ],
+  "domain": "testing",
+  "family": "Integration testing",
+  "def": "Verifying that services honour an agreed interface contract, often consumer-driven.",
+  "problem": "Catch breaking API changes between independently-deployed services without full end-to-end tests.",
+  "mechanism": "Consumers publish expectations (a contract); the provider runs tests proving it satisfies them. A broker tracks which versions are compatible.",
+  "benefits": [
+    "Catches integration breakage in CI",
+    "No brittle full E2E environment",
+    "Enables independent deploys"
+  ],
+  "limits": [
+    "Contract maintenance/governance",
+    "Only covers the agreed interface",
+    "Tooling/process overhead"
+  ],
+  "failures": [
+    "Stale contracts diverging from reality",
+    "Providers not running consumer contracts"
+  ],
+  "whenNot": [
+    "Monoliths; stable third-party APIs"
+  ],
+  "myths": [
+    "\"Contract testing replaces E2E\" — it covers interfaces, not full-system behaviour"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Microservices",
+    "APIs",
+    "Platform teams"
+  ],
+  "complexity": null,
+  "related": [
+    "integration-testing",
+    "microservices"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "rare"
+    },
+    "cpp": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "rare"
+    },
+    "cs": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "PactNet"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "Pact / Spring Cloud Contract"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "pact libs"
+    }
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "euclid-gcd",
+  "name": "Euclid's GCD",
+  "type": "Algorithm",
+  "secondary": [
+    "Mathematical method",
+    "Numerical algorithm"
+  ],
+  "domain": "algos",
+  "family": "Number theory",
+  "def": "Computes the greatest common divisor by repeated remainder, in logarithmic steps.",
+  "problem": "Find GCD (and via the extended form, modular inverses) efficiently.",
+  "mechanism": "gcd(a,b) = gcd(b, a mod b) until b = 0; the extended version also yields Bézout coefficients for modular inverses.",
+  "benefits": [
+    "O(log min(a,b)) — very fast",
+    "Tiny, exact",
+    "Extended form gives modular inverses (crypto)"
+  ],
+  "limits": [
+    "Integer domain; care with negatives",
+    "Big-integer mod cost for huge numbers"
+  ],
+  "failures": [
+    "Sign handling bugs",
+    "Division by zero on edge inputs"
+  ],
+  "whenNot": [
+    "n/a — foundational"
+  ],
+  "myths": [
+    "\"GCD is slow by subtraction\" — the modulo form is logarithmic, not linear"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Cryptography",
+    "Computer algebra",
+    "Fractions"
+  ],
+  "complexity": {
+    "Time": "O(log min(a,b))",
+    "Space": "O(1)"
+  },
+  "related": [
+    "fft"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "few lines"
+    },
+    "cpp": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "std::gcd"
+    },
+    "cs": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "BigInteger.GreatestCommonDivisor"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "BigInteger.gcd"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "num::integer::gcd"
+    }
+  }
+}

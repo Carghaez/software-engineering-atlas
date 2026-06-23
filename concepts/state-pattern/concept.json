@@ -1,0 +1,78 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "state-pattern",
+  "name": "State",
+  "type": "Design pattern",
+  "secondary": [
+    "Type-system technique"
+  ],
+  "domain": "architecture",
+  "family": "GoF · Behavioural",
+  "def": "Lets an object alter its behaviour when its internal state changes, as if changing class.",
+  "problem": "Replace sprawling state-conditional logic with explicit, encapsulated state objects.",
+  "mechanism": "Each state is an object implementing a common interface; the context delegates to its current state and transitions by swapping it.",
+  "benefits": [
+    "Removes giant switch/if-on-state",
+    "State-specific behaviour localised",
+    "Explicit transitions"
+  ],
+  "limits": [
+    "Class per state",
+    "Transition logic dispersion",
+    "Overkill for few states"
+  ],
+  "failures": [
+    "State explosion",
+    "Invalid transitions not prevented"
+  ],
+  "whenNot": [
+    "Two or three trivial states (an enum + switch is fine)"
+  ],
+  "myths": [
+    "\"State pattern == finite state machine\" — it is one OO way to implement one"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Workflows",
+    "Game AI",
+    "Protocols"
+  ],
+  "complexity": null,
+  "related": [
+    "typestate",
+    "strategy-pattern",
+    "algebraic-data-types"
+  ],
+  "competing": [
+    "typestate"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "fn-ptr table"
+    },
+    "cpp": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "state objects"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "state objects"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "state objects"
+    },
+    "rust": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "enum + match; typestate"
+    }
+  }
+}

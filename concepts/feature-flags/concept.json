@@ -1,0 +1,75 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "feature-flags",
+  "name": "Feature Flags",
+  "type": "Build or deployment practice",
+  "secondary": [
+    "Reliability or resilience practice"
+  ],
+  "domain": "observability",
+  "family": "Release engineering",
+  "def": "Runtime toggles that enable/disable functionality without redeploying.",
+  "problem": "Decouple deploy from release, enabling gradual rollout, experiments and instant kill-switches.",
+  "mechanism": "Code paths gate on a flag whose value is served at runtime (per user/segment), allowing rollout, targeting and rollback without a deploy.",
+  "benefits": [
+    "Deploy ≠ release; instant rollback",
+    "Gradual/targeted rollouts and A/B tests",
+    "Trunk-based development enabler"
+  ],
+  "limits": [
+    "Flag debt / combinatorial test matrix",
+    "Stale flags become dead/confusing code",
+    "Runtime config is another failure surface"
+  ],
+  "failures": [
+    "Long-lived flags never cleaned up",
+    "Conflicting flag combinations untested"
+  ],
+  "whenNot": [
+    "Trivial changes; permanent behaviour (avoid flag debt)"
+  ],
+  "myths": [
+    "\"Flags are free\" — each one adds testing and maintenance burden"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "SaaS",
+    "Web",
+    "Continuous delivery shops"
+  ],
+  "complexity": null,
+  "related": [
+    "canary-release",
+    "tdd"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "config flags"
+    },
+    "cpp": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "config flags"
+    },
+    "cs": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "LaunchDarkly; FeatureManagement"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "Togglz; LaunchDarkly"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "unleash / custom"
+    }
+  }
+}

@@ -1,0 +1,76 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "numa-awareness",
+  "name": "NUMA Awareness",
+  "type": "Performance-optimisation technique",
+  "secondary": [
+    "Hardware-execution model"
+  ],
+  "domain": "hardware",
+  "family": "Memory topology",
+  "def": "Placing threads and memory so cores access local (fast) memory rather than remote NUMA nodes.",
+  "problem": "Avoid the latency/bandwidth penalty of cross-socket memory access on multi-socket machines.",
+  "mechanism": "Pin threads to cores and allocate memory on the same NUMA node (first-touch policy, explicit binding) so accesses stay local.",
+  "benefits": [
+    "Lower latency, higher bandwidth",
+    "Scales across sockets",
+    "Big wins for memory-bound HPC"
+  ],
+  "limits": [
+    "Platform-specific tuning",
+    "Complicates scheduling/allocation",
+    "Irrelevant on single-socket"
+  ],
+  "failures": [
+    "First-touch on the wrong node → remote access",
+    "Thread migration breaking locality"
+  ],
+  "whenNot": [
+    "Single-socket / consumer machines"
+  ],
+  "myths": [
+    "\"All RAM is equally fast\" — on multi-socket systems remote memory is markedly slower"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "HPC",
+    "Databases",
+    "Large servers"
+  ],
+  "complexity": null,
+  "related": [
+    "cache-blocking",
+    "false-sharing",
+    "thread-pool"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "libnuma / numactl"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "libnuma / hwloc"
+    },
+    "cs": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "limited"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 1,
+      "note": "+UseNUMA"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "libc / crates"
+    }
+  }
+}

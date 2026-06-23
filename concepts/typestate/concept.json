@@ -1,0 +1,76 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "typestate",
+  "name": "Typestate",
+  "type": "Type-system technique",
+  "secondary": [
+    "Defensive-programming practice"
+  ],
+  "domain": "types",
+  "family": "Advanced types",
+  "def": "Encodes an object’s protocol/state in its type so invalid operations are compile errors.",
+  "problem": "Prevent misuse like reading a closed file or using a moved value by making it not type-check.",
+  "mechanism": "Operations consume a value in one state-type and return it in another (e.g. Open→Closed), so only valid transitions compile.",
+  "benefits": [
+    "Protocol violations caught at compile time",
+    "Self-documenting valid usage",
+    "Zero runtime cost"
+  ],
+  "limits": [
+    "Verbose type plumbing",
+    "Best with move/ownership semantics",
+    "Limited native support"
+  ],
+  "failures": [
+    "Encoding overhead overwhelming simple APIs",
+    "Escaping the type discipline"
+  ],
+  "whenNot": [
+    "APIs with no meaningful state protocol"
+  ],
+  "myths": [
+    "\"Typestate needs dependent types\" — affine types + phantom states suffice (Rust builders)"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Embedded",
+    "Protocols",
+    "Driver/IO APIs"
+  ],
+  "complexity": null,
+  "related": [
+    "phantom-types",
+    "linear-affine-types",
+    "ownership-borrowing"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "Medium",
+  "langs": {
+    "c": {
+      "lvl": "UNSUITABLE",
+      "id": 0,
+      "note": "n/a"
+    },
+    "cpp": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "move-only + tags"
+    },
+    "cs": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "limited"
+    },
+    "java": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "limited"
+    },
+    "rust": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "ownership + phantom states"
+    }
+  }
+}

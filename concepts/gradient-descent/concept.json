@@ -1,0 +1,78 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "gradient-descent",
+  "name": "Gradient Descent",
+  "type": "Algorithm",
+  "secondary": [
+    "Numerical algorithm",
+    "Machine learning"
+  ],
+  "domain": "algos",
+  "family": "Optimisation / ML",
+  "def": "Iteratively minimises a differentiable function by stepping opposite the gradient.",
+  "problem": "Fit model parameters by minimising a loss function over (often huge) datasets.",
+  "mechanism": "Compute the gradient of the loss and update parameters by −learning_rate·gradient; stochastic/mini-batch variants estimate it from data samples.",
+  "benefits": [
+    "Scales to millions of parameters",
+    "Backbone of deep learning",
+    "Many robust variants (Adam, momentum)"
+  ],
+  "limits": [
+    "Sensitive to learning rate / scaling",
+    "Local minima / saddle points",
+    "No convergence guarantee for non-convex loss"
+  ],
+  "failures": [
+    "Divergence with too-large step",
+    "Vanishing/exploding gradients in deep nets"
+  ],
+  "whenNot": [
+    "Non-differentiable objectives (use derivative-free methods)",
+    "Tiny convex problems with closed forms"
+  ],
+  "myths": [
+    "\"Gradient descent finds the global minimum\" — only guaranteed for convex objectives"
+  ],
+  "use": "Indirect",
+  "sectors": [
+    "ML/AI",
+    "Statistics",
+    "Optimisation"
+  ],
+  "complexity": {
+    "Note": "O(params · iterations); per-step cost = gradient eval"
+  },
+  "related": [
+    "k-means"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "manual / BLAS"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "Eigen / libtorch"
+    },
+    "cs": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "ML.NET"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "DL4J"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "candle / burn"
+    }
+  }
+}

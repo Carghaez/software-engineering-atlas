@@ -1,0 +1,80 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "configuration-hardening",
+  "name": "Configuration Hardening",
+  "type": "Security practice",
+  "secondary": [],
+  "aliases": [
+    "System hardening",
+    "Secure configuration"
+  ],
+  "domain": "security",
+  "family": "Secure deployment",
+  "def": "Changing default, permissive configurations of systems, services, and platforms to a secure, least-functionality baseline.",
+  "problem": "Out-of-the-box defaults favour ease of use over security: open ports, default credentials, verbose errors, broad permissions.",
+  "mechanism": "Apply hardening baselines (CIS Benchmarks, vendor guides): disable unused services, change/disable default accounts, restrict permissions and network exposure, enforce TLS, turn off debug/verbose output, and continuously audit against the baseline (often automated as code).",
+  "benefits": [
+    "Closes common, easily-exploited defaults",
+    "Repeatable, auditable baselines",
+    "Automatable as infrastructure-as-code"
+  ],
+  "limits": [
+    "Baselines drift as systems change",
+    "Over-hardening can break functionality",
+    "Requires per-platform expertise"
+  ],
+  "failures": [
+    "Hardening once, then config drifting back",
+    "Leaving default credentials / debug endpoints",
+    "Inconsistent baselines across environments"
+  ],
+  "whenNot": [
+    "Never skip for production/internet-facing systems; tune depth to risk"
+  ],
+  "myths": [
+    "\"Defaults are secure\" — vendor defaults optimise for setup, not security"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Cloud / servers",
+    "Containers / Kubernetes",
+    "Databases",
+    "Network devices"
+  ],
+  "related": [
+    "attack-surface-reduction",
+    "least-privilege",
+    "secret-management",
+    "defense-in-depth"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "AWKWARD",
+      "id": 1,
+      "note": "ops, not language"
+    },
+    "cpp": {
+      "lvl": "AWKWARD",
+      "id": 1,
+      "note": "ops"
+    },
+    "cs": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "appsettings / policy"
+    },
+    "java": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "config / policy"
+    },
+    "rust": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "config"
+    }
+  }
+}

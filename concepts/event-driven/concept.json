@@ -1,0 +1,77 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "event-driven",
+  "name": "Event-Driven Programming",
+  "type": "Programming paradigm",
+  "secondary": [
+    "Architectural pattern"
+  ],
+  "domain": "paradigms",
+  "family": "Reactive / async",
+  "def": "Program flow is driven by events (input, messages, timers) dispatched to handlers.",
+  "problem": "Coordinate responses to asynchronous, unpredictable occurrences without polling.",
+  "mechanism": "An event loop / dispatcher receives events and invokes registered callbacks/handlers; producers and consumers are decoupled.",
+  "benefits": [
+    "Decoupled producers & consumers",
+    "Natural for UIs, I/O, messaging",
+    "Scales to many idle waiters"
+  ],
+  "limits": [
+    "\"Callback hell\" / inverted control flow",
+    "Hard to trace causality and ordering",
+    "Implicit global state in handlers"
+  ],
+  "failures": [
+    "Lost/duplicated events; ordering bugs",
+    "Handler leaks; unbounded event queues"
+  ],
+  "whenNot": [
+    "Simple sequential batch logic"
+  ],
+  "myths": [
+    "\"Event-driven = asynchronous\" — events can be dispatched synchronously too"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "UIs",
+    "Game loops",
+    "Servers",
+    "IoT"
+  ],
+  "complexity": null,
+  "related": [
+    "reactive-programming",
+    "async-await",
+    "actors"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "callbacks / epoll"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "Qt / asio"
+    },
+    "cs": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "events / delegates"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "listeners / NIO"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "tokio / winit"
+    }
+  }
+}

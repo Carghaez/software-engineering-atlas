@@ -1,0 +1,80 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "merkle-tree",
+  "name": "Merkle Tree",
+  "type": "Data structure",
+  "secondary": [
+    "Distributed structure"
+  ],
+  "domain": "structures",
+  "family": "Hash / verification",
+  "def": "A tree of hashes where each node hashes its children, summarising a dataset in one root hash.",
+  "problem": "Verify integrity and detect differences in large datasets with compact, logarithmic proofs.",
+  "mechanism": "Leaves hash data blocks; internal nodes hash concatenated child hashes up to a single root. A membership proof is the sibling hashes along one path.",
+  "benefits": [
+    "O(log n) inclusion proofs",
+    "Tamper-evident: any change alters the root",
+    "Efficient diff/sync of large sets"
+  ],
+  "limits": [
+    "Rebuild/update cost on changes",
+    "Proof verification needs the trusted root",
+    "Hash choice is security-critical"
+  ],
+  "failures": [
+    "Second-preimage attacks without leaf/node domain separation",
+    "Trusting a root from an untrusted source"
+  ],
+  "whenNot": [
+    "Small data where a single hash suffices"
+  ],
+  "myths": [
+    "\"Merkle trees are only for blockchains\" — Git, ZFS, Cassandra and BitTorrent use them too"
+  ],
+  "use": "Indirect",
+  "sectors": [
+    "Blockchain",
+    "Version control (Git)",
+    "Filesystems (ZFS)",
+    "P2P sync"
+  ],
+  "complexity": {
+    "Inclusion proof": "O(log n)",
+    "Build": "O(n)",
+    "Space": "O(n)"
+  },
+  "related": [
+    "hash-table",
+    "crdt"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "crypto libs"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "crypto libs"
+    },
+    "cs": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "libs"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "libs"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "rs_merkle"
+    }
+  }
+}

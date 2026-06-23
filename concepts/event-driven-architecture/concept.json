@@ -1,0 +1,78 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "event-driven-architecture",
+  "name": "Event-Driven Architecture",
+  "type": "Architectural pattern",
+  "secondary": [
+    "Distributed-systems pattern"
+  ],
+  "domain": "architecture",
+  "family": "Distributed",
+  "def": "Components communicate by producing and consuming events rather than direct calls.",
+  "problem": "Decouple producers from consumers in time and space for scalability and extensibility.",
+  "mechanism": "Events flow through a broker/log (Kafka, queues); consumers subscribe and react. Choreography (events) or orchestration (a coordinator) coordinates workflows.",
+  "benefits": [
+    "Loose coupling; independent scaling",
+    "Easy to add new consumers",
+    "Natural audit/event log"
+  ],
+  "limits": [
+    "Eventual consistency; hard to trace flows",
+    "Debugging across async events",
+    "Ordering/duplication concerns"
+  ],
+  "failures": [
+    "Event storms / cascading reactions",
+    "Lost ordering; no idempotency on consumers"
+  ],
+  "whenNot": [
+    "Simple synchronous request/response domains"
+  ],
+  "myths": [
+    "\"Events make systems simpler\" — they trade coupling for distributed-tracing complexity"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Microservices",
+    "IoT",
+    "Fintech",
+    "E-commerce"
+  ],
+  "complexity": null,
+  "related": [
+    "event-sourcing",
+    "cqrs",
+    "microservices",
+    "backpressure"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "rare"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "libs"
+    },
+    "cs": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "MassTransit / Kafka"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 3,
+      "note": "Kafka / Spring Cloud Stream"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "rdkafka"
+    }
+  }
+}

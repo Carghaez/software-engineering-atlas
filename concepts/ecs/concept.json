@@ -1,0 +1,78 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "ecs",
+  "name": "Entity Component System",
+  "type": "Architectural pattern",
+  "secondary": [
+    "Data-layout technique"
+  ],
+  "domain": "architecture",
+  "family": "Data-oriented",
+  "def": "Composes game/sim objects from data-only components, processed in bulk by systems over contiguous storage.",
+  "problem": "Achieve cache-friendly, parallelisable game/simulation logic and flexible composition over deep inheritance.",
+  "mechanism": "Entities are IDs; components are plain data stored in contiguous arrays (often SoA); systems iterate matching component sets, enabling SIMD/parallelism.",
+  "benefits": [
+    "Excellent cache locality and parallelism",
+    "Composition over rigid class hierarchies",
+    "Scales to huge entity counts"
+  ],
+  "limits": [
+    "Unfamiliar mental model",
+    "Cross-component queries/relationships are awkward",
+    "Library/engine dependent"
+  ],
+  "failures": [
+    "Random component access defeating locality",
+    "Over-fragmented components hurting iteration"
+  ],
+  "whenNot": [
+    "Small object counts; non-performance-critical UIs"
+  ],
+  "myths": [
+    "\"ECS is only for games\" — used in simulation/robotics too, but it is a fit, not a default"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Game engines",
+    "Simulation",
+    "Robotics"
+  ],
+  "complexity": null,
+  "related": [
+    "data-oriented-design",
+    "structure-of-arrays",
+    "simd"
+  ],
+  "competing": [
+    "oop"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "manual arrays"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 3,
+      "note": "EnTT / flecs"
+    },
+    "cs": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "Unity DOTS"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "Artemis"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 3,
+      "note": "bevy_ecs / hecs"
+    }
+  }
+}

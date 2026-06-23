@@ -1,0 +1,77 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "applicative",
+  "name": "Applicative Functor",
+  "type": "Functional abstraction",
+  "secondary": [
+    "Type-system technique"
+  ],
+  "domain": "fp",
+  "family": "Compositional abstraction",
+  "def": "A functor that can apply a wrapped function to a wrapped value, combining independent effects.",
+  "problem": "Combine multiple independent effectful values without sequencing one on another (unlike monads).",
+  "mechanism": "Provides pure (lift a value) and ap : F<A→B> → F<A> → F<B>; effects are combined in parallel/independent fashion, not chained on prior results.",
+  "benefits": [
+    "Combine independent effects (validation accumulation)",
+    "Weaker than monad → more instances",
+    "Enables parallelism of effects"
+  ],
+  "limits": [
+    "Cannot depend a later effect on an earlier value (that needs a monad)",
+    "Abstract; HKT-less encodings clumsy"
+  ],
+  "failures": [
+    "Reaching for applicative where sequencing is required",
+    "Law-violating ap"
+  ],
+  "whenNot": [
+    "Effects that must be sequenced (use a monad)"
+  ],
+  "myths": [
+    "\"Applicative = monad\" — every monad is applicative, not vice versa; applicatives keep effects independent"
+  ],
+  "use": "Both",
+  "sectors": [
+    "Validation",
+    "Parsers",
+    "Functional libs"
+  ],
+  "complexity": null,
+  "related": [
+    "functor",
+    "monad",
+    "option-maybe"
+  ],
+  "competing": [
+    "monad"
+  ],
+  "maturity": "Mature",
+  "confidence": "Medium",
+  "langs": {
+    "c": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "n/a"
+    },
+    "cpp": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "no HKT"
+    },
+    "cs": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "per-type"
+    },
+    "java": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "per-type (vavr)"
+    },
+    "rust": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "per-type"
+    }
+  }
+}

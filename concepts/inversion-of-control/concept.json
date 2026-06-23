@@ -1,0 +1,97 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "inversion-of-control",
+  "name": "Inversion of Control (IoC)",
+  "type": "Design principle",
+  "secondary": [
+    "Design pattern"
+  ],
+  "aliases": [
+    "IoC",
+    "Hollywood principle"
+  ],
+  "x": {
+    "forces": [
+      "Framework control ↔ application control",
+      "Flexibility / pluggability ↔ traceability of flow",
+      "Decoupling ↔ \"magic\" indirection"
+    ],
+    "structure": "The framework / container owns the main flow and calls into application code at defined extension points (\"don’t call us, we’ll call you\"), rather than the application driving the framework.",
+    "antiPatterns": [
+      "Service locator hiding dependencies",
+      "Over-configured containers / \"magic\" wiring",
+      "Inverting control where a direct call is clearer"
+    ],
+    "scale": "Framework / application level; realised via dependency injection, callbacks, events, template methods."
+  },
+  "domain": "architecture",
+  "family": "Decoupling principle",
+  "def": "A principle where the flow of control is handed to a framework or container that calls into your code at defined points, instead of your code calling the framework directly.",
+  "problem": "When application code drives every dependency and lifecycle, it is tightly coupled and hard to extend or test.",
+  "mechanism": "A container/framework owns construction and the main loop, invoking application code through interfaces, callbacks, events, or template methods. Dependency injection is the most common concrete form; the application supplies behaviour, the framework decides when to run it.",
+  "benefits": [
+    "Decouples components from their dependencies",
+    "Pluggable, testable, framework-extensible code",
+    "Centralises wiring and lifecycle"
+  ],
+  "limits": [
+    "Indirection makes control flow harder to follow",
+    "Container \"magic\" and configuration overhead",
+    "Debugging through frameworks is harder"
+  ],
+  "failures": [
+    "Service locator anti-pattern (hidden dependencies)",
+    "Over-engineered DI for trivial apps"
+  ],
+  "whenNot": [
+    "Small programs with few dependencies",
+    "Performance-critical paths sensitive to indirection"
+  ],
+  "myths": [
+    "\"IoC = dependency injection\" — DI is one way to achieve IoC; callbacks/events/templates are others"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Enterprise frameworks",
+    "Plugin systems",
+    "UI / web frameworks"
+  ],
+  "related": [
+    "dependency-injection",
+    "dependency-inversion",
+    "plugin-architecture",
+    "strategy-pattern"
+  ],
+  "competing": [
+    "dependency-injection"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "callbacks / vtables"
+    },
+    "cpp": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "interfaces / DI libs"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "built-in DI container"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 3,
+      "note": "Spring / CDI"
+    },
+    "rust": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "traits / generics"
+    }
+  }
+}

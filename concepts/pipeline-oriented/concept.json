@@ -1,0 +1,95 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "pipeline-oriented",
+  "name": "Pipeline-Oriented Programming",
+  "type": "Programming style",
+  "secondary": [
+    "Functional"
+  ],
+  "aliases": [
+    "Pipes and filters (code-level)",
+    "Railway-oriented (variant)"
+  ],
+  "x": {
+    "corePrinciples": [
+      "Compose small stages into a linear flow",
+      "Each stage is a pure transformation",
+      "Data flows forward; errors short-circuit"
+    ],
+    "controlDataFlow": "Value flows left-to-right through composed stage functions; result of one is the input of the next.",
+    "preferredAbstractions": [
+      "function composition / |> operator",
+      "map / filter / bind",
+      "Result/Either for short-circuiting"
+    ],
+    "suitableProjects": "Data transformation, request handling, ETL, and validation flows expressed as a sequence of steps."
+  },
+  "domain": "paradigms",
+  "family": "Functional / compositional",
+  "def": "A code-level style that structures computation as data flowing through a linear sequence of composable transformation stages.",
+  "problem": "Nested calls and temporary variables obscure a fundamentally sequential transformation.",
+  "mechanism": "Stages are composed (pipe/`|>`, method chaining, or bind) so each consumes the previous output. \"Railway-oriented\" pipelines thread a Result so any stage’s error short-circuits the rest.",
+  "benefits": [
+    "Readable left-to-right data flow",
+    "Stages are small, testable, reusable",
+    "Natural error short-circuiting with Result"
+  ],
+  "limits": [
+    "Deep pipelines can hide branching logic",
+    "Debugging mid-pipeline values is awkward",
+    "Type plumbing between stages"
+  ],
+  "failures": [
+    "Over-decomposing into trivial stages",
+    "Swallowing errors instead of propagating them"
+  ],
+  "whenNot": [
+    "Highly branched / stateful control flow",
+    "Performance paths where stage overhead matters"
+  ],
+  "myths": [
+    "\"Pipelines are just method chaining\" — the key is composition + uniform error handling"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Data engineering",
+    "Backend request handling",
+    "Functional codebases"
+  ],
+  "related": [
+    "function-composition",
+    "result-either",
+    "dataflow-programming",
+    "mapreduce"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "manual"
+    },
+    "cpp": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "ranges | views"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "LINQ chains"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "Stream pipelines"
+    },
+    "rust": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "iterator adapters / ?"
+    }
+  }
+}

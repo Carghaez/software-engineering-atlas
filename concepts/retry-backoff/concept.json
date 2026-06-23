@@ -1,0 +1,77 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "retry-backoff",
+  "name": "Retry with Backoff & Jitter",
+  "type": "Reliability or resilience practice",
+  "secondary": [
+    "Distributed-systems pattern"
+  ],
+  "domain": "reliability",
+  "family": "Resilience",
+  "def": "Re-attempting failed operations with increasing, randomised delays between tries.",
+  "problem": "Recover from transient failures without overwhelming a recovering service or synchronising retries.",
+  "mechanism": "On failure, wait an exponentially growing interval plus random jitter before retrying, with a cap and a max attempt count; only retry idempotent operations.",
+  "benefits": [
+    "Rides out transient faults transparently",
+    "Jitter prevents thundering-herd retry storms",
+    "Backoff protects recovering downstreams"
+  ],
+  "limits": [
+    "Adds latency to eventual failures",
+    "Unsafe for non-idempotent operations",
+    "Misconfiguration amplifies load"
+  ],
+  "failures": [
+    "Retrying non-idempotent writes → duplicates",
+    "Retry storms without jitter; unbounded retries"
+  ],
+  "whenNot": [
+    "Permanent errors (4xx) that won’t succeed on retry",
+    "Non-idempotent operations without dedup"
+  ],
+  "myths": [
+    "\"Always retry on error\" — only transient, retryable, idempotent failures"
+  ],
+  "use": "Both",
+  "sectors": [
+    "Cloud",
+    "Distributed systems",
+    "Networking"
+  ],
+  "complexity": null,
+  "related": [
+    "circuit-breaker",
+    "idempotency",
+    "bulkhead"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "manual loops"
+    },
+    "cpp": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "manual"
+    },
+    "cs": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "Polly"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "Resilience4j / Spring Retry"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "backoff / tokio-retry"
+    }
+  }
+}

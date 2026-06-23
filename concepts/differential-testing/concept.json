@@ -1,0 +1,94 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "differential-testing",
+  "name": "Differential Testing",
+  "type": "Testing technique",
+  "secondary": [],
+  "aliases": [
+    "Back-to-back testing",
+    "Cross-implementation testing"
+  ],
+  "x": {
+    "defectClass": "Discrepancies between implementations that should agree: spec violations, regressions, and undefined-behaviour divergence.",
+    "oracle": "Another implementation (or a previous version) as the reference — the test fails when outputs diverge on the same input.",
+    "automationLevel": "High — generate or replay inputs and compare outputs automatically.",
+    "blindSpots": [
+      "Bugs shared by all implementations (common-mode) go undetected",
+      "Legitimate differences (precision, ordering) cause false alarms",
+      "Requires ≥2 comparable implementations"
+    ],
+    "cost": "Medium — needs multiple implementations and a comparison harness.",
+    "lifecycleStage": "CI / compiler & protocol conformance / security research."
+  },
+  "domain": "testing",
+  "family": "Comparison-based testing",
+  "def": "Feeding the same inputs to two or more implementations that should agree and flagging any divergence as a likely bug.",
+  "problem": "Writing an explicit oracle is hard, but multiple implementations of the same spec should produce the same outputs.",
+  "mechanism": "Generate (often randomly / via fuzzing) a large input space, run it through each implementation, and compare outputs. Divergence localises a bug in one of them or an ambiguity in the spec.",
+  "benefits": [
+    "No hand-written oracle needed",
+    "Finds deep spec / UB divergences",
+    "Scales with input generation / fuzzing"
+  ],
+  "limits": [
+    "Misses bugs common to all implementations",
+    "Spurious diffs from legitimate variation",
+    "Needs comparable reference implementations"
+  ],
+  "failures": [
+    "Treating acceptable precision/ordering diffs as failures",
+    "Assuming agreement implies correctness (shared bug)"
+  ],
+  "whenNot": [
+    "Only one implementation exists",
+    "Outputs are legitimately non-deterministic without a normal form"
+  ],
+  "myths": [
+    "\"Agreement proves correctness\" — both can be wrong in the same way"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Compilers / language runtimes",
+    "Browsers",
+    "Crypto / protocols",
+    "Databases"
+  ],
+  "related": [
+    "fuzz-testing",
+    "property-based-testing",
+    "metamorphic-testing",
+    "regression-testing"
+  ],
+  "competing": [
+    "property-based-testing"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "harness + fuzzers"
+    },
+    "cpp": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "harness + libFuzzer"
+    },
+    "cs": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "harness"
+    },
+    "java": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "harness"
+    },
+    "rust": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "cargo-fuzz + compare"
+    }
+  }
+}

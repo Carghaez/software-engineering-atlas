@@ -1,0 +1,76 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "layered-architecture",
+  "name": "Layered Architecture",
+  "type": "Architectural pattern",
+  "secondary": [],
+  "domain": "architecture",
+  "family": "Structure",
+  "def": "Organising a system into horizontal layers (presentation, business, data) with downward dependencies.",
+  "problem": "Impose order and separation by grouping responsibilities into stacked layers.",
+  "mechanism": "Each layer depends only on the layer(s) below via defined interfaces; requests flow down and responses back up.",
+  "benefits": [
+    "Familiar, easy to onboard",
+    "Clear separation of tiers",
+    "Independent layer evolution"
+  ],
+  "limits": [
+    "\"Sinkhole\" pass-through layers add no value",
+    "Tight top-to-bottom coupling",
+    "Performance overhead of layer hops"
+  ],
+  "failures": [
+    "Anemic layers that just forward calls",
+    "Skipping layers (leaky architecture)"
+  ],
+  "whenNot": [
+    "Domains better served by hexagonal/event-driven styles"
+  ],
+  "myths": [
+    "\"Layered = clean architecture\" — clean/hexagonal invert dependencies; classic layering does not"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Enterprise",
+    "Web apps",
+    "LOB systems"
+  ],
+  "complexity": null,
+  "related": [
+    "hexagonal-architecture",
+    "clean-architecture",
+    "separation-of-concerns"
+  ],
+  "competing": [
+    "hexagonal-architecture"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "modules"
+    },
+    "cpp": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "modules"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "common"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "common (Spring)"
+    },
+    "rust": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "crates/modules"
+    }
+  }
+}

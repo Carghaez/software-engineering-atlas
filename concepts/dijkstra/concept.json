@@ -1,0 +1,81 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "dijkstra",
+  "name": "Dijkstra's Shortest Path",
+  "type": "Algorithm",
+  "secondary": [
+    "Greedy algorithm",
+    "Graph algorithm"
+  ],
+  "domain": "algos",
+  "family": "Graph",
+  "def": "Computes single-source shortest paths on graphs with non-negative edge weights.",
+  "problem": "Find minimum-cost routes from one node to all others when edges have non-negative costs.",
+  "mechanism": "Greedily expands the closest unsettled node using a priority queue, relaxing outgoing edges; once settled, a node’s distance is final.",
+  "benefits": [
+    "Optimal for non-negative weights",
+    "O((V+E) log V) with a binary heap",
+    "Foundation for routing and pathfinding"
+  ],
+  "limits": [
+    "Fails with negative edges (use Bellman-Ford)",
+    "Explores in all directions (A* with a heuristic is faster for point-to-point)"
+  ],
+  "failures": [
+    "Silent wrong answers on negative weights",
+    "Priority-queue staleness if not handled (lazy deletion)"
+  ],
+  "whenNot": [
+    "Negative edges present",
+    "Single target with a good heuristic available (prefer A*)"
+  ],
+  "myths": [
+    "\"Works on any weighted graph\" — only non-negative weights"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Networking",
+    "Maps/routing",
+    "Games (with A*)",
+    "Logistics"
+  ],
+  "complexity": {
+    "Binary heap": "O((V+E) log V)",
+    "Fib heap": "O(E + V log V)",
+    "Space": "O(V)"
+  },
+  "related": [
+    "greedy",
+    "backtracking"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "manual + heap"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "Boost.Graph"
+    },
+    "cs": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "manual"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "JGraphT"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "petgraph"
+    }
+  }
+}

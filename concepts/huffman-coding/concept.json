@@ -1,0 +1,81 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "huffman-coding",
+  "name": "Huffman Coding",
+  "type": "Algorithm",
+  "secondary": [
+    "Greedy algorithm"
+  ],
+  "domain": "algos",
+  "family": "Compression",
+  "def": "Builds an optimal prefix-free code assigning shorter codes to more frequent symbols.",
+  "problem": "Losslessly compress data toward its entropy by minimising expected code length.",
+  "mechanism": "Greedily merge the two least-frequent nodes repeatedly (via a min-heap) to build a tree; root-to-leaf paths give prefix codes.",
+  "benefits": [
+    "Optimal symbol-by-symbol prefix code",
+    "Simple, fast, lossless",
+    "Building block of DEFLATE/JPEG"
+  ],
+  "limits": [
+    "Not optimal vs arithmetic/range coding",
+    "Needs symbol frequencies (or two passes)",
+    "Bit-level I/O fiddly"
+  ],
+  "failures": [
+    "Ignoring the code table cost on small inputs",
+    "Non-canonical codes complicating decode"
+  ],
+  "whenNot": [
+    "When arithmetic/ANS coding gives better ratios"
+  ],
+  "myths": [
+    "\"Huffman is optimal compression\" — only among integer-length prefix codes"
+  ],
+  "use": "Indirect",
+  "sectors": [
+    "Compression (gzip, JPEG)",
+    "Storage",
+    "Comms"
+  ],
+  "complexity": {
+    "Time": "O(n log n)",
+    "Space": "O(n)"
+  },
+  "related": [
+    "binary-heap",
+    "greedy",
+    "lz77"
+  ],
+  "competing": [
+    "lz77"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "zlib internals"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "libs"
+    },
+    "cs": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "System.IO.Compression"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "Deflater"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "flate2 / huffman crates"
+    }
+  }
+}

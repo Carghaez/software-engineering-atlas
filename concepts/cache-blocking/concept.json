@@ -1,0 +1,78 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "cache-blocking",
+  "name": "Cache Blocking / Tiling",
+  "type": "Performance-optimisation technique",
+  "secondary": [
+    "Data-layout technique"
+  ],
+  "domain": "hardware",
+  "family": "Locality optimisation",
+  "def": "Restructuring loops to operate on cache-sized tiles so data is reused before eviction.",
+  "problem": "Cut memory traffic in algorithms whose working set exceeds cache by maximising reuse.",
+  "mechanism": "Partition iteration space into blocks that fit L1/L2; process a block fully (reusing loaded lines) before moving on (e.g. tiled matrix multiply).",
+  "benefits": [
+    "Dramatic speedups for memory-bound kernels",
+    "Turns DRAM traffic into cache hits",
+    "Composes with SIMD/threads"
+  ],
+  "limits": [
+    "Tile size must be tuned per machine",
+    "Code complexity rises",
+    "Cache-oblivious algorithms can avoid tuning"
+  ],
+  "failures": [
+    "Wrong tile size (too big spills, too small overhead)",
+    "Hidden conflict misses from associativity"
+  ],
+  "whenNot": [
+    "Compute-bound or streaming-once data",
+    "Tiny working sets already in cache"
+  ],
+  "myths": [
+    "\"One tile size fits all\" — it is hardware-specific"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "HPC",
+    "Linear algebra",
+    "Graphics",
+    "ML"
+  ],
+  "complexity": null,
+  "related": [
+    "structure-of-arrays",
+    "simd",
+    "data-oriented-design"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "NATIVE",
+      "id": 2,
+      "note": "manual loop tiling"
+    },
+    "cpp": {
+      "lvl": "NATIVE",
+      "id": 2,
+      "note": "manual; libs (Eigen/BLAS)"
+    },
+    "cs": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "manual"
+    },
+    "java": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "manual"
+    },
+    "rust": {
+      "lvl": "NATIVE",
+      "id": 2,
+      "note": "manual; ndarray/BLAS"
+    }
+  }
+}

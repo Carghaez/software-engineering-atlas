@@ -1,0 +1,77 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "design-by-contract",
+  "name": "Design by Contract",
+  "type": "Verification technique",
+  "secondary": [
+    "Defensive-programming practice",
+    "Design principle"
+  ],
+  "domain": "reliability",
+  "family": "Correctness methodology",
+  "def": "Specifying preconditions, postconditions and invariants as enforceable obligations between caller and callee.",
+  "problem": "Pin responsibility for correctness precisely and detect violations close to their cause.",
+  "mechanism": "Each routine states what callers must guarantee (preconditions), what it then guarantees (postconditions), and invariants the type always upholds; violations fail fast.",
+  "benefits": [
+    "Precise responsibility boundaries",
+    "Bugs surface at the violation point",
+    "Doubles as executable documentation"
+  ],
+  "limits": [
+    "Few mainstream languages enforce it natively",
+    "Runtime checks cost (often disabled in release)",
+    "Discipline to keep contracts honest"
+  ],
+  "failures": [
+    "Contracts compiled out, masking real violations",
+    "Treating defensive checks as a substitute for design"
+  ],
+  "whenNot": [
+    "Throwaway code; trivial functions"
+  ],
+  "myths": [
+    "\"Same as defensive programming\" — DbC assigns responsibility; it doesn’t check redundantly everywhere"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Safety-critical",
+    "Libraries",
+    "Finance"
+  ],
+  "complexity": null,
+  "related": [
+    "fail-fast",
+    "defensive-copying",
+    "design-by-contract"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "assert()"
+    },
+    "cpp": {
+      "lvl": "STD",
+      "id": 1,
+      "note": "assert; contracts (C++26)"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 1,
+      "note": "Debug.Assert; guard clauses"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 1,
+      "note": "assert; Objects.requireNonNull"
+    },
+    "rust": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "assert!/debug_assert!"
+    }
+  }
+}

@@ -1,0 +1,76 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "command",
+  "name": "Command",
+  "type": "Design pattern",
+  "secondary": [],
+  "domain": "architecture",
+  "family": "GoF · Behavioural",
+  "def": "Encapsulates a request as an object, enabling queuing, logging, undo and parameterisation.",
+  "problem": "Decouple the invoker of an action from its execution, and reify actions as first-class values.",
+  "mechanism": "A command object bundles a receiver + action (+ args) behind an execute() (and often undo()); invokers queue/log/replay commands.",
+  "benefits": [
+    "Undo/redo, queuing, logging, replay",
+    "Decouples invoker from receiver",
+    "Composable macro commands"
+  ],
+  "limits": [
+    "Many small command classes",
+    "Boilerplate vs a closure",
+    "State capture for undo"
+  ],
+  "failures": [
+    "Command-class explosion",
+    "Incorrect/partial undo state"
+  ],
+  "whenNot": [
+    "When a first-class function/closure suffices"
+  ],
+  "myths": [
+    "\"Command needs classes\" — a closure is the lightweight functional equivalent"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Editors (undo)",
+    "Task queues",
+    "CQRS"
+  ],
+  "complexity": null,
+  "related": [
+    "observer",
+    "cqrs",
+    "higher-order-functions"
+  ],
+  "competing": [
+    "higher-order-functions"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "fn ptr + ctx"
+    },
+    "cpp": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "std::function"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "ICommand (WPF)"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "Runnable/command objs"
+    },
+    "rust": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "closures / enums"
+    }
+  }
+}

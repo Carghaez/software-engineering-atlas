@@ -1,0 +1,81 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "bloom-filter",
+  "name": "Bloom Filter",
+  "type": "Data structure",
+  "secondary": [
+    "Probabilistic structure"
+  ],
+  "domain": "structures",
+  "family": "Probabilistic",
+  "def": "A space-efficient probabilistic set with no false negatives but tunable false positives.",
+  "problem": "Test set membership over huge key sets using a tiny, fixed memory budget.",
+  "mechanism": "k hash functions set k bits in a bit array per insert; a query is \"maybe present\" only if all k bits are set. No deletion in the basic form.",
+  "benefits": [
+    "Tiny memory (bits per element)",
+    "O(k) insert/query independent of set size",
+    "Great as a pre-filter to avoid expensive lookups"
+  ],
+  "limits": [
+    "False positives (tunable, never zero)",
+    "Cannot delete (use counting/cuckoo variants)",
+    "Cannot enumerate members"
+  ],
+  "failures": [
+    "Under-sized filter → false-positive rate explodes",
+    "Mismatched hash count k vs size m"
+  ],
+  "whenNot": [
+    "Exact membership required",
+    "Small sets where a hash set is cheaper"
+  ],
+  "myths": [
+    "\"It can return false negatives\" — never; only false positives"
+  ],
+  "use": "Indirect",
+  "sectors": [
+    "Databases (LSM read path)",
+    "CDNs",
+    "Networking",
+    "Bioinformatics"
+  ],
+  "complexity": {
+    "Insert": "O(k)",
+    "Query": "O(k)",
+    "Space": "O(m) bits"
+  },
+  "related": [
+    "hash-table",
+    "lsm-tree"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "manual bit array"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "folly / abseil"
+    },
+    "cs": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "third-party"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "Guava BloomFilter"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "bloomfilter / growable"
+    }
+  }
+}

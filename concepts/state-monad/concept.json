@@ -1,0 +1,91 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "state-monad",
+  "name": "State Monad",
+  "type": "Functional abstraction",
+  "secondary": [],
+  "aliases": [
+    "Stateful computation monad"
+  ],
+  "x": {
+    "formalRole": "Models a stateful computation as a pure function from old state to (value, new state).",
+    "compositionRule": "State s a ≅ s → (a, s); bind threads the updated state from one step to the next.",
+    "laws": [
+      "Monad laws hold (it is state-threading function composition)"
+    ],
+    "encoding": "A function s → (a, s); get/put/modify helpers. Often unnecessary in languages with cheap local mutation.",
+    "useCases": "Threading evolving state (counters, RNG seeds, parsers, interpreters) through pure code.",
+    "misuseRisks": [
+      "Using State where local mutable variables are clearer",
+      "Hiding large mutable blobs behind a \"pure\" facade"
+    ]
+  },
+  "domain": "fp",
+  "family": "Effect encoding",
+  "def": "A monad that threads a piece of state through a computation purely, modelling each step as old-state → (result, new-state).",
+  "problem": "Carry and update state through a sequence of pure steps without global mutation.",
+  "mechanism": "Represents computations as s → (a, s); bind runs the first step, feeds its new state into the next. get/put/modify read and write the threaded state, all referentially transparent.",
+  "benefits": [
+    "Pure, testable stateful logic",
+    "Explicit state flow in the type",
+    "Composes with other effects via StateT"
+  ],
+  "limits": [
+    "Verbose vs direct mutation",
+    "Performance overhead of state threading",
+    "Transformer stacks reduce clarity"
+  ],
+  "failures": [
+    "Reaching for it where a mutable local is simpler",
+    "Deeply nested StateT becoming unreadable"
+  ],
+  "whenNot": [
+    "Hot loops where mutation is cheap and clear",
+    "Imperative code with no purity requirement"
+  ],
+  "myths": [
+    "\"State monad makes mutation pure magic\" — it’s just threading state through functions"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Parsers / interpreters",
+    "RNG / simulation",
+    "Functional codebases"
+  ],
+  "related": [
+    "monad",
+    "reader-monad",
+    "writer-monad",
+    "immutability"
+  ],
+  "competing": [],
+  "maturity": "Established",
+  "confidence": "Medium",
+  "langs": {
+    "c": {
+      "lvl": "UNSUITABLE",
+      "id": 0,
+      "note": "n/a"
+    },
+    "cpp": {
+      "lvl": "ENCODABLE",
+      "id": 0,
+      "note": "mutate locals"
+    },
+    "cs": {
+      "lvl": "ENCODABLE",
+      "id": 0,
+      "note": "mutate locals"
+    },
+    "java": {
+      "lvl": "ENCODABLE",
+      "id": 0,
+      "note": "mutate locals"
+    },
+    "rust": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "&mut state arg"
+    }
+  }
+}

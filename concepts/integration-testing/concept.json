@@ -1,0 +1,71 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "integration-testing",
+  "name": "Integration Testing",
+  "type": "Testing technique",
+  "secondary": [],
+  "domain": "testing",
+  "family": "Functional testing",
+  "def": "Testing that multiple components/modules work correctly together, including real dependencies.",
+  "problem": "Catch interface mismatches and interaction bugs that unit tests (with mocks) cannot see.",
+  "mechanism": "Exercise combined components against real or realistic dependencies (databases, services, often via containers) through their integration points.",
+  "benefits": [
+    "Finds interface/contract mismatches",
+    "Higher confidence than units alone",
+    "Tests real wiring/config"
+  ],
+  "limits": [
+    "Slower; flakier; harder to set up",
+    "Broader failure localisation",
+    "Environment management cost"
+  ],
+  "failures": [
+    "Flaky tests from shared/real state",
+    "Slow suites discouraging running them"
+  ],
+  "whenNot": [
+    "Pure-logic units (unit tests are cheaper)"
+  ],
+  "myths": [
+    "\"Integration tests replace unit tests\" — they complement; the test pyramid wants more units"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "All sectors"
+  ],
+  "complexity": null,
+  "related": [
+    "unit-testing",
+    "contract-testing"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "harness"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "GoogleTest + fixtures"
+    },
+    "cs": {
+      "lvl": "ECO",
+      "id": 3,
+      "note": "WebApplicationFactory / Testcontainers"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 3,
+      "note": "Spring Test / Testcontainers"
+    },
+    "rust": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "tests/ dir"
+    }
+  }
+}

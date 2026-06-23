@@ -1,0 +1,76 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "mvc",
+  "name": "Model-View-Controller (MV*)",
+  "type": "Architectural pattern",
+  "secondary": [
+    "Design pattern"
+  ],
+  "domain": "architecture",
+  "family": "UI structure",
+  "def": "Separates data (model), presentation (view) and input/coordination (controller/viewmodel/presenter).",
+  "problem": "Decouple UI rendering from business state and input handling for testability and parallel work.",
+  "mechanism": "The model holds state; the view renders it; the controller/viewmodel mediates input and updates. Variants (MVP, MVVM) differ in who binds to what.",
+  "benefits": [
+    "Testable logic separate from UI",
+    "Parallel UI/logic development",
+    "Reusable models across views"
+  ],
+  "limits": [
+    "Boilerplate; over-layering for simple UIs",
+    "Massive-view-controller anti-pattern",
+    "Variant confusion"
+  ],
+  "failures": [
+    "Logic leaking into views",
+    "God controllers/viewmodels"
+  ],
+  "whenNot": [
+    "Trivial static UIs"
+  ],
+  "myths": [
+    "\"MVC, MVP, MVVM are the same\" — they differ in binding and responsibility split"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Web",
+    "Mobile",
+    "Desktop UIs"
+  ],
+  "complexity": null,
+  "related": [
+    "separation-of-concerns",
+    "reactive-programming",
+    "component-based"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "rare"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "Qt"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "ASP.NET MVC / MVVM (WPF)"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "Spring MVC / JavaFX"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "egui/yew patterns"
+    }
+  }
+}

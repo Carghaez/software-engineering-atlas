@@ -1,0 +1,78 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "metaprogramming",
+  "name": "Metaprogramming",
+  "type": "Programming style",
+  "secondary": [
+    "Compile-time programming",
+    "Generic programming"
+  ],
+  "domain": "paradigms",
+  "family": "Generative",
+  "def": "Programs that generate or transform code, at compile time or runtime, to reduce boilerplate or specialise.",
+  "problem": "Eliminate repetitive code and specialise behaviour without hand-writing every variant.",
+  "mechanism": "Macros, templates, reflection, code generation and constexpr/comptime evaluation produce or adapt code from declarations or types.",
+  "benefits": [
+    "Eliminates boilerplate",
+    "Compile-time specialisation → zero-cost abstractions",
+    "Enables DSLs and serialisation derivation"
+  ],
+  "limits": [
+    "Cryptic errors and slow compiles",
+    "Debuggability and tooling suffer",
+    "Easy to over-engineer"
+  ],
+  "failures": [
+    "Macro hygiene bugs / accidental capture",
+    "Template error walls; binary bloat"
+  ],
+  "whenNot": [
+    "When a plain function/data table suffices",
+    "Teams without the relevant tooling expertise"
+  ],
+  "myths": [
+    "\"Reflection and macros are equivalent\" — compile-time vs runtime tradeoffs differ sharply"
+  ],
+  "use": "Both",
+  "sectors": [
+    "Libraries/frameworks",
+    "Serialisation",
+    "ORMs",
+    "Game engines"
+  ],
+  "complexity": null,
+  "related": [
+    "parametric-polymorphism",
+    "typeclasses-traits"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "preprocessor macros"
+    },
+    "cpp": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "templates, constexpr"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "reflection, source gen"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "reflection, annotation proc"
+    },
+    "rust": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "macros, derive, const fn"
+    }
+  }
+}

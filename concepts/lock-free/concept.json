@@ -1,0 +1,80 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "lock-free",
+  "name": "Lock-Free Programming",
+  "type": "Synchronisation mechanism",
+  "secondary": [
+    "Concurrency model"
+  ],
+  "domain": "concurrency",
+  "family": "Non-blocking",
+  "def": "Concurrent algorithms guaranteeing system-wide progress without mutual-exclusion locks.",
+  "problem": "Avoid lock-induced blocking, priority inversion and deadlock under contention or in real-time code.",
+  "mechanism": "Atomic primitives (CAS, fetch-add) and careful memory ordering coordinate threads; reclamation schemes (hazard pointers, epochs) handle freeing.",
+  "benefits": [
+    "No deadlock; bounded interference",
+    "Often better tail latency under contention",
+    "Usable in signal/interrupt contexts"
+  ],
+  "limits": [
+    "Extremely hard to design correctly",
+    "ABA problem and memory-reclamation hazards",
+    "May be slower than locks under low contention"
+  ],
+  "failures": [
+    "ABA bugs; subtle memory-ordering errors",
+    "Livelock; leaked memory without reclamation"
+  ],
+  "whenNot": [
+    "When a mutex is fast enough (usually it is)",
+    "Without deep memory-model expertise"
+  ],
+  "myths": [
+    "\"Lock-free = wait-free\" — lock-free guarantees some thread progresses; wait-free guarantees all do"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Kernels",
+    "HFT",
+    "Databases",
+    "Game engines"
+  ],
+  "complexity": null,
+  "related": [
+    "mutex",
+    "ring-buffer",
+    "false-sharing"
+  ],
+  "competing": [
+    "mutex"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "C11 atomics"
+    },
+    "cpp": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "std::atomic, memory_order"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 1,
+      "note": "Interlocked, Volatile"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "Atomic*, VarHandle"
+    },
+    "rust": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "std::sync::atomic"
+    }
+  }
+}

@@ -1,0 +1,76 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "deadlock",
+  "name": "Deadlock (prevention & detection)",
+  "type": "Synchronisation mechanism",
+  "secondary": [
+    "Defensive-programming practice"
+  ],
+  "domain": "concurrency",
+  "family": "Hazards",
+  "def": "A state where threads wait on each other cyclically so none can proceed.",
+  "problem": "Avoid and recover from circular waits that permanently freeze concurrent systems.",
+  "mechanism": "Prevent by breaking one Coffman condition — e.g. global lock ordering, try-lock with backoff, or no hold-and-wait; detect via wait-for-graph cycle checks.",
+  "benefits": [
+    "Lock ordering prevents most deadlocks cheaply",
+    "Detection enables recovery (abort/restart)",
+    "Well-understood theory"
+  ],
+  "limits": [
+    "Global lock order is hard to maintain at scale",
+    "Detection costs; recovery is disruptive",
+    "Composability is poor"
+  ],
+  "failures": [
+    "Inconsistent lock acquisition order",
+    "Holding a lock across a callback that re-locks"
+  ],
+  "whenNot": [
+    "Lock-free or message-passing designs sidestep it"
+  ],
+  "myths": [
+    "\"Deadlocks only involve locks\" — they also arise with channels, threads-on-pools and resources"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "All concurrent systems",
+    "Databases",
+    "Kernels"
+  ],
+  "complexity": null,
+  "related": [
+    "mutex",
+    "csp-channels",
+    "software-transactional-memory"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "discipline; lockdep"
+    },
+    "cpp": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "std::scoped_lock multi-lock"
+    },
+    "cs": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "discipline"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 1,
+      "note": "jstack detection; discipline"
+    },
+    "rust": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "ordering; types help; still possible"
+    }
+  }
+}

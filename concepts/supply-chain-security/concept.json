@@ -1,0 +1,75 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "supply-chain-security",
+  "name": "Supply-Chain Security",
+  "type": "Security practice",
+  "secondary": [
+    "Build or deployment practice"
+  ],
+  "domain": "security",
+  "family": "Build integrity",
+  "def": "Securing the dependencies, build pipeline and artifacts that go into shipped software.",
+  "problem": "Prevent compromise via third-party dependencies, build systems or tampered artifacts.",
+  "mechanism": "Pin and audit dependencies, generate SBOMs, sign artifacts, use reproducible builds and verify provenance (e.g. SLSA).",
+  "benefits": [
+    "Detects/limits compromised dependencies",
+    "Provenance and integrity guarantees",
+    "Faster incident response (SBOM)"
+  ],
+  "limits": [
+    "Tooling/process overhead",
+    "Transitive dependency sprawl",
+    "Reproducible builds are hard to achieve"
+  ],
+  "failures": [
+    "Unpinned deps pulling malicious updates",
+    "Unsigned artifacts; build server compromise"
+  ],
+  "whenNot": [
+    "Never skip; depth scales with exposure"
+  ],
+  "myths": [
+    "\"My code is secure so I’m safe\" — dependencies and build are the bigger attack surface today"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "All sectors",
+    "Especially OSS-heavy stacks"
+  ],
+  "complexity": null,
+  "related": [
+    "static-analysis",
+    "defense-in-depth",
+    "threat-modeling"
+  ],
+  "competing": [],
+  "maturity": "Emerging",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "AWKWARD",
+      "id": 1,
+      "note": "manual; vcpkg/conan audit"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "conan/vcpkg; manual"
+    },
+    "cs": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "NuGet audit; dep scanning"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "Maven; OWASP dep-check"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 3,
+      "note": "cargo-audit / cargo-deny"
+    }
+  }
+}

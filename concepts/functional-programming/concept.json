@@ -1,0 +1,101 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "functional-programming",
+  "name": "Functional Programming",
+  "type": "Programming paradigm",
+  "secondary": [
+    "Declarative programming"
+  ],
+  "aliases": [
+    "FP"
+  ],
+  "x": {
+    "corePrinciples": [
+      "Pure functions & referential transparency",
+      "Immutable data by default",
+      "First-class & higher-order functions",
+      "Declarative transformation in place of explicit iteration"
+    ],
+    "controlDataFlow": "Data flows through composed transformations (map / filter / fold); control is expression-based rather than statement-and-loop, with side effects pushed to the edges or modelled explicitly.",
+    "preferredAbstractions": [
+      "Algebraic data types & pattern matching",
+      "Higher-order combinators",
+      "Option / Result for effects",
+      "Persistent data structures"
+    ],
+    "suitableProjects": "Concurrency-heavy systems, data pipelines, compilers/interpreters, and domains valuing auditability and testability; a poorer fit for tight mutation-heavy numeric kernels."
+  },
+  "domain": "paradigms",
+  "family": "Declarative",
+  "def": "Builds programs by composing pure functions over immutable data, avoiding shared mutable state.",
+  "problem": "Make behaviour easier to reason about, test, and parallelise by eliminating hidden state and side effects.",
+  "mechanism": "First-class and higher-order functions, immutability, recursion and map/filter/fold replace loops and mutation; effects are pushed to the edges or modelled explicitly.",
+  "benefits": [
+    "Referential transparency aids reasoning and testing",
+    "Immutability simplifies concurrency",
+    "Composable, reusable transformations"
+  ],
+  "limits": [
+    "Persistent structures add allocation/indirection",
+    "Modelling effects can be ceremony-heavy",
+    "Some algorithms are clearer with mutation"
+  ],
+  "failures": [
+    "Excessive abstraction obscuring intent",
+    "Performance loss from naive immutability in hot loops"
+  ],
+  "whenNot": [
+    "Tight, mutation-heavy numeric kernels",
+    "Teams without FP fluency on a deadline"
+  ],
+  "myths": [
+    "\"FP means no side effects ever\" — effects are managed/explicit, not forbidden"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Data pipelines",
+    "Finance",
+    "Compilers",
+    "Frontend (React)"
+  ],
+  "complexity": null,
+  "related": [
+    "pure-functions",
+    "immutability",
+    "monad",
+    "persistent-data-structures",
+    "higher-order-functions"
+  ],
+  "competing": [
+    "oop"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 0,
+      "note": "fn pointers; non-idiomatic"
+    },
+    "cpp": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "lambdas, ranges"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "LINQ, delegates"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "streams, lambdas"
+    },
+    "rust": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "closures, iterators, ADTs"
+    }
+  }
+}

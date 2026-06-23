@@ -1,0 +1,74 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "structured-concurrency",
+  "name": "Structured Concurrency",
+  "type": "Concurrency model",
+  "secondary": [
+    "Design principle"
+  ],
+  "domain": "concurrency",
+  "family": "Asynchrony",
+  "def": "Scopes the lifetime of concurrent tasks to a lexical block: children cannot outlive their parent scope.",
+  "problem": "Tame \"fire-and-forget\" task sprawl, leaks, and lost errors in async/parallel code.",
+  "mechanism": "A nursery/scope spawns tasks and awaits all of them on exit; errors and cancellation propagate to the whole group.",
+  "benefits": [
+    "No leaked/orphaned tasks",
+    "Reliable error & cancellation propagation",
+    "Concurrency follows code structure"
+  ],
+  "limits": [
+    "Requires runtime/library support",
+    "Slightly less flexible than free spawning",
+    "Newer; uneven ecosystem support"
+  ],
+  "failures": [
+    "Detached tasks escaping the scope (defeats the model)",
+    "Cancellation not honoured by leaf work"
+  ],
+  "whenNot": [
+    "Genuinely unbounded background daemons"
+  ],
+  "myths": [
+    "\"Just a coding style\" — it is enforced lifetime scoping with cancellation semantics"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Backends",
+    "Concurrent services"
+  ],
+  "complexity": null,
+  "related": [
+    "async-await",
+    "threads"
+  ],
+  "competing": [],
+  "maturity": "Emerging",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "UNSUITABLE",
+      "id": 0,
+      "note": "none"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "stdexec / libraries"
+    },
+    "cs": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "Task.WhenAll + linked CTS"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "StructuredTaskScope (21+)"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "tokio JoinSet / scope"
+    }
+  }
+}

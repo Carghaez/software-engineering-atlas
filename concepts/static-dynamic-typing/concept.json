@@ -1,0 +1,72 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "static-dynamic-typing",
+  "name": "Static vs Dynamic Typing",
+  "type": "Type-system technique",
+  "secondary": [
+    "Design principle"
+  ],
+  "domain": "types",
+  "family": "Type discipline",
+  "def": "Whether types are checked at compile time (static) or at run time (dynamic).",
+  "problem": "Trade early error detection and tooling against flexibility and rapid iteration.",
+  "mechanism": "Static type systems verify types before execution and erase or retain them at runtime; dynamic systems tag values and check on use.",
+  "benefits": [
+    "Static: errors caught early, rich tooling, performance",
+    "Dynamic: flexibility, less ceremony, rapid prototyping"
+  ],
+  "limits": [
+    "Static: more upfront annotation; can fight the checker",
+    "Dynamic: type errors surface at runtime; weaker tooling"
+  ],
+  "failures": [
+    "Static escape hatches (any/casts) eroding guarantees",
+    "Dynamic code shipping type bugs to production"
+  ],
+  "whenNot": [
+    "Static for tiny throwaway scripts; dynamic for large safety-critical systems"
+  ],
+  "myths": [
+    "\"Static typing prevents all bugs\" — it prevents a class of them, not logic errors"
+  ],
+  "use": "Both",
+  "sectors": [
+    "All sectors"
+  ],
+  "complexity": null,
+  "related": [
+    "gradual-typing",
+    "type-inference",
+    "typeclasses-traits"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "static, weak"
+    },
+    "cpp": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "static, strong-ish"
+    },
+    "cs": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "static + dynamic keyword"
+    },
+    "java": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "static"
+    },
+    "rust": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "static, strong"
+    }
+  }
+}

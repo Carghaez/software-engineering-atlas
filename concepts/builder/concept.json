@@ -1,0 +1,76 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "builder",
+  "name": "Builder",
+  "type": "Design pattern",
+  "secondary": [
+    "Language idiom"
+  ],
+  "domain": "architecture",
+  "family": "GoF · Creational",
+  "def": "Constructs a complex object step by step, separating construction from representation.",
+  "problem": "Create objects with many optional parameters or invariants without telescoping constructors.",
+  "mechanism": "A builder accumulates configuration via chained calls, then build() validates and produces the final (often immutable) object.",
+  "benefits": [
+    "Readable construction of complex objects",
+    "Enforce invariants at build()",
+    "Great with immutability / typestate"
+  ],
+  "limits": [
+    "Extra builder boilerplate",
+    "Two objects (builder + product)",
+    "Overkill for simple types"
+  ],
+  "failures": [
+    "Builders for trivial 2-field objects",
+    "Forgetting validation in build()"
+  ],
+  "whenNot": [
+    "Few parameters; named/default args suffice"
+  ],
+  "myths": [
+    "\"Builder is only for immutables\" — useful any time construction is multi-step or validated"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Libraries",
+    "APIs",
+    "Config"
+  ],
+  "complexity": null,
+  "related": [
+    "factory-method",
+    "typestate",
+    "newtype"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "init struct"
+    },
+    "cpp": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "fluent builder"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "object initialisers / fluent"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "very common (Lombok)"
+    },
+    "rust": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "builder pattern + typestate"
+    }
+  }
+}

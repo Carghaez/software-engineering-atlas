@@ -1,0 +1,73 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "parametric-polymorphism",
+  "name": "Parametric Polymorphism (Generics)",
+  "type": "Type-system technique",
+  "secondary": [
+    "Generic programming"
+  ],
+  "domain": "types",
+  "family": "Polymorphism",
+  "def": "Code written once over a type parameter that works uniformly for all types.",
+  "problem": "Reuse algorithms and containers across types without losing type safety or duplicating code.",
+  "mechanism": "Type parameters (List<T>, Vec<T>) are instantiated either by monomorphisation (code per type) or type erasure / boxing (one shared implementation).",
+  "benefits": [
+    "Type-safe reuse",
+    "No casting or duplication",
+    "Monomorphisation enables zero-cost abstractions"
+  ],
+  "limits": [
+    "Monomorphisation → code bloat & compile time",
+    "Erasure → boxing costs and lost runtime type info",
+    "Constraint/where-clause complexity"
+  ],
+  "failures": [
+    "Template/generic error walls",
+    "Unintended runtime casts under erasure"
+  ],
+  "whenNot": [
+    "When a single concrete type is all you need"
+  ],
+  "myths": [
+    "\"Generics are free everywhere\" — cost model differs sharply (monomorph vs erasure)"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "All sectors"
+  ],
+  "complexity": null,
+  "related": [
+    "typeclasses-traits",
+    "metaprogramming"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "macros / void*"
+    },
+    "cpp": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "templates (monomorphised)"
+    },
+    "cs": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "reified generics"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "generics (type-erased)"
+    },
+    "rust": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "generics + monomorphisation"
+    }
+  }
+}

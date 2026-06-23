@@ -1,0 +1,73 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "iterator-pattern",
+  "name": "Iterator",
+  "type": "Design pattern",
+  "secondary": [
+    "Language idiom"
+  ],
+  "domain": "architecture",
+  "family": "GoF · Behavioural",
+  "def": "Provides sequential access to a collection’s elements without exposing its representation.",
+  "problem": "Traverse a collection uniformly regardless of its internal structure.",
+  "mechanism": "An iterator object exposes next()/hasNext() (or a protocol the language loops over), decoupling traversal from the container.",
+  "benefits": [
+    "Uniform traversal across structures",
+    "Hides internal representation",
+    "Lazy/streaming iteration"
+  ],
+  "limits": [
+    "Invalidation on concurrent modification",
+    "State management for complex traversals"
+  ],
+  "failures": [
+    "Mutating a collection mid-iteration",
+    "Leaking iterators over closed resources"
+  ],
+  "whenNot": [
+    "n/a — now a built-in language feature almost everywhere"
+  ],
+  "myths": [
+    "\"Iterator is a heavyweight pattern\" — modern languages bake it in (for-each, IEnumerable, Iterator trait)"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "All sectors"
+  ],
+  "complexity": null,
+  "related": [
+    "composite",
+    "lazy-evaluation",
+    "higher-order-functions"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "manual cursor"
+    },
+    "cpp": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "iterators / ranges"
+    },
+    "cs": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "IEnumerator / yield"
+    },
+    "java": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "Iterable / Iterator"
+    },
+    "rust": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "Iterator trait"
+    }
+  }
+}

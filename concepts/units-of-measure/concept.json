@@ -1,0 +1,89 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "units-of-measure",
+  "name": "Units of Measure",
+  "type": "Type-system technique",
+  "secondary": [],
+  "aliases": [
+    "Dimensional types",
+    "Quantity types"
+  ],
+  "x": {
+    "laws": [
+      "Arithmetic respects dimensional algebra (m/s × s = m)",
+      "Adding incompatible units is a type error",
+      "Unit annotations are erased at runtime (zero cost)"
+    ],
+    "encoding": "Native in F#; elsewhere via phantom-type wrappers (C++ <chrono>/Boost.Units, Rust uom, Java/C# libraries) that encode dimensions in the type parameters."
+  },
+  "domain": "types",
+  "family": "Valid states",
+  "def": "Type-level tracking of physical (or domain) units so that dimensionally inconsistent arithmetic — adding metres to seconds — is rejected at compile time.",
+  "problem": "Mixing quantities of different units (the classic Mars Climate Orbiter failure) is invisible to ordinary numeric types.",
+  "mechanism": "Each quantity carries its dimension in its type; operations combine or constrain dimensions per dimensional algebra. Mismatches fail to type-check, and the units are erased so there is no runtime cost.",
+  "benefits": [
+    "Eliminates a whole class of unit bugs at compile time",
+    "Zero runtime overhead (erased)",
+    "Self-documenting quantities"
+  ],
+  "limits": [
+    "Verbose without native support",
+    "Library ergonomics vary",
+    "Conversions still need explicit care"
+  ],
+  "failures": [
+    "Bypassing the wrappers with raw numbers",
+    "Wrong conversion factors inside the type-safe shell"
+  ],
+  "whenNot": [
+    "No dimensional quantities in the domain",
+    "Throwaway scripts"
+  ],
+  "myths": [
+    "\"Naming variables with units is enough\" — only the type system actually enforces it"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Aerospace / engineering",
+    "Scientific computing",
+    "Finance (currencies)",
+    "Embedded"
+  ],
+  "related": [
+    "newtype",
+    "phantom-types",
+    "refinement-types"
+  ],
+  "competing": [
+    "newtype"
+  ],
+  "maturity": "Established",
+  "confidence": "Medium",
+  "langs": {
+    "c": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "macros only"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "std::chrono / Boost.Units / mp-units"
+    },
+    "cs": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "UnitsNet"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "JSR-385"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "uom crate"
+    }
+  }
+}

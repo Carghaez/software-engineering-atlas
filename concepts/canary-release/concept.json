@@ -1,0 +1,75 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "canary-release",
+  "name": "Canary Release",
+  "type": "Build or deployment practice",
+  "secondary": [
+    "Reliability or resilience practice"
+  ],
+  "domain": "observability",
+  "family": "Release engineering",
+  "def": "Rolling a change out to a small subset of traffic first, watching metrics before full rollout.",
+  "problem": "Limit the blast radius of a bad deploy by validating it on real but limited traffic.",
+  "mechanism": "Route a small % of traffic to the new version; compare health/error/latency metrics against baseline, then progressively expand or roll back automatically.",
+  "benefits": [
+    "Limits blast radius of bad releases",
+    "Real-traffic validation",
+    "Automatable rollback on metric regression"
+  ],
+  "limits": [
+    "Needs strong metrics & automation",
+    "Slower full rollout",
+    "Schema/state compatibility across versions"
+  ],
+  "failures": [
+    "Canary too small to be statistically meaningful",
+    "Incompatible DB migrations between versions"
+  ],
+  "whenNot": [
+    "Tiny user bases; non-critical internal tools"
+  ],
+  "myths": [
+    "\"Canary = blue-green\" — canary shifts a fraction gradually; blue-green flips between two full environments"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Cloud",
+    "SaaS",
+    "High-availability services"
+  ],
+  "complexity": null,
+  "related": [
+    "feature-flags",
+    "circuit-breaker"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "infra-level"
+    },
+    "cpp": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "infra-level"
+    },
+    "cs": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "infra/mesh-level"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "infra/mesh-level"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "infra-level"
+    }
+  }
+}

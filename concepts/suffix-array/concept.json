@@ -1,0 +1,105 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "suffix-array",
+  "name": "Suffix Array",
+  "type": "Data structure",
+  "secondary": [
+    "Storage structure"
+  ],
+  "aliases": [
+    "Sorted suffix index"
+  ],
+  "x": {
+    "invariant": "an array of starting positions of all suffixes of the text, sorted lexicographically; often paired with an LCP array.",
+    "operations": [
+      "build (O(n) with DC3 / SA-IS, or O(n log n))",
+      "substring search (O(m log n), or O(m) with LCP)",
+      "longest-common / repeated substring queries"
+    ],
+    "memoryOverhead": "~4–8 bytes per character (one integer per suffix), far less than a suffix tree.",
+    "locality": "Contiguous integer array; far more cache-friendly than a pointer-based suffix tree.",
+    "mutationModel": "Built once over static text; updates require rebuild (or specialised dynamic variants).",
+    "concurrency": "Read-only after build → trivially shareable; parallel construction exists.",
+    "implementations": [
+      "SA-IS / DC3 builders",
+      "FM-index / BWT pipelines",
+      "bioinformatics aligners"
+    ]
+  },
+  "domain": "structures",
+  "family": "String index",
+  "def": "A sorted array of all suffix positions of a text, giving fast substring and longest-common-substring queries with a fraction of a suffix tree’s memory.",
+  "problem": "Index a large text for fast substring search and repeat analysis without a suffix tree’s heavy pointer overhead.",
+  "mechanism": "Sorts all n suffixes lexicographically and stores their start indices. Linear-time builders (SA-IS, DC3) avoid the naive O(n log²n). An auxiliary LCP array accelerates pattern matching and substring statistics.",
+  "benefits": [
+    "Compact (one int per char) vs suffix tree",
+    "O(m log n) substring search",
+    "Foundation for BWT / FM-index full-text search"
+  ],
+  "limits": [
+    "Static: rebuild on text change",
+    "Some queries need the extra LCP array",
+    "Construction is non-trivial to implement well"
+  ],
+  "failures": [
+    "Naive O(n²log n) build on large texts",
+    "Off-by-one in LCP usage corrupts matches"
+  ],
+  "whenNot": [
+    "Tiny texts (linear scan)",
+    "Frequently mutating text (use an online index)"
+  ],
+  "myths": [
+    "\"Suffix arrays are weaker than suffix trees\" — with LCP they match most queries at lower memory"
+  ],
+  "use": "Indirect",
+  "sectors": [
+    "Bioinformatics",
+    "Search engines",
+    "Compression (BWT)",
+    "Plagiarism / dedup"
+  ],
+  "complexity": {
+    "Build": "O(n)",
+    "Search": "O(m log n)",
+    "Space": "O(n)"
+  },
+  "related": [
+    "trie",
+    "kmp",
+    "aho-corasick",
+    "merkle-tree"
+  ],
+  "competing": [
+    "trie"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "libdivsufsort"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "libdivsufsort / sdsl"
+    },
+    "cs": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "manual"
+    },
+    "java": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "manual"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "suffix / bio crates"
+    }
+  }
+}

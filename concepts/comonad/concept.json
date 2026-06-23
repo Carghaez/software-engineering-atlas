@@ -1,0 +1,94 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "comonad",
+  "name": "Comonad",
+  "type": "Functional abstraction",
+  "secondary": [],
+  "aliases": [
+    "Co-monad"
+  ],
+  "x": {
+    "formalRole": "The categorical dual of a monad: a context you can always extract a value from and extend computations over.",
+    "compositionRule": "extract : W a → a; extend : (W a → b) → W a → W b (dually, duplicate : W a → W (W a)).",
+    "laws": [
+      "left identity: extend extract = id",
+      "right identity: extract ∘ extend f = f",
+      "associativity of extend (cokleisli composition)"
+    ],
+    "encoding": "A type W with extract + extend/duplicate. Examples: non-empty lists, zippers, streams, the Store/Env comonads.",
+    "useCases": "Context-dependent computations: cellular automata, image convolution, spreadsheet recalculation, focused traversals.",
+    "misuseRisks": [
+      "Reaching for comonads where a simple fold suffices",
+      "Obscuring intent with categorical jargon"
+    ]
+  },
+  "domain": "fp",
+  "family": "Algebraic composition",
+  "def": "The dual of a monad: instead of injecting values into a context (return) and sequencing (bind), a comonad lets you extract a focal value and extend a context-aware computation everywhere.",
+  "problem": "Compose computations that depend on a surrounding context (neighbourhoods, history, focus) uniformly.",
+  "mechanism": "Provides extract (W a → a) and extend ((W a → b) → W a → W b); duplicate exposes every sub-context, so a local function is lifted to run at every position with full context.",
+  "benefits": [
+    "Uniform model for context-dependent computation",
+    "Elegant for neighbourhood / focus problems",
+    "Laws guarantee composability"
+  ],
+  "limits": [
+    "Niche; few mainstream APIs",
+    "Steep conceptual barrier",
+    "Easy to over-apply"
+  ],
+  "failures": [
+    "Using a comonad where a plain map/fold is clearer",
+    "Misimplementing extend so laws break"
+  ],
+  "whenNot": [
+    "No notion of \"context around a value\" in the problem",
+    "Team unfamiliar and a fold would do"
+  ],
+  "myths": [
+    "\"Comonads are just backwards monads you’ll never use\" — zippers and streaming convolutions use them naturally"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Functional languages",
+    "Simulation / image processing",
+    "Spreadsheets"
+  ],
+  "related": [
+    "monad",
+    "functor",
+    "zipper"
+  ],
+  "competing": [
+    "monad"
+  ],
+  "maturity": "Established",
+  "confidence": "Medium",
+  "langs": {
+    "c": {
+      "lvl": "UNSUITABLE",
+      "id": 0,
+      "note": "n/a"
+    },
+    "cpp": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "rare"
+    },
+    "cs": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "rare"
+    },
+    "java": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "rare"
+    },
+    "rust": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "trait encoding"
+    }
+  }
+}

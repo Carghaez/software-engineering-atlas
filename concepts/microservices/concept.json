@@ -1,0 +1,80 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "microservices",
+  "name": "Microservices",
+  "type": "Architectural pattern",
+  "secondary": [
+    "Distributed-systems pattern"
+  ],
+  "domain": "architecture",
+  "family": "Distributed",
+  "def": "Structuring an application as small, independently-deployable services owning their own data.",
+  "problem": "Let teams build, scale and deploy parts of a system independently around business capabilities.",
+  "mechanism": "Services communicate over the network (REST/gRPC/events), each with its own datastore and lifecycle; coordination via choreography or orchestration.",
+  "benefits": [
+    "Independent deploy/scale per service",
+    "Team autonomy & tech heterogeneity",
+    "Fault isolation (with resilience patterns)"
+  ],
+  "limits": [
+    "Distributed-systems complexity (latency, partial failure)",
+    "Operational/observability burden",
+    "Data consistency across services"
+  ],
+  "failures": [
+    "Distributed monolith (chatty, tightly coupled)",
+    "Cascading failures without resilience patterns"
+  ],
+  "whenNot": [
+    "Small teams/apps (start with a modular monolith)",
+    "When domain boundaries are still unclear"
+  ],
+  "myths": [
+    "\"Microservices are inherently better\" — they trade code complexity for operational complexity"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Cloud",
+    "Large-scale SaaS",
+    "Enterprise"
+  ],
+  "complexity": null,
+  "related": [
+    "circuit-breaker",
+    "bulkhead",
+    "cqrs",
+    "hexagonal-architecture"
+  ],
+  "competing": [
+    "hexagonal-architecture"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "rare"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "perf-critical services"
+    },
+    "cs": {
+      "lvl": "ECO",
+      "id": 3,
+      "note": "ASP.NET Core"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 3,
+      "note": "Spring Boot"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "axum / tonic"
+    }
+  }
+}

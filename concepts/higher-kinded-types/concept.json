@@ -1,0 +1,77 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "higher-kinded-types",
+  "name": "Higher-Kinded Types",
+  "type": "Type-system technique",
+  "secondary": [
+    "Functional abstraction"
+  ],
+  "domain": "types",
+  "family": "Advanced types",
+  "def": "Generics that abstract over type constructors themselves (F<_>), not just over concrete types.",
+  "problem": "Write one interface — Functor, Monad, Traversable — that works for any container (Option, List, Future) instead of re-implementing it per type.",
+  "mechanism": "A type parameter ranges over a type constructor of kind * → * (an F such that F<A> is a type), letting code be generic in the \"shape\" that wraps values, not just the value type.",
+  "benefits": [
+    "Express Functor/Monad/Monoid generically and reuse them",
+    "Maximal abstraction over container shapes",
+    "Powers effect and optics libraries"
+  ],
+  "limits": [
+    "Absent from C/C++/C#/Java/Rust — only encodable",
+    "Encodings (defunctionalisation, GATs) are clumsy/partial",
+    "Steep learning curve; cryptic errors"
+  ],
+  "failures": [
+    "Reaching for HKTs where a concrete type suffices",
+    "Leaky encodings mistaken for real kind polymorphism"
+  ],
+  "whenNot": [
+    "Mainstream code with a single concrete container",
+    "Teams without FP / type-theory fluency"
+  ],
+  "myths": [
+    "\"Generics already give this\" — ordinary generics abstract over types; HKTs abstract over type constructors"
+  ],
+  "use": "Indirect",
+  "sectors": [
+    "Functional languages (Haskell, Scala)",
+    "Compilers",
+    "Effect libraries"
+  ],
+  "complexity": null,
+  "related": [
+    "monad",
+    "functor",
+    "typeclasses-traits"
+  ],
+  "competing": [],
+  "maturity": "Emerging",
+  "confidence": "Medium",
+  "langs": {
+    "c": {
+      "lvl": "UNSUITABLE",
+      "id": 0,
+      "note": "none"
+    },
+    "cpp": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "template templates (partial)"
+    },
+    "cs": {
+      "lvl": "UNSUITABLE",
+      "id": 0,
+      "note": "none"
+    },
+    "java": {
+      "lvl": "UNSUITABLE",
+      "id": 0,
+      "note": "none"
+    },
+    "rust": {
+      "lvl": "AWKWARD",
+      "id": 1,
+      "note": "GATs approximate; no true HKT"
+    }
+  }
+}

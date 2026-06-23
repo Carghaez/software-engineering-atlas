@@ -1,0 +1,81 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "avl-tree",
+  "name": "AVL Tree",
+  "type": "Data structure",
+  "secondary": [],
+  "domain": "structures",
+  "family": "Balanced search tree",
+  "def": "A self-balancing BST keeping subtree heights within 1, giving stricter balance than a red-black tree.",
+  "problem": "Ordered map with the fastest possible lookups under read-heavy workloads.",
+  "mechanism": "Each node stores a balance factor; insertions/deletions trigger rotations whenever a subtree’s height difference exceeds 1.",
+  "benefits": [
+    "More tightly balanced → faster lookups than red-black",
+    "Guaranteed O(log n)",
+    "Predictable height"
+  ],
+  "limits": [
+    "More rotations on insert/delete than red-black",
+    "Per-node height/balance bookkeeping",
+    "Pointer-based locality"
+  ],
+  "failures": [
+    "Rotation bugs corrupting balance",
+    "Write-heavy loads paying excess rebalancing"
+  ],
+  "whenNot": [
+    "Write-heavy workloads (red-black rebalances less)",
+    "Cache/disk-oriented needs (B-tree)"
+  ],
+  "myths": [
+    "\"AVL is obsolete\" — it wins for read-dominant in-memory ordered maps"
+  ],
+  "use": "Indirect",
+  "sectors": [
+    "In-memory indexes",
+    "Databases"
+  ],
+  "complexity": {
+    "Search": "O(log n)",
+    "Insert": "O(log n)",
+    "Delete": "O(log n)",
+    "Space": "O(n)"
+  },
+  "related": [
+    "red-black-tree",
+    "b-tree"
+  ],
+  "competing": [
+    "red-black-tree",
+    "skip-list"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "manual"
+    },
+    "cpp": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "manual; std::map is RB"
+    },
+    "cs": {
+      "lvl": "ENCODABLE",
+      "id": 0,
+      "note": "manual"
+    },
+    "java": {
+      "lvl": "ENCODABLE",
+      "id": 0,
+      "note": "manual"
+    },
+    "rust": {
+      "lvl": "ENCODABLE",
+      "id": 0,
+      "note": "manual"
+    }
+  }
+}

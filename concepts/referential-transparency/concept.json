@@ -1,0 +1,75 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "referential-transparency",
+  "name": "Referential Transparency",
+  "type": "Functional abstraction",
+  "secondary": [
+    "Design principle"
+  ],
+  "domain": "fp",
+  "family": "Core FP",
+  "def": "An expression can be replaced by its value without changing program behaviour.",
+  "problem": "Enable equational reasoning, safe refactoring, caching and parallelism by removing hidden effects.",
+  "mechanism": "Achieved when expressions are pure (no side effects, depend only on inputs); the same expression always denotes the same value.",
+  "benefits": [
+    "Equational reasoning & easy refactor",
+    "Safe memoisation/CSE by the compiler",
+    "Parallel-safe"
+  ],
+  "limits": [
+    "Real programs need effects somewhere",
+    "Discipline to maintain"
+  ],
+  "failures": [
+    "\"Pure\" code secretly reading clocks/globals",
+    "Mutable arguments breaking transparency"
+  ],
+  "whenNot": [
+    "Inherently effectful boundaries (isolate them)"
+  ],
+  "myths": [
+    "\"Referential transparency forbids all state\" — local state is fine if not observable outside"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Compilers",
+    "Functional code",
+    "Concurrency"
+  ],
+  "complexity": null,
+  "related": [
+    "pure-functions",
+    "immutability",
+    "memoisation"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "discipline"
+    },
+    "cpp": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "constexpr / discipline"
+    },
+    "cs": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "discipline"
+    },
+    "java": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "discipline"
+    },
+    "rust": {
+      "lvl": "ENCODABLE",
+      "id": 3,
+      "note": "&mut makes effects explicit"
+    }
+  }
+}

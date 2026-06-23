@@ -1,0 +1,78 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "coroutines",
+  "name": "Coroutines & Generators",
+  "type": "Concurrency model",
+  "secondary": [
+    "Language idiom"
+  ],
+  "domain": "concurrency",
+  "family": "Cooperative",
+  "def": "Functions that can suspend and later resume, preserving local state between yields.",
+  "problem": "Express cooperative multitasking, lazy sequences and async flows without OS threads.",
+  "mechanism": "A coroutine yields control (and optionally a value) and resumes where it left off; the compiler turns it into a resumable state machine.",
+  "benefits": [
+    "Cheap cooperative concurrency",
+    "Lazy/streaming sequences (generators)",
+    "Sequential-style async"
+  ],
+  "limits": [
+    "Cooperative — one coroutine can block others",
+    "Coloring / runtime support needed",
+    "Debugging suspended state"
+  ],
+  "failures": [
+    "A blocking call inside a coroutine stalling the scheduler",
+    "Leaking suspended coroutines"
+  ],
+  "whenNot": [
+    "CPU-bound parallelism (need threads)"
+  ],
+  "myths": [
+    "\"Coroutines = threads\" — they are cooperative and usually single-threaded unless scheduled across cores"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Async I/O",
+    "Game scripting",
+    "Iterators/streams"
+  ],
+  "complexity": null,
+  "related": [
+    "async-await",
+    "structured-concurrency",
+    "lazy-evaluation"
+  ],
+  "competing": [
+    "threads"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 0,
+      "note": "ucontext/manual"
+    },
+    "cpp": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "C++20 coroutines"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "yield / IEnumerator"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 1,
+      "note": "virtual threads / Loom"
+    },
+    "rust": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "async fn; generators (nightly)"
+    }
+  }
+}

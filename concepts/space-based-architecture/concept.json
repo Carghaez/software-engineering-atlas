@@ -1,0 +1,100 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "space-based-architecture",
+  "name": "Space-Based Architecture",
+  "type": "Architectural pattern",
+  "secondary": [
+    "Distributed-systems pattern"
+  ],
+  "aliases": [
+    "Tuple-space architecture",
+    "In-memory data grid"
+  ],
+  "x": {
+    "forces": [
+      "Extreme scalability ↔ in-memory state durability",
+      "Removing the database bottleneck ↔ replication / consistency cost",
+      "Elasticity ↔ data-grid complexity"
+    ],
+    "structure": "Processing units hold data in a replicated in-memory grid (\"space\"); a middleware tier handles replication, messaging, and data partitioning, removing the central database from the request path.",
+    "antiPatterns": [
+      "Treating the grid as a cache afterthought (no durability plan)",
+      "Ignoring split-brain / replication lag",
+      "Hot partitions"
+    ],
+    "scale": "High-throughput application; trading, ticketing, real-time bidding, gaming."
+  },
+  "domain": "architecture",
+  "family": "Distributed architecture",
+  "def": "A high-scalability architecture that keeps working data in a replicated in-memory grid across processing units, eliminating the central database as a bottleneck under extreme, variable load.",
+  "problem": "A shared relational database becomes the throughput and elasticity bottleneck for very high, spiky concurrent load.",
+  "mechanism": "Stateless-ish processing units read/write data in a distributed in-memory \"space\" (tuple space / data grid). Middleware replicates and partitions data, routes messages, and asynchronously persists to durable storage off the hot path, so the system scales by adding units.",
+  "benefits": [
+    "Very high throughput and elasticity",
+    "No central DB bottleneck",
+    "Handles spiky, unpredictable load"
+  ],
+  "limits": [
+    "In-memory durability / consistency is hard",
+    "Operationally complex data grid",
+    "Risk of data loss / split-brain on failures"
+  ],
+  "failures": [
+    "Replication lag → stale / lost writes",
+    "Split-brain partitioning the grid",
+    "Hot partitions overwhelming a unit"
+  ],
+  "whenNot": [
+    "Modest / steady load (a database is simpler)",
+    "Strong durability and ACID are paramount"
+  ],
+  "myths": [
+    "\"It’s just caching\" — the data grid is the system of record on the hot path, not a side cache"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Trading / fintech",
+    "Ticketing / e-commerce spikes",
+    "Real-time bidding",
+    "Gaming"
+  ],
+  "related": [
+    "microservices",
+    "event-driven-architecture",
+    "cqrs",
+    "consistent-hashing"
+  ],
+  "competing": [
+    "microservices",
+    "layered-architecture"
+  ],
+  "maturity": "Established",
+  "confidence": "Medium",
+  "langs": {
+    "c": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "rare"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "grids"
+    },
+    "cs": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "NCache / Coherence"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 3,
+      "note": "Hazelcast / Ignite / Coherence"
+    },
+    "rust": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "custom"
+    }
+  }
+}

@@ -1,0 +1,80 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "canonicalization",
+  "name": "Canonicalisation",
+  "type": "Security practice",
+  "secondary": [],
+  "aliases": [
+    "Normalisation (security)",
+    "Input canonicalization"
+  ],
+  "domain": "security",
+  "family": "Input handling",
+  "def": "Converting input to a single, canonical form before validating or authorising it, so equivalent encodings cannot bypass security checks.",
+  "problem": "The same value has many representations (URL-encoding, Unicode, path traversal, mixed case); validating the raw form lets attackers smuggle malicious input past filters.",
+  "mechanism": "Decode and normalise first — resolve percent/Unicode encodings, collapse path traversals (../), normalise Unicode (NFC), unify case/separators — then validate and authorise the single canonical result. Reject anything that does not canonicalise cleanly.",
+  "benefits": [
+    "Closes encoding/normalisation bypasses",
+    "Makes validation rules actually enforceable",
+    "Prevents path-traversal and homoglyph tricks"
+  ],
+  "limits": [
+    "Order matters: must canonicalise before checks",
+    "Double-decoding can itself introduce bugs",
+    "Locale/Unicode normalisation subtleties"
+  ],
+  "failures": [
+    "Validating before decoding (filter bypass)",
+    "Inconsistent canonical forms across components",
+    "Double-decoding reintroducing injected sequences"
+  ],
+  "whenNot": [
+    "n/a — always canonicalise untrusted input before security decisions"
+  ],
+  "myths": [
+    "\"Blocklisting bad patterns is enough\" — without canonicalisation, encoded variants slip through"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Web / APIs",
+    "File handling",
+    "Authentication / authorization",
+    "Parsers"
+  ],
+  "related": [
+    "input-validation",
+    "output-encoding",
+    "authorization",
+    "threat-modeling"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "manual / libs"
+    },
+    "cpp": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "libs"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "Uri / String.Normalize"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "java.text.Normalizer / URI"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "unicode-normalization / url"
+    }
+  }
+}

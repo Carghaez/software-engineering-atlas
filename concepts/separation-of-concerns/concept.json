@@ -1,0 +1,71 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "separation-of-concerns",
+  "name": "Separation of Concerns",
+  "type": "Design principle",
+  "secondary": [],
+  "domain": "architecture",
+  "family": "Foundational principle",
+  "def": "Dividing a system so each part addresses one distinct concern with minimal overlap.",
+  "problem": "Limit the cognitive and change-impact scope of any one module by isolating responsibilities.",
+  "mechanism": "Group related responsibilities, separate unrelated ones behind interfaces/layers/modules, so a change to one concern touches one place.",
+  "benefits": [
+    "Localised changes; easier reasoning",
+    "Independent testing/reuse",
+    "Parallel development"
+  ],
+  "limits": [
+    "Over-separation adds indirection",
+    "Drawing the right boundaries is hard",
+    "Cross-cutting concerns resist it"
+  ],
+  "failures": [
+    "God modules mixing many concerns",
+    "Boundaries that cut through a single concern"
+  ],
+  "whenNot": [
+    "Tiny scripts where structure adds noise"
+  ],
+  "myths": [
+    "\"More files = better separation\" — separation is about responsibility, not file count"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "All sectors"
+  ],
+  "complexity": null,
+  "related": [
+    "single-responsibility",
+    "hexagonal-architecture"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "modules/files"
+    },
+    "cpp": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "namespaces/modules"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "assemblies/namespaces"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "packages/modules"
+    },
+    "rust": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "modules/crates"
+    }
+  }
+}

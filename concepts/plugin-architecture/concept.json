@@ -1,0 +1,97 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "plugin-architecture",
+  "name": "Plugin Architecture",
+  "type": "Architectural pattern",
+  "secondary": [],
+  "aliases": [
+    "Microkernel architecture",
+    "Extension / add-in model"
+  ],
+  "x": {
+    "forces": [
+      "Extensibility ↔ stability of the host contract",
+      "Third-party freedom ↔ security / sandboxing",
+      "Dynamic loading ↔ versioning / compatibility"
+    ],
+    "structure": "A minimal core (microkernel) defines extension points / interfaces; independent plugins implement them and are discovered and loaded (often dynamically) at runtime.",
+    "antiPatterns": [
+      "Leaky plugin API exposing core internals",
+      "No version contract → plugin breakage",
+      "Plugins with unrestricted access (no sandbox)"
+    ],
+    "scale": "Application architecture; editors, IDEs, browsers, CMSs, DAWs."
+  },
+  "domain": "architecture",
+  "family": "Extensible / microkernel",
+  "def": "An architecture with a small stable core that exposes extension points, letting independent plugins add capability without modifying the core.",
+  "problem": "Hard-coding every feature into the core makes it bloated and impossible for third parties to extend safely.",
+  "mechanism": "The core defines plugin interfaces and a discovery/loading mechanism (registry, dynamic libraries, manifests). Plugins implement the contract and are loaded at startup or on demand. The contract — not the implementation — is the dependency.",
+  "benefits": [
+    "Extensible without touching the core",
+    "Third-party / community ecosystem",
+    "Optional features ship separately"
+  ],
+  "limits": [
+    "Stable, well-versioned contract is hard to design",
+    "Dynamic loading / isolation complexity",
+    "Security surface from untrusted plugins"
+  ],
+  "failures": [
+    "Breaking the plugin API between versions",
+    "Plugins reaching into core internals (leaky contract)",
+    "Unsandboxed plugins compromising the host"
+  ],
+  "whenNot": [
+    "Fixed feature set with no extension need",
+    "Tight, monolithic performance-critical cores"
+  ],
+  "myths": [
+    "\"Plugins are always safe to load\" — without sandboxing they run with full host privilege"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "IDEs / editors",
+    "Browsers",
+    "CMS / e-commerce",
+    "DAWs / creative tools"
+  ],
+  "related": [
+    "dependency-inversion",
+    "inversion-of-control",
+    "component-based",
+    "sandboxing"
+  ],
+  "competing": [
+    "modular-monolith"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "dlopen / function tables"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "shared libs / ABI care"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "AssemblyLoadContext / MEF"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "ServiceLoader / OSGi"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "dylib / abi_stable"
+    }
+  }
+}

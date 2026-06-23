@@ -1,0 +1,87 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "nominal-structural-typing",
+  "name": "Nominal vs Structural Typing",
+  "type": "Type-system technique",
+  "secondary": [],
+  "aliases": [
+    "Name-based vs shape-based typing"
+  ],
+  "x": {
+    "laws": [
+      "Nominal: compatibility requires the same declared name/identity",
+      "Structural: compatibility requires a matching shape (members/signatures)",
+      "A language may mix them (e.g. structural for tuples, nominal for classes)"
+    ],
+    "encoding": "C/C++/C#/Java classes & Rust types are nominal; structural appears in TypeScript, Go interfaces, OCaml objects, and C++ duck-typed templates / concepts (shape-checked)."
+  },
+  "domain": "types",
+  "family": "Representation",
+  "def": "Two answers to \"when are two types compatible?\": nominal typing requires the same declared name; structural typing requires the same shape.",
+  "problem": "Decide whether type compatibility is based on explicit declared identity or on matching members/signatures.",
+  "mechanism": "Nominal systems treat two identically-shaped types as distinct unless related by name/declaration (preventing accidental interchangeability). Structural systems accept any value whose shape satisfies the expected members, enabling looser coupling.",
+  "benefits": [
+    "Nominal: prevents accidental mix-ups; clear intent",
+    "Structural: flexible, less boilerplate, easy adaptation",
+    "Mixing gets benefits of both in one language"
+  ],
+  "limits": [
+    "Nominal: more declarations / adapters",
+    "Structural: accidental compatibility; weaker intent signalling",
+    "Tooling and error messages differ in clarity"
+  ],
+  "failures": [
+    "Assuming structural compatibility in a nominal language",
+    "Two structurally-equal types being wrongly interchanged"
+  ],
+  "whenNot": [
+    "n/a — every typed language picks a point on this axis"
+  ],
+  "myths": [
+    "\"Same fields means same type\" — only under structural typing"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Language design",
+    "API design",
+    "Cross-language interop"
+  ],
+  "related": [
+    "static-dynamic-typing",
+    "duck-typing",
+    "newtype",
+    "subtype-polymorphism"
+  ],
+  "competing": [
+    "duck-typing"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "NATIVE",
+      "id": 2,
+      "note": "nominal structs"
+    },
+    "cpp": {
+      "lvl": "NATIVE",
+      "id": 2,
+      "note": "nominal; templates shape-check"
+    },
+    "cs": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "nominal"
+    },
+    "java": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "nominal"
+    },
+    "rust": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "nominal"
+    }
+  }
+}

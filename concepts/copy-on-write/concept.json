@@ -1,0 +1,76 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "copy-on-write",
+  "name": "Copy-on-Write (CoW)",
+  "type": "Resource-management technique",
+  "secondary": [
+    "Performance-optimisation technique"
+  ],
+  "domain": "memory",
+  "family": "Lazy copy",
+  "def": "Sharing data between copies until one mutates, at which point it is duplicated.",
+  "problem": "Make copies cheap (O(1) share) while preserving value semantics for rare mutations.",
+  "mechanism": "Copies share a refcounted buffer; on the first write, the writer makes a private copy (if shared) before mutating.",
+  "benefits": [
+    "O(1) copies when reads dominate",
+    "Memory savings via sharing",
+    "Value semantics preserved"
+  ],
+  "limits": [
+    "Write triggers a full copy (latency spike)",
+    "Refcount/atomic overhead",
+    "Concurrency hazards (CoW + threads)"
+  ],
+  "failures": [
+    "Thread-safety bugs in CoW under sharing (historic std::string)",
+    "Surprise latency on first write"
+  ],
+  "whenNot": [
+    "Write-heavy data; predictable latency needs"
+  ],
+  "myths": [
+    "\"CoW makes everything cheap\" — the first write pays the full copy"
+  ],
+  "use": "Both",
+  "sectors": [
+    "OS (fork)",
+    "Strings/buffers",
+    "Filesystems (ZFS/Btrfs)"
+  ],
+  "complexity": null,
+  "related": [
+    "reference-counting",
+    "immutability",
+    "persistent-data-structures"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "manual + refcount"
+    },
+    "cpp": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "manual; not in std::string now"
+    },
+    "cs": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "manual / ImmutableArray"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "CopyOnWriteArrayList"
+    },
+    "rust": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "Cow<T>"
+    }
+  }
+}

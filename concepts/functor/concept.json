@@ -1,0 +1,74 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "functor",
+  "name": "Functor",
+  "type": "Functional abstraction",
+  "secondary": [
+    "Type-system technique"
+  ],
+  "domain": "fp",
+  "family": "Compositional abstraction",
+  "def": "A type supporting `map`: applying a function inside a context while preserving its structure.",
+  "problem": "Transform wrapped values (lists, options, futures) without unwrapping or changing their shape.",
+  "mechanism": "Defines `map(f)` obeying identity (map id = id) and composition (map (g∘f) = map g ∘ map f).",
+  "benefits": [
+    "Uniform transformation across container types",
+    "Foundation for applicatives/monads",
+    "Law-abiding, predictable"
+  ],
+  "limits": [
+    "Without HKTs the abstraction can’t be expressed generically in mainstream languages",
+    "Easy to confuse with monad/applicative"
+  ],
+  "failures": [
+    "map implementations that violate composition (side effects)"
+  ],
+  "whenNot": [
+    "When you only ever have one concrete container"
+  ],
+  "myths": [
+    "\"Functor = monad\" — every monad is a functor, not vice versa"
+  ],
+  "use": "Both",
+  "sectors": [
+    "Functional libraries",
+    "Compilers"
+  ],
+  "complexity": null,
+  "related": [
+    "monad",
+    "option-maybe",
+    "higher-order-functions",
+    "higher-kinded-types"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "Medium",
+  "langs": {
+    "c": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "no generics"
+    },
+    "cpp": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "ranges::transform per type"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "Select (LINQ) per type"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "map per type (Stream/Optional)"
+    },
+    "rust": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "map on Option/Result/Iterator"
+    }
+  }
+}

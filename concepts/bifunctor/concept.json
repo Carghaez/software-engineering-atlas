@@ -1,0 +1,86 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "bifunctor",
+  "name": "Bifunctor",
+  "type": "Functional abstraction",
+  "secondary": [],
+  "aliases": [],
+  "x": {
+    "formalRole": "A type constructor of two arguments that is functorial in both — you can map over either or both positions independently.",
+    "compositionRule": "bimap : (a → c) → (b → d) → F a b → F c d; with first / second mapping one side.",
+    "laws": [
+      "bimap id id = id",
+      "bimap (g∘h) (i∘j) = bimap g i ∘ bimap h j"
+    ],
+    "encoding": "Instances for pairs/tuples, Either/Result, and tagged unions. C++/Rust: map_err/map on Result; C#/Java via wrapper helpers.",
+    "useCases": "Transforming both sides of an Either/Result (e.g. map the error AND the value), reshaping key-value pairs.",
+    "misuseRisks": [
+      "Hand-rolling separate maps where bimap expresses intent",
+      "Over-generalising simple tuple transforms"
+    ]
+  },
+  "domain": "fp",
+  "family": "Algebraic composition",
+  "def": "A functor in two type parameters: it provides a lawful way to map functions over either or both of its positions.",
+  "problem": "Cleanly transform both components of a two-sided structure (like Result’s ok and error) without unwrapping.",
+  "mechanism": "Supplies bimap (and the one-sided first/second). Laws mirror the functor laws on each position, guaranteeing identity and composition are preserved.",
+  "benefits": [
+    "Single lawful operation over both sides",
+    "Clarifies intent vs ad-hoc unwrap/rewrap",
+    "Composes with other algebraic structures"
+  ],
+  "limits": [
+    "Only meaningful for two-parameter types",
+    "Often under-used / unnamed in mainstream code"
+  ],
+  "failures": [
+    "Implementations that break the composition law",
+    "Confusing bimap with mapping just the value"
+  ],
+  "whenNot": [
+    "Single-parameter containers (a plain functor suffices)"
+  ],
+  "myths": [
+    "\"Result.map covers everything\" — mapping the error side is the bifunctor’s second half"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Functional codebases",
+    "Error-handling pipelines"
+  ],
+  "related": [
+    "functor",
+    "result-either",
+    "contravariant-functor"
+  ],
+  "competing": [],
+  "maturity": "Established",
+  "confidence": "Medium",
+  "langs": {
+    "c": {
+      "lvl": "UNSUITABLE",
+      "id": 0,
+      "note": "n/a"
+    },
+    "cpp": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "expected map/transform"
+    },
+    "cs": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "helpers"
+    },
+    "java": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "vavr Either.bimap"
+    },
+    "rust": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "Result map / map_err"
+    }
+  }
+}

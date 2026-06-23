@@ -1,0 +1,76 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "futures-promises",
+  "name": "Futures & Promises",
+  "type": "Concurrency model",
+  "secondary": [
+    "Synchronisation mechanism"
+  ],
+  "domain": "concurrency",
+  "family": "Asynchrony",
+  "def": "A placeholder for a value that will be available later, with the producer side called a promise.",
+  "problem": "Represent and compose results of asynchronous computations without blocking threads.",
+  "mechanism": "A future is read-only and completes when its promise is fulfilled; callbacks/combinators (then/map) chain work; await suspends until ready.",
+  "benefits": [
+    "Compose async results (then/all/race)",
+    "Decouple producer/consumer timing",
+    "Foundation of async/await"
+  ],
+  "limits": [
+    "Unhandled rejections/errors get swallowed",
+    "Eager vs lazy semantics differ by language",
+    "Callback nesting without sugar"
+  ],
+  "failures": [
+    "Forgotten error handling on a future",
+    "Blocking on a future from its own executor → deadlock"
+  ],
+  "whenNot": [
+    "Simple synchronous flows"
+  ],
+  "myths": [
+    "\"Future = thread\" — a future is a value handle; it may run on a pool, inline, or lazily"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Web/backends",
+    "UI",
+    "Networking"
+  ],
+  "complexity": null,
+  "related": [
+    "async-await",
+    "coroutines",
+    "reactive-programming"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "manual"
+    },
+    "cpp": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "std::future/promise"
+    },
+    "cs": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "Task<T>"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "CompletableFuture"
+    },
+    "rust": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "Future trait"
+    }
+  }
+}

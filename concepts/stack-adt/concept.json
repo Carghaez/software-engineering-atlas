@@ -1,0 +1,76 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "stack-adt",
+  "name": "Stack (LIFO)",
+  "type": "Abstract data type",
+  "secondary": [],
+  "domain": "structures",
+  "family": "Linear / sequential",
+  "def": "A last-in-first-out collection with push, pop and peek at one end.",
+  "problem": "Track nested/deferred work: call frames, undo, expression evaluation, DFS.",
+  "mechanism": "Almost always a dynamic array (push/pop at the end); occasionally a linked list. Only the top is accessible.",
+  "benefits": [
+    "O(1) push/pop/peek",
+    "Trivial, cache-friendly over an array",
+    "Models recursion and backtracking"
+  ],
+  "limits": [
+    "Only top accessible by contract",
+    "Overflow if bounded; deep recursion → stack overflow"
+  ],
+  "failures": [
+    "Unbounded growth on pathological recursion",
+    "Underflow (pop on empty)"
+  ],
+  "whenNot": [
+    "Need random access or FIFO order"
+  ],
+  "myths": [
+    "\"A stack is a distinct structure\" — it is an ADT; the usual impl is a plain array"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Compilers/VMs",
+    "Parsers",
+    "Graph search"
+  ],
+  "complexity": {
+    "Push/pop/peek": "O(1)",
+    "Space": "O(n)"
+  },
+  "related": [
+    "dynamic-array",
+    "queue-adt",
+    "backtracking"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "array + top index"
+    },
+    "cpp": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "std::stack adaptor"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "Stack<T>"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "Deque as stack"
+    },
+    "rust": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "Vec push/pop"
+    }
+  }
+}

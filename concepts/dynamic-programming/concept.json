@@ -1,0 +1,80 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "dynamic-programming",
+  "name": "Dynamic Programming",
+  "type": "Algorithmic paradigm",
+  "secondary": [],
+  "domain": "algos",
+  "family": "Optimisation paradigm",
+  "def": "Solves problems with overlapping subproblems and optimal substructure by reusing subresults.",
+  "problem": "Avoid exponential recomputation when a problem decomposes into reused, overlapping subproblems.",
+  "mechanism": "Define a recurrence over states; cache results via top-down memoisation or bottom-up tabulation, often reducing dimensionality for space.",
+  "benefits": [
+    "Turns exponential brute force into polynomial time",
+    "Systematic state/recurrence design",
+    "Space can often be reduced to O(1) rows"
+  ],
+  "limits": [
+    "Requires identifying optimal substructure",
+    "State space can still be huge",
+    "Recurrence design is non-trivial"
+  ],
+  "failures": [
+    "Wrong state definition → incorrect optima",
+    "Memory blow-up from over-large state tables"
+  ],
+  "whenNot": [
+    "No overlapping subproblems (use divide & conquer)",
+    "Greedy choice provably optimal (use greedy)"
+  ],
+  "myths": [
+    "\"DP = memoisation\" — memoisation is one implementation; tabulation is the other"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Bioinformatics",
+    "Operations research",
+    "Compilers",
+    "Finance"
+  ],
+  "complexity": {
+    "Note": "Problem-specific; typically O(states × transitions)"
+  },
+  "related": [
+    "divide-and-conquer",
+    "greedy",
+    "backtracking"
+  ],
+  "competing": [
+    "greedy"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "NATIVE",
+      "id": 2,
+      "note": "arrays + loops"
+    },
+    "cpp": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "vectors / memo maps"
+    },
+    "cs": {
+      "lvl": "NATIVE",
+      "id": 2,
+      "note": "arrays / Dictionary"
+    },
+    "java": {
+      "lvl": "NATIVE",
+      "id": 2,
+      "note": "arrays / HashMap memo"
+    },
+    "rust": {
+      "lvl": "NATIVE",
+      "id": 2,
+      "note": "Vec / HashMap memo"
+    }
+  }
+}

@@ -1,0 +1,84 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "mergesort",
+  "name": "Merge Sort",
+  "type": "Algorithm",
+  "secondary": [
+    "Divide and conquer"
+  ],
+  "domain": "algos",
+  "family": "Comparison sort",
+  "def": "A stable divide-and-conquer sort that recursively splits, sorts halves, and merges them.",
+  "problem": "Sort with guaranteed O(n log n) and stability, including data that does not fit in memory.",
+  "mechanism": "Split the sequence in half, sort each recursively, then merge the two sorted runs in linear time. External merge sort streams runs from disk.",
+  "benefits": [
+    "Guaranteed O(n log n) worst case",
+    "Stable",
+    "Parallelisable; ideal for external/linked data"
+  ],
+  "limits": [
+    "O(n) extra space (array variant)",
+    "Slower constants than quicksort in-memory",
+    "Not in-place (naively)"
+  ],
+  "failures": [
+    "Memory blow-up from naive allocation per merge",
+    "Merging non-sorted runs (logic bug)"
+  ],
+  "whenNot": [
+    "Tight memory, in-place needed (use heap/quicksort)"
+  ],
+  "myths": [
+    "\"Always slower than quicksort\" — it wins for stability, linked lists and external sorting"
+  ],
+  "use": "Indirect",
+  "sectors": [
+    "Databases (external sort)",
+    "Stable sorts",
+    "Big data"
+  ],
+  "complexity": {
+    "Best": "O(n log n)",
+    "Average": "O(n log n)",
+    "Worst": "O(n log n)",
+    "Space": "O(n)"
+  },
+  "related": [
+    "quicksort",
+    "divide-and-conquer",
+    "radix-sort"
+  ],
+  "competing": [
+    "quicksort",
+    "heapsort"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "manual"
+    },
+    "cpp": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "stable_sort (often merge)"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "OrderBy is stable"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "Arrays.sort objects = Timsort"
+    },
+    "rust": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "sort = stable (Timsort-like)"
+    }
+  }
+}

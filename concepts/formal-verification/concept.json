@@ -1,0 +1,75 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "formal-verification",
+  "name": "Formal Verification & Theorem Proving",
+  "type": "Verification technique",
+  "secondary": [],
+  "domain": "testing",
+  "family": "Formal methods",
+  "def": "Mathematically proving a system satisfies a formal specification.",
+  "problem": "Guarantee the absence of whole bug classes where testing can only show presence.",
+  "mechanism": "Express the spec and system in a logic; a proof assistant (Coq, Isabelle, Lean) or automated prover establishes the implementation refines/satisfies the spec.",
+  "benefits": [
+    "Proof, not just evidence, of correctness",
+    "Eliminates entire defect classes",
+    "Essential for critical systems (seL4, CompCert)"
+  ],
+  "limits": [
+    "Very high effort/expertise",
+    "Spec must be right (and match reality)",
+    "Scaling to large systems is hard"
+  ],
+  "failures": [
+    "Wrong/incomplete specification",
+    "Proving the model, not the deployed code"
+  ],
+  "whenNot": [
+    "Most software — cost dwarfs benefit"
+  ],
+  "myths": [
+    "\"Verified = bug-free\" — only w.r.t. the spec and its assumptions"
+  ],
+  "use": "Indirect",
+  "sectors": [
+    "Aerospace",
+    "Crypto",
+    "OS kernels",
+    "Hardware"
+  ],
+  "complexity": null,
+  "related": [
+    "model-checking",
+    "design-by-contract",
+    "refinement-types"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "Medium",
+  "langs": {
+    "c": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "Frama-C / VeriFast"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 0,
+      "note": "rare"
+    },
+    "cs": {
+      "lvl": "ECO",
+      "id": 0,
+      "note": "rare"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "KeY / JML"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "Prusti / Creusot"
+    }
+  }
+}

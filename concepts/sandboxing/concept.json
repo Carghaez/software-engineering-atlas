@@ -1,0 +1,77 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "sandboxing",
+  "name": "Sandboxing & Isolation",
+  "type": "Security practice",
+  "secondary": [
+    "Resource-management technique"
+  ],
+  "domain": "security",
+  "family": "Containment",
+  "def": "Running untrusted code in a restricted environment that limits its access to the host.",
+  "problem": "Contain the damage untrusted or compromised code can do.",
+  "mechanism": "Restrict capabilities via OS primitives (seccomp, namespaces), VMs/containers, WASM runtimes, or language sandboxes — mediating syscalls, filesystem and network.",
+  "benefits": [
+    "Confines breach blast radius",
+    "Run untrusted code safely (plugins, tenants)",
+    "Defence-in-depth layer"
+  ],
+  "limits": [
+    "Performance overhead",
+    "Escape vulnerabilities exist",
+    "Configuration complexity"
+  ],
+  "failures": [
+    "Misconfigured sandbox with broad access",
+    "Sandbox-escape exploits"
+  ],
+  "whenNot": [
+    "Fully trusted in-process code (overhead unjustified)"
+  ],
+  "myths": [
+    "\"Containers are a security boundary\" — weaker than VMs; kernel is shared"
+  ],
+  "use": "Both",
+  "sectors": [
+    "Browsers",
+    "Cloud (multi-tenant)",
+    "Plugins",
+    "Serverless"
+  ],
+  "complexity": null,
+  "related": [
+    "least-privilege",
+    "defense-in-depth",
+    "processes"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "seccomp/namespaces"
+    },
+    "cpp": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "OS sandboxing"
+    },
+    "cs": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "containers/WASM"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "containers; SM deprecated"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "wasmtime / cap-std"
+    }
+  }
+}

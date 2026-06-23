@@ -1,0 +1,81 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "actors",
+  "name": "Actor Model",
+  "type": "Concurrency model",
+  "secondary": [
+    "Distributed-systems pattern",
+    "Message-oriented programming"
+  ],
+  "domain": "concurrency",
+  "family": "Message-passing",
+  "def": "Concurrency via isolated actors that own private state and communicate only by asynchronous messages.",
+  "problem": "Avoid shared-memory hazards and scale across cores/machines by isolating state behind mailboxes.",
+  "mechanism": "Each actor processes its mailbox sequentially, may change state, spawn actors, and send messages. No shared mutable state; supervision handles failures.",
+  "benefits": [
+    "No data races by construction",
+    "Location transparency → scales to distributed",
+    "Supervision/\"let it crash\" resilience"
+  ],
+  "limits": [
+    "Message overhead and copying",
+    "Ordering/at-most-once semantics complicate logic",
+    "Backpressure and mailbox growth must be managed"
+  ],
+  "failures": [
+    "Unbounded mailbox growth → OOM",
+    "Hidden distributed-systems complexity (partial failure)"
+  ],
+  "whenNot": [
+    "Tight low-latency shared-memory compute",
+    "Simple in-process tasks"
+  ],
+  "myths": [
+    "\"Actors remove all concurrency bugs\" — deadlocks become message-protocol bugs"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Telecom",
+    "Gaming backends",
+    "Distributed systems"
+  ],
+  "complexity": null,
+  "related": [
+    "csp-channels",
+    "circuit-breaker",
+    "reactive-programming"
+  ],
+  "competing": [
+    "csp-channels",
+    "threads"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "manual"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "CAF"
+    },
+    "cs": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "Akka.NET / Orleans"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "Akka / Pekko"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "actix / ractor"
+    }
+  }
+}

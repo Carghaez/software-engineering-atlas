@@ -1,0 +1,97 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "message-passing",
+  "name": "Message-Oriented Programming",
+  "type": "Programming style",
+  "secondary": [
+    "Concurrency model"
+  ],
+  "aliases": [
+    "Message passing"
+  ],
+  "x": {
+    "corePrinciples": [
+      "Components communicate only by sending messages",
+      "No shared mutable state across components",
+      "Loose coupling via explicit protocols"
+    ],
+    "controlDataFlow": "Asynchronous (or synchronous) messages travel between isolated components; receivers decide how to react.",
+    "preferredAbstractions": [
+      "messages / commands / events",
+      "mailboxes / queues / channels",
+      "protocols / contracts"
+    ],
+    "suitableProjects": "Distributed systems, concurrent components, GUI event handling, and service integration."
+  },
+  "domain": "paradigms",
+  "family": "Interaction / decoupled",
+  "def": "A style where components interact solely by exchanging messages rather than sharing state or calling each other directly.",
+  "problem": "Shared state and direct calls couple components tightly and create concurrency hazards.",
+  "mechanism": "Senders enqueue messages; receivers process them from a mailbox/queue/channel on their own schedule. Decoupling in space (who) and time (when) follows naturally; underlies actors and many integration patterns.",
+  "benefits": [
+    "Strong decoupling and isolation",
+    "Maps cleanly onto concurrency / distribution",
+    "Failure containment per component"
+  ],
+  "limits": [
+    "Indirection complicates tracing / debugging",
+    "Message ordering & delivery guarantees vary",
+    "Serialization / queue overhead"
+  ],
+  "failures": [
+    "Unbounded mailbox growth under overload",
+    "Hidden temporal coupling via message ordering assumptions"
+  ],
+  "whenNot": [
+    "Tight, synchronous in-process logic",
+    "Latency-critical paths sensitive to queueing"
+  ],
+  "myths": [
+    "\"Message passing removes all races\" — protocol-level ordering bugs remain"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Distributed systems",
+    "Microservices",
+    "GUIs",
+    "Embedded RTOS"
+  ],
+  "related": [
+    "actors",
+    "csp-channels",
+    "event-driven",
+    "event-driven-architecture"
+  ],
+  "competing": [
+    "threads"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "queues / IPC"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "queues / libs"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "Channels / Orleans"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "queues / Akka"
+    },
+    "rust": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "mpsc / channels"
+    }
+  }
+}

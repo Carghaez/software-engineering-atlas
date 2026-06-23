@@ -1,0 +1,88 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "duck-typing",
+  "name": "Duck Typing",
+  "type": "Type-system technique",
+  "secondary": [],
+  "aliases": [
+    "\"If it quacks like a duck\""
+  ],
+  "x": {
+    "laws": [
+      "Suitability is decided by whether required members exist, not by declared type",
+      "Checked at use site (dynamic) or at instantiation (C++ templates)",
+      "No nominal contract is required"
+    ],
+    "encoding": "Native to dynamic languages; in this set it appears via C++ templates (compile-time duck typing on member existence) and reflection-based access in C#/Java."
+  },
+  "domain": "types",
+  "family": "Representation",
+  "def": "Treating a value as usable purely because it has the required members/operations, regardless of its declared type or any interface it nominally implements.",
+  "problem": "Operate over anything that \"fits\", without forcing every supplier to declare a shared interface.",
+  "mechanism": "Dynamic languages dispatch on whether the needed method exists at call time. C++ templates are compile-time duck typing: a template compiles for any type providing the used members. There is no nominal contract — only the used shape matters.",
+  "benefits": [
+    "Maximum flexibility / loose coupling",
+    "No boilerplate interface declarations",
+    "Powerful generic code (C++ templates)"
+  ],
+  "limits": [
+    "Errors surface late (runtime, or deep template instantiation)",
+    "No explicit contract → poor discoverability",
+    "Refactoring is risky without types"
+  ],
+  "failures": [
+    "Runtime AttributeError-style failures (dynamic)",
+    "Cryptic template error walls (C++ pre-concepts)"
+  ],
+  "whenNot": [
+    "Safety-critical code needing explicit contracts",
+    "Large teams/APIs where discoverability matters (use interfaces/concepts)"
+  ],
+  "myths": [
+    "\"C++ templates are statically typed so not duck typing\" — they are compile-time duck typing on member use"
+  ],
+  "use": "Indirect",
+  "sectors": [
+    "Scripting / glue code",
+    "C++ generic libraries",
+    "Testing / mocking"
+  ],
+  "related": [
+    "nominal-structural-typing",
+    "static-dynamic-typing",
+    "gradual-typing",
+    "generic-programming"
+  ],
+  "competing": [
+    "nominal-structural-typing"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "UNSUITABLE",
+      "id": 0,
+      "note": "n/a"
+    },
+    "cpp": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "template duck typing"
+    },
+    "cs": {
+      "lvl": "AWKWARD",
+      "id": 1,
+      "note": "dynamic / reflection"
+    },
+    "java": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "reflection only"
+    },
+    "rust": {
+      "lvl": "UNSUITABLE",
+      "id": 0,
+      "note": "nominal traits"
+    }
+  }
+}

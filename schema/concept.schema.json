@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema#",
+  "$id": "https://carghaez.github.io/software-engineering-atlas/schema/concept.schema.json",
+  "title": "Atlas concept",
+  "description": "One software-engineering concept card. Source of truth lives at concepts/<id>/concept.json; code examples are sibling files (pseudocode.txt, rust.rs, ...). Referenced via \"$schema\" so editors validate live.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id", "name", "type", "secondary", "def", "problem", "mechanism",
+    "benefits", "limits", "failures", "whenNot", "myths",
+    "domain", "family", "related", "competing", "sectors", "use", "langs"
+  ],
+  "properties": {
+    "$schema": { "type": "string" },
+    "id": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$", "description": "Unique slug; must equal the folder name." },
+    "name": { "type": "string" },
+    "type": { "type": "string", "description": "Primary concept type; must be a key in TEMPLATE_MAP (concepts.js)." },
+    "secondary": { "type": "array", "items": { "type": "string" } },
+    "aliases": { "type": "array", "items": { "type": "string" } },
+    "applies": { "type": "array", "items": { "type": "string" } },
+    "abstractionLevel": { "type": "string" },
+    "def": { "type": "string" },
+    "problem": { "type": "string" },
+    "mechanism": { "type": "string" },
+    "benefits": { "type": "array", "items": { "type": "string" } },
+    "limits": { "type": "array", "items": { "type": "string" } },
+    "failures": { "type": "array", "items": { "type": "string" } },
+    "whenNot": { "type": "array", "items": { "type": "string" } },
+    "myths": { "type": "array", "items": { "type": "string" } },
+    "domain": { "type": "string", "description": "One of the 13 DOMAINS ids (concepts.js)." },
+    "family": { "type": "string" },
+    "related": { "type": "array", "items": { "type": "string" }, "description": "Concept ids that must resolve." },
+    "competing": { "type": "array", "items": { "type": "string" }, "description": "Concept ids that must resolve." },
+    "sectors": { "type": "array", "items": { "type": "string" } },
+    "use": { "type": "string" },
+    "maturity": { "type": "string" },
+    "confidence": { "type": "string", "enum": ["High", "Medium", "Low"] },
+    "complexity": {
+      "type": ["object", "null"],
+      "description": "Free-form label -> big-O string; only meaningful on ds/algo/hardware templates.",
+      "additionalProperties": { "type": "string" }
+    },
+    "x": {
+      "type": "object",
+      "description": "Template-specific fields; each value is a string or array of strings.",
+      "additionalProperties": {
+        "oneOf": [
+          { "type": "string" },
+          { "type": "array", "items": { "type": "string" } }
+        ]
+      }
+    },
+    "langs": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "c": { "$ref": "#/$defs/lang" },
+        "cpp": { "$ref": "#/$defs/lang" },
+        "cs": { "$ref": "#/$defs/lang" },
+        "java": { "$ref": "#/$defs/lang" },
+        "rust": { "$ref": "#/$defs/lang" }
+      }
+    }
+  },
+  "$defs": {
+    "lang": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "lvl": { "type": "string", "enum": ["NATIVE", "STD", "ECO", "ENCODABLE", "AWKWARD", "UNSUITABLE", "UNKNOWN"] },
+        "id": { "type": "integer", "minimum": 0, "maximum": 3, "description": "Idiomaticity score 0-3." },
+        "note": { "type": "string", "description": "Required when id >= 2." }
+      }
+    }
+  }
+}

@@ -1,0 +1,93 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "reader-monad",
+  "name": "Reader Monad",
+  "type": "Functional abstraction",
+  "secondary": [],
+  "aliases": [
+    "Environment monad"
+  ],
+  "x": {
+    "formalRole": "Models a computation that reads from a shared, read-only environment threaded implicitly.",
+    "compositionRule": "Reader r a ≅ r → a; bind passes the same environment to each step; ask retrieves it.",
+    "laws": [
+      "Satisfies the monad laws (it is function composition over a fixed argument)"
+    ],
+    "encoding": "A function from environment to value, or DI of an immutable config/context. Often replaced by partial application or explicit parameters.",
+    "useCases": "Dependency injection of config / context without passing it through every signature explicitly.",
+    "misuseRisks": [
+      "Using Reader where plain parameters or constructor injection are clearer",
+      "Smuggling mutable state in as the \"environment\""
+    ]
+  },
+  "domain": "fp",
+  "family": "Effect encoding",
+  "def": "A monad encoding read-only access to a shared environment, threading configuration/context implicitly through a computation.",
+  "problem": "Many functions need the same config/context; passing it explicitly everywhere is noisy.",
+  "mechanism": "Represents a computation as env → a; bind feeds the identical environment to each composed step, and ask exposes it. Effectively functional dependency injection.",
+  "benefits": [
+    "Implicit, type-checked context threading",
+    "Pure: no global mutable state",
+    "Composes with other effects via transformers"
+  ],
+  "limits": [
+    "Indirection vs plain parameters",
+    "Stacking with other effects needs ReaderT",
+    "Overkill for one or two dependencies"
+  ],
+  "failures": [
+    "Treating it as mutable state (it is read-only)",
+    "Deep transformer stacks hurting readability"
+  ],
+  "whenNot": [
+    "Few dependencies (pass them explicitly)",
+    "Imperative codebases with established DI containers"
+  ],
+  "myths": [
+    "\"Reader is the only way to do DI in FP\" — explicit args / partial application often suffice"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Functional backends",
+    "Interpreters",
+    "Config-heavy services"
+  ],
+  "related": [
+    "monad",
+    "writer-monad",
+    "state-monad",
+    "dependency-injection"
+  ],
+  "competing": [
+    "dependency-injection"
+  ],
+  "maturity": "Established",
+  "confidence": "Medium",
+  "langs": {
+    "c": {
+      "lvl": "UNSUITABLE",
+      "id": 0,
+      "note": "n/a"
+    },
+    "cpp": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "partial application"
+    },
+    "cs": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "DI container instead"
+    },
+    "java": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "DI instead"
+    },
+    "rust": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "closures / context arg"
+    }
+  }
+}

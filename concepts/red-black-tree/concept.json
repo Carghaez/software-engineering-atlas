@@ -1,0 +1,81 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "red-black-tree",
+  "name": "Red-Black Tree",
+  "type": "Data structure",
+  "secondary": [],
+  "domain": "structures",
+  "family": "Balanced search tree",
+  "def": "A self-balancing binary search tree giving O(log n) ordered operations via colour invariants.",
+  "problem": "Ordered map/set with guaranteed logarithmic worst case and predictable rebalancing cost.",
+  "mechanism": "Each node is red or black; invariants bound the longest path to ≤2× the shortest. Rotations and recolouring restore invariants on insert/delete.",
+  "benefits": [
+    "Guaranteed O(log n) worst case",
+    "Ordered traversal, predecessor/successor, range queries",
+    "Fewer rotations on update than AVL"
+  ],
+  "limits": [
+    "Pointer-based: poor cache locality vs arrays/B-trees",
+    "Higher constants than hash tables for point lookups"
+  ],
+  "failures": [
+    "Subtle invariant bugs in hand-rolled deletes",
+    "Memory overhead of per-node pointers + colour"
+  ],
+  "whenNot": [
+    "Point lookups dominate and order is irrelevant (use a hash table)",
+    "On-disk / large-fanout needs (use a B-tree)"
+  ],
+  "myths": [
+    "\"Always faster than AVL\" — AVL is more balanced and faster for read-heavy loads"
+  ],
+  "use": "Indirect",
+  "sectors": [
+    "Language runtimes",
+    "Databases",
+    "Kernels (Linux CFS, epoll)"
+  ],
+  "complexity": {
+    "Search": "O(log n)",
+    "Insert": "O(log n)",
+    "Delete": "O(log n)",
+    "Space": "O(n)"
+  },
+  "related": [
+    "b-tree",
+    "skip-list"
+  ],
+  "competing": [
+    "skip-list",
+    "hash-table"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "Linux rbtree; manual"
+    },
+    "cpp": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "std::map / std::set"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "SortedDictionary"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "TreeMap"
+    },
+    "rust": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "BTreeMap preferred instead"
+    }
+  }
+}

@@ -1,0 +1,76 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "component-based",
+  "name": "Component-Based Programming",
+  "type": "Programming paradigm",
+  "secondary": [
+    "Architectural pattern"
+  ],
+  "domain": "paradigms",
+  "family": "Composition",
+  "def": "Builds systems from reusable, independently-deployable components with well-defined interfaces.",
+  "problem": "Assemble applications from substitutable, encapsulated units rather than monolithic code.",
+  "mechanism": "Components expose interfaces/contracts and hide implementation; composition and dependency injection wire them; some support runtime discovery.",
+  "benefits": [
+    "Reuse and substitutability",
+    "Parallel team development",
+    "Clear contracts/boundaries"
+  ],
+  "limits": [
+    "Interface/versioning overhead",
+    "Over-decomposition complexity",
+    "Integration glue"
+  ],
+  "failures": [
+    "Leaky component boundaries",
+    "Version/dependency hell"
+  ],
+  "whenNot": [
+    "Small cohesive programs"
+  ],
+  "myths": [
+    "\"Components = microservices\" — components can be in-process; microservices add network boundaries"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "UI frameworks",
+    "Enterprise",
+    "Game engines (ECS)"
+  ],
+  "complexity": null,
+  "related": [
+    "ecs",
+    "dependency-injection",
+    "microservices"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "manual"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "COM / plugins"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "assemblies / DI"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "JavaBeans / OSGi"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "crates / traits"
+    }
+  }
+}

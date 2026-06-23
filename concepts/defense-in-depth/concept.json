@@ -1,0 +1,76 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "defense-in-depth",
+  "name": "Defence in Depth",
+  "type": "Security practice",
+  "secondary": [
+    "Design principle"
+  ],
+  "domain": "security",
+  "family": "Layered defence",
+  "def": "Layering independent security controls so no single failure leads to compromise.",
+  "problem": "Avoid catastrophic breach when one control fails or is bypassed.",
+  "mechanism": "Stack complementary controls (network, host, app, data) so an attacker must defeat several; assume each layer can fail.",
+  "benefits": [
+    "No single point of security failure",
+    "Slows and complicates attacks",
+    "Buys detection/response time"
+  ],
+  "limits": [
+    "Cost and complexity of many controls",
+    "Diminishing returns / false security",
+    "Operational overhead"
+  ],
+  "failures": [
+    "Redundant but correlated controls (fail together)",
+    "Layered theatre without real coverage"
+  ],
+  "whenNot": [
+    "Never skip entirely; scale layers to risk"
+  ],
+  "myths": [
+    "\"More layers = more secure\" — only if they are independent and address real threats"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Security",
+    "Enterprise",
+    "Critical infrastructure"
+  ],
+  "complexity": null,
+  "related": [
+    "least-privilege",
+    "threat-modeling",
+    "supply-chain-security"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "architecture-level"
+    },
+    "cpp": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "architecture-level"
+    },
+    "cs": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "architecture-level"
+    },
+    "java": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "architecture-level"
+    },
+    "rust": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "architecture-level"
+    }
+  }
+}

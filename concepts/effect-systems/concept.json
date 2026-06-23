@@ -1,0 +1,76 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "effect-systems",
+  "name": "Effect Systems",
+  "type": "Type-system technique",
+  "secondary": [
+    "Error-handling technique"
+  ],
+  "domain": "types",
+  "family": "Advanced types",
+  "def": "Type-system extensions that track and constrain the side effects a function may perform.",
+  "problem": "Make effects (I/O, exceptions, mutation, async) visible and checkable in signatures.",
+  "mechanism": "Function types are annotated with an effect set; the checker propagates and constrains effects, and handlers can discharge them.",
+  "benefits": [
+    "Effects explicit & checked",
+    "Safer refactoring; purity guarantees",
+    "Enables algebraic-effect handlers"
+  ],
+  "limits": [
+    "Annotation burden / inference complexity",
+    "Sparse mainstream support",
+    "Conceptual overhead"
+  ],
+  "failures": [
+    "Effect annotations rotting out of sync",
+    "Over-constrained signatures"
+  ],
+  "whenNot": [
+    "Most mainstream code without effect-typed languages"
+  ],
+  "myths": [
+    "\"Checked exceptions are a full effect system\" — they are a narrow, much-criticised slice"
+  ],
+  "use": "Indirect",
+  "sectors": [
+    "Research",
+    "Functional languages",
+    "Compilers"
+  ],
+  "complexity": null,
+  "related": [
+    "algebraic-effects",
+    "result-either",
+    "monad"
+  ],
+  "competing": [],
+  "maturity": "Emerging",
+  "confidence": "Low",
+  "langs": {
+    "c": {
+      "lvl": "UNSUITABLE",
+      "id": 0,
+      "note": "n/a"
+    },
+    "cpp": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "noexcept only"
+    },
+    "cs": {
+      "lvl": "UNSUITABLE",
+      "id": 0,
+      "note": "no"
+    },
+    "java": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "checked exceptions (partial)"
+    },
+    "rust": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "Result + async in types"
+    }
+  }
+}

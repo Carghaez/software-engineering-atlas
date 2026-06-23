@@ -1,0 +1,94 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "hexagonal-architecture",
+  "name": "Hexagonal Architecture (Ports & Adapters)",
+  "type": "Architectural pattern",
+  "secondary": [
+    "Design principle"
+  ],
+  "aliases": [
+    "Ports & Adapters"
+  ],
+  "x": {
+    "forces": [
+      "Business logic must outlive frameworks, databases and delivery channels",
+      "The domain must be testable without infrastructure",
+      "Several adapters (HTTP, CLI, queue) over one core"
+    ],
+    "structure": "A domain core exposes ports (interfaces); adapters implement those ports for specific technologies. Every dependency points inward toward the domain (dependency inversion).",
+    "antiPatterns": [
+      "Anemic domain with the real logic living in adapters/services",
+      "One port per database call, mirroring the ORM",
+      "Leaking framework or DB types across the port boundary"
+    ],
+    "scale": "Pays off in long-lived, multi-integration applications and services; over-engineered for simple CRUD or short-lived tools."
+  },
+  "domain": "architecture",
+  "family": "Layering",
+  "def": "Isolates domain logic behind ports, with adapters connecting it to UI, DB and external systems.",
+  "problem": "Keep business logic independent of frameworks, databases and delivery mechanisms.",
+  "mechanism": "The domain defines ports (interfaces); adapters implement them for specific tech. Dependencies point inward toward the domain (dependency inversion).",
+  "benefits": [
+    "Domain testable in isolation",
+    "Swap infrastructure without touching core",
+    "Clear boundaries / dependency direction"
+  ],
+  "limits": [
+    "Boilerplate (ports + adapters + mapping)",
+    "Over-engineering for simple CRUD",
+    "Indirection learning curve"
+  ],
+  "failures": [
+    "Anemic domain with logic in adapters",
+    "Port explosion mirroring every DB call"
+  ],
+  "whenNot": [
+    "Simple CRUD apps; short-lived projects"
+  ],
+  "myths": [
+    "\"Clean/Onion/Hexagonal are different architectures\" — same dependency-inversion idea, different framing"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Enterprise",
+    "Long-lived backends"
+  ],
+  "complexity": null,
+  "related": [
+    "dependency-injection",
+    "microservices",
+    "event-sourcing"
+  ],
+  "competing": [
+    "microservices"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "rare"
+    },
+    "cpp": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "interfaces"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "interfaces + DI"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "common with Spring"
+    },
+    "rust": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "traits as ports"
+    }
+  }
+}

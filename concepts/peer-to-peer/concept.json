@@ -1,0 +1,100 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "peer-to-peer",
+  "name": "Peer-to-Peer (P2P)",
+  "type": "Distributed-systems pattern",
+  "secondary": [
+    "Architectural pattern"
+  ],
+  "aliases": [
+    "P2P",
+    "Decentralised network"
+  ],
+  "x": {
+    "forces": [
+      "No central authority ↔ harder coordination / consistency",
+      "Scalability & resilience ↔ discovery, trust, and security",
+      "Resource pooling ↔ heterogeneous, churning peers"
+    ],
+    "structure": "Every node acts as both client and server; peers discover one another and share resources directly, often via a DHT or gossip, with no central coordinator.",
+    "antiPatterns": [
+      "Assuming peers are trustworthy / always online",
+      "Ignoring NAT / connectivity realities",
+      "Unbounded gossip / flooding"
+    ],
+    "scale": "Network / system; file sharing, blockchains, overlay networks, CDNs."
+  },
+  "domain": "architecture",
+  "family": "Distributed architecture",
+  "def": "A decentralised topology where equal nodes act as both clients and servers, sharing resources directly without a central coordinator.",
+  "problem": "Central servers are bottlenecks, single points of failure, and cost centres for large-scale resource sharing.",
+  "mechanism": "Peers join an overlay and locate resources via structured (DHT) or unstructured (gossip/flooding) routing. Each node contributes storage/bandwidth/compute, so capacity scales with participants and there is no single failure point.",
+  "benefits": [
+    "Scales with the number of peers",
+    "No single point of failure / central cost",
+    "Censorship- and outage-resistant"
+  ],
+  "limits": [
+    "Consistency / coordination is hard",
+    "Security & trust among unknown peers",
+    "NAT traversal, churn, free-riders"
+  ],
+  "failures": [
+    "Sybil / eclipse attacks on the overlay",
+    "Hot-spotting and uneven load",
+    "Stale routing under high churn"
+  ],
+  "whenNot": [
+    "Strong global consistency / central control needed",
+    "Small, trusted, centrally-managed systems"
+  ],
+  "myths": [
+    "\"P2P means no infrastructure\" — bootstrap nodes, NAT relays, and trust mechanisms are still needed"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "File sharing / CDNs",
+    "Blockchain",
+    "Messaging",
+    "Distributed storage"
+  ],
+  "related": [
+    "consistent-hashing",
+    "crdt",
+    "merkle-tree",
+    "microservices",
+    "logical-clocks"
+  ],
+  "competing": [
+    "microservices"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "libp2p / custom"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "BitTorrent libs"
+    },
+    "cs": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "libs"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "TomP2P / libs"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 3,
+      "note": "rust-libp2p"
+    }
+  }
+}

@@ -1,0 +1,83 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "deque",
+  "name": "Double-Ended Queue (Deque)",
+  "type": "Abstract data type",
+  "secondary": [
+    "Data structure"
+  ],
+  "domain": "structures",
+  "family": "Linear / sequential",
+  "def": "A sequence supporting amortised O(1) insertion and removal at both ends.",
+  "problem": "Efficient push/pop at front and back — work-stealing queues, sliding windows, BFS frontiers.",
+  "mechanism": "Usually a growable ring buffer or a list of fixed-size chunks, so both ends grow without shifting the whole sequence.",
+  "benefits": [
+    "O(1) at both ends",
+    "Often O(1) indexed access (chunked array impl)",
+    "Doubles as stack or queue"
+  ],
+  "limits": [
+    "Mid-sequence ops still O(n)",
+    "Chunked layout less contiguous than a vector",
+    "Iterator invalidation rules subtle"
+  ],
+  "failures": [
+    "Assuming fully contiguous storage",
+    "Unbounded growth without limits"
+  ],
+  "whenNot": [
+    "Pure end-append (a vector suffices)",
+    "Tight contiguous-memory requirements"
+  ],
+  "myths": [
+    "\"Deque is just a fancy list\" — array-backed deques have far better locality"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Schedulers",
+    "BFS / graph search",
+    "Streaming windows"
+  ],
+  "complexity": {
+    "Push/pop ends": "O(1) amortised",
+    "Access": "O(1)",
+    "Space": "O(n)"
+  },
+  "related": [
+    "ring-buffer",
+    "dynamic-array",
+    "work-stealing"
+  ],
+  "competing": [
+    "linked-list"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "manual"
+    },
+    "cpp": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "std::deque"
+    },
+    "cs": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "LinkedList or custom"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "ArrayDeque"
+    },
+    "rust": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "VecDeque"
+    }
+  }
+}

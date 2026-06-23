@@ -1,0 +1,78 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "array-of-structures",
+  "name": "Array of Structures (AoS)",
+  "type": "Data-layout technique",
+  "secondary": [
+    "Performance-optimisation technique"
+  ],
+  "domain": "hardware",
+  "family": "Data layout",
+  "def": "Storing whole records contiguously (each struct’s fields together) — the conventional object layout.",
+  "problem": "Lay out data when code accesses most fields of one entity together.",
+  "mechanism": "Records are packed one after another; touching an entity loads its whole struct into cache lines together.",
+  "benefits": [
+    "Whole-entity access is cache-friendly",
+    "Intuitive, matches object models",
+    "Good when fields are used together"
+  ],
+  "limits": [
+    "Wastes bandwidth when only one field is needed",
+    "Poor for SIMD/columnar scans",
+    "Padding/alignment overhead"
+  ],
+  "failures": [
+    "Hot single-field loops loading unused fields",
+    "Cache-line waste from padding"
+  ],
+  "whenNot": [
+    "Single-field bulk processing (use SoA)"
+  ],
+  "myths": [
+    "\"AoS is always worse than SoA\" — AoS wins when you touch all fields of one item"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "General software",
+    "OOP code",
+    "Games (some systems)"
+  ],
+  "complexity": null,
+  "related": [
+    "structure-of-arrays",
+    "data-oriented-design",
+    "cache-blocking"
+  ],
+  "competing": [
+    "structure-of-arrays"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "struct arrays"
+    },
+    "cpp": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "struct arrays"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "struct arrays"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "object arrays (indirect)"
+    },
+    "rust": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "struct Vec"
+    }
+  }
+}

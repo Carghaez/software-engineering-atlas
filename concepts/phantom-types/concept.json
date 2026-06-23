@@ -1,0 +1,75 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "phantom-types",
+  "name": "Phantom Types",
+  "type": "Type-system technique",
+  "secondary": [
+    "Defensive-programming practice"
+  ],
+  "domain": "types",
+  "family": "Type-level tagging",
+  "def": "Type parameters that carry compile-time information without appearing in the runtime representation.",
+  "problem": "Encode states/units/permissions in the type so misuse is a compile error, at zero runtime cost.",
+  "mechanism": "A generic parameter (e.g. Meter vs Foot, Validated vs Raw) is used only by the type checker; it influences which operations are allowed.",
+  "benefits": [
+    "Catch unit/state mix-ups at compile time",
+    "Zero runtime overhead",
+    "Encodes typestate cheaply"
+  ],
+  "limits": [
+    "Verbose type signatures",
+    "Limited expressiveness vs full dependent types",
+    "Erased languages constrain usefulness"
+  ],
+  "failures": [
+    "Over-engineering simple values",
+    "Casting around the phantom guarantee"
+  ],
+  "whenNot": [
+    "When a plain newtype or runtime check suffices"
+  ],
+  "myths": [
+    "\"Adds runtime cost\" — phantom parameters are erased; zero cost"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Embedded (units)",
+    "Crypto (key states)",
+    "APIs (typestate)"
+  ],
+  "complexity": null,
+  "related": [
+    "dependent-types",
+    "linear-affine-types"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "UNSUITABLE",
+      "id": 0,
+      "note": "none"
+    },
+    "cpp": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "tag template params"
+    },
+    "cs": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "phantom generic params"
+    },
+    "java": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "phantom generics (erased)"
+    },
+    "rust": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "PhantomData<T>"
+    }
+  }
+}

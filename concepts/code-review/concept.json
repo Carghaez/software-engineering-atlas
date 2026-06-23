@@ -1,0 +1,75 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "code-review",
+  "name": "Code Review & Pair Programming",
+  "type": "Testing technique",
+  "secondary": [
+    "Verification technique",
+    "Build or deployment practice"
+  ],
+  "domain": "testing",
+  "family": "Human review",
+  "def": "Humans examining code (asynchronously via PRs or live via pairing) to find defects and share knowledge.",
+  "problem": "Catch design flaws, bugs and maintainability issues that automation misses, and spread knowledge.",
+  "mechanism": "Authors submit changes for peer review (or write code together in real time); reviewers check correctness, design, readability and conventions before merge.",
+  "benefits": [
+    "Catches logic/design issues tools miss",
+    "Knowledge sharing; bus-factor reduction",
+    "Upholds standards/consistency"
+  ],
+  "limits": [
+    "Time cost; can bottleneck delivery",
+    "Quality varies with reviewer engagement",
+    "Bikeshedding / nitpicking"
+  ],
+  "failures": [
+    "Rubber-stamp approvals",
+    "Huge PRs nobody truly reviews"
+  ],
+  "whenNot": [
+    "Solo throwaway scripts (still useful otherwise)"
+  ],
+  "myths": [
+    "\"Reviews are just for catching bugs\" — knowledge transfer is often the bigger benefit"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "All sectors"
+  ],
+  "complexity": null,
+  "related": [
+    "static-analysis",
+    "tdd",
+    "regression-testing"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "process"
+    },
+    "cpp": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "process"
+    },
+    "cs": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "process"
+    },
+    "java": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "process"
+    },
+    "rust": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "process"
+    }
+  }
+}

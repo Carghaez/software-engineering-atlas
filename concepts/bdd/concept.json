@@ -1,0 +1,76 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "bdd",
+  "name": "Behaviour-Driven Development",
+  "type": "Testing technique",
+  "secondary": [
+    "Build or deployment practice"
+  ],
+  "domain": "testing",
+  "family": "Process",
+  "def": "Specifying behaviour in business-readable Given-When-Then scenarios that double as automated tests.",
+  "problem": "Align developers, QA and business on behaviour using a shared, executable language.",
+  "mechanism": "Scenarios written in Gherkin (Given/When/Then) map to step definitions that drive the system, serving as living, executable specifications.",
+  "benefits": [
+    "Shared ubiquitous language",
+    "Executable, living documentation",
+    "Focus on behaviour/outcomes"
+  ],
+  "limits": [
+    "Gherkin overhead vs plain tests",
+    "Step-definition maintenance",
+    "Easy to write brittle UI scenarios"
+  ],
+  "failures": [
+    "Scenarios that are just translated unit tests",
+    "Unmaintained step glue rotting"
+  ],
+  "whenNot": [
+    "Pure technical units with no business-facing behaviour"
+  ],
+  "myths": [
+    "\"BDD is just testing with Gherkin\" — it is primarily a collaboration/specification practice"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Enterprise",
+    "Product teams"
+  ],
+  "complexity": null,
+  "related": [
+    "tdd",
+    "unit-testing"
+  ],
+  "competing": [
+    "tdd"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ECO",
+      "id": 0,
+      "note": "rare"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "Catch2 BDD"
+    },
+    "cs": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "SpecFlow / Reqnroll"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "Cucumber"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "cucumber-rs"
+    }
+  }
+}

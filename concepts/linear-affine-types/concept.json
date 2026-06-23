@@ -1,0 +1,78 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "linear-affine-types",
+  "name": "Linear & Affine Types",
+  "type": "Type-system technique",
+  "secondary": [
+    "Resource-management technique"
+  ],
+  "domain": "types",
+  "family": "Substructural types",
+  "def": "Types tracking how many times a value may be used — exactly once (linear) or at most once (affine).",
+  "problem": "Statically guarantee resources (memory, file handles, sessions) are used and released correctly.",
+  "mechanism": "The type system tracks ownership/usage; a moved value cannot be reused. Rust’s ownership is an affine system enforcing single ownership and move semantics.",
+  "benefits": [
+    "Prevents use-after-free / double-free at compile time",
+    "Deterministic resource cleanup",
+    "No GC needed for memory safety"
+  ],
+  "limits": [
+    "Learning curve (borrow checker fights)",
+    "Some patterns (graphs, shared mutability) are awkward",
+    "Mostly absent outside Rust"
+  ],
+  "failures": [
+    "Fighting the borrow checker into Rc/RefCell escape hatches",
+    "Encoding leaks in languages without support"
+  ],
+  "whenNot": [
+    "Quick scripts; GC languages where it adds friction"
+  ],
+  "myths": [
+    "\"Linear and affine are the same\" — linear requires use; affine merely permits at most one use"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Systems",
+    "Embedded",
+    "Security"
+  ],
+  "complexity": null,
+  "related": [
+    "ownership-borrowing",
+    "raii",
+    "immutability"
+  ],
+  "competing": [
+    "garbage-collection"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "UNSUITABLE",
+      "id": 0,
+      "note": "none"
+    },
+    "cpp": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "move-only types (partial)"
+    },
+    "cs": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "ref struct (limited)"
+    },
+    "java": {
+      "lvl": "UNSUITABLE",
+      "id": 0,
+      "note": "none"
+    },
+    "rust": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "ownership = affine types"
+    }
+  }
+}

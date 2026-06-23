@@ -1,19 +1,9 @@
 // Atlas index: domains, concept-type colours, language-level metadata, relationship chains
-import { A } from './data/a.js';
-import { A2 } from './data/a2.js';
-import { A3 } from './data/a3.js';
-import { B } from './data/b.js';
-import { B2 } from './data/b2.js';
-import { C } from './data/c.js';
-import { C2 } from './data/c2.js';
-import { D } from './data/d.js';
-import { D2 } from './data/d2.js';
-import { E } from './data/e.js';
-import { E2 } from './data/e2.js';
-import { E3 } from './data/e3.js';
-import { E4 } from './data/e4.js';
-
-export const CONCEPTS = [...A, ...A2, ...A3, ...B, ...B2, ...C, ...C2, ...D, ...D2, ...E, ...E2, ...E3, ...E4];
+//
+// CONCEPTS is assembled from the per-concept source of truth (concepts/<id>/concept.json)
+// into the committed bundle concepts.data.js by assemble.mjs. Edit a concept by editing
+// its concepts/<id>/concept.json, then rebuild (`npm run build`). Do NOT edit the bundle.
+export { CONCEPTS } from './concepts.data.js';
 
 export { PAGES } from './pages.js';
 

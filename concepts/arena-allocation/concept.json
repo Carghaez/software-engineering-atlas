@@ -1,0 +1,79 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "arena-allocation",
+  "name": "Arena / Region Allocation",
+  "type": "Resource-management technique",
+  "secondary": [
+    "Performance-optimisation technique"
+  ],
+  "domain": "memory",
+  "family": "Custom allocation",
+  "def": "Bulk-allocates from a contiguous region and frees everything at once by resetting the arena.",
+  "problem": "Slash allocation overhead and fragmentation for many objects with a common lifetime.",
+  "mechanism": "A bump pointer advances on each allocation (O(1), no per-object free); the whole region is released or reset together at end of scope/phase.",
+  "benefits": [
+    "Near-zero alloc cost (pointer bump)",
+    "No fragmentation; great locality",
+    "Trivial bulk free"
+  ],
+  "limits": [
+    "No individual free (all-or-nothing lifetime)",
+    "Can waste memory if objects outlive expectations",
+    "Lifetime discipline required"
+  ],
+  "failures": [
+    "Dangling pointers into a reset arena",
+    "Holding one object forces retaining the whole arena"
+  ],
+  "whenNot": [
+    "Objects with widely varying lifetimes",
+    "Long-lived heaps needing fine-grained free"
+  ],
+  "myths": [
+    "\"Arenas leak\" — they free in bulk; the risk is over-retention, not leaks"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Compilers",
+    "Game engines",
+    "Request-scoped servers"
+  ],
+  "complexity": null,
+  "related": [
+    "object-pool",
+    "structure-of-arrays",
+    "raii"
+  ],
+  "competing": [
+    "object-pool"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "manual bump allocator"
+    },
+    "cpp": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "pmr monotonic_buffer_resource"
+    },
+    "cs": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "ArrayPool; custom"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "Arena (FFM); off-heap"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "bumpalo / typed-arena"
+    }
+  }
+}

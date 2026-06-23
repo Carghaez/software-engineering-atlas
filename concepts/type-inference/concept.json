@@ -1,0 +1,70 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "type-inference",
+  "name": "Type Inference",
+  "type": "Type-system technique",
+  "secondary": [],
+  "domain": "types",
+  "family": "Type ergonomics",
+  "def": "The compiler deduces types automatically so they need not be written explicitly.",
+  "problem": "Keep strong static typing without the verbosity of annotating every value.",
+  "mechanism": "Local (flow-based) inference propagates from initialisers/usage; full Hindley-Milner solves constraints globally. Mainstream languages mostly do local inference.",
+  "benefits": [
+    "Less boilerplate, more readable",
+    "Keeps full static safety",
+    "Refactor-friendly"
+  ],
+  "limits": [
+    "Inferred types can obscure intent at API boundaries",
+    "Cryptic errors when inference fails",
+    "Whole-program HM is rare in these langs"
+  ],
+  "failures": [
+    "Surprising inferred types (e.g. var → wrong overload)",
+    "Inference flips on small edits"
+  ],
+  "whenNot": [
+    "Public API signatures — annotate explicitly"
+  ],
+  "myths": [
+    "\"Inference = dynamic typing\" — types are still fully static"
+  ],
+  "use": "Indirect",
+  "sectors": [
+    "All sectors"
+  ],
+  "complexity": null,
+  "related": [
+    "parametric-polymorphism"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "UNSUITABLE",
+      "id": 0,
+      "note": "none (pre-C23)"
+    },
+    "cpp": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "auto, template deduction"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "var, target-typed new"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "var (locals only)"
+    },
+    "rust": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "strong local inference"
+    }
+  }
+}

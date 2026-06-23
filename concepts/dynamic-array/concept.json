@@ -1,0 +1,108 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "dynamic-array",
+  "name": "Dynamic Array",
+  "type": "Data structure",
+  "secondary": [
+    "Abstract data type"
+  ],
+  "aliases": [
+    "Vector",
+    "Array list",
+    "Growable array"
+  ],
+  "x": {
+    "invariant": "capacity ≥ length; live elements occupy one contiguous block over indices [0, length).",
+    "operations": [
+      "push_back / pop_back (amortised O(1))",
+      "indexed get/set (O(1))",
+      "insert / erase at position (O(n))",
+      "reserve / shrink_to_fit"
+    ],
+    "memoryOverhead": "Up to ~2× the live element bytes between growth events (spare capacity), plus a pointer + length + capacity.",
+    "locality": "Excellent — fully contiguous; ideal for sequential scans, hardware prefetching and SIMD.",
+    "mutationModel": "In-place mutable; reallocation on growth invalidates pointers, references and iterators.",
+    "concurrency": "Not thread-safe; concurrent push/read race on the buffer pointer and length. Guard externally or use a concurrent vector.",
+    "implementations": [
+      "C++ std::vector",
+      "Rust Vec<T>",
+      "C# List<T>",
+      "Java ArrayList",
+      "Go slices"
+    ]
+  },
+  "domain": "structures",
+  "family": "Linear / sequential",
+  "def": "A contiguous, automatically-resizing sequence with amortised O(1) append.",
+  "problem": "A growable list with cache-friendly random access, without manual reallocation at every push.",
+  "mechanism": "Holds a backing buffer with capacity ≥ length; on overflow it allocates a larger buffer (typically 1.5–2×) and copies elements, amortising growth cost.",
+  "benefits": [
+    "Excellent spatial locality and cache behaviour",
+    "Amortised O(1) push_back; O(1) indexed access",
+    "Lowest constant factors of any sequence"
+  ],
+  "limits": [
+    "Mid-sequence insert/erase is O(n)",
+    "Growth can spike latency and double peak memory transiently",
+    "Pointer/iterator invalidation on reallocation"
+  ],
+  "failures": [
+    "Unbounded growth → OOM if capacity never reserved",
+    "Holding a reference across a push that reallocates → dangling"
+  ],
+  "whenNot": [
+    "Frequent middle insertions (use a list/deque)",
+    "Hard real-time paths where a single resize spike is unacceptable"
+  ],
+  "myths": [
+    "\"Append is always O(1)\" — it is amortised, individual appends can be O(n)"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "All sectors — the default sequence"
+  ],
+  "complexity": {
+    "Access": "O(1)",
+    "Search": "O(n)",
+    "Insert (end)": "O(1) amortised",
+    "Insert (mid)": "O(n)",
+    "Space": "O(n)"
+  },
+  "related": [
+    "ring-buffer",
+    "structure-of-arrays",
+    "hash-table"
+  ],
+  "competing": [
+    "skip-list"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "manual realloc/grow"
+    },
+    "cpp": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "std::vector"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "List<T>"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "ArrayList"
+    },
+    "rust": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "Vec<T>"
+    }
+  }
+}

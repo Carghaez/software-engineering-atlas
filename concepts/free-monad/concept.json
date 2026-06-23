@@ -1,0 +1,94 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "free-monad",
+  "name": "Free Monad",
+  "type": "Functional abstraction",
+  "secondary": [],
+  "aliases": [
+    "Free monad over a functor"
+  ],
+  "x": {
+    "formalRole": "Builds a monad \"for free\" from any functor, representing a program as data (an AST of operations) separate from its interpretation.",
+    "compositionRule": "Free f a is either a pure value or a functor-wrapped continuation; bind appends operations to the tree.",
+    "laws": [
+      "Monad laws hold by construction (the free construction)"
+    ],
+    "encoding": "An operations functor + a tree type; interpreters (natural transformations) give meaning. Heavyweight outside Haskell/Scala.",
+    "useCases": "DSLs with swappable interpreters (real vs test), separating program description from execution.",
+    "misuseRisks": [
+      "Performance overhead of building/walking the tree",
+      "Using it where a simple interface + implementations suffices"
+    ]
+  },
+  "domain": "fp",
+  "family": "Effect encoding",
+  "def": "A construction that turns any functor into a monad, letting you describe a program as an inspectable data structure of operations, then interpret it in multiple ways.",
+  "problem": "Decouple \"what the program does\" from \"how it is executed\", so the same description can be run, tested, or optimised differently.",
+  "mechanism": "Represents a computation as a tree: leaves are pure values, branches are functor-wrapped continuations. bind grows the tree; an interpreter (natural transformation to a target monad) folds it into real effects.",
+  "benefits": [
+    "Program-as-data: multiple interpreters (prod/test/mock)",
+    "Clear separation of description and effect",
+    "Inspectable / optimisable programs"
+  ],
+  "limits": [
+    "Runtime + cognitive overhead",
+    "Boilerplate for the operations functor",
+    "Often beaten by tagless-final or plain interfaces"
+  ],
+  "failures": [
+    "Performance cliffs from naive tree interpretation",
+    "Over-engineering simple effectful code"
+  ],
+  "whenNot": [
+    "Simple effects (use IO / plain interfaces)",
+    "Performance-critical code"
+  ],
+  "myths": [
+    "\"Free monads are the way to structure effects\" — tagless-final and effect systems are common lighter alternatives"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "DSLs",
+    "Interpreters",
+    "Functional architecture"
+  ],
+  "related": [
+    "monad",
+    "tagless-final",
+    "algebraic-effects",
+    "io-monad"
+  ],
+  "competing": [
+    "tagless-final",
+    "algebraic-effects"
+  ],
+  "maturity": "Established",
+  "confidence": "Medium",
+  "langs": {
+    "c": {
+      "lvl": "UNSUITABLE",
+      "id": 0,
+      "note": "n/a"
+    },
+    "cpp": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "rare"
+    },
+    "cs": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "rare"
+    },
+    "java": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "vavr / arrow-like"
+    },
+    "rust": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "rare"
+    }
+  }
+}

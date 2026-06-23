@@ -1,0 +1,87 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "fail-fast",
+  "name": "Fail-Fast",
+  "type": "Defensive-programming practice",
+  "secondary": [
+    "Reliability or resilience practice"
+  ],
+  "x": {
+    "failureMitigated": "Silent propagation of corrupt or invalid state that surfaces later as a distant, hard-to-diagnose failure.",
+    "detectionPoint": "The earliest boundary where an invariant or precondition can be checked — on input, at construction, or at function entry.",
+    "recovery": "None locally, by design: abort/throw/panic immediately and let a supervisory layer (process restart, request retry, circuit breaker) recover at the edge.",
+    "operationalCost": "The checks are cheap; the real cost is availability if applied to recoverable conditions or used without a restart/supervision strategy.",
+    "falseConfidence": [
+      "Crashing on user-recoverable input degrades UX and availability",
+      "Fail-fast without supervision yields crash loops",
+      "Assertions compiled out in release silently disable the guarantee"
+    ]
+  },
+  "domain": "reliability",
+  "family": "Error policy",
+  "def": "Detecting and reporting errors immediately at their source rather than continuing in a bad state.",
+  "problem": "Prevent corrupt state from propagating and turning a clear bug into a distant, mysterious one.",
+  "mechanism": "Validate preconditions early; on violation, abort/throw/panic immediately instead of limping on with invalid data.",
+  "benefits": [
+    "Bugs surface near their cause",
+    "Prevents data corruption from spreading",
+    "Simpler debugging"
+  ],
+  "limits": [
+    "Crashing can hurt availability if overused",
+    "Must be paired with supervision/recovery at boundaries",
+    "Not for expected, recoverable conditions"
+  ],
+  "failures": [
+    "Failing fast on recoverable input → poor UX/availability",
+    "Crash loops without supervisory restart"
+  ],
+  "whenNot": [
+    "User-facing recoverable errors (handle gracefully)",
+    "At system edges where degradation is preferable"
+  ],
+  "myths": [
+    "\"Fail-fast means crash everywhere\" — fail fast internally, degrade gracefully at the edge"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "All sectors"
+  ],
+  "complexity": null,
+  "related": [
+    "fail-fast",
+    "design-by-contract",
+    "result-either",
+    "circuit-breaker"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "assert / abort"
+    },
+    "cpp": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "assert; throw"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "throw early; guard clauses"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "fail-fast iterators; exceptions"
+    },
+    "rust": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "panic!; assert!"
+    }
+  }
+}

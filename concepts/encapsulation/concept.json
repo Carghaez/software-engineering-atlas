@@ -1,0 +1,90 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "encapsulation",
+  "name": "Encapsulation",
+  "type": "Design principle",
+  "secondary": [],
+  "aliases": [
+    "Data hiding (related)"
+  ],
+  "x": {
+    "forces": [
+      "Protecting invariants ↔ convenient direct access",
+      "Freedom to change internals ↔ stable public API",
+      "Object autonomy ↔ external orchestration"
+    ],
+    "structure": "Bundle data with the operations that maintain its invariants, and expose only a controlled interface; internal representation can change behind it.",
+    "antiPatterns": [
+      "Public mutable fields",
+      "Anemic objects (data with no behaviour) + external manipulation",
+      "Getters/setters that expose every field, defeating the boundary"
+    ],
+    "scale": "Class / module level; the basis of object-oriented design and module boundaries."
+  },
+  "domain": "architecture",
+  "family": "Modularity principle",
+  "def": "Bundling state with the behaviour that guards its invariants, exposing a controlled interface while hiding the representation.",
+  "problem": "When external code touches an object’s raw state, invariants can be broken and every internal change becomes a breaking change.",
+  "mechanism": "Make state private and mediate all access through methods that preserve invariants. The public interface becomes the contract; the representation is free to evolve behind it.",
+  "benefits": [
+    "Invariants enforced in one place",
+    "Internals can change without breaking callers",
+    "Localises reasoning and bugs"
+  ],
+  "limits": [
+    "Boilerplate accessors if overdone",
+    "Over-encapsulation hampers legitimate access",
+    "Easy to fake with getter/setter pairs"
+  ],
+  "failures": [
+    "\"Encapsulation\" via full getter/setter exposure (no real boundary)",
+    "Anemic models with logic scattered outside"
+  ],
+  "whenNot": [
+    "Pure data transfer objects / records",
+    "Tiny scripts"
+  ],
+  "myths": [
+    "\"Getters and setters = encapsulation\" — exposing all fields defeats the point"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "All OO / modular codebases"
+  ],
+  "related": [
+    "information-hiding",
+    "separation-of-concerns",
+    "single-responsibility",
+    "law-of-demeter"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "opaque structs / TU-private"
+    },
+    "cpp": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "access specifiers"
+    },
+    "cs": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "access modifiers / properties"
+    },
+    "java": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "access modifiers"
+    },
+    "rust": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "module privacy / pub"
+    }
+  }
+}

@@ -1,0 +1,74 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "metrics",
+  "name": "Metrics & Time-Series Monitoring",
+  "type": "Debugging or observability technique",
+  "secondary": [],
+  "domain": "observability",
+  "family": "Telemetry",
+  "def": "Numeric measurements over time (counters, gauges, histograms) aggregated for monitoring and alerting.",
+  "problem": "Track system health and performance trends cheaply at scale, and alert on anomalies.",
+  "mechanism": "Instrument code to emit metrics; a time-series DB (Prometheus) scrapes/stores them; dashboards and alert rules evaluate aggregates and percentiles.",
+  "benefits": [
+    "Cheap, high-cardinality-light aggregation",
+    "Trends, SLOs and alerting",
+    "Low overhead vs tracing"
+  ],
+  "limits": [
+    "No per-request detail (aggregate only)",
+    "Cardinality explosions are costly",
+    "Averages hide tails (use histograms)"
+  ],
+  "failures": [
+    "Alerting on averages, missing tail latency",
+    "Unbounded label cardinality blowing up storage"
+  ],
+  "whenNot": [
+    "Root-causing a single request (use tracing/logs)"
+  ],
+  "myths": [
+    "\"Average latency is enough\" — p99/p999 tails drive user pain; use histograms"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Cloud",
+    "SRE",
+    "Backends"
+  ],
+  "complexity": null,
+  "related": [
+    "distributed-tracing",
+    "structured-logging",
+    "slo-sli"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "prom client"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "prometheus-cpp"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "System.Diagnostics.Metrics"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 3,
+      "note": "Micrometer"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "metrics / prometheus"
+    }
+  }
+}

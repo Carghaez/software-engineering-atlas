@@ -1,0 +1,78 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "generic-programming",
+  "name": "Generic Programming",
+  "type": "Programming paradigm",
+  "secondary": [
+    "Type-system technique"
+  ],
+  "domain": "paradigms",
+  "family": "Abstraction",
+  "def": "Writing algorithms and structures parameterised over types, constrained by required capabilities.",
+  "problem": "Write each algorithm once and reuse it across all types that satisfy its requirements.",
+  "mechanism": "Type parameters plus constraints (concepts, traits, type bounds) specify what operations a type must provide; the compiler instantiates per type.",
+  "benefits": [
+    "Maximal reuse with type safety",
+    "Zero-cost via monomorphisation",
+    "Algorithm/structure separation (STL)"
+  ],
+  "limits": [
+    "Error messages can be cryptic",
+    "Code bloat from monomorphisation",
+    "Constraint design is subtle"
+  ],
+  "failures": [
+    "Under-constrained generics with confusing errors",
+    "Template/binary bloat"
+  ],
+  "whenNot": [
+    "A single concrete type is all you need"
+  ],
+  "myths": [
+    "\"Generics = OOP polymorphism\" — generic (parametric) and subtype polymorphism differ"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Libraries",
+    "Frameworks",
+    "Systems"
+  ],
+  "complexity": null,
+  "related": [
+    "parametric-polymorphism",
+    "metaprogramming",
+    "typeclasses-traits"
+  ],
+  "competing": [
+    "oop"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "macros / _Generic"
+    },
+    "cpp": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "templates + concepts (STL)"
+    },
+    "cs": {
+      "lvl": "NATIVE",
+      "id": 2,
+      "note": "generics"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "generics (erased)"
+    },
+    "rust": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "generics + traits"
+    }
+  }
+}

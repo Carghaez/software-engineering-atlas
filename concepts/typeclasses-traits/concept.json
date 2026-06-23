@@ -1,0 +1,73 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "typeclasses-traits",
+  "name": "Typeclasses / Traits / Interfaces",
+  "type": "Type-system technique",
+  "secondary": [
+    "Ad-hoc polymorphism"
+  ],
+  "domain": "types",
+  "family": "Polymorphism",
+  "def": "A mechanism for ad-hoc polymorphism: defining behaviour a type must provide, dispatched statically or dynamically.",
+  "problem": "Write code against capabilities rather than concrete types, and add behaviour to existing types.",
+  "mechanism": "A trait/interface declares methods; types implement it. Dispatch is static (monomorphised, generics) or dynamic (vtables). Some systems allow retroactive implementation.",
+  "benefits": [
+    "Decouples code from concrete types",
+    "Static dispatch → zero-cost; dynamic → flexibility",
+    "Composable capability bounds"
+  ],
+  "limits": [
+    "Coherence/orphan rules constrain implementations",
+    "Dynamic dispatch costs an indirect call",
+    "Diamond/conflict resolution complexity"
+  ],
+  "failures": [
+    "Over-broad interfaces (violating ISP)",
+    "Accidental dynamic dispatch in hot loops"
+  ],
+  "whenNot": [
+    "A single concrete type with no variation"
+  ],
+  "myths": [
+    "\"Interfaces and typeclasses are identical\" — coherence and retroactive impl differ"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "All sectors"
+  ],
+  "complexity": null,
+  "related": [
+    "parametric-polymorphism",
+    "dependency-injection"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "vtable structs by hand"
+    },
+    "cpp": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "abstract classes; concepts"
+    },
+    "cs": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "interfaces, default methods"
+    },
+    "java": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "interfaces"
+    },
+    "rust": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "traits (static + dyn)"
+    }
+  }
+}

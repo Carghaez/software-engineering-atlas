@@ -1,0 +1,81 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "raft",
+  "name": "Raft Consensus",
+  "type": "Algorithm",
+  "secondary": [
+    "Distributed-systems pattern"
+  ],
+  "domain": "algos",
+  "family": "Distributed / consensus",
+  "def": "A consensus algorithm for replicating a log across nodes with an understandable leader-based design.",
+  "problem": "Keep a replicated state machine consistent despite crashes — agreeing on an ordered log.",
+  "mechanism": "Nodes elect a leader by majority vote; the leader appends entries and replicates them; entries commit once a majority acknowledges. Terms and election timeouts handle failures.",
+  "benefits": [
+    "Strong consistency / linearizability",
+    "More understandable than Paxos",
+    "Battle-tested (etcd, Consul)"
+  ],
+  "limits": [
+    "Majority quorum needed (tolerates < N/2 failures)",
+    "Leader is a throughput bottleneck",
+    "Latency of replication"
+  ],
+  "failures": [
+    "Split-brain if quorum/term rules violated",
+    "Slow leader stalling progress"
+  ],
+  "whenNot": [
+    "AP systems favouring availability over consistency (use gossip/CRDTs)"
+  ],
+  "myths": [
+    "\"Raft is faster than Paxos\" — comparable; it optimises understandability, not speed"
+  ],
+  "use": "Indirect",
+  "sectors": [
+    "Distributed databases",
+    "Coordination (etcd/Consul)",
+    "Cloud infra"
+  ],
+  "complexity": {
+    "Note": "Tolerates ⌊(N−1)/2⌋ failures; commit needs a majority"
+  },
+  "related": [
+    "paxos",
+    "two-phase-commit",
+    "consistent-hashing"
+  ],
+  "competing": [
+    "paxos",
+    "two-phase-commit"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "libs"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "braft / nuraft"
+    },
+    "cs": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "libs"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "Apache Ratis"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "raft-rs (TiKV)"
+    }
+  }
+}

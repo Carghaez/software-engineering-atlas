@@ -1,0 +1,79 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "fuzz-testing",
+  "name": "Fuzz Testing",
+  "type": "Testing technique",
+  "secondary": [
+    "Security practice"
+  ],
+  "domain": "testing",
+  "family": "Generative testing",
+  "def": "Feeding malformed/random/mutated inputs to find crashes, hangs and memory-safety violations.",
+  "problem": "Discover security and robustness bugs triggered by unexpected inputs at scale.",
+  "mechanism": "Coverage-guided fuzzers mutate inputs and evolve a corpus to maximise code coverage, often paired with sanitizers to catch memory errors.",
+  "benefits": [
+    "Finds deep crash/security bugs cheaply",
+    "Coverage-guidance reaches obscure paths",
+    "Continuous/automatable (OSS-Fuzz)"
+  ],
+  "limits": [
+    "Needs a fuzzable harness & oracle (crash)",
+    "Best for parsers/binary inputs",
+    "Misses logic bugs that don’t crash"
+  ],
+  "failures": [
+    "No sanitizer → silent memory corruption missed",
+    "Shallow harness limiting coverage"
+  ],
+  "whenNot": [
+    "Pure business-logic correctness (use property/unit tests)"
+  ],
+  "myths": [
+    "\"Fuzzing finds all bugs\" — only those manifesting as detectable faults"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Security",
+    "Browsers",
+    "Parsers",
+    "Systems"
+  ],
+  "complexity": null,
+  "related": [
+    "property-based-testing",
+    "static-analysis",
+    "threat-modeling"
+  ],
+  "competing": [
+    "property-based-testing"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ECO",
+      "id": 3,
+      "note": "libFuzzer/AFL + ASan"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 3,
+      "note": "libFuzzer + sanitizers"
+    },
+    "cs": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "SharpFuzz"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "Jazzer"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 3,
+      "note": "cargo-fuzz / AFL.rs"
+    }
+  }
+}

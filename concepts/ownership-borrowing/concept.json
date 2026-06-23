@@ -1,0 +1,81 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "ownership-borrowing",
+  "name": "Ownership & Borrowing",
+  "type": "Resource-management technique",
+  "secondary": [
+    "Type-system technique"
+  ],
+  "domain": "memory",
+  "family": "Static memory safety",
+  "def": "A compile-time discipline where each value has one owner and references are checked for validity.",
+  "problem": "Guarantee memory and thread safety without a garbage collector or runtime checks.",
+  "mechanism": "Each value has a single owner; it is moved or borrowed (shared & or exclusive &mut). The borrow checker rejects aliasing+mutation and references outliving their data.",
+  "benefits": [
+    "Memory safety with zero runtime cost",
+    "Data-race freedom across threads",
+    "Deterministic cleanup (Drop)"
+  ],
+  "limits": [
+    "Steep learning curve",
+    "Self-referential/graph structures are awkward",
+    "Some valid programs are rejected"
+  ],
+  "failures": [
+    "Reaching for Rc<RefCell> / unsafe to escape the checker",
+    "Lifetime annotation overload"
+  ],
+  "whenNot": [
+    "Rapid prototyping where GC friction is lower",
+    "Highly cyclic shared graphs"
+  ],
+  "myths": [
+    "\"Borrow checker = runtime checks\" — it is entirely compile-time"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Systems",
+    "Embedded",
+    "Security",
+    "Infra"
+  ],
+  "complexity": null,
+  "related": [
+    "linear-affine-types",
+    "raii",
+    "garbage-collection",
+    "immutability"
+  ],
+  "competing": [
+    "garbage-collection"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "UNSUITABLE",
+      "id": 0,
+      "note": "manual; unchecked"
+    },
+    "cpp": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "unique_ptr/move; no checker"
+    },
+    "cs": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "ref struct (limited)"
+    },
+    "java": {
+      "lvl": "UNSUITABLE",
+      "id": 0,
+      "note": "GC instead"
+    },
+    "rust": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "the defining feature"
+    }
+  }
+}

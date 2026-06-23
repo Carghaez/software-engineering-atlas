@@ -1,0 +1,75 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "constant-time-programming",
+  "name": "Constant-Time Programming",
+  "type": "Security practice",
+  "secondary": [
+    "Performance-optimisation technique"
+  ],
+  "domain": "security",
+  "family": "Side-channel defence",
+  "def": "Writing code whose timing does not depend on secret data, defeating timing side-channels.",
+  "problem": "Prevent attackers from inferring secrets (keys, comparisons) from execution-time variations.",
+  "mechanism": "Avoid secret-dependent branches, memory accesses and variable-time operations; use branchless masks and constant-time comparisons.",
+  "benefits": [
+    "Closes timing side-channels",
+    "Essential for crypto correctness",
+    "Often branchless (predictable perf)"
+  ],
+  "limits": [
+    "Compilers may \"optimise away\" the constancy",
+    "Hard to verify; ISA/microarch dependent",
+    "Performance cost vs naive code"
+  ],
+  "failures": [
+    "Compiler reintroducing a secret-dependent branch",
+    "Early-exit memcmp on secrets"
+  ],
+  "whenNot": [
+    "Non-secret data (needless cost)"
+  ],
+  "myths": [
+    "\"My code looks constant-time\" — only verified/tested builds count; compilers interfere"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Cryptography",
+    "Security",
+    "Smartcards"
+  ],
+  "complexity": null,
+  "related": [
+    "branchless-programming",
+    "threat-modeling"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "volatile/asm; fragile"
+    },
+    "cpp": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "careful; fragile"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 1,
+      "note": "CryptographicOperations.FixedTimeEquals"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 1,
+      "note": "MessageDigest.isEqual"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "subtle crate"
+    }
+  }
+}

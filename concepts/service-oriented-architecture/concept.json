@@ -1,0 +1,96 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "service-oriented-architecture",
+  "name": "Service-Oriented Architecture (SOA)",
+  "type": "Architectural pattern",
+  "secondary": [
+    "Distributed-systems pattern"
+  ],
+  "aliases": [
+    "SOA"
+  ],
+  "x": {
+    "forces": [
+      "Reuse of coarse services ↔ coupling through shared contracts",
+      "Central governance / ESB ↔ team autonomy",
+      "Enterprise integration ↔ network complexity"
+    ],
+    "structure": "Business capabilities are exposed as reusable, contract-defined services, often integrated via an enterprise service bus (ESB) with shared schemas and governance.",
+    "antiPatterns": [
+      "ESB as a smart-pipe god component",
+      "Chatty / fine-grained services",
+      "Canonical-schema bottlenecks and shared-data coupling"
+    ],
+    "scale": "Enterprise; predecessor and cousin of microservices."
+  },
+  "domain": "architecture",
+  "family": "Distributed architecture",
+  "def": "An enterprise style that structures functionality as reusable, contract-defined services integrated across the organisation, classically via an enterprise service bus.",
+  "problem": "Large enterprises need to reuse and integrate capabilities across many heterogeneous applications.",
+  "mechanism": "Each business capability is published as a service with a formal contract (often SOAP/WSDL historically); an ESB handles routing, transformation, and orchestration. Governance defines shared schemas and policies.",
+  "benefits": [
+    "Capability reuse across the enterprise",
+    "Standard contracts and integration",
+    "Heterogeneous system interoperability"
+  ],
+  "limits": [
+    "ESB becomes a central bottleneck / single point of failure",
+    "Heavy governance and shared-schema coupling",
+    "Coarse services can hide tight coupling"
+  ],
+  "failures": [
+    "\"Smart pipes\" ESB accreting business logic",
+    "Canonical-model committees stalling delivery"
+  ],
+  "whenNot": [
+    "Greenfield where microservices’ decentralised model fits better",
+    "Small systems (a monolith suffices)"
+  ],
+  "myths": [
+    "\"SOA and microservices are the same\" — microservices favour smart endpoints / dumb pipes and decentralised data; classic SOA centralises via the ESB"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Large enterprise IT",
+    "Banking / insurance",
+    "Government"
+  ],
+  "related": [
+    "microservices",
+    "event-driven-architecture",
+    "modular-monolith",
+    "event-driven"
+  ],
+  "competing": [
+    "microservices"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "rare"
+    },
+    "cpp": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "service hosts"
+    },
+    "cs": {
+      "lvl": "ECO",
+      "id": 3,
+      "note": "WCF / .NET services"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 3,
+      "note": "JEE / ESB stacks"
+    },
+    "rust": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "service frameworks"
+    }
+  }
+}

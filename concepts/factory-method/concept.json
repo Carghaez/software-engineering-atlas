@@ -1,0 +1,76 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "factory-method",
+  "name": "Factory Method / Abstract Factory",
+  "type": "Design pattern",
+  "secondary": [],
+  "domain": "architecture",
+  "family": "GoF · Creational",
+  "def": "Defers object creation to a method/factory so callers depend on an interface, not a concrete class.",
+  "problem": "Decouple code from the concrete types it instantiates, enabling families of related objects.",
+  "mechanism": "A creator exposes a factory method returning an abstract product; subclasses or an abstract factory choose the concrete product family.",
+  "benefits": [
+    "Decouples client from concretions",
+    "Swap product families",
+    "Centralises construction logic"
+  ],
+  "limits": [
+    "Class/indirection proliferation",
+    "Can be over-engineered",
+    "Often replaced by DI or a closure"
+  ],
+  "failures": [
+    "Factory-of-factories ceremony",
+    "Hiding simple construction behind layers"
+  ],
+  "whenNot": [
+    "Simple, stable construction (just call the constructor)"
+  ],
+  "myths": [
+    "\"Factories are always good practice\" — frequently a closure or DI container is simpler"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Frameworks",
+    "Libraries",
+    "Enterprise"
+  ],
+  "complexity": null,
+  "related": [
+    "builder",
+    "dependency-injection",
+    "strategy-pattern"
+  ],
+  "competing": [
+    "dependency-injection"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "fn pointer tables"
+    },
+    "cpp": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "virtual create()"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "interfaces / DI"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "classic GoF home"
+    },
+    "rust": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "trait objects / fns"
+    }
+  }
+}

@@ -1,0 +1,78 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "model-checking",
+  "name": "Model Checking",
+  "type": "Verification technique",
+  "secondary": [
+    "Testing technique"
+  ],
+  "domain": "testing",
+  "family": "Formal methods",
+  "def": "Exhaustively exploring a system’s state space to verify temporal/safety properties hold.",
+  "problem": "Find concurrency and protocol bugs (deadlocks, races, invariant violations) that testing rarely hits.",
+  "mechanism": "A model (state machine) and properties (e.g. in TLA+/SPIN) are checked by exhaustively or symbolically exploring reachable states for violations.",
+  "benefits": [
+    "Finds rare interleavings/edge cases",
+    "Proves properties over all explored states",
+    "Forces precise spec thinking"
+  ],
+  "limits": [
+    "State-space explosion",
+    "Models can drift from real code",
+    "Requires formal-methods skill"
+  ],
+  "failures": [
+    "Intractable state space without abstraction",
+    "Verified model, buggy implementation (gap)"
+  ],
+  "whenNot": [
+    "Ordinary CRUD/business logic",
+    "When cost outweighs risk"
+  ],
+  "myths": [
+    "\"Proves the code correct\" — it verifies the model, not the implementation"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Distributed systems",
+    "Hardware",
+    "Aerospace",
+    "Protocols"
+  ],
+  "complexity": null,
+  "related": [
+    "property-based-testing",
+    "static-analysis",
+    "design-by-contract"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "Medium",
+  "langs": {
+    "c": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "CBMC; SPIN"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "CBMC"
+    },
+    "cs": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "P / external"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "JPF (Java PathFinder)"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "Kani; Loom (concurrency)"
+    }
+  }
+}

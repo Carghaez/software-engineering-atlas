@@ -1,0 +1,80 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "raii",
+  "name": "RAII",
+  "type": "Resource-management technique",
+  "secondary": [
+    "Language idiom",
+    "Design principle"
+  ],
+  "domain": "memory",
+  "family": "Deterministic cleanup",
+  "def": "Resource Acquisition Is Initialisation: tie a resource’s lifetime to an object’s scope.",
+  "problem": "Guarantee deterministic release of memory, locks, files and handles even on early return or exception.",
+  "mechanism": "Acquire in the constructor, release in the destructor; when the object leaves scope the destructor runs automatically, in reverse construction order.",
+  "benefits": [
+    "Leak-free, exception-safe cleanup",
+    "Deterministic (no GC pauses)",
+    "Composable ownership"
+  ],
+  "limits": [
+    "Needs deterministic destruction (RAII-capable language)",
+    "Cyclic ownership needs care",
+    "Less natural in GC languages"
+  ],
+  "failures": [
+    "Manual new/delete bypassing RAII",
+    "Ownership cycles with shared_ptr leaking"
+  ],
+  "whenNot": [
+    "GC languages where finalisation is non-deterministic (use try-with-resources/using)"
+  ],
+  "myths": [
+    "\"RAII is only about memory\" — it governs any resource with a lifetime"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Systems",
+    "Embedded",
+    "Games",
+    "Anything with handles"
+  ],
+  "complexity": null,
+  "related": [
+    "ownership-borrowing",
+    "linear-affine-types",
+    "garbage-collection"
+  ],
+  "competing": [
+    "garbage-collection"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "goto cleanup; __attribute__((cleanup))"
+    },
+    "cpp": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "destructors; the canonical RAII"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "IDisposable + using"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "try-with-resources"
+    },
+    "rust": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "Drop trait"
+    }
+  }
+}

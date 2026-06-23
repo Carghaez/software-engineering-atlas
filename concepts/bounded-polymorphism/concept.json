@@ -1,0 +1,89 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "bounded-polymorphism",
+  "name": "Bounded Polymorphism",
+  "type": "Type-system technique",
+  "secondary": [],
+  "aliases": [
+    "Bounded generics",
+    "Constrained generics",
+    "Trait/where bounds"
+  ],
+  "x": {
+    "laws": [
+      "A type parameter is restricted to types satisfying given constraints",
+      "Only operations guaranteed by the bound may be used on the parameter",
+      "Bounds are checked at the definition, not each instantiation (in checked generics)"
+    ],
+    "encoding": "Rust trait bounds / where, C++20 concepts, C# generic constraints (where T:), Java bounded type parameters (<T extends ...>). C uses _Generic / conventions."
+  },
+  "domain": "types",
+  "family": "Reuse & dispatch",
+  "def": "Parametric polymorphism whose type parameters are constrained to types satisfying specified interfaces/traits, so generic code can use those capabilities safely.",
+  "problem": "Unconstrained generics can only treat values opaquely; you need to require operations (ordering, hashing, display) on the parameter.",
+  "mechanism": "A bound (trait/concept/constraint/extends) restricts the parameter; inside the generic, only the bound’s operations are available. Checked-generic languages verify the body once against the bound, catching errors before instantiation.",
+  "benefits": [
+    "Use parameter capabilities while staying generic",
+    "Early, clear errors (checked generics)",
+    "Self-documenting requirements"
+  ],
+  "limits": [
+    "Bound lists can grow noisy",
+    "Expressiveness varies (Java erasure, C++ pre-concepts)",
+    "Coherence / overlap rules can surprise"
+  ],
+  "failures": [
+    "Over-constraining, reducing reuse",
+    "Under-constraining and leaning on templates’ late errors (C++ without concepts)"
+  ],
+  "whenNot": [
+    "Truly opaque parameters (no operations needed)",
+    "Where dynamic dispatch is simpler"
+  ],
+  "myths": [
+    "\"Generics are always unbounded\" — bounds are what make them useful beyond containers"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Generic libraries",
+    "All statically-typed ecosystems"
+  ],
+  "related": [
+    "parametric-polymorphism",
+    "typeclasses-traits",
+    "generic-programming",
+    "variance"
+  ],
+  "competing": [
+    "subtype-polymorphism"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "_Generic / conventions"
+    },
+    "cpp": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "concepts (C++20)"
+    },
+    "cs": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "where T: constraints"
+    },
+    "java": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "<T extends ...>"
+    },
+    "rust": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "trait bounds / where"
+    }
+  }
+}

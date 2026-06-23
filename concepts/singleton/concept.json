@@ -1,0 +1,80 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "singleton",
+  "name": "Singleton",
+  "type": "Design pattern",
+  "secondary": [],
+  "domain": "architecture",
+  "family": "GoF · Creational",
+  "def": "Ensures a class has exactly one instance and a global access point to it.",
+  "problem": "Coordinate a single shared resource (config, registry, connection pool) through one instance.",
+  "mechanism": "A private constructor plus a static accessor lazily creates and caches the lone instance; thread-safe variants guard creation.",
+  "benefits": [
+    "One coordinated instance",
+    "Lazy initialisation",
+    "Global access"
+  ],
+  "limits": [
+    "Global mutable state — hidden coupling",
+    "Hard to test / mock",
+    "Thread-safety + lifetime pitfalls"
+  ],
+  "failures": [
+    "Singletons as disguised globals everywhere",
+    "Init-order / teardown races"
+  ],
+  "whenNot": [
+    "When you can inject one instance via DI (almost always preferable)"
+  ],
+  "myths": [
+    "\"Singleton guarantees one instance\" — per classloader/process only; and it is widely an anti-pattern"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Everywhere (often overused)"
+  ],
+  "complexity": null,
+  "x": {
+    "antiPatterns": [
+      "Using it as a global variable for convenience",
+      "Stateful singletons making tests order-dependent"
+    ],
+    "scale": "Justified for genuinely single resources; prefer DI-scoped lifetimes otherwise."
+  },
+  "related": [
+    "dependency-injection",
+    "object-pool"
+  ],
+  "competing": [
+    "dependency-injection"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "static + guard"
+    },
+    "cpp": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "function-local static (Meyers)"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "static / DI singleton scope"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "enum singleton; DI scope"
+    },
+    "rust": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "OnceLock / lazy static"
+    }
+  }
+}

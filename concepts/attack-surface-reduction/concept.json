@@ -1,0 +1,78 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "attack-surface-reduction",
+  "name": "Attack-Surface Reduction",
+  "type": "Security practice",
+  "secondary": [],
+  "aliases": [
+    "Minimising attack surface"
+  ],
+  "domain": "security",
+  "family": "Secure design",
+  "def": "Systematically removing or disabling features, entry points, privileges, and exposed code so there is simply less for an attacker to target.",
+  "problem": "Every enabled feature, open port, dependency, and granted permission is a potential way in; defaults are usually maximal, not minimal.",
+  "mechanism": "Disable unused services/ports, strip unneeded packages and dependencies, minimise exposed APIs and parameters, drop privileges, and turn off optional features. Each removal eliminates a class of vulnerabilities outright rather than mitigating it.",
+  "benefits": [
+    "Eliminates whole vulnerability classes by removal",
+    "Fewer components to patch and monitor",
+    "Cheaper, more durable than per-bug fixes"
+  ],
+  "limits": [
+    "Can conflict with feature / convenience demands",
+    "Requires knowing what is actually used",
+    "Ongoing effort as the system grows"
+  ],
+  "failures": [
+    "Re-enabling debug endpoints / default accounts in production",
+    "Dependency creep silently re-expanding the surface"
+  ],
+  "whenNot": [
+    "Never a bad idea, but balance against required functionality"
+  ],
+  "myths": [
+    "\"More security tools = more security\" — often the opposite of reducing what can be attacked"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "All security-sensitive systems",
+    "Cloud / containers",
+    "Embedded"
+  ],
+  "related": [
+    "least-privilege",
+    "defense-in-depth",
+    "configuration-hardening",
+    "sandboxing",
+    "threat-modeling"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "build flags / feature trim"
+    },
+    "cpp": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "feature trim"
+    },
+    "cs": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "trim / config"
+    },
+    "java": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "module / config trim"
+    },
+    "rust": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "feature flags / no_std"
+    }
+  }
+}

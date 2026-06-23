@@ -1,0 +1,74 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "composition-over-inheritance",
+  "name": "Composition over Inheritance",
+  "type": "Design principle",
+  "secondary": [],
+  "domain": "architecture",
+  "family": "OO design",
+  "def": "Favouring assembling behaviour from parts over deep class inheritance hierarchies.",
+  "problem": "Avoid the rigidity and fragility of inheritance trees (fragile base class, tight coupling).",
+  "mechanism": "Build objects by holding/delegating to collaborators and implementing small interfaces, rather than extending a base class.",
+  "benefits": [
+    "Flexible, runtime-swappable behaviour",
+    "Avoids fragile base-class problem",
+    "Smaller, focused interfaces"
+  ],
+  "limits": [
+    "More wiring/delegation boilerplate",
+    "Can scatter behaviour across many objects",
+    "Not always more intuitive"
+  ],
+  "failures": [
+    "Delegation boilerplate sprawl",
+    "Over-decomposition into trivial pieces"
+  ],
+  "whenNot": [
+    "Genuine, stable is-a relationships with shared behaviour"
+  ],
+  "myths": [
+    "\"Inheritance is always bad\" — it is fine for true subtype/is-a relationships"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "All sectors"
+  ],
+  "complexity": null,
+  "related": [
+    "oop",
+    "dependency-injection",
+    "typeclasses-traits"
+  ],
+  "competing": [
+    "oop"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "struct embedding"
+    },
+    "cpp": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "members + interfaces"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "interfaces + members"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "interfaces + delegation"
+    },
+    "rust": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "no inheritance; traits + structs"
+    }
+  }
+}

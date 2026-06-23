@@ -1,0 +1,81 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "paxos",
+  "name": "Paxos",
+  "type": "Algorithm",
+  "secondary": [
+    "Distributed-systems pattern"
+  ],
+  "domain": "algos",
+  "family": "Distributed / consensus",
+  "def": "The foundational consensus protocol for agreeing a single value among unreliable nodes, tolerating crashes via majority quorums.",
+  "problem": "Reach agreement — and, via Multi-Paxos, replicate an ordered log — in an asynchronous network where nodes and messages can fail.",
+  "mechanism": "Proposers run a two-phase prepare/accept protocol with numbered proposals; a value is chosen once a majority accepts it. Multi-Paxos elects a stable leader to skip phase 1 per entry.",
+  "benefits": [
+    "Proven safe under asynchrony and crash faults",
+    "Tolerates ⌊(N−1)/2⌋ failures",
+    "The theoretical basis of most replication systems"
+  ],
+  "limits": [
+    "Famously hard to understand and implement correctly",
+    "Bare Paxos agrees one value — Multi-Paxos adds real complexity",
+    "Duelling proposers can livelock without a leader"
+  ],
+  "failures": [
+    "Subtle bugs from the under-specified original",
+    "Proposer contention stalling progress"
+  ],
+  "whenNot": [
+    "When Raft’s understandability is worth more than pedigree",
+    "AP systems favouring availability (use gossip/CRDTs)"
+  ],
+  "myths": [
+    "\"Paxos and Raft solve different problems\" — both do log replication; Raft just restructures Paxos for clarity"
+  ],
+  "use": "Indirect",
+  "sectors": [
+    "Distributed databases",
+    "Coordination (Chubby, Spanner)",
+    "Cloud infra"
+  ],
+  "complexity": {
+    "Note": "2 message rounds to choose; commit needs a majority quorum"
+  },
+  "related": [
+    "raft",
+    "two-phase-commit",
+    "consistent-hashing"
+  ],
+  "competing": [
+    "raft"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "libpaxos"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "libpaxos / internal"
+    },
+    "cs": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "libs"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "ZooKeeper (ZAB) / internal"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "paxos crates"
+    }
+  }
+}

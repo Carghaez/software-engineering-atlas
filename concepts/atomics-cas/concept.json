@@ -1,0 +1,79 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "atomics-cas",
+  "name": "Atomic Operations & CAS",
+  "type": "Synchronisation mechanism",
+  "secondary": [
+    "Hardware-execution model"
+  ],
+  "domain": "concurrency",
+  "family": "Non-blocking",
+  "def": "Indivisible read-modify-write operations (compare-and-swap, fetch-add) the hardware guarantees atomic.",
+  "problem": "Coordinate threads without locks, building counters, flags and lock-free structures.",
+  "mechanism": "CPU instructions (LOCK CMPXCHG, LL/SC) perform the op atomically; memory-ordering parameters control visibility relative to other operations.",
+  "benefits": [
+    "Lock-free coordination",
+    "Lower overhead than locks (uncontended)",
+    "Building block for everything non-blocking"
+  ],
+  "limits": [
+    "Memory ordering is hard to reason about",
+    "ABA problem with CAS",
+    "Contention causes cache-line ping-pong"
+  ],
+  "failures": [
+    "Wrong memory order → subtle races",
+    "ABA bugs reusing pointers"
+  ],
+  "whenNot": [
+    "Complex multi-word invariants (use a lock or STM)"
+  ],
+  "myths": [
+    "\"Atomic = thread-safe algorithm\" — atomicity of one op does not make a multi-step sequence safe"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Kernels",
+    "HFT",
+    "Databases",
+    "Runtimes"
+  ],
+  "complexity": null,
+  "related": [
+    "lock-free",
+    "memory-ordering",
+    "false-sharing"
+  ],
+  "competing": [
+    "mutex"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "C11 _Atomic / atomic_*"
+    },
+    "cpp": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "std::atomic + memory_order"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "Interlocked"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "AtomicInteger / VarHandle"
+    },
+    "rust": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "std::sync::atomic"
+    }
+  }
+}

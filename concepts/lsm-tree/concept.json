@@ -1,0 +1,82 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "lsm-tree",
+  "name": "LSM Tree",
+  "type": "Data structure",
+  "secondary": [
+    "Storage structure"
+  ],
+  "domain": "structures",
+  "family": "Storage / write-optimised",
+  "def": "A write-optimised store buffering in memory and flushing immutable sorted runs merged in the background.",
+  "problem": "Sustain very high write throughput on disk/SSD where random in-place updates are expensive.",
+  "mechanism": "Writes hit an in-memory memtable + WAL; flushed to immutable sorted SSTables; background compaction merges runs. Reads check memtable then levels, aided by Bloom filters.",
+  "benefits": [
+    "Sequential, high write throughput",
+    "Good compression of sorted runs",
+    "Tunable read/write/space amplification"
+  ],
+  "limits": [
+    "Read and space amplification from multiple levels",
+    "Compaction consumes I/O and can cause latency spikes",
+    "More complex than a B-tree"
+  ],
+  "failures": [
+    "Compaction falling behind → read amplification blow-up",
+    "Write stalls when memtable flush can’t keep up"
+  ],
+  "whenNot": [
+    "Read-heavy, update-in-place workloads (B-tree often wins)",
+    "Strict, flat tail-latency requirements"
+  ],
+  "myths": [
+    "\"Always beats B-trees\" — only for write-heavy; reads pay amplification"
+  ],
+  "use": "Indirect",
+  "sectors": [
+    "Databases (RocksDB, Cassandra)",
+    "Time-series",
+    "Logging stores"
+  ],
+  "complexity": {
+    "Write": "O(1) amortised",
+    "Read": "O(log n) × levels",
+    "Space": "O(n)"
+  },
+  "related": [
+    "b-tree",
+    "bloom-filter"
+  ],
+  "competing": [
+    "b-tree"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "engine-internal"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "RocksDB / LevelDB"
+    },
+    "cs": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "bindings"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "Cassandra / RocksDB JNI"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "sled / fjall"
+    }
+  }
+}

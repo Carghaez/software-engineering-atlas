@@ -1,0 +1,88 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "type-erasure",
+  "name": "Type Erasure",
+  "type": "Type-system technique",
+  "secondary": [],
+  "aliases": [
+    "Generic type erasure"
+  ],
+  "x": {
+    "laws": [
+      "Generic type arguments are removed (or unified) after type checking",
+      "Runtime carries no (or limited) reified generic type information",
+      "Casts / bridges may be inserted by the compiler"
+    ],
+    "encoding": "Java generics (erased to bounds), C++ type-erased wrappers (std::any, std::function, std::shared_ptr deleter), C# in contrast reifies generics; Rust monomorphises (no erasure) but dyn Trait erases the concrete type."
+  },
+  "domain": "types",
+  "family": "Representation",
+  "def": "Compiling away generic/concrete type information after type-checking, so the runtime works with a common representation rather than per-type code or reified type args.",
+  "problem": "Provide generics/abstraction without per-instantiation code bloat or pervasive runtime type metadata.",
+  "mechanism": "After static checking, the compiler discards the specific type parameters (Java) or hides a concrete type behind a uniform interface (C++ std::function, Rust dyn Trait). Behaviour goes through a shared representation or vtable rather than specialised code.",
+  "benefits": [
+    "Smaller code (no per-type monomorphisation)",
+    "Uniform handling of heterogeneous types",
+    "Enables runtime polymorphism / plugin boundaries"
+  ],
+  "limits": [
+    "Loses runtime type info (reflection limits, no `new T()`)",
+    "Boxing / indirection cost vs monomorphisation",
+    "Pitfalls: arrays of generics, overload clashes (Java)"
+  ],
+  "failures": [
+    "Assuming generic type info exists at runtime (Java)",
+    "Heap/indirection overhead in hot paths from erased wrappers"
+  ],
+  "whenNot": [
+    "Performance-critical generics (prefer monomorphisation)",
+    "When reflection over type args is required (use reified generics, C#)"
+  ],
+  "myths": [
+    "\"All generics are erased\" — C# reifies; Rust monomorphises; only some systems erase"
+  ],
+  "use": "Indirect",
+  "sectors": [
+    "JVM ecosystem",
+    "C++ libraries",
+    "Plugin / dynamic boundaries"
+  ],
+  "related": [
+    "parametric-polymorphism",
+    "subtype-polymorphism",
+    "generic-programming",
+    "variance"
+  ],
+  "competing": [
+    "parametric-polymorphism"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "AWKWARD",
+      "id": 1,
+      "note": "void* erasure"
+    },
+    "cpp": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "any/function/dyn wrappers"
+    },
+    "cs": {
+      "lvl": "AWKWARD",
+      "id": 1,
+      "note": "reified — opposite default"
+    },
+    "java": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "generics erased"
+    },
+    "rust": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "dyn Trait erases concrete type"
+    }
+  }
+}

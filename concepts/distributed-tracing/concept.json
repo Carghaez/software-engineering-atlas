@@ -1,0 +1,74 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "distributed-tracing",
+  "name": "Distributed Tracing",
+  "type": "Debugging or observability technique",
+  "secondary": [],
+  "domain": "observability",
+  "family": "Telemetry",
+  "def": "Following a single request across many services via propagated trace and span IDs.",
+  "problem": "Diagnose latency and failures in distributed systems where one request spans many services.",
+  "mechanism": "A trace context (trace/span IDs) propagates across service calls; each service emits timed spans assembled into an end-to-end tree (e.g. OpenTelemetry).",
+  "benefits": [
+    "End-to-end latency breakdown",
+    "Pinpoints the slow/failing hop",
+    "Reveals service dependencies"
+  ],
+  "limits": [
+    "Instrumentation effort across services",
+    "Sampling vs cost/volume trade-off",
+    "Context propagation gaps break traces"
+  ],
+  "failures": [
+    "Broken context propagation → orphan spans",
+    "100% sampling overwhelming storage/cost"
+  ],
+  "whenNot": [
+    "Monoliths/simple apps (profiling/logs suffice)"
+  ],
+  "myths": [
+    "\"Tracing replaces logs/metrics\" — they are complementary observability pillars"
+  ],
+  "use": "Indirect",
+  "sectors": [
+    "Cloud",
+    "Microservices",
+    "SaaS"
+  ],
+  "complexity": null,
+  "related": [
+    "structured-logging",
+    "profiling",
+    "microservices"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "OTel C (limited)"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "OpenTelemetry C++"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "System.Diagnostics.Activity"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 3,
+      "note": "OpenTelemetry agent"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "tracing + OTel"
+    }
+  }
+}

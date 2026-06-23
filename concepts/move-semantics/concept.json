@@ -1,0 +1,76 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "move-semantics",
+  "name": "Move Semantics",
+  "type": "Resource-management technique",
+  "secondary": [
+    "Performance-optimisation technique",
+    "Language idiom"
+  ],
+  "domain": "memory",
+  "family": "Ownership transfer",
+  "def": "Transferring ownership of a resource from one object to another instead of copying it.",
+  "problem": "Avoid expensive deep copies when a value is being handed off rather than duplicated.",
+  "mechanism": "A move leaves the source in a valid empty state and transfers the underlying buffer/handle to the destination, typically O(1).",
+  "benefits": [
+    "Eliminates deep-copy cost on transfer",
+    "Enables non-copyable resources (unique ownership)",
+    "Underpins efficient containers"
+  ],
+  "limits": [
+    "Moved-from state pitfalls",
+    "Subtle rules (C++); harder mental model",
+    "Self-move edge cases"
+  ],
+  "failures": [
+    "Using a moved-from object (use-after-move)",
+    "Missing/incorrect move constructors"
+  ],
+  "whenNot": [
+    "Cheap-to-copy values (trivial types)"
+  ],
+  "myths": [
+    "\"Move is free\" — it is cheap, not zero; it still updates pointers/handles"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Systems",
+    "Performance code"
+  ],
+  "complexity": null,
+  "related": [
+    "ownership-borrowing",
+    "raii",
+    "copy-on-write"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "manual"
+    },
+    "cpp": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "rvalue refs / std::move"
+    },
+    "cs": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "GC; no real moves"
+    },
+    "java": {
+      "lvl": "UNSUITABLE",
+      "id": 0,
+      "note": "GC; references"
+    },
+    "rust": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "move by default"
+    }
+  }
+}

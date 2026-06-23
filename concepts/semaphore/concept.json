@@ -1,0 +1,76 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "semaphore",
+  "name": "Semaphore",
+  "type": "Synchronisation mechanism",
+  "secondary": [],
+  "domain": "concurrency",
+  "family": "Lock-based",
+  "def": "A counter-based primitive permitting up to N concurrent acquisitions, blocking beyond that.",
+  "problem": "Limit concurrent access to a pool of resources or signal availability between threads.",
+  "mechanism": "acquire decrements (blocks at zero), release increments; a binary semaphore (N=1) acts like a lock; counting semaphores bound concurrency.",
+  "benefits": [
+    "Bounds concurrency to N",
+    "Resource-pool gating",
+    "Cross-thread signalling"
+  ],
+  "limits": [
+    "No ownership (any thread can release)",
+    "Easy to leak permits → deadlock",
+    "Lower-level than mutex/monitor"
+  ],
+  "failures": [
+    "Forgotten release leaking permits",
+    "Release without prior acquire corrupting the count"
+  ],
+  "whenNot": [
+    "Simple mutual exclusion (use a mutex with ownership)"
+  ],
+  "myths": [
+    "\"Semaphore = mutex\" — a mutex has ownership; a semaphore is a permit counter"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Resource pools",
+    "Rate limiting",
+    "Producer/consumer"
+  ],
+  "complexity": null,
+  "related": [
+    "mutex",
+    "bulkhead",
+    "condition-variable"
+  ],
+  "competing": [
+    "mutex"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "POSIX sem / C++ counting_semaphore"
+    },
+    "cpp": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "std::counting_semaphore (C++20)"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "SemaphoreSlim"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "Semaphore"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "tokio::Semaphore"
+    }
+  }
+}

@@ -1,0 +1,78 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "circuit-breaker",
+  "name": "Circuit Breaker",
+  "type": "Distributed-systems pattern",
+  "secondary": [
+    "Reliability or resilience practice"
+  ],
+  "domain": "reliability",
+  "family": "Resilience",
+  "def": "A proxy that stops calling a failing dependency for a cool-down period to prevent cascading failure.",
+  "problem": "Stop hammering an unhealthy downstream service and let it recover, while failing fast for callers.",
+  "mechanism": "Tracks failures; on a threshold it \"opens\" (fails fast without calling), after a timeout goes \"half-open\" to test, and \"closes\" again on success.",
+  "benefits": [
+    "Prevents cascading failures / resource exhaustion",
+    "Fails fast instead of piling up timeouts",
+    "Gives downstreams room to recover"
+  ],
+  "limits": [
+    "Threshold/timeout tuning is tricky",
+    "Can mask real issues if too aggressive",
+    "Adds state and complexity"
+  ],
+  "failures": [
+    "Flapping between states under marginal load",
+    "Tripping on transient blips and harming availability"
+  ],
+  "whenNot": [
+    "In-process calls; non-networked dependencies",
+    "When a simple retry/timeout suffices"
+  ],
+  "myths": [
+    "\"Circuit breakers prevent failures\" — they contain blast radius, not root causes"
+  ],
+  "use": "Both",
+  "sectors": [
+    "Cloud",
+    "Fintech",
+    "Microservices",
+    "SaaS"
+  ],
+  "complexity": null,
+  "related": [
+    "retry-backoff",
+    "bulkhead",
+    "fail-fast"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "manual; rare"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "service mesh / custom"
+    },
+    "cs": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "Polly"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "Resilience4j"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "failsafe / tower"
+    }
+  }
+}

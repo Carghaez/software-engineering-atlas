@@ -1,0 +1,108 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "gather-scatter",
+  "name": "Gather / Scatter",
+  "type": "Hardware-execution model",
+  "secondary": [
+    "Performance-optimisation technique"
+  ],
+  "aliases": [
+    "Vector gather/scatter",
+    "Indexed SIMD loads/stores"
+  ],
+  "x": {
+    "executionModel": "SIMD instructions that load (gather) or store (scatter) elements from/to non-contiguous memory addresses given by a vector of indices, in one instruction.",
+    "dataOrg": "Index/offset vector + a base; effective when data is irregular but still vectorisable (sparse, indexed, indirect access).",
+    "hwConstraints": "Throughput far below contiguous loads; each element may touch a different cache line / TLB entry.",
+    "compilerSupport": "Auto-generated for indexed loops on capable ISAs (AVX2/AVX-512 gather, SVE); also exposed via intrinsics.",
+    "portability": "Availability and performance vary widely by ISA generation; some scatter only on newer hardware.",
+    "expectedBenefit": "Vectorises code that would otherwise fall back to scalar due to non-unit-stride access.",
+    "bottlenecks": [
+      "Multiple cache lines / TLB misses per instruction",
+      "Memory-bandwidth bound",
+      "Slower than contiguous SIMD by large factors"
+    ],
+    "divergenceRisks": [
+      "Index collisions in scatter (ordering / correctness)",
+      "Out-of-bounds indices",
+      "Partial-vector tails"
+    ],
+    "workloadShapes": "Sparse linear algebra, indexed lookups, particle/graph data, AoS field extraction."
+  },
+  "domain": "hardware",
+  "family": "Vector memory access",
+  "def": "SIMD load/store instructions that move elements to or from scattered (index-specified) memory locations in a single operation, extending vectorisation to irregular access.",
+  "problem": "Classic SIMD needs contiguous, unit-stride data; many real workloads access memory through indices or sparse layouts.",
+  "mechanism": "A vector of indices selects the addresses; gather reads those elements into a SIMD register, scatter writes register lanes back to them. This keeps a loop vectorised despite non-contiguous access, at the cost of touching many cache lines.",
+  "benefits": [
+    "Enables SIMD over indexed / sparse data",
+    "Avoids scalar fallback for indirect access",
+    "One instruction replaces a lane-by-lane loop"
+  ],
+  "limits": [
+    "Much lower throughput than contiguous SIMD",
+    "Cache/TLB pressure per instruction",
+    "Hardware support and speed vary by ISA"
+  ],
+  "failures": [
+    "Assuming gather is as fast as a packed load",
+    "Scatter with duplicate indices producing undefined ordering",
+    "OOB indices faulting or corrupting memory"
+  ],
+  "whenNot": [
+    "Data can be reorganised to contiguous/SoA (do that instead)",
+    "Memory-bandwidth-bound kernels where gather adds no win"
+  ],
+  "myths": [
+    "\"Gather makes any loop vectorisable and fast\" — it vectorises it, but is often memory-bound and slow"
+  ],
+  "use": "Indirect",
+  "sectors": [
+    "HPC / sparse linear algebra",
+    "Databases",
+    "Graphics / particles"
+  ],
+  "complexity": {
+    "Throughput": "≪ contiguous SIMD",
+    "Latency": "Per-lane address dependent"
+  },
+  "related": [
+    "simd",
+    "structure-of-arrays",
+    "auto-vectorization",
+    "prefetching",
+    "numa-awareness"
+  ],
+  "competing": [
+    "structure-of-arrays"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "intrinsics (AVX2/512)"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "intrinsics / std::simd (WD)"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 1,
+      "note": "Avx2.GatherVector*"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "Vector API gather"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "core::arch intrinsics"
+    }
+  }
+}

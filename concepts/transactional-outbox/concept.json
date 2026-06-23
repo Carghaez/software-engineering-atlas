@@ -1,0 +1,78 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "transactional-outbox",
+  "name": "Transactional Outbox",
+  "type": "Distributed-systems pattern",
+  "secondary": [
+    "Reliability or resilience practice"
+  ],
+  "domain": "reliability",
+  "family": "Messaging reliability",
+  "def": "Writing events to an outbox table in the same DB transaction as state, then relaying them reliably.",
+  "problem": "Avoid the dual-write problem: updating a database and publishing a message atomically.",
+  "mechanism": "The state change and an outbox row commit in one local transaction; a separate relay (poller or CDC) reads the outbox and publishes to the broker with at-least-once delivery.",
+  "benefits": [
+    "No lost messages on crash between DB and broker",
+    "No distributed transaction needed",
+    "At-least-once delivery"
+  ],
+  "limits": [
+    "Relay infra + ordering concerns",
+    "At-least-once → consumers must dedupe",
+    "Outbox table growth/cleanup"
+  ],
+  "failures": [
+    "Dual write without outbox losing events",
+    "Consumers not idempotent → duplicates applied"
+  ],
+  "whenNot": [
+    "No messaging/integration; single-store systems"
+  ],
+  "myths": [
+    "\"Just publish after commit\" — a crash in between loses the event; the outbox prevents that"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Microservices",
+    "Event-driven systems",
+    "Fintech"
+  ],
+  "complexity": null,
+  "related": [
+    "idempotency",
+    "event-sourcing",
+    "two-phase-commit"
+  ],
+  "competing": [
+    "two-phase-commit"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "rare"
+    },
+    "cpp": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "rare"
+    },
+    "cs": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "MassTransit outbox"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "Debezium / Spring"
+    },
+    "rust": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "manual + CDC"
+    }
+  }
+}

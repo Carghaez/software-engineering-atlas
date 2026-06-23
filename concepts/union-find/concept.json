@@ -1,0 +1,93 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "union-find",
+  "name": "Union-Find (Disjoint Set)",
+  "type": "Data structure",
+  "secondary": [
+    "Algorithm"
+  ],
+  "domain": "structures",
+  "family": "Set / partition",
+  "def": "Tracks a partition of elements into disjoint sets with near-constant union and find.",
+  "problem": "Maintain connected components / equivalence classes under incremental merging.",
+  "mechanism": "A forest of parent pointers; find follows parents to a root, path compression flattens chains, and union-by-rank keeps trees shallow.",
+  "benefits": [
+    "Near-O(1) amortised (inverse Ackermann)",
+    "Tiny memory (one int per element)",
+    "Simple to implement"
+  ],
+  "limits": [
+    "No efficient split/un-merge",
+    "Not ordered; no enumeration of a set cheaply"
+  ],
+  "failures": [
+    "Forgetting path compression / union-by-rank → O(n) chains",
+    "Assuming sets can be separated again"
+  ],
+  "whenNot": [
+    "Sets must be split, or membership enumerated"
+  ],
+  "myths": [
+    "\"Union-find is O(1)\" — it is inverse-Ackermann amortised, effectively but not exactly constant"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Kruskal MST",
+    "Connected components",
+    "Compilers (SSA)",
+    "Percolation"
+  ],
+  "complexity": {
+    "Union/find": "O(α(n)) amortised",
+    "Space": "O(n)"
+  },
+  "related": [
+    "kruskal-mst",
+    "graph-bfs"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "x": {
+    "invariant": "Each element points toward a representative root; two elements share a set iff they reach the same root.",
+    "operations": [
+      "find(x) → representative root",
+      "union(a,b) → merge two sets",
+      "connected(a,b) → same set?"
+    ],
+    "memoryOverhead": "One parent index per element, plus a rank/size byte — extremely compact.",
+    "locality": "Good after path compression flattens trees; early finds may chase pointers.",
+    "mutationModel": "Incremental merge-only; no efficient un-union.",
+    "concurrency": "Concurrent variants exist (lock-free union-find) but the basic structure is single-threaded.",
+    "implementations": [
+      "Hand-rolled int array (ubiquitous in competitive/graph code)"
+    ]
+  },
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "int parent[] array"
+    },
+    "cpp": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "vector<int>"
+    },
+    "cs": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "int[]"
+    },
+    "java": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "int[]"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "union-find crates"
+    }
+  }
+}

@@ -1,0 +1,78 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "symbolic-execution",
+  "name": "Symbolic Execution",
+  "type": "Verification technique",
+  "secondary": [
+    "Testing technique"
+  ],
+  "domain": "testing",
+  "family": "Program analysis",
+  "def": "Analysing a program with symbolic (not concrete) inputs to explore many paths and find bugs.",
+  "problem": "Discover inputs that trigger bugs or reach paths that random/example testing misses.",
+  "mechanism": "Inputs are symbols; the engine tracks path constraints and uses an SMT solver to find inputs satisfying each path (and to detect assertion violations).",
+  "benefits": [
+    "Systematic path exploration",
+    "Generates concrete bug-triggering inputs",
+    "Finds deep edge cases"
+  ],
+  "limits": [
+    "Path explosion",
+    "Solver limits (loops, nonlinear, env)",
+    "Slow; scaling is hard"
+  ],
+  "failures": [
+    "Path explosion making it intractable",
+    "Unmodelled environment/syscalls"
+  ],
+  "whenNot": [
+    "Large messy systems without harnessing"
+  ],
+  "myths": [
+    "\"Symbolic execution proves correctness\" — it explores paths; full proof is generally infeasible"
+  ],
+  "use": "Indirect",
+  "sectors": [
+    "Security",
+    "Safety-critical",
+    "Compilers"
+  ],
+  "complexity": null,
+  "related": [
+    "fuzz-testing",
+    "model-checking",
+    "static-analysis"
+  ],
+  "competing": [
+    "fuzz-testing"
+  ],
+  "maturity": "Mature",
+  "confidence": "Medium",
+  "langs": {
+    "c": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "KLEE"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "KLEE/LLVM"
+    },
+    "cs": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "Pex/IntelliTest (legacy)"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "Symbolic PathFinder"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "research tools"
+    }
+  }
+}

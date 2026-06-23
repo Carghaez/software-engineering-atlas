@@ -1,0 +1,95 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "tagless-final",
+  "name": "Tagless Final",
+  "type": "Functional abstraction",
+  "secondary": [],
+  "aliases": [
+    "Finally tagless",
+    "Tagless-final encoding"
+  ],
+  "x": {
+    "formalRole": "Encodes a DSL as overloaded operations in a type class / interface parameterised by the result type constructor, instead of as an explicit AST.",
+    "compositionRule": "Programs are written against an abstract effect interface F[_]; interpreters are instances choosing the concrete F.",
+    "laws": [
+      "Inherits the laws of the abstractions it builds on (Monad/Applicative for F)"
+    ],
+    "encoding": "A type class / trait with the DSL operations; multiple instances interpret it. Maps onto interfaces + generics in OO languages.",
+    "useCases": "Swappable interpreters (prod vs test) without the runtime cost of a free-monad AST.",
+    "misuseRisks": [
+      "Over-abstracting with many type-class constraints",
+      "Constraint soup hurting readability"
+    ]
+  },
+  "domain": "fp",
+  "family": "Effect encoding",
+  "def": "A technique for embedding DSLs and effects as abstract operations over an unspecified effect type, giving free-monad-style interpreter swapping without building an explicit AST.",
+  "problem": "Get multiple interpreters and a pure description of effects, but avoid the allocation/overhead of a reified free-monad tree.",
+  "mechanism": "Define the DSL as methods on an abstract F[_] (a type class / interface). Programs are polymorphic in F; each interpreter is an instance (real, test, logging) that fixes F to a concrete monad.",
+  "benefits": [
+    "Interpreter swapping like free monads",
+    "No AST allocation → faster",
+    "Leverages existing type-class / interface machinery"
+  ],
+  "limits": [
+    "Heavy use of higher-kinded types / constraints",
+    "Awkward in languages lacking HKTs",
+    "Constraint lists can balloon"
+  ],
+  "failures": [
+    "Constraint explosion making signatures unreadable",
+    "Leaking concrete F into supposedly-abstract code"
+  ],
+  "whenNot": [
+    "Simple effectful code (plain interfaces suffice)",
+    "Languages without good generic/HKT support"
+  ],
+  "myths": [
+    "\"Tagless-final is strictly better than free\" — it trades AST inspectability for performance"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Functional architecture",
+    "DSLs",
+    "Backend services (Scala)"
+  ],
+  "related": [
+    "free-monad",
+    "typeclasses-traits",
+    "higher-kinded-types",
+    "monad"
+  ],
+  "competing": [
+    "free-monad",
+    "algebraic-effects"
+  ],
+  "maturity": "Established",
+  "confidence": "Medium",
+  "langs": {
+    "c": {
+      "lvl": "UNSUITABLE",
+      "id": 0,
+      "note": "n/a"
+    },
+    "cpp": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "templates / concepts"
+    },
+    "cs": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "generic interfaces"
+    },
+    "java": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "generic interfaces"
+    },
+    "rust": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "traits + generics"
+    }
+  }
+}

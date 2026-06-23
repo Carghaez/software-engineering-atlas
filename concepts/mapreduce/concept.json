@@ -1,0 +1,79 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "mapreduce",
+  "name": "MapReduce",
+  "type": "Parallel-computing model",
+  "secondary": [
+    "Algorithmic paradigm",
+    "Distributed-systems pattern"
+  ],
+  "domain": "algos",
+  "family": "Parallel / distributed",
+  "def": "A model for processing huge datasets by a parallel map step followed by a grouped reduce step.",
+  "problem": "Process petabyte-scale data across a cluster with automatic parallelism and fault tolerance.",
+  "mechanism": "Map emits key-value pairs per record in parallel; the framework shuffles/groups by key; reduce aggregates each group. The runtime handles distribution, retries and data locality.",
+  "benefits": [
+    "Embarrassingly-parallel scale-out",
+    "Framework handles fault tolerance & locality",
+    "Simple two-function model"
+  ],
+  "limits": [
+    "Awkward for iterative/low-latency jobs",
+    "Disk-heavy shuffle",
+    "Largely superseded by Spark/dataflow engines"
+  ],
+  "failures": [
+    "Skewed keys overloading one reducer",
+    "Forcing iterative ML into many MR passes"
+  ],
+  "whenNot": [
+    "Low-latency, iterative, or graph workloads (use Spark/Flink)"
+  ],
+  "myths": [
+    "\"MapReduce is the only way to do big data\" — modern engines generalise and outperform it"
+  ],
+  "use": "Indirect",
+  "sectors": [
+    "Big data",
+    "Analytics",
+    "ETL",
+    "Search indexing"
+  ],
+  "complexity": {
+    "Note": "Scales ~linearly with cluster size; shuffle is the bottleneck"
+  },
+  "related": [
+    "data-oriented-design",
+    "consistent-hashing"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "rare"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "libs"
+    },
+    "cs": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "libs"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 3,
+      "note": "Hadoop / Spark"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "timely-dataflow"
+    }
+  }
+}

@@ -1,0 +1,76 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "reference-counting",
+  "name": "Reference Counting",
+  "type": "Resource-management technique",
+  "secondary": [],
+  "domain": "memory",
+  "family": "Automatic memory",
+  "def": "Reclaims an object when its count of live references drops to zero.",
+  "problem": "Share ownership of a resource and free it deterministically when the last user releases it.",
+  "mechanism": "Each reference increments a counter, each drop decrements; reaching zero frees immediately. Atomic counters make it thread-safe; cycles need weak refs or a cycle collector.",
+  "benefits": [
+    "Deterministic, prompt cleanup",
+    "No global pause (incremental)",
+    "Simple shared ownership"
+  ],
+  "limits": [
+    "Cannot collect reference cycles",
+    "Atomic inc/dec costs under contention",
+    "Per-object counter overhead"
+  ],
+  "failures": [
+    "Leaked cycles (parent↔child strong refs)",
+    "Atomic refcount contention hot spots"
+  ],
+  "whenNot": [
+    "Cyclic object graphs (need tracing GC or weak refs)",
+    "Single-owner data (use move/RAII)"
+  ],
+  "myths": [
+    "\"Refcounting is always cheaper than GC\" — atomic churn and cycles complicate that"
+  ],
+  "use": "Both",
+  "sectors": [
+    "Systems",
+    "Apps",
+    "Apple/Swift ecosystems"
+  ],
+  "complexity": null,
+  "related": [
+    "garbage-collection",
+    "ownership-borrowing"
+  ],
+  "competing": [
+    "garbage-collection"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "manual counters"
+    },
+    "cpp": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "shared_ptr / weak_ptr"
+    },
+    "cs": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "GC handles it"
+    },
+    "java": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "GC handles it"
+    },
+    "rust": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "Rc / Arc + Weak"
+    }
+  }
+}

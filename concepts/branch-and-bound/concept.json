@@ -1,0 +1,80 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "branch-and-bound",
+  "name": "Branch and Bound",
+  "type": "Algorithmic paradigm",
+  "secondary": [],
+  "domain": "algos",
+  "family": "Search / optimisation paradigm",
+  "def": "Systematically searches a solution tree, pruning branches whose bound cannot beat the best found.",
+  "problem": "Find provably optimal solutions to hard combinatorial problems without full enumeration.",
+  "mechanism": "Branch into subproblems; compute an optimistic bound for each; discard (\"bound\") any branch whose bound is worse than the incumbent best.",
+  "benefits": [
+    "Exact optimum with pruning",
+    "Often vastly faster than brute force",
+    "Anytime: improving incumbent"
+  ],
+  "limits": [
+    "Worst-case exponential",
+    "Bound quality dominates performance",
+    "Memory for the frontier"
+  ],
+  "failures": [
+    "Weak bounds → little pruning",
+    "Incorrect bound → missing the optimum"
+  ],
+  "whenNot": [
+    "Polynomially-solvable problems",
+    "When a good approximation suffices (use heuristics)"
+  ],
+  "myths": [
+    "\"Same as backtracking\" — B&B adds optimistic bounds to prune by objective value"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Operations research",
+    "Solvers (ILP)",
+    "Scheduling"
+  ],
+  "complexity": {
+    "Worst": "O(b^d)",
+    "Note": "Bounds reduce explored nodes"
+  },
+  "related": [
+    "backtracking",
+    "dynamic-programming",
+    "greedy"
+  ],
+  "competing": [
+    "backtracking"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "NATIVE",
+      "id": 1,
+      "note": "manual"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "solver libs"
+    },
+    "cs": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "OR-Tools"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "OR-Tools / OptaPlanner"
+    },
+    "rust": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "manual"
+    }
+  }
+}

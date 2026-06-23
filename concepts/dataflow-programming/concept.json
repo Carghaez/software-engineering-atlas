@@ -1,0 +1,77 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "dataflow-programming",
+  "name": "Dataflow Programming",
+  "type": "Programming paradigm",
+  "secondary": [
+    "Declarative programming"
+  ],
+  "domain": "paradigms",
+  "family": "Dataflow",
+  "def": "Programs modelled as a graph of operations through which data flows, executing as inputs become available.",
+  "problem": "Express pipelines where computation is driven by data availability, exposing natural parallelism.",
+  "mechanism": "Nodes are operations, edges are data dependencies; a node fires when its inputs are ready, enabling implicit parallelism and streaming.",
+  "benefits": [
+    "Implicit parallelism from the graph",
+    "Clear data dependencies",
+    "Great for streaming/ETL/signal"
+  ],
+  "limits": [
+    "Control flow / branching is awkward",
+    "Debugging the graph is hard",
+    "Latency from graph scheduling"
+  ],
+  "failures": [
+    "Backpressure mishandling in streams",
+    "Cycles causing deadlock/instability"
+  ],
+  "whenNot": [
+    "Heavily branchy control-flow logic"
+  ],
+  "myths": [
+    "\"Dataflow = reactive\" — reactive is a dataflow style focused on change propagation"
+  ],
+  "use": "Both",
+  "sectors": [
+    "Stream processing",
+    "DSP/audio",
+    "ETL",
+    "ML pipelines"
+  ],
+  "complexity": null,
+  "related": [
+    "reactive-programming",
+    "mapreduce",
+    "functional-programming"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "Medium",
+  "langs": {
+    "c": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "GStreamer"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "TBB flow graph"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "TPL Dataflow"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "Akka Streams / Flink"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "timely-dataflow"
+    }
+  }
+}

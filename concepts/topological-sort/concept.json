@@ -1,0 +1,78 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "topological-sort",
+  "name": "Topological Sort",
+  "type": "Algorithm",
+  "secondary": [
+    "Graph algorithm"
+  ],
+  "domain": "algos",
+  "family": "Graph ordering",
+  "def": "Orders the nodes of a DAG so every edge points from earlier to later.",
+  "problem": "Sequence tasks/dependencies so prerequisites always come first.",
+  "mechanism": "Either repeatedly remove zero-in-degree nodes (Kahn’s algorithm) or emit nodes in DFS finish order reversed.",
+  "benefits": [
+    "O(V+E) dependency ordering",
+    "Detects cycles (no valid order)",
+    "Foundation for build/schedulers"
+  ],
+  "limits": [
+    "Only defined on DAGs",
+    "Multiple valid orders (non-unique)"
+  ],
+  "failures": [
+    "Running on a cyclic graph and missing the cycle",
+    "Assuming a unique ordering"
+  ],
+  "whenNot": [
+    "Graphs with cycles (resolve cycles first)"
+  ],
+  "myths": [
+    "\"There is one topological order\" — usually many are valid"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Build systems",
+    "Schedulers",
+    "Compilers",
+    "Package managers"
+  ],
+  "complexity": {
+    "Time": "O(V+E)",
+    "Space": "O(V)"
+  },
+  "related": [
+    "graph-dfs",
+    "greedy"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "manual"
+    },
+    "cpp": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "manual"
+    },
+    "cs": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "manual"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "manual / JGraphT"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "petgraph toposort"
+    }
+  }
+}

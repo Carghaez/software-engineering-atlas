@@ -1,0 +1,81 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "r-tree",
+  "name": "R-Tree",
+  "type": "Data structure",
+  "secondary": [
+    "Spatial structure",
+    "Storage structure"
+  ],
+  "domain": "structures",
+  "family": "Spatial",
+  "def": "A balanced tree of nested bounding rectangles for indexing spatial extents and ranges.",
+  "problem": "Index rectangles/regions (not just points) for spatial range and overlap queries, on disk or in memory.",
+  "mechanism": "Leaf entries are object bounding boxes; internal nodes bound their children. Queries descend only into nodes whose box intersects the query.",
+  "benefits": [
+    "Handles extents/regions, not just points",
+    "Disk-friendly (like a spatial B-tree)",
+    "Good for range/overlap queries"
+  ],
+  "limits": [
+    "Overlapping boxes degrade pruning",
+    "Insertion order affects quality (R*-tree improves it)",
+    "Worst case O(n)"
+  ],
+  "failures": [
+    "Heavy box overlap → near-linear scans",
+    "Poor splits bloating the tree"
+  ],
+  "whenNot": [
+    "Point-only low-dim data (k-d tree simpler)"
+  ],
+  "myths": [
+    "\"R-tree queries are always logarithmic\" — overlap can force scanning many nodes"
+  ],
+  "use": "Indirect",
+  "sectors": [
+    "Spatial databases (PostGIS)",
+    "GIS",
+    "Maps"
+  ],
+  "complexity": {
+    "Range query": "O(log n) avg",
+    "Space": "O(n)"
+  },
+  "related": [
+    "kd-tree",
+    "b-tree"
+  ],
+  "competing": [
+    "kd-tree"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "libspatialindex"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "Boost.Geometry"
+    },
+    "cs": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "NetTopologySuite"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "JTS"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "rstar"
+    }
+  }
+}

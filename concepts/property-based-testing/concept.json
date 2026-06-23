@@ -1,0 +1,96 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "property-based-testing",
+  "name": "Property-Based Testing",
+  "type": "Testing technique",
+  "secondary": [
+    "Verification technique"
+  ],
+  "aliases": [
+    "PBT",
+    "QuickCheck-style testing"
+  ],
+  "x": {
+    "defectClass": "Edge-case and invariant-violation bugs that example-based tests never enumerate (boundaries, unusual sizes, unicode, ordering).",
+    "oracle": "A general property the code must satisfy for all inputs (round-trip, idempotence, agreement with a reference model) — not a specific expected output.",
+    "automationLevel": "High — the framework generates inputs, runs the property, and shrinks failures to a minimal counterexample; the human writes generators and properties.",
+    "blindSpots": [
+      "Only as strong as the properties written — weak ones pass vacuously",
+      "Non-determinism without recorded seeds harms reproducibility",
+      "Poor generators miss the interesting input space"
+    ],
+    "cost": "Higher authoring effort than examples and slower to run; shrinking and seed management add some maintenance.",
+    "lifecycleStage": "Unit and integration stages during development and in CI; especially valuable for parsers, serialisers, data structures and protocol code."
+  },
+  "domain": "testing",
+  "family": "Generative testing",
+  "def": "Tests assert invariants over many automatically-generated inputs rather than fixed examples.",
+  "problem": "Find edge cases example-based tests miss by checking general properties across random inputs.",
+  "mechanism": "A generator produces randomised inputs; the framework checks a property holds, and on failure shrinks the input to a minimal counterexample.",
+  "benefits": [
+    "Explores vast input space automatically",
+    "Shrinking yields minimal repros",
+    "Encodes specs as invariants"
+  ],
+  "limits": [
+    "Designing good properties is hard",
+    "Flaky/non-deterministic without seeds",
+    "Slower than fixed examples"
+  ],
+  "failures": [
+    "Weak properties that always pass",
+    "Non-reproducible failures without recorded seeds"
+  ],
+  "whenNot": [
+    "Trivial code; UI/visual checks",
+    "When invariants are unclear"
+  ],
+  "myths": [
+    "\"Replaces example tests\" — it complements them, not replaces"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Compilers",
+    "Parsers",
+    "Finance",
+    "Protocols"
+  ],
+  "complexity": null,
+  "related": [
+    "fuzz-testing",
+    "model-checking",
+    "tdd"
+  ],
+  "competing": [
+    "fuzz-testing"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "theft"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "RapidCheck"
+    },
+    "cs": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "FsCheck"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "jqwik"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 3,
+      "note": "proptest / quickcheck"
+    }
+  }
+}

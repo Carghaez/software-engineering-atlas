@@ -1,0 +1,74 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "subtype-polymorphism",
+  "name": "Subtype Polymorphism",
+  "type": "Type-system technique",
+  "secondary": [],
+  "domain": "types",
+  "family": "Polymorphism",
+  "def": "Code written against a supertype works with any subtype (substitutability).",
+  "problem": "Write logic against an abstraction and let any conforming concrete type plug in.",
+  "mechanism": "A subtype may be used wherever its supertype is expected; dynamic dispatch selects the actual implementation at runtime (via vtables/interfaces).",
+  "benefits": [
+    "Open extension via new subtypes",
+    "Polymorphic, decoupled code",
+    "Foundation of OO design"
+  ],
+  "limits": [
+    "Dynamic dispatch cost; harder to inline",
+    "Liskov violations break correctness",
+    "Deep hierarchies get brittle"
+  ],
+  "failures": [
+    "LSP violations (subtype changes contract)",
+    "Fragile base class problem"
+  ],
+  "whenNot": [
+    "Closed sets of variants (use sum types/pattern matching)"
+  ],
+  "myths": [
+    "\"Inheritance = subtyping\" — interfaces give subtyping without implementation inheritance"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "All sectors"
+  ],
+  "complexity": null,
+  "related": [
+    "typeclasses-traits",
+    "parametric-polymorphism",
+    "oop"
+  ],
+  "competing": [
+    "algebraic-data-types"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "manual vtables"
+    },
+    "cpp": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "virtual"
+    },
+    "cs": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "interfaces/virtual"
+    },
+    "java": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "interfaces/extends"
+    },
+    "rust": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "dyn Trait"
+    }
+  }
+}

@@ -1,0 +1,78 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "software-transactional-memory",
+  "name": "Software Transactional Memory",
+  "type": "Synchronisation mechanism",
+  "secondary": [
+    "Concurrency model"
+  ],
+  "domain": "concurrency",
+  "family": "Optimistic concurrency",
+  "def": "Composable concurrency where memory operations run in optimistic, atomically-committed transactions.",
+  "problem": "Compose concurrent operations without manual lock ordering and the deadlocks it invites.",
+  "mechanism": "Reads/writes are logged; at commit the runtime validates no conflict and applies atomically, otherwise retries.",
+  "benefits": [
+    "Composable atomic blocks",
+    "No explicit lock ordering / deadlocks",
+    "Optimism scales when conflicts are rare"
+  ],
+  "limits": [
+    "Retry cost under high contention",
+    "I/O/side effects cannot be rolled back",
+    "Runtime/bookkeeping overhead"
+  ],
+  "failures": [
+    "Livelock from repeated conflicting retries",
+    "Irreversible effects inside transactions"
+  ],
+  "whenNot": [
+    "High-contention hot spots",
+    "Effectful critical sections"
+  ],
+  "myths": [
+    "\"STM removes all concurrency cost\" — conflicts and retries reintroduce it"
+  ],
+  "use": "Indirect",
+  "sectors": [
+    "Functional runtimes (Haskell, Clojure)",
+    "Research"
+  ],
+  "complexity": null,
+  "related": [
+    "lock-free",
+    "immutability"
+  ],
+  "competing": [
+    "mutex",
+    "lock-free"
+  ],
+  "maturity": "Emerging",
+  "confidence": "Medium",
+  "langs": {
+    "c": {
+      "lvl": "ECO",
+      "id": 0,
+      "note": "rare libs"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 0,
+      "note": "TM TS (experimental)"
+    },
+    "cs": {
+      "lvl": "ECO",
+      "id": 0,
+      "note": "abandoned STM.NET"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "Multiverse (dated)"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "stm / swym crates"
+    }
+  }
+}

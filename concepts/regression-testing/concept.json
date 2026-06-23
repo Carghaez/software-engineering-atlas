@@ -1,0 +1,74 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "regression-testing",
+  "name": "Regression Testing",
+  "type": "Testing technique",
+  "secondary": [
+    "Build or deployment practice"
+  ],
+  "domain": "testing",
+  "family": "Maintenance testing",
+  "def": "Re-running tests to confirm that changes have not broken previously-working behaviour.",
+  "problem": "Prevent new code (or fixes) from reintroducing or causing old defects.",
+  "mechanism": "Maintain a suite that runs on every change (in CI); a reported bug becomes a permanent test so it cannot silently return.",
+  "benefits": [
+    "Guards against reintroduced bugs",
+    "Confidence to change/refactor",
+    "Automatable in CI"
+  ],
+  "limits": [
+    "Suite grows; runtime balloons",
+    "Flaky tests erode trust",
+    "Maintenance burden"
+  ],
+  "failures": [
+    "Ignoring intermittent failures",
+    "Suites too slow to run per change"
+  ],
+  "whenNot": [
+    "One-off throwaway code"
+  ],
+  "myths": [
+    "\"Regression testing is a separate test type\" — it is a purpose served by re-running existing tests"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "All sectors"
+  ],
+  "complexity": null,
+  "related": [
+    "unit-testing",
+    "tdd",
+    "canary-release"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "CI"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "CI"
+    },
+    "cs": {
+      "lvl": "ECO",
+      "id": 3,
+      "note": "CI"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 3,
+      "note": "CI"
+    },
+    "rust": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "cargo test in CI"
+    }
+  }
+}

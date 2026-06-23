@@ -1,0 +1,79 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "auto-vectorization",
+  "name": "Compiler Auto-Vectorisation",
+  "type": "Performance-optimisation technique",
+  "secondary": [
+    "Hardware-execution model"
+  ],
+  "domain": "hardware",
+  "family": "Compiler optimisation",
+  "def": "The compiler automatically rewrites scalar loops into SIMD vector instructions.",
+  "problem": "Get SIMD speedups without hand-writing intrinsics or sacrificing portability.",
+  "mechanism": "The optimiser proves a loop is free of aliasing/dependencies and has a known trip count, then emits vector code, often with scalar remainder/peel loops.",
+  "benefits": [
+    "Portable, source stays readable",
+    "No intrinsic maintenance burden",
+    "Free wins on clean loops"
+  ],
+  "limits": [
+    "Fragile — small changes disable it",
+    "Cannot vectorise dependent/aliased/branchy loops",
+    "Hard to know if it actually fired"
+  ],
+  "failures": [
+    "Silent fallback to scalar (no error, just slow)",
+    "Pointer aliasing blocking vectorisation"
+  ],
+  "whenNot": [
+    "Guaranteed vectorisation needed (use intrinsics)",
+    "Irregular control flow"
+  ],
+  "myths": [
+    "\"-O3 vectorises everything\" — it bails on anything it can’t prove safe"
+  ],
+  "use": "Indirect",
+  "sectors": [
+    "HPC",
+    "Numerics",
+    "Media"
+  ],
+  "complexity": null,
+  "related": [
+    "simd",
+    "branchless-programming",
+    "cache-blocking"
+  ],
+  "competing": [
+    "simd"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "restrict; pragmas"
+    },
+    "cpp": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "-O3; #pragma omp simd"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 1,
+      "note": "RyuJIT limited"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 1,
+      "note": "HotSpot limited"
+    },
+    "rust": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "LLVM autovec; iterators help"
+    }
+  }
+}

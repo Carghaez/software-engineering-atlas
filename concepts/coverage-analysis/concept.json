@@ -1,0 +1,74 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "coverage-analysis",
+  "name": "Code Coverage Analysis",
+  "type": "Testing technique",
+  "secondary": [
+    "Debugging or observability technique"
+  ],
+  "domain": "testing",
+  "family": "Test measurement",
+  "def": "Measuring which code (lines/branches/paths) is exercised by the test suite.",
+  "problem": "Reveal untested code and guide where to add tests.",
+  "mechanism": "Instrumentation records executed lines/branches during tests; reports show covered vs uncovered code and aggregate percentages.",
+  "benefits": [
+    "Finds untested regions",
+    "Objective, trackable metric",
+    "Guides test effort"
+  ],
+  "limits": [
+    "Coverage ≠ correctness or assertion quality",
+    "Gameable (executing without asserting)",
+    "High coverage gives false confidence"
+  ],
+  "failures": [
+    "Targeting a % instead of meaningful tests",
+    "Counting executed-but-unasserted code as \"tested\""
+  ],
+  "whenNot": [
+    "As a sole quality gate (pair with mutation testing)"
+  ],
+  "myths": [
+    "\"100% coverage means fully tested\" — it only means executed, not verified"
+  ],
+  "use": "Indirect",
+  "sectors": [
+    "All sectors"
+  ],
+  "complexity": null,
+  "related": [
+    "unit-testing",
+    "mutation-testing",
+    "tdd"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "gcov/lcov"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "gcov/llvm-cov"
+    },
+    "cs": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "coverlet"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 3,
+      "note": "JaCoCo"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "llvm-cov / tarpaulin"
+    }
+  }
+}

@@ -1,0 +1,78 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "serverless",
+  "name": "Serverless Architecture",
+  "type": "Architectural pattern",
+  "secondary": [
+    "Build or deployment practice"
+  ],
+  "domain": "architecture",
+  "family": "Distributed / cloud",
+  "def": "Running code as short-lived, event-triggered functions with no server management, billed per use.",
+  "problem": "Eliminate server provisioning/scaling and pay only for actual execution.",
+  "mechanism": "Functions (FaaS) are triggered by events; the platform auto-scales instances (including to zero) and manages infrastructure; state lives in managed services.",
+  "benefits": [
+    "Auto-scaling incl. to zero",
+    "No server ops; pay-per-use",
+    "Fast event-driven glue"
+  ],
+  "limits": [
+    "Cold-start latency",
+    "Execution time/resource limits",
+    "Vendor lock-in; statelessness constraints"
+  ],
+  "failures": [
+    "Cold starts hurting latency SLOs",
+    "Chatty function-to-function calls; cost surprises"
+  ],
+  "whenNot": [
+    "Long-running, stateful, or latency-critical steady workloads"
+  ],
+  "myths": [
+    "\"Serverless means no servers\" — servers exist; you just do not manage them"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Cloud",
+    "Event processing",
+    "APIs",
+    "Glue/automation"
+  ],
+  "complexity": null,
+  "related": [
+    "microservices",
+    "event-driven-architecture"
+  ],
+  "competing": [
+    "microservices"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "rare"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "custom runtimes"
+    },
+    "cs": {
+      "lvl": "ECO",
+      "id": 3,
+      "note": "Azure Functions"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "Lambda (cold starts)"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "Lambda (fast cold start)"
+    }
+  }
+}

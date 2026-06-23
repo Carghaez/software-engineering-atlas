@@ -1,0 +1,73 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "debuggers",
+  "name": "Debuggers & Record-Replay",
+  "type": "Debugging or observability technique",
+  "secondary": [],
+  "domain": "observability",
+  "family": "Interactive debugging",
+  "def": "Tools to pause, inspect and step through running programs; record-replay captures runs for deterministic re-execution.",
+  "problem": "Understand and fix bugs by observing program state and control flow, including hard-to-reproduce ones.",
+  "mechanism": "Debuggers set breakpoints/watchpoints and inspect memory/stack; reverse and record-replay debuggers (rr, time-travel) capture a run and let you step backward deterministically.",
+  "benefits": [
+    "Direct state/flow inspection",
+    "Reverse/replay tames heisenbugs",
+    "Conditional/data breakpoints"
+  ],
+  "limits": [
+    "Heavy overhead (record-replay)",
+    "Concurrency/optimised code hard to debug",
+    "Print-debugging often faster for simple cases"
+  ],
+  "failures": [
+    "Optimised builds with no/garbled symbols",
+    "Heisenbugs that vanish under the debugger"
+  ],
+  "whenNot": [
+    "Distributed/aggregate issues (use tracing/metrics)"
+  ],
+  "myths": [
+    "\"Real engineers do not use debuggers\" — they are essential for complex state bugs"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "All sectors",
+    "Systems"
+  ],
+  "complexity": null,
+  "related": [
+    "crash-reporting",
+    "sanitizers",
+    "profiling"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "gdb/lldb; rr"
+    },
+    "cpp": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "gdb/lldb; rr"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "VS debugger"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "jdb / IDE"
+    },
+    "rust": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "gdb/lldb; rr"
+    }
+  }
+}

@@ -1,0 +1,79 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "async-await",
+  "name": "Async / Await",
+  "type": "Concurrency model",
+  "secondary": [
+    "Language idiom"
+  ],
+  "domain": "concurrency",
+  "family": "Asynchrony",
+  "def": "Syntactic support for writing non-blocking, suspendable computations in sequential style.",
+  "problem": "Handle massive I/O-bound concurrency without one OS thread per in-flight operation.",
+  "mechanism": "await suspends a coroutine/state machine, yielding the thread until the awaited future completes; an executor/event loop resumes it.",
+  "benefits": [
+    "Scales to huge I/O concurrency cheaply",
+    "Sequential-looking code for async flows",
+    "Low memory per task vs threads"
+  ],
+  "limits": [
+    "\"Function colouring\" splits sync/async worlds",
+    "CPU-bound work still needs threads/pools",
+    "Debugging suspended state machines is hard"
+  ],
+  "failures": [
+    "Blocking calls inside async starving the executor",
+    "Forgotten await / unhandled task exceptions"
+  ],
+  "whenNot": [
+    "CPU-bound parallel compute (use threads/parallelism)",
+    "Simple synchronous programs"
+  ],
+  "myths": [
+    "\"Async = parallel\" — it is concurrency; parallelism needs multiple threads"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Web/backends",
+    "Networking",
+    "UI"
+  ],
+  "complexity": null,
+  "related": [
+    "threads",
+    "structured-concurrency",
+    "reactive-programming"
+  ],
+  "competing": [
+    "threads"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "manual callbacks/state"
+    },
+    "cpp": {
+      "lvl": "STD",
+      "id": 1,
+      "note": "coroutines (low-level)"
+    },
+    "cs": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "async/await, Task"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "virtual threads; CompletableFuture"
+    },
+    "rust": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "async/.await + executor"
+    }
+  }
+}

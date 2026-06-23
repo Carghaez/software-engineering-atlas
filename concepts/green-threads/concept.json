@@ -1,0 +1,93 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "green-threads",
+  "name": "Green Threads / Fibers",
+  "type": "Concurrency model",
+  "secondary": [],
+  "aliases": [
+    "User-mode threads",
+    "Fibers",
+    "Virtual threads (Java)"
+  ],
+  "x": {
+    "coordination": "Lightweight threads scheduled in user space (or by the runtime) and multiplexed onto a small pool of OS threads (M:N), cooperatively or via runtime preemption.",
+    "hazards": [
+      "Blocking a carrier OS thread can stall many fibers (if not yield-aware)",
+      "Thread-local assumptions break under migration",
+      "Debugging / stack traces across the scheduler",
+      "Starvation under purely cooperative scheduling"
+    ]
+  },
+  "domain": "concurrency",
+  "family": "Lightweight threading",
+  "def": "Runtime- or library-managed threads far cheaper than OS threads, multiplexed many-to-few onto kernel threads to enable huge numbers of concurrent tasks.",
+  "problem": "OS threads are too heavy (memory + scheduling) to spawn by the hundreds of thousands for high-concurrency I/O workloads.",
+  "mechanism": "The runtime maintains lightweight stacks/continuations and schedules them onto a small set of carrier OS threads. Blocking operations are intercepted to yield rather than block the carrier, so one core can drive many fibers (e.g. Java virtual threads, Go goroutines).",
+  "benefits": [
+    "Cheap to create by the millions",
+    "High I/O concurrency without async colouring",
+    "Familiar blocking-style code"
+  ],
+  "limits": [
+    "CPU-bound work still needs real parallelism",
+    "Native/blocking calls can pin a carrier",
+    "Runtime complexity and tooling gaps"
+  ],
+  "failures": [
+    "A non-yielding blocking call stalling the scheduler",
+    "Pinning carriers via synchronized / FFI, throttling throughput"
+  ],
+  "whenNot": [
+    "Pure CPU-bound parallelism (use OS threads / SIMD)",
+    "Hard real-time scheduling guarantees"
+  ],
+  "myths": [
+    "\"Green threads give more CPU parallelism\" — they multiply concurrency, not cores"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Cloud backends",
+    "High-concurrency servers",
+    "JVM (Project Loom)"
+  ],
+  "related": [
+    "threads",
+    "async-await",
+    "coroutines",
+    "structured-concurrency",
+    "event-loop"
+  ],
+  "competing": [
+    "async-await",
+    "threads"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "libco / ucontext"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "Boost.Fiber"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 1,
+      "note": "Task over thread pool (no fibers)"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "virtual threads (Loom)"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "async tasks (Tokio) — not stackful"
+    }
+  }
+}

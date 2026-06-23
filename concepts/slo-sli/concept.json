@@ -1,0 +1,76 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "slo-sli",
+  "name": "SLOs, SLIs & Error Budgets",
+  "type": "Debugging or observability technique",
+  "secondary": [
+    "Reliability or resilience practice"
+  ],
+  "domain": "observability",
+  "family": "Reliability engineering",
+  "def": "Service-level indicators measure reliability; objectives set targets; the error budget is the allowed shortfall.",
+  "problem": "Define \"reliable enough\" quantitatively and balance reliability work against feature velocity.",
+  "mechanism": "Pick SLIs (e.g. success rate, latency p99); set SLOs (e.g. 99.9%); the gap to 100% is the error budget — when exhausted, prioritise reliability over features.",
+  "benefits": [
+    "Objective reliability targets",
+    "Data-driven feature-vs-stability decisions",
+    "Aligns eng and business"
+  ],
+  "limits": [
+    "Choosing meaningful SLIs is hard",
+    "Gaming/ignoring budgets",
+    "Needs reliable measurement"
+  ],
+  "failures": [
+    "Vanity SLIs unrelated to user pain",
+    "Budgets defined but never enforced"
+  ],
+  "whenNot": [
+    "Prototypes; pre-product systems"
+  ],
+  "myths": [
+    "\"Aim for 100% uptime\" — 100% is the wrong target; the error budget enables change"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "SRE",
+    "Cloud",
+    "SaaS"
+  ],
+  "complexity": null,
+  "related": [
+    "metrics",
+    "canary-release",
+    "graceful-degradation"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "process + metrics"
+    },
+    "cpp": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "process"
+    },
+    "cs": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "process + metrics"
+    },
+    "java": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "process + Micrometer"
+    },
+    "rust": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "process + metrics"
+    }
+  }
+}

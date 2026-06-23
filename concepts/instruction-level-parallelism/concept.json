@@ -1,0 +1,76 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "instruction-level-parallelism",
+  "name": "Instruction-Level Parallelism",
+  "type": "Hardware-execution model",
+  "secondary": [
+    "Performance-optimisation technique"
+  ],
+  "domain": "hardware",
+  "family": "Microarchitecture",
+  "def": "The CPU executing multiple independent instructions per cycle via pipelining and out-of-order execution.",
+  "problem": "Extract parallelism from a single instruction stream without programmer-managed threads.",
+  "mechanism": "Superscalar pipelines, register renaming, speculative and out-of-order execution run independent instructions concurrently; dependencies and branches limit it.",
+  "benefits": [
+    "Free single-thread speedup",
+    "No code changes (mostly automatic)",
+    "Hides some memory latency"
+  ],
+  "limits": [
+    "Data/control dependencies stall it",
+    "Branch mispredictions flush the pipeline",
+    "Diminishing returns; opaque to control"
+  ],
+  "failures": [
+    "Dependency chains serialising execution",
+    "Misprediction-heavy branchy code"
+  ],
+  "whenNot": [
+    "Cannot be \"used\" directly — you write code that exposes it (independent ops)"
+  ],
+  "myths": [
+    "\"Higher clock = faster\" — IPC and memory often matter more than clock speed"
+  ],
+  "use": "Indirect",
+  "sectors": [
+    "All CPU code",
+    "HPC",
+    "Compilers"
+  ],
+  "complexity": null,
+  "related": [
+    "branchless-programming",
+    "simd",
+    "auto-vectorization"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "STD",
+      "id": 1,
+      "note": "expose via independent ops"
+    },
+    "cpp": {
+      "lvl": "STD",
+      "id": 1,
+      "note": "compiler + ISA"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 1,
+      "note": "JIT-dependent"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 1,
+      "note": "JIT-dependent"
+    },
+    "rust": {
+      "lvl": "STD",
+      "id": 1,
+      "note": "LLVM + ISA"
+    }
+  }
+}

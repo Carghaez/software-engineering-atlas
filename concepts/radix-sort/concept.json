@@ -1,0 +1,79 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "radix-sort",
+  "name": "Radix Sort",
+  "type": "Algorithm",
+  "secondary": [],
+  "domain": "algos",
+  "family": "Non-comparison sort",
+  "def": "A non-comparison sort that orders keys digit by digit using counting/bucketing.",
+  "problem": "Sort integers/fixed-length keys faster than the O(n log n) comparison lower bound.",
+  "mechanism": "Stably distribute keys into buckets by one digit at a time (LSD or MSD), passing once per digit; counting sort is the stable per-digit step.",
+  "benefits": [
+    "O(n·k) — linear in n for fixed key width",
+    "Beats comparison sorts on large integer sets",
+    "Stable (LSD)"
+  ],
+  "limits": [
+    "Only for keys decomposable into digits",
+    "Extra bucket memory",
+    "k passes can dominate for wide keys"
+  ],
+  "failures": [
+    "Applying to arbitrary comparables",
+    "Unstable per-digit step breaking correctness"
+  ],
+  "whenNot": [
+    "General comparable types; small n",
+    "Very wide keys (k large)"
+  ],
+  "myths": [
+    "\"Radix beats the n log n bound universally\" — only for bounded-width keys, not general comparison"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Databases",
+    "Graphics (sorting)",
+    "Big data"
+  ],
+  "complexity": {
+    "Time": "O(n·k)",
+    "Space": "O(n + base)"
+  },
+  "related": [
+    "mergesort",
+    "quicksort"
+  ],
+  "competing": [
+    "quicksort"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "manual"
+    },
+    "cpp": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "manual / boost::spreadsort"
+    },
+    "cs": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "manual"
+    },
+    "java": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "manual"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "radsort crate"
+    }
+  }
+}

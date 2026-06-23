@@ -1,0 +1,93 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "io-monad",
+  "name": "IO Monad",
+  "type": "Functional abstraction",
+  "secondary": [],
+  "aliases": [
+    "IO-style encapsulation"
+  ],
+  "x": {
+    "formalRole": "Represents an effectful action as a first-class, deferred value that is only executed at the program’s edge.",
+    "compositionRule": "IO a is a description of an effect; bind sequences descriptions; nothing runs until the runtime executes it.",
+    "laws": [
+      "Monad laws hold; referential transparency preserved because IO values are descriptions, not executions"
+    ],
+    "encoding": "Lazy thunks / effect objects (Haskell IO, Scala cats-effect IO / ZIO). In eager languages, a () → a thunk or task approximates it.",
+    "useCases": "Keeping a pure core while pushing side effects (I/O, time, randomness) to a controlled boundary.",
+    "misuseRisks": [
+      "Running effects eagerly, defeating the point",
+      "Wrapping everything in IO until the type is meaningless"
+    ]
+  },
+  "domain": "fp",
+  "family": "Effect encoding",
+  "def": "A monad that captures side effects as deferred, composable description values, executed only at the program boundary — preserving a pure core.",
+  "problem": "Reconcile real-world side effects (I/O, clocks, randomness) with referential transparency and easy reasoning/testing.",
+  "mechanism": "An effect becomes a first-class IO value (a description). bind builds bigger descriptions by sequencing; the runtime \"interprets\" the final IO at main. Because values are descriptions, equational reasoning still holds.",
+  "benefits": [
+    "Pure core, effects at the edge",
+    "Composable, testable effect descriptions",
+    "Enables resource-safety / concurrency abstractions"
+  ],
+  "limits": [
+    "Conceptual overhead in eager languages",
+    "Performance of effect interpreters",
+    "Can over-abstract simple scripts"
+  ],
+  "failures": [
+    "Forcing eager execution and losing purity",
+    "IO everywhere → no real boundary"
+  ],
+  "whenNot": [
+    "Small scripts where direct effects are fine",
+    "Hot paths where the abstraction cost matters"
+  ],
+  "myths": [
+    "\"The IO monad makes side effects pure\" — it makes *descriptions* of effects pure; execution still happens"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Functional languages",
+    "Effect systems",
+    "Backend services"
+  ],
+  "related": [
+    "monad",
+    "algebraic-effects",
+    "referential-transparency",
+    "pure-functions"
+  ],
+  "competing": [
+    "algebraic-effects"
+  ],
+  "maturity": "Established",
+  "confidence": "Medium",
+  "langs": {
+    "c": {
+      "lvl": "UNSUITABLE",
+      "id": 0,
+      "note": "n/a"
+    },
+    "cpp": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "rare"
+    },
+    "cs": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "Func/Task as effect"
+    },
+    "java": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "Supplier / libs"
+    },
+    "rust": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "closures / async"
+    }
+  }
+}

@@ -1,0 +1,79 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "amortised-analysis",
+  "name": "Amortised Analysis",
+  "type": "Mathematical method",
+  "secondary": [],
+  "aliases": [
+    "Amortized analysis",
+    "Aggregate / accounting / potential method"
+  ],
+  "x": {},
+  "domain": "algos",
+  "family": "Complexity analysis",
+  "def": "A technique for bounding the average cost per operation over a worst-case sequence, so occasional expensive steps are charged against many cheap ones.",
+  "problem": "Characterise data structures whose individual operations spike but whose long-run cost is low (e.g. dynamic-array growth).",
+  "mechanism": "Three lenses: aggregate (total cost / n), accounting (prepay credits on cheap ops to fund expensive ones), and potential (define Φ over the structure’s state; amortised cost = actual + ΔΦ).",
+  "benefits": [
+    "Tighter, honest bounds than per-op worst case",
+    "Explains why doubling / path compression are efficient",
+    "Composes across operation sequences"
+  ],
+  "limits": [
+    "Says nothing about a single operation’s latency",
+    "Not worst-case-per-op — bad for hard real-time",
+    "Choosing a good potential function is an art"
+  ],
+  "failures": [
+    "Quoting amortised O(1) where tail latency matters (real-time / interactive)",
+    "Mixing amortised and worst-case bounds in one argument"
+  ],
+  "whenNot": [
+    "Per-operation latency guarantees are required (use worst-case bounds)"
+  ],
+  "myths": [
+    "\"Amortised = average-case\" — amortised is worst-case over a sequence, with no probability assumptions"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Algorithm design",
+    "Data-structure analysis",
+    "Teaching"
+  ],
+  "related": [
+    "dynamic-array",
+    "union-find",
+    "fibonacci-heap",
+    "binary-heap"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "analysis, not code"
+    },
+    "cpp": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "analysis"
+    },
+    "cs": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "analysis"
+    },
+    "java": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "analysis"
+    },
+    "rust": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "analysis"
+    }
+  }
+}

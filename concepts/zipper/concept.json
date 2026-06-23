@@ -1,0 +1,96 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "zipper",
+  "name": "Zipper",
+  "type": "Functional abstraction",
+  "secondary": [
+    "Data structure"
+  ],
+  "aliases": [
+    "Functional cursor",
+    "Huet zipper"
+  ],
+  "x": {
+    "formalRole": "A representation of a data structure plus a focused location, with O(1) local navigation and update — the derivative of the structure’s type.",
+    "compositionRule": "A focus value + a context (\"one-hole\" path) reconstructing the whole; moves shift the focus through the context.",
+    "laws": [
+      "up ∘ down = id at a valid position; rebuild from (focus, context) yields the original whole"
+    ],
+    "encoding": "Focus + path/context type. List zipper = (reversed prefix, focus, suffix); tree zippers carry parent context.",
+    "useCases": "Editing immutable trees/lists (text editors, DOM, ASTs) with cheap local changes and undo.",
+    "misuseRisks": [
+      "Using a zipper where a mutable cursor is simpler",
+      "Complex context types for deeply nested structures"
+    ]
+  },
+  "domain": "fp",
+  "family": "Traversal / focus",
+  "def": "An immutable structure paired with a focused position and its surrounding context, giving constant-time local navigation and update without mutation.",
+  "problem": "Edit a position deep inside an immutable structure without copying the whole thing or losing persistence.",
+  "mechanism": "Splits the structure into the focused element and a \"one-hole context\" recording the path back to the root. Moving the focus reshuffles context; updating rebuilds only along the path — preserving the rest via sharing.",
+  "benefits": [
+    "O(1) local moves and edits",
+    "Immutable / persistent with undo",
+    "Clean model for editors and AST traversal"
+  ],
+  "limits": [
+    "Context types get complex for rich trees",
+    "Random (non-local) access is not O(1)",
+    "Conceptual overhead"
+  ],
+  "failures": [
+    "Inconsistent context after a malformed move",
+    "Reinventing a mutable cursor poorly"
+  ],
+  "whenNot": [
+    "Mutable single-owner structures (use an index/pointer)",
+    "Whole-structure rewrites"
+  ],
+  "myths": [
+    "\"Immutable trees can’t be edited efficiently\" — zippers give cheap local edits"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Editors / IDEs",
+    "Compilers (AST)",
+    "Functional UIs"
+  ],
+  "related": [
+    "persistent-data-structures",
+    "immutability",
+    "pattern-matching",
+    "lenses-optics"
+  ],
+  "competing": [
+    "lenses-optics"
+  ],
+  "maturity": "Established",
+  "confidence": "Medium",
+  "langs": {
+    "c": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "rare"
+    },
+    "cpp": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "manual"
+    },
+    "cs": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "manual"
+    },
+    "java": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "manual"
+    },
+    "rust": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "manual / index cursors"
+    }
+  }
+}

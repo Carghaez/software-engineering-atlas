@@ -1,0 +1,104 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "software-pipelining",
+  "name": "Software Pipelining",
+  "type": "Performance-optimisation technique",
+  "secondary": [
+    "Hardware-execution model"
+  ],
+  "aliases": [
+    "Modulo scheduling"
+  ],
+  "x": {
+    "executionModel": "Reorders a loop so that operations from several iterations overlap in flight, hiding instruction latency by starting later iterations before earlier ones finish.",
+    "dataOrg": "Operates on the instruction schedule, not data layout; needs enough independent work and registers across iterations.",
+    "hwConstraints": "Limited by register pressure, functional-unit throughput, and loop-carried dependencies.",
+    "compilerSupport": "Performed by optimising compilers (modulo scheduling); hand-applied in tuned kernels / DSP.",
+    "portability": "A compiler optimisation — portable in effect, though gains are microarchitecture-specific.",
+    "expectedBenefit": "Higher instruction-level parallelism and functional-unit utilisation in tight loops.",
+    "bottlenecks": [
+      "Loop-carried dependencies limit overlap",
+      "Register pressure / spills",
+      "Prologue/epilogue overhead for short loops"
+    ],
+    "divergenceRisks": [
+      "Incorrect handling of the pipeline prologue/epilogue",
+      "Aliasing preventing reordering"
+    ],
+    "workloadShapes": "Long, dependency-light numeric / DSP loops with predictable trip counts."
+  },
+  "domain": "hardware",
+  "family": "Instruction scheduling",
+  "def": "A loop optimisation that overlaps instructions from multiple iterations so long-latency operations from one iteration are hidden behind independent work from others.",
+  "problem": "Within a single loop iteration, instruction latencies stall the pipeline; there is not enough independent work to fill it.",
+  "mechanism": "The scheduler (modulo scheduling) issues a steady-state kernel that contains operations belonging to several overlapping iterations, plus a prologue to fill and an epilogue to drain the pipeline — maximising functional-unit usage.",
+  "benefits": [
+    "Hides instruction latency → higher ILP",
+    "Better functional-unit utilisation",
+    "Complements unrolling and vectorisation"
+  ],
+  "limits": [
+    "Increased register pressure (possible spills)",
+    "Code-size and complexity (prologue/epilogue)",
+    "Blocked by loop-carried dependencies / aliasing"
+  ],
+  "failures": [
+    "Spilling registers, negating the gain",
+    "Mishandled epilogue on non-multiple trip counts"
+  ],
+  "whenNot": [
+    "Short loops where prologue/epilogue dominate",
+    "Heavily dependent iterations"
+  ],
+  "myths": [
+    "\"Loop unrolling and software pipelining are the same\" — unrolling replicates bodies; pipelining overlaps iterations"
+  ],
+  "use": "Indirect",
+  "sectors": [
+    "HPC",
+    "DSP / signal processing",
+    "Compilers",
+    "Embedded performance"
+  ],
+  "complexity": {
+    "Goal": "Throughput ≈ 1 iter / initiation interval"
+  },
+  "related": [
+    "loop-unrolling",
+    "instruction-level-parallelism",
+    "auto-vectorization",
+    "cache-blocking"
+  ],
+  "competing": [
+    "loop-unrolling"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "-O2/-O3 schedulers"
+    },
+    "cpp": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "compiler modulo sched"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 1,
+      "note": "JIT scheduling"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 1,
+      "note": "JIT scheduling"
+    },
+    "rust": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "LLVM scheduling"
+    }
+  }
+}

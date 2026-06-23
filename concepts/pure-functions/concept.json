@@ -1,0 +1,73 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "pure-functions",
+  "name": "Pure Functions",
+  "type": "Functional abstraction",
+  "secondary": [
+    "Design principle"
+  ],
+  "domain": "fp",
+  "family": "Core FP",
+  "def": "Functions whose output depends only on inputs and that produce no observable side effects.",
+  "problem": "Make code deterministic and locally reasoned about, independent of global state and order of evaluation.",
+  "mechanism": "No mutation of external state, no I/O; same inputs always yield same outputs (referential transparency).",
+  "benefits": [
+    "Trivially testable and cacheable/memoisable",
+    "Safe to parallelise and reorder",
+    "Compose predictably"
+  ],
+  "limits": [
+    "Real programs need effects somewhere",
+    "Threading state through purely can be verbose"
+  ],
+  "failures": [
+    "\"Pure\" functions that secretly log or read clocks",
+    "Hidden impurity via mutable arguments"
+  ],
+  "whenNot": [
+    "I/O boundary code (isolate, don’t pretend purity)"
+  ],
+  "myths": [
+    "\"Pure = slow\" — purity enables optimisation and caching"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "All sectors — a discipline, not a feature"
+  ],
+  "complexity": null,
+  "related": [
+    "referential-transparency",
+    "immutability",
+    "functional-programming"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "discipline; __attribute__((pure))"
+    },
+    "cpp": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "discipline; constexpr"
+    },
+    "cs": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "discipline; static"
+    },
+    "java": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "discipline"
+    },
+    "rust": {
+      "lvl": "ENCODABLE",
+      "id": 3,
+      "note": "discipline; &mut makes effects explicit"
+    }
+  }
+}

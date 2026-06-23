@@ -1,0 +1,76 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "load-testing",
+  "name": "Load, Stress & Soak Testing",
+  "type": "Testing technique",
+  "secondary": [
+    "Performance-optimisation technique"
+  ],
+  "domain": "testing",
+  "family": "Performance testing",
+  "def": "Testing behaviour under expected load (load), beyond limits (stress), and over long duration (soak).",
+  "problem": "Validate performance, capacity and stability before real traffic exposes them.",
+  "mechanism": "Synthetic clients generate controlled traffic profiles; metrics (latency, throughput, errors, resource use) are measured against targets and breaking points.",
+  "benefits": [
+    "Find capacity limits & bottlenecks early",
+    "Detect leaks/degradation (soak)",
+    "Validate SLOs/autoscaling"
+  ],
+  "limits": [
+    "Realistic test data/traffic is hard",
+    "Environment must mirror prod",
+    "Expensive to run at scale"
+  ],
+  "failures": [
+    "Unrepresentative load profiles",
+    "Testing against under-scaled environments"
+  ],
+  "whenNot": [
+    "Low-traffic internal tools"
+  ],
+  "myths": [
+    "\"Load and stress testing are the same\" — load tests expected volume; stress tests the breaking point"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Web/backends",
+    "Cloud",
+    "Fintech"
+  ],
+  "complexity": null,
+  "related": [
+    "profiling",
+    "rate-limiting",
+    "capacity-planning"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "wrk/custom"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "custom"
+    },
+    "cs": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "NBomber / k6"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "JMeter / Gatling"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "goose / drill"
+    }
+  }
+}

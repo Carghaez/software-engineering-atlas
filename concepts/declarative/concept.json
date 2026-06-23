@@ -1,0 +1,77 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "declarative",
+  "name": "Declarative Programming",
+  "type": "Programming paradigm",
+  "secondary": [],
+  "domain": "paradigms",
+  "family": "Declarative",
+  "def": "Expresses what result is wanted, leaving how to compute it to the engine/runtime.",
+  "problem": "Separate intent from execution strategy so the system can optimise, validate, or re-plan.",
+  "mechanism": "Programs are specifications (queries, rules, constraints, configs) that an interpreter, query planner or solver executes.",
+  "benefits": [
+    "Concise, intent-revealing",
+    "Engine can optimise execution (e.g. query planners)",
+    "Less incidental control-flow bugs"
+  ],
+  "limits": [
+    "Opaque performance — hard to predict cost",
+    "Debugging through the engine is harder",
+    "Expressiveness limited by the engine"
+  ],
+  "failures": [
+    "Accidentally O(n²) query plans",
+    "Leaky abstractions forcing imperative escapes"
+  ],
+  "whenNot": [
+    "Fine-grained performance control required",
+    "Logic the engine cannot express"
+  ],
+  "myths": [
+    "\"Declarative = SQL only\" — config, build systems, UI frameworks qualify too"
+  ],
+  "use": "Both",
+  "sectors": [
+    "Databases",
+    "Build/infra (IaC)",
+    "UI frameworks"
+  ],
+  "complexity": null,
+  "related": [
+    "functional-programming",
+    "logic-programming",
+    "reactive-programming"
+  ],
+  "competing": [
+    "procedural"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "embedded DSLs only"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "template DSLs"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "LINQ query syntax"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "streams / JPQL"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "macro DSLs"
+    }
+  }
+}

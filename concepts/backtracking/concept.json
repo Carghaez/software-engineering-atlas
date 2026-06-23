@@ -1,0 +1,82 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "backtracking",
+  "name": "Backtracking",
+  "type": "Algorithmic paradigm",
+  "secondary": [
+    "Branch and bound"
+  ],
+  "domain": "algos",
+  "family": "Search paradigm",
+  "def": "Explores a solution tree depth-first, abandoning (pruning) partial candidates that cannot succeed.",
+  "problem": "Search a combinatorial space for feasible/optimal solutions without enumerating everything.",
+  "mechanism": "Extend a partial solution one variable at a time; when constraints are violated, undo the last choice and try the next. Pruning and constraint propagation cut the tree.",
+  "benefits": [
+    "Exhaustive yet prunes infeasible branches",
+    "Flexible for constraint satisfaction",
+    "Foundation for SAT/CSP solvers"
+  ],
+  "limits": [
+    "Worst-case exponential",
+    "Performance hinges on pruning quality",
+    "Deep recursion / state restoration cost"
+  ],
+  "failures": [
+    "Weak pruning → combinatorial explosion",
+    "Incorrect undo leaving stale state"
+  ],
+  "whenNot": [
+    "Polynomial structured solutions exist (DP/greedy)",
+    "Very large spaces without good bounds (consider metaheuristics)"
+  ],
+  "myths": [
+    "\"Same as brute force\" — pruning can make it dramatically faster"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Solvers",
+    "Puzzles/AI",
+    "Verification",
+    "Planning"
+  ],
+  "complexity": {
+    "Worst": "O(b^d)",
+    "Note": "Pruning reduces effective branching"
+  },
+  "related": [
+    "dynamic-programming",
+    "greedy"
+  ],
+  "competing": [
+    "dynamic-programming"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "NATIVE",
+      "id": 2,
+      "note": "recursion + undo"
+    },
+    "cpp": {
+      "lvl": "NATIVE",
+      "id": 2,
+      "note": "recursion"
+    },
+    "cs": {
+      "lvl": "NATIVE",
+      "id": 2,
+      "note": "recursion"
+    },
+    "java": {
+      "lvl": "NATIVE",
+      "id": 2,
+      "note": "recursion"
+    },
+    "rust": {
+      "lvl": "NATIVE",
+      "id": 2,
+      "note": "recursion"
+    }
+  }
+}

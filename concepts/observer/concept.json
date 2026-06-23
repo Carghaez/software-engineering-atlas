@@ -1,0 +1,78 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "observer",
+  "name": "Observer / Publish-Subscribe",
+  "type": "Design pattern",
+  "secondary": [
+    "Event-driven programming"
+  ],
+  "domain": "architecture",
+  "family": "GoF · Behavioural",
+  "def": "Lets objects subscribe to and be notified of another object’s state changes.",
+  "problem": "Keep dependents in sync with a subject without tight coupling between them.",
+  "mechanism": "A subject maintains a list of observers and notifies them on change; pub-sub adds a broker decoupling publishers from subscribers entirely.",
+  "benefits": [
+    "Loose coupling subject↔observers",
+    "Dynamic subscription",
+    "Foundation of reactive/event UIs"
+  ],
+  "limits": [
+    "Notification storms / ordering",
+    "Memory leaks from unremoved observers",
+    "Hard-to-trace cascades"
+  ],
+  "failures": [
+    "Lapsed-listener leak (forgotten unsubscribe)",
+    "Re-entrant notifications causing loops"
+  ],
+  "whenNot": [
+    "Simple direct calls; single known dependent"
+  ],
+  "myths": [
+    "\"Observer and pub-sub are identical\" — pub-sub adds a broker and full decoupling"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "UIs",
+    "Event systems",
+    "Reactive frameworks"
+  ],
+  "complexity": null,
+  "related": [
+    "event-driven",
+    "reactive-programming",
+    "command"
+  ],
+  "competing": [
+    "reactive-programming"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "callback lists"
+    },
+    "cpp": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "signals/slots (Qt)"
+    },
+    "cs": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "events / IObservable"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "listeners; Flow"
+    },
+    "rust": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "channels / callbacks"
+    }
+  }
+}

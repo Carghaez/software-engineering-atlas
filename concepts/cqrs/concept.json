@@ -1,0 +1,77 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "cqrs",
+  "name": "CQRS",
+  "type": "Architectural pattern",
+  "secondary": [
+    "Design principle"
+  ],
+  "domain": "architecture",
+  "family": "State management",
+  "def": "Command Query Responsibility Segregation: separate models for writing (commands) and reading (queries).",
+  "problem": "Optimise reads and writes independently when their requirements and scale diverge sharply.",
+  "mechanism": "Commands mutate the write model; read models are separate, denormalised projections updated from write-side events, often asynchronously.",
+  "benefits": [
+    "Independent scaling/optimisation of reads vs writes",
+    "Tailored, denormalised read models",
+    "Pairs naturally with event sourcing"
+  ],
+  "limits": [
+    "Two models to maintain & sync",
+    "Eventual consistency between sides",
+    "Overkill for simple domains"
+  ],
+  "failures": [
+    "Read/write drift from broken projections",
+    "Applying CQRS to trivial CRUD (needless complexity)"
+  ],
+  "whenNot": [
+    "Simple, low-scale CRUD",
+    "When read and write needs are symmetric"
+  ],
+  "myths": [
+    "\"CQRS requires event sourcing\" — they pair well but are independent"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "High-scale backends",
+    "Fintech",
+    "E-commerce"
+  ],
+  "complexity": null,
+  "related": [
+    "event-sourcing",
+    "microservices",
+    "hexagonal-architecture"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "rare"
+    },
+    "cpp": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "rare"
+    },
+    "cs": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "MediatR"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "Axon"
+    },
+    "rust": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "manual"
+    }
+  }
+}

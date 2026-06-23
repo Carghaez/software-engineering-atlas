@@ -1,0 +1,82 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "hyperloglog",
+  "name": "HyperLogLog",
+  "type": "Data structure",
+  "secondary": [
+    "Probabilistic structure"
+  ],
+  "domain": "structures",
+  "family": "Probabilistic",
+  "def": "A probabilistic cardinality estimator counting distinct elements in tiny, fixed memory.",
+  "problem": "Estimate the number of unique items in a massive stream without storing the items.",
+  "mechanism": "Hashes each item and tracks the maximum leading-zero run across registers; harmonic-mean of register estimates gives cardinality with a small standard error.",
+  "benefits": [
+    "Counts billions of uniques in a few KB",
+    "Mergeable across shards (union)",
+    "Fixed memory, streaming-friendly"
+  ],
+  "limits": [
+    "Approximate (~2% typical error)",
+    "No per-item membership; not exact",
+    "Bias correction needed at small/large extremes"
+  ],
+  "failures": [
+    "Treating the estimate as exact",
+    "Poor hash → biased estimates"
+  ],
+  "whenNot": [
+    "Exact distinct counts required",
+    "Small sets where a hash set is fine"
+  ],
+  "myths": [
+    "\"HLL counts duplicates\" — it estimates distinct cardinality only"
+  ],
+  "use": "Indirect",
+  "sectors": [
+    "Analytics",
+    "Databases (Redis, Presto)",
+    "Networking"
+  ],
+  "complexity": {
+    "Add": "O(1)",
+    "Estimate": "O(registers)",
+    "Space": "O(2^p) bytes (KB-scale)"
+  },
+  "related": [
+    "bloom-filter",
+    "count-min-sketch"
+  ],
+  "competing": [
+    "count-min-sketch"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "Redis impl"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "libs"
+    },
+    "cs": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "libs"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "stream-lib / Druid"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "hyperloglog crates"
+    }
+  }
+}

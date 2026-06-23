@@ -1,0 +1,99 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "rule-based-systems",
+  "name": "Rule-Based Programming",
+  "type": "Programming paradigm",
+  "secondary": [
+    "Declarative"
+  ],
+  "aliases": [
+    "Production systems",
+    "Expert systems",
+    "Business rules"
+  ],
+  "x": {
+    "corePrinciples": [
+      "Knowledge as if-condition→then-action rules",
+      "A working memory of facts",
+      "An engine matches and fires rules"
+    ],
+    "controlDataFlow": "Data-driven: an inference engine matches rule conditions against facts and fires actions, which update facts, until quiescence.",
+    "preferredAbstractions": [
+      "rules / productions",
+      "working memory",
+      "pattern matching (Rete)",
+      "conflict resolution strategy"
+    ],
+    "suitableProjects": "Business-rule engines, expert systems, fraud / eligibility logic, and domains where rules change often and independently."
+  },
+  "domain": "paradigms",
+  "family": "Declarative / inference",
+  "def": "A paradigm that encodes logic as a set of independent condition→action rules evaluated by an inference engine against a fact base.",
+  "problem": "Business logic that changes frequently and is authored by domain experts is brittle when buried in imperative code.",
+  "mechanism": "Rules and facts are separated; a matching engine (often the Rete algorithm) finds satisfied rules, a conflict-resolution policy picks which to fire, and firing updates working memory — repeating until no rule applies.",
+  "benefits": [
+    "Logic externalised from control flow",
+    "Rules editable independently / by non-programmers",
+    "Good for large, changing rule sets"
+  ],
+  "limits": [
+    "Emergent behaviour hard to predict / debug",
+    "Rule interactions and ordering surprises",
+    "Performance tuning of the match network"
+  ],
+  "failures": [
+    "Conflicting / cyclic rules causing oscillation",
+    "\"Rule soup\" with no governance"
+  ],
+  "whenNot": [
+    "Small, stable logic (a plain function is clearer)",
+    "Performance-critical inner loops"
+  ],
+  "myths": [
+    "\"Rules are always clearer than code\" — large rule bases can be harder to reason about than procedures"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Finance / insurance",
+    "Healthcare",
+    "Compliance",
+    "Configuration"
+  ],
+  "related": [
+    "logic-programming",
+    "pattern-matching",
+    "declarative"
+  ],
+  "competing": [
+    "logic-programming"
+  ],
+  "maturity": "Mature",
+  "confidence": "Medium",
+  "langs": {
+    "c": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "rare"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "libs"
+    },
+    "cs": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "NRules / Rules engines"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 3,
+      "note": "Drools"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "crates"
+    }
+  }
+}

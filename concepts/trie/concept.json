@@ -1,0 +1,79 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "trie",
+  "name": "Trie (Prefix Tree)",
+  "type": "Data structure",
+  "secondary": [],
+  "domain": "structures",
+  "family": "Tree / string",
+  "def": "A tree keyed by sequence positions, where the path from the root spells a key prefix.",
+  "problem": "Fast prefix queries, autocomplete and ordered string sets without rehashing whole keys.",
+  "mechanism": "Each node has one child per possible symbol; descending consumes one symbol of the key. Compressed (radix/PATRICIA) tries merge single-child chains.",
+  "benefits": [
+    "O(k) lookup in key length, independent of n",
+    "Natural prefix / autocomplete queries",
+    "Shared prefixes save space"
+  ],
+  "limits": [
+    "High pointer/memory overhead (wide alphabets)",
+    "Poor cache locality",
+    "Compression needed to be competitive"
+  ],
+  "failures": [
+    "Memory blow-up with sparse wide-alphabet tries",
+    "Slower than a hash map for plain exact lookup"
+  ],
+  "whenNot": [
+    "Only exact-match lookups needed (hash table wins)"
+  ],
+  "myths": [
+    "\"Tries are always memory-efficient\" — naive tries can use far more memory than hash sets"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Autocomplete/search",
+    "Routers (IP prefix)",
+    "Spell-check",
+    "Tokenizers"
+  ],
+  "complexity": {
+    "Lookup/insert": "O(k)",
+    "Space": "O(n·k) worst",
+    "Prefix scan": "O(k + matches)"
+  },
+  "related": [
+    "hash-table",
+    "aho-corasick",
+    "red-black-tree"
+  ],
+  "competing": [
+    "hash-table"
+  ],
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "manual"
+    },
+    "cpp": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "manual / boost"
+    },
+    "cs": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "manual"
+    },
+    "java": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "manual"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "fst / radix_trie"
+    }
+  }
+}

@@ -1,0 +1,94 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "blackboard-pattern",
+  "name": "Blackboard Pattern",
+  "type": "Architectural pattern",
+  "secondary": [],
+  "aliases": [
+    "Blackboard system"
+  ],
+  "x": {
+    "forces": [
+      "Opportunistic collaboration ↔ unpredictable control flow",
+      "Independent knowledge sources ↔ shared-state coupling",
+      "Flexibility for ill-defined problems ↔ debuggability"
+    ],
+    "structure": "Independent knowledge sources read and write a shared \"blackboard\" data store; a control component decides which source to activate next based on the blackboard’s evolving state.",
+    "antiPatterns": [
+      "Blackboard as an unstructured global blob",
+      "Knowledge sources with hidden ordering dependencies",
+      "No control strategy → thrashing"
+    ],
+    "scale": "Subsystem / application; AI, speech/vision, sensor fusion, planning."
+  },
+  "domain": "architecture",
+  "family": "Collaborative / AI architecture",
+  "def": "An architecture for ill-defined problems where independent specialist components incrementally build a solution on a shared data store coordinated by a control strategy.",
+  "problem": "Some problems (perception, planning) have no fixed algorithm; partial contributions from diverse experts must combine opportunistically.",
+  "mechanism": "A shared blackboard holds the evolving solution state. Knowledge sources watch it and, when their preconditions match, contribute updates. A control component picks which source runs next, repeating until a solution emerges.",
+  "benefits": [
+    "Handles problems with no deterministic algorithm",
+    "Knowledge sources evolve independently",
+    "Opportunistic, incremental solving"
+  ],
+  "limits": [
+    "Control strategy is hard to design / tune",
+    "Shared mutable state → coupling and concurrency issues",
+    "Hard to test and reason about"
+  ],
+  "failures": [
+    "Unstructured blackboard becoming a global junk drawer",
+    "Non-terminating / thrashing control loops"
+  ],
+  "whenNot": [
+    "Problems with a known deterministic algorithm",
+    "Latency-critical, predictable pipelines"
+  ],
+  "myths": [
+    "\"Blackboard is obsolete\" — it underpins many sensor-fusion and AI planning systems"
+  ],
+  "use": "Indirect",
+  "sectors": [
+    "AI / expert systems",
+    "Speech / vision",
+    "Sensor fusion / robotics"
+  ],
+  "related": [
+    "rule-based-systems",
+    "event-driven-architecture",
+    "data-oriented-design",
+    "message-passing"
+  ],
+  "competing": [
+    "pipeline-oriented"
+  ],
+  "maturity": "Established",
+  "confidence": "Medium",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "shared store"
+    },
+    "cpp": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "shared store"
+    },
+    "cs": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "shared store"
+    },
+    "java": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "shared store / Drools WM"
+    },
+    "rust": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "shared store"
+    }
+  }
+}

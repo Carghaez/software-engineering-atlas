@@ -1,0 +1,76 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "memory-ordering",
+  "name": "Memory Ordering & Barriers",
+  "type": "Synchronisation mechanism",
+  "secondary": [
+    "Hardware-execution model"
+  ],
+  "domain": "concurrency",
+  "family": "Memory model",
+  "def": "Rules and fences governing the visible order of memory operations across threads/cores.",
+  "problem": "Reason about what one thread sees of another’s writes when CPUs and compilers reorder operations.",
+  "mechanism": "Memory models define orderings (relaxed, acquire, release, seq-cst); barriers/fences and atomic ordering tags constrain reordering to establish happens-before.",
+  "benefits": [
+    "Correct lock-free code",
+    "Performance via relaxed orderings where safe",
+    "Portable reasoning (language memory models)"
+  ],
+  "limits": [
+    "Among the hardest topics in programming",
+    "Bugs are rare, non-deterministic, platform-dependent",
+    "Easy to over- or under-synchronise"
+  ],
+  "failures": [
+    "Missing acquire/release → torn/stale reads",
+    "Assuming sequential consistency by default"
+  ],
+  "whenNot": [
+    "High-level code shielded by locks/std structures"
+  ],
+  "myths": [
+    "\"The CPU executes my writes in order\" — cores and compilers reorder unless told otherwise"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Kernels",
+    "Lock-free libraries",
+    "HFT"
+  ],
+  "complexity": null,
+  "related": [
+    "atomics-cas",
+    "lock-free",
+    "false-sharing"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "memory_order_*"
+    },
+    "cpp": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "std::memory_order"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 1,
+      "note": "Volatile / Interlocked"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "JMM; happens-before; VarHandle"
+    },
+    "rust": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "Ordering enum"
+    }
+  }
+}

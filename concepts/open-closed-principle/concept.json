@@ -1,0 +1,74 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "open-closed-principle",
+  "name": "Open-Closed Principle",
+  "type": "Design principle",
+  "secondary": [],
+  "domain": "architecture",
+  "family": "SOLID",
+  "def": "Software entities should be open for extension but closed for modification.",
+  "problem": "Add new behaviour without editing (and risking) existing, tested code.",
+  "mechanism": "Depend on abstractions (interfaces/strategies/plugins) so new variants are added as new implementations rather than edits to existing code.",
+  "benefits": [
+    "Add features without touching tested code",
+    "Plugin/strategy extensibility",
+    "Lower regression risk"
+  ],
+  "limits": [
+    "Speculative abstraction (YAGNI risk)",
+    "Indirection cost",
+    "Hard to predict extension points"
+  ],
+  "failures": [
+    "Over-engineered extension points never used",
+    "switch-on-type that must be edited per variant"
+  ],
+  "whenNot": [
+    "Requirements stable; abstraction is speculative"
+  ],
+  "myths": [
+    "\"OCP forbids ever changing code\" — it targets stable, extensible abstractions, not all edits"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Frameworks",
+    "Libraries",
+    "Enterprise"
+  ],
+  "complexity": null,
+  "related": [
+    "composition-over-inheritance",
+    "dependency-inversion",
+    "typeclasses-traits"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "Medium",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "fn pointers"
+    },
+    "cpp": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "virtual/templates"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "interfaces"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "interfaces"
+    },
+    "rust": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "traits"
+    }
+  }
+}

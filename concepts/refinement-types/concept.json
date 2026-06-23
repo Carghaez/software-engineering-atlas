@@ -1,0 +1,75 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "refinement-types",
+  "name": "Refinement Types",
+  "type": "Type-system technique",
+  "secondary": [
+    "Verification technique"
+  ],
+  "domain": "types",
+  "family": "Advanced types",
+  "def": "Types augmented with predicates (e.g. {x:int | x > 0}) checked by an SMT solver.",
+  "problem": "Express and statically verify value constraints (ranges, non-null, lengths) in the type system.",
+  "mechanism": "Types carry logical predicates; a solver discharges the proof obligations at compile time, rejecting code that could violate them.",
+  "benefits": [
+    "Eliminate whole bug classes (overflow, bounds)",
+    "Lightweight vs full dependent types",
+    "Machine-checked invariants"
+  ],
+  "limits": [
+    "Solver limits / annotation burden",
+    "Mostly research languages (LiquidHaskell, F*)",
+    "Compile-time cost"
+  ],
+  "failures": [
+    "Over-complex predicates the solver cannot discharge",
+    "Mismatched runtime checks"
+  ],
+  "whenNot": [
+    "Most production code; teams without the tooling"
+  ],
+  "myths": [
+    "\"Refinement types are mainstream\" — they are largely research/experimental"
+  ],
+  "use": "Indirect",
+  "sectors": [
+    "Safety-critical",
+    "Cryptography",
+    "Research"
+  ],
+  "complexity": null,
+  "related": [
+    "dependent-types",
+    "design-by-contract"
+  ],
+  "competing": [],
+  "maturity": "Emerging",
+  "confidence": "Low",
+  "langs": {
+    "c": {
+      "lvl": "ECO",
+      "id": 0,
+      "note": "Frama-C contracts"
+    },
+    "cpp": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "no"
+    },
+    "cs": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "Code Contracts (dead)"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 0,
+      "note": "Checker Framework partial"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "Flux (research)"
+    }
+  }
+}

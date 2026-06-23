@@ -1,0 +1,91 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "smoke-testing",
+  "name": "Smoke Testing",
+  "type": "Testing technique",
+  "secondary": [],
+  "aliases": [
+    "Build verification test",
+    "Sanity check"
+  ],
+  "x": {
+    "defectClass": "Catastrophic, obvious breakage — the build does not start, core paths are dead.",
+    "oracle": "A small set of critical \"does it even work\" checks with known expected outcomes.",
+    "automationLevel": "High — a fast automated suite run on every build/deploy.",
+    "blindSpots": [
+      "Shallow: misses everything beyond the happy path",
+      "Green smoke ≠ correct behaviour",
+      "No edge-case or load coverage"
+    ],
+    "cost": "Low — small, fast suite.",
+    "lifecycleStage": "CI gate / post-deploy verification (fast, first line)."
+  },
+  "domain": "testing",
+  "family": "Shallow verification",
+  "def": "A quick, shallow set of checks confirming that the most critical functions of a build work at all, before deeper testing or release proceeds.",
+  "problem": "Running full test suites or promoting a fundamentally broken build wastes time; you want a fast \"is it dead on arrival?\" gate.",
+  "mechanism": "A small suite exercises the few must-work paths (app boots, login works, key endpoint responds). It runs first; failure stops the pipeline / blocks deeper testing — the term comes from powering on hardware to see if it smokes.",
+  "benefits": [
+    "Fast feedback on gross breakage",
+    "Cheap gate before expensive tests",
+    "Good post-deploy health signal"
+  ],
+  "limits": [
+    "Very shallow coverage",
+    "Passing says little about correctness",
+    "Must be kept fast and stable"
+  ],
+  "failures": [
+    "Smoke suite growing slow / flaky and losing its purpose",
+    "Trusting green smoke as release quality"
+  ],
+  "whenNot": [
+    "As a substitute for thorough testing",
+    "When deep verification is what is actually needed"
+  ],
+  "myths": [
+    "\"Smoke tests prove it works\" — they prove it is not obviously broken"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "CI/CD",
+    "Web / services",
+    "Release engineering"
+  ],
+  "related": [
+    "integration-testing",
+    "regression-testing",
+    "canary-release",
+    "unit-testing"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "CI scripts"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "CI scripts"
+    },
+    "cs": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "CI suites"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "CI suites"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "CI suites"
+    }
+  }
+}

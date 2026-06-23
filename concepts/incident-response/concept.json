@@ -1,0 +1,82 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "incident-response",
+  "name": "Incident Response",
+  "type": "Security practice",
+  "secondary": [
+    "Reliability or resilience practice"
+  ],
+  "aliases": [
+    "IR",
+    "Security incident management"
+  ],
+  "domain": "security",
+  "family": "Operations / lifecycle",
+  "def": "The prepared, repeatable process for detecting, containing, eradicating, and recovering from security incidents, then learning from them.",
+  "problem": "Breaches are a question of when, not if; ad-hoc reactions under pressure cause slow containment, evidence loss, and repeated failures.",
+  "mechanism": "Follow a lifecycle (e.g. NIST: Preparation → Detection & Analysis → Containment, Eradication & Recovery → Post-incident). Define roles, runbooks, and communication plans in advance; preserve forensic evidence; and run blameless post-mortems that feed fixes back into prevention.",
+  "benefits": [
+    "Faster containment → smaller blast radius",
+    "Preserves evidence and meets legal duties",
+    "Post-mortems drive systemic improvement"
+  ],
+  "limits": [
+    "Requires preparation, drills, and staffing",
+    "Cross-team / legal / PR coordination is hard",
+    "Plans rot without exercises"
+  ],
+  "failures": [
+    "No tested runbooks → chaotic first hours",
+    "Destroying forensic evidence during cleanup",
+    "Blame culture suppressing honest post-mortems"
+  ],
+  "whenNot": [
+    "Never optional for systems with real security risk"
+  ],
+  "myths": [
+    "\"Incident response is just the security team’s job\" — it spans eng, legal, comms, and leadership"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "All organisations",
+    "Regulated industries",
+    "Cloud / SaaS"
+  ],
+  "related": [
+    "chaos-engineering",
+    "audit-logging",
+    "crash-reporting",
+    "threat-modeling",
+    "distributed-tracing"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "AWKWARD",
+      "id": 1,
+      "note": "process, not language"
+    },
+    "cpp": {
+      "lvl": "AWKWARD",
+      "id": 1,
+      "note": "process"
+    },
+    "cs": {
+      "lvl": "AWKWARD",
+      "id": 1,
+      "note": "process"
+    },
+    "java": {
+      "lvl": "AWKWARD",
+      "id": 1,
+      "note": "process"
+    },
+    "rust": {
+      "lvl": "AWKWARD",
+      "id": 1,
+      "note": "process"
+    }
+  }
+}

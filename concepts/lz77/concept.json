@@ -1,0 +1,76 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "lz77",
+  "name": "LZ77 / Dictionary Compression",
+  "type": "Algorithm",
+  "secondary": [],
+  "domain": "algos",
+  "family": "Compression",
+  "def": "Compresses by replacing repeated sequences with back-references to earlier occurrences.",
+  "problem": "Exploit repetition in data streams for lossless compression beyond per-symbol entropy.",
+  "mechanism": "A sliding window holds recent output; matches are emitted as (distance, length) pairs, literals otherwise. DEFLATE pairs LZ77 with Huffman.",
+  "benefits": [
+    "Captures long repeats / redundancy",
+    "Streaming, single-pass",
+    "Core of gzip/zip/PNG (DEFLATE)"
+  ],
+  "limits": [
+    "Window size limits match distance",
+    "Match-finding is the cost center",
+    "Worse than modern (LZMA/Zstd) ratios"
+  ],
+  "failures": [
+    "Tiny window missing long-range repeats",
+    "Slow naive match search"
+  ],
+  "whenNot": [
+    "Already-random/encrypted data (incompressible)"
+  ],
+  "myths": [
+    "\"Compression always shrinks data\" — incompressible inputs can grow"
+  ],
+  "use": "Indirect",
+  "sectors": [
+    "Files (zip/gzip)",
+    "Web (gzip/br)",
+    "Images (PNG)"
+  ],
+  "complexity": {
+    "Note": "O(n) with hash-chain match-finding (impl-dependent)"
+  },
+  "related": [
+    "huffman-coding"
+  ],
+  "competing": [
+    "huffman-coding"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "zlib"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "zlib/zstd"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "DeflateStream"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "Deflater"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "flate2 / zstd"
+    }
+  }
+}

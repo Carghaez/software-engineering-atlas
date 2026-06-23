@@ -1,0 +1,80 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "result-either",
+  "name": "Result / Either",
+  "type": "Functional abstraction",
+  "secondary": [
+    "Error-handling technique",
+    "Type-system technique"
+  ],
+  "domain": "fp",
+  "family": "Effect type",
+  "def": "A type encoding success (Ok/Right) or failure (Err/Left) with an explicit error value.",
+  "problem": "Make fallible computations explicit and composable without exceptions or sentinel error codes.",
+  "mechanism": "A sum type Ok(T) | Err(E); chains propagate failures via map/and_then or the ?-operator, forcing callers to handle errors.",
+  "benefits": [
+    "Errors are visible in signatures",
+    "Composable error pipelines",
+    "No hidden control-flow jumps"
+  ],
+  "limits": [
+    "Verbose without sugar (e.g. ?-operator)",
+    "Error-type design/conversion overhead",
+    "Not for truly exceptional/unrecoverable faults"
+  ],
+  "failures": [
+    "Swallowing errors with unwrap/expect",
+    "Stringly-typed errors losing structure"
+  ],
+  "whenNot": [
+    "Unrecoverable invariant violations (panic/abort)",
+    "Deep call stacks where exceptions are cleaner (debatable, contextual)"
+  ],
+  "myths": [
+    "\"Result is the same as exceptions\" — semantics, cost and visibility differ"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Systems",
+    "Backends",
+    "Anywhere errors are expected"
+  ],
+  "complexity": null,
+  "related": [
+    "option-maybe",
+    "monad",
+    "fail-fast"
+  ],
+  "competing": [
+    "option-maybe"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "errno / int codes"
+    },
+    "cpp": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "std::expected (C++23)"
+    },
+    "cs": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "exceptions default; result libs"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "exceptions default; vavr Either"
+    },
+    "rust": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "Result<T,E>, ?-operator"
+    }
+  }
+}

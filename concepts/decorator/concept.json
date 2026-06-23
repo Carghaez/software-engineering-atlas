@@ -1,0 +1,76 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "decorator",
+  "name": "Decorator",
+  "type": "Design pattern",
+  "secondary": [],
+  "domain": "architecture",
+  "family": "GoF · Structural",
+  "def": "Attaches responsibilities to an object dynamically by wrapping it in the same interface.",
+  "problem": "Add behaviour to individual objects at runtime without subclass explosion.",
+  "mechanism": "A decorator implements the component interface and holds an inner component, adding behaviour before/after delegating.",
+  "benefits": [
+    "Compose behaviour at runtime",
+    "Avoids subclass combinatorics",
+    "Single-responsibility layers"
+  ],
+  "limits": [
+    "Many small wrapper objects",
+    "Debugging deep wrap chains",
+    "Order sensitivity"
+  ],
+  "failures": [
+    "Deep decorator stacks hard to trace",
+    "Decorators that break the contract"
+  ],
+  "whenNot": [
+    "Behaviour fixed at compile time (composition/strategy may fit)"
+  ],
+  "myths": [
+    "\"Decorator == Python @decorator only\" — it is a general OO structural pattern (e.g. Java I/O streams)"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "I/O libraries",
+    "Middleware",
+    "UI"
+  ],
+  "complexity": null,
+  "related": [
+    "proxy",
+    "composition-over-inheritance",
+    "strategy-pattern"
+  ],
+  "competing": [
+    "proxy"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "wrapping structs"
+    },
+    "cpp": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "wrapper class"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "wrapper / extension"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "java.io streams"
+    },
+    "rust": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "wrapping types; Read/Write"
+    }
+  }
+}

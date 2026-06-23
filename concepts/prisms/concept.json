@@ -1,0 +1,94 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "prisms",
+  "name": "Prisms",
+  "type": "Functional abstraction",
+  "secondary": [],
+  "aliases": [
+    "Prism optics"
+  ],
+  "x": {
+    "formalRole": "A composable optic focusing on one case of a sum type: a partial getter (may miss) plus a total constructor (reverse).",
+    "compositionRule": "preview : Prism s a → s → Option a; review : Prism s a → a → s; prisms compose with lenses and other optics.",
+    "laws": [
+      "review then preview round-trips (preview p (review p a) = Some a)",
+      "if preview succeeds, re-reviewing reconstructs the source"
+    ],
+    "encoding": "Optics libraries (Monocle, optics-ts, Haskell lens). In mainstream langs: pattern matching covers many uses.",
+    "useCases": "Focusing/updating a specific variant of a sum type, parsing/printing, and nested optional access.",
+    "misuseRisks": [
+      "Optic-heavy code where pattern matching is clearer",
+      "Library overhead for shallow access"
+    ]
+  },
+  "domain": "fp",
+  "family": "Optics",
+  "def": "The sum-type counterpart of a lens: a composable optic that focuses on one constructor of a variant, with a partial \"extract\" and a total \"build\".",
+  "problem": "Access and update a particular case of a tagged union (and nested ones) compositionally, without manual matching at every layer.",
+  "mechanism": "A prism pairs preview (s → Option a, succeeds only for the targeted case) with review (a → s, builds the case). Prisms compose with lenses to reach deep into mixed product/sum structures.",
+  "benefits": [
+    "Composable focus on sum-type cases",
+    "Pairs with lenses for deep nested access",
+    "Reversible (build + match) in one value"
+  ],
+  "limits": [
+    "Optics machinery is heavy for simple cases",
+    "Unfamiliar to many teams",
+    "Best with HKT-rich languages"
+  ],
+  "failures": [
+    "Overusing optics where match/if-let is clearer",
+    "Breaking the round-trip laws in custom prisms"
+  ],
+  "whenNot": [
+    "Shallow single-level matching (use pattern matching)",
+    "Languages without good optics libraries"
+  ],
+  "myths": [
+    "\"Lenses are enough\" — lenses target product fields; prisms target sum cases"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Functional codebases",
+    "Parsing / serialisation",
+    "State management (TS/Scala)"
+  ],
+  "related": [
+    "lenses-optics",
+    "algebraic-data-types",
+    "pattern-matching",
+    "option-maybe"
+  ],
+  "competing": [
+    "pattern-matching"
+  ],
+  "maturity": "Established",
+  "confidence": "Medium",
+  "langs": {
+    "c": {
+      "lvl": "UNSUITABLE",
+      "id": 0,
+      "note": "n/a"
+    },
+    "cpp": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "rare"
+    },
+    "cs": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "libs"
+    },
+    "java": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "libs"
+    },
+    "rust": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "matches; few optics crates"
+    }
+  }
+}

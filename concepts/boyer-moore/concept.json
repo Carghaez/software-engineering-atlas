@@ -1,0 +1,84 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "boyer-moore",
+  "name": "Boyer-Moore",
+  "type": "Algorithm",
+  "secondary": [
+    "String algorithm"
+  ],
+  "domain": "algos",
+  "family": "String matching",
+  "def": "Substring search that scans the pattern right-to-left and skips ahead using bad-character and good-suffix rules.",
+  "problem": "Search large-alphabet text faster than linear by skipping regions that cannot match — often sublinear in practice.",
+  "mechanism": "Align the pattern and compare from its right end; on a mismatch, shift by the larger of the bad-character and good-suffix heuristics, frequently jumping past many positions at once.",
+  "benefits": [
+    "Sublinear average time on large alphabets",
+    "Basis of fast tools (grep, memmem)",
+    "Larger skips as the pattern grows"
+  ],
+  "limits": [
+    "Two shift tables to precompute",
+    "Naive worst case O(nm) — Boyer-Moore-Galil fixes it",
+    "Less advantage on tiny alphabets (DNA)"
+  ],
+  "failures": [
+    "Off-by-one bugs in the good-suffix table",
+    "Assuming linearity without the Galil rule"
+  ],
+  "whenNot": [
+    "Streaming text that cannot backtrack (use KMP)",
+    "Many patterns at once (use Aho-Corasick)"
+  ],
+  "myths": [
+    "\"KMP is the fastest exact matcher\" — Boyer-Moore variants usually win in practice for a single pattern"
+  ],
+  "use": "Indirect",
+  "sectors": [
+    "Text editors / grep",
+    "Search tools",
+    "Bioinformatics"
+  ],
+  "complexity": {
+    "Best": "O(n/m)",
+    "Average": "sublinear",
+    "Worst": "O(nm) naive / O(n+m) (Galil)",
+    "Space": "O(m + Σ)"
+  },
+  "related": [
+    "kmp",
+    "rabin-karp",
+    "aho-corasick"
+  ],
+  "competing": [
+    "kmp"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "glibc memmem; manual"
+    },
+    "cpp": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "std::boyer_moore_searcher"
+    },
+    "cs": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "manual"
+    },
+    "java": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "manual"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "memchr::memmem"
+    }
+  }
+}

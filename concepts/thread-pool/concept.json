@@ -1,0 +1,76 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "thread-pool",
+  "name": "Thread Pool",
+  "type": "Concurrency model",
+  "secondary": [
+    "Performance-optimisation technique"
+  ],
+  "domain": "concurrency",
+  "family": "Task parallelism",
+  "def": "A managed set of reusable worker threads that execute submitted tasks from a queue.",
+  "problem": "Avoid the cost of creating/destroying threads per task and bound concurrency.",
+  "mechanism": "Workers pull tasks from a shared (or per-worker, work-stealing) queue; the pool size bounds parallelism and reuses threads.",
+  "benefits": [
+    "Amortises thread creation cost",
+    "Bounds resource use / oversubscription",
+    "Backbone of task frameworks"
+  ],
+  "limits": [
+    "Sizing is workload-dependent",
+    "Blocking tasks can exhaust the pool",
+    "Queue backpressure to manage"
+  ],
+  "failures": [
+    "Pool exhaustion from blocking I/O on pool threads",
+    "Unbounded queue → memory blow-up"
+  ],
+  "whenNot": [
+    "Tiny one-off tasks; pure async I/O (event loop)"
+  ],
+  "myths": [
+    "\"More threads = faster\" — beyond cores, contention and switching dominate"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Servers",
+    "Parallel compute",
+    "Runtimes"
+  ],
+  "complexity": null,
+  "related": [
+    "work-stealing",
+    "threads",
+    "futures-promises"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "manual"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "TBB / custom"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "ThreadPool / TPL"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "ExecutorService"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 3,
+      "note": "rayon / tokio"
+    }
+  }
+}

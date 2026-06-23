@@ -1,0 +1,80 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "queue-adt",
+  "name": "Queue (FIFO)",
+  "type": "Abstract data type",
+  "secondary": [],
+  "domain": "structures",
+  "family": "Linear / sequential",
+  "def": "A first-in-first-out collection with enqueue at the back and dequeue at the front.",
+  "problem": "Process items in arrival order: scheduling, buffering, breadth-first traversal, pipelines.",
+  "mechanism": "Backed by a ring buffer or chunked deque for O(1) at both ends; concurrent variants add locking or lock-free coordination.",
+  "benefits": [
+    "O(1) enqueue/dequeue",
+    "Models fair, in-order processing",
+    "Foundation for producer/consumer"
+  ],
+  "limits": [
+    "No random access",
+    "Bounded queues need full-handling policy"
+  ],
+  "failures": [
+    "Unbounded growth under backpressure",
+    "Lost ordering with naive concurrent impls"
+  ],
+  "whenNot": [
+    "Priority ordering needed (use a heap)",
+    "LIFO semantics (use a stack)"
+  ],
+  "myths": [
+    "\"Queues are inherently concurrent\" — the ADT is sequential; concurrency is an added concern"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Schedulers",
+    "Messaging",
+    "BFS",
+    "Pipelines"
+  ],
+  "complexity": {
+    "Enqueue/dequeue": "O(1)",
+    "Space": "O(n)"
+  },
+  "related": [
+    "ring-buffer",
+    "deque",
+    "binary-heap"
+  ],
+  "competing": [
+    "stack-adt"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "ring buffer"
+    },
+    "cpp": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "std::queue adaptor"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "Queue<T>"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "ArrayDeque / Queue"
+    },
+    "rust": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "VecDeque"
+    }
+  }
+}

@@ -1,0 +1,74 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "profiling",
+  "name": "Profiling",
+  "type": "Debugging or observability technique",
+  "secondary": [
+    "Performance-optimisation technique"
+  ],
+  "domain": "observability",
+  "family": "Performance measurement",
+  "def": "Measuring where a program spends time/memory to find optimisation targets empirically.",
+  "problem": "Optimise based on evidence, not guesses, by locating actual hot spots.",
+  "mechanism": "Sampling profilers periodically capture stacks (low overhead); instrumenting profilers count every call (precise, higher overhead); both attribute cost to code.",
+  "benefits": [
+    "Reveals real bottlenecks (often surprising)",
+    "Prevents wasted micro-optimisation",
+    "Sampling has low overhead"
+  ],
+  "limits": [
+    "Observer effect distorts measurements",
+    "Instrumentation overhead can mislead",
+    "Production vs dev profile mismatch"
+  ],
+  "failures": [
+    "Optimising what isn’t the bottleneck",
+    "Profiling unrepresentative workloads"
+  ],
+  "whenNot": [
+    "Before there is a measured performance problem (premature optimisation)"
+  ],
+  "myths": [
+    "\"I know where it’s slow\" — intuition is wrong more often than not"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "All performance-sensitive software"
+  ],
+  "complexity": null,
+  "related": [
+    "flame-graphs",
+    "cache-blocking",
+    "distributed-tracing"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ECO",
+      "id": 3,
+      "note": "perf/Valgrind/VTune"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 3,
+      "note": "perf/VTune"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "dotnet-trace/PerfView"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "JFR / async-profiler"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "perf / flamegraph"
+    }
+  }
+}

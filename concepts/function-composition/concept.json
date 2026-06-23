@@ -1,0 +1,74 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "function-composition",
+  "name": "Function Composition",
+  "type": "Functional abstraction",
+  "secondary": [],
+  "domain": "fp",
+  "family": "Composition",
+  "def": "Combining functions so the output of one feeds the input of the next: (g ∘ f)(x) = g(f(x)).",
+  "problem": "Build complex transformations from small, reusable, testable functions.",
+  "mechanism": "A compose/pipe combinator chains unary functions; pipelines read as a sequence of transformations over data.",
+  "benefits": [
+    "Small composable, testable units",
+    "Point-free, declarative pipelines",
+    "Reuse across contexts"
+  ],
+  "limits": [
+    "Type alignment between stages",
+    "Debugging deep compositions",
+    "Point-free can obscure intent"
+  ],
+  "failures": [
+    "Mismatched input/output types",
+    "Over-abstracted pipelines hard to read"
+  ],
+  "whenNot": [
+    "One-off inline transforms"
+  ],
+  "myths": [
+    "\"Composition is just method chaining\" — chaining is one (OO) form of it"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Data pipelines",
+    "Functional code",
+    "Middleware"
+  ],
+  "complexity": null,
+  "related": [
+    "higher-order-functions",
+    "currying",
+    "lazy-evaluation"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "manual"
+    },
+    "cpp": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "ranges | views"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "LINQ chaining"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "Function.andThen"
+    },
+    "rust": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "iterator adapters"
+    }
+  }
+}

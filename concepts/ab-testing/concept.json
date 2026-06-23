@@ -1,0 +1,87 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "ab-testing",
+  "name": "A/B Testing",
+  "type": "Build or deployment practice",
+  "secondary": [
+    "Debugging or observability technique"
+  ],
+  "aliases": [
+    "Split testing",
+    "Online controlled experiments"
+  ],
+  "domain": "observability",
+  "family": "Release / experimentation",
+  "def": "A controlled online experiment that splits users between variants and measures the causal effect of a change on a chosen metric.",
+  "problem": "Opinions and offline metrics do not reliably predict how a change affects real user behaviour and business outcomes.",
+  "mechanism": "Randomly assign users to control (A) and treatment (B) variants behind a feature flag, hold everything else constant, and compare a predefined success metric with statistical tests until significance is reached. Randomisation gives a causal, not merely correlational, conclusion.",
+  "benefits": [
+    "Causal evidence for product decisions",
+    "Limits risk by exposing changes gradually",
+    "Quantifies real user impact"
+  ],
+  "limits": [
+    "Needs sufficient traffic for power",
+    "Peeking / multiple comparisons inflate false positives",
+    "Short-term metrics can hide long-term effects"
+  ],
+  "failures": [
+    "Stopping early when results \"look\" significant (peeking)",
+    "Sample-ratio mismatch / contaminated assignment",
+    "Optimising a proxy metric that diverges from real value"
+  ],
+  "whenNot": [
+    "Low traffic (underpowered)",
+    "Changes that cannot be ethically/technically split",
+    "Decisions needing a single consistent experience"
+  ],
+  "myths": [
+    "\"Statistical significance = meaningful impact\" — effect size and long-term effects matter too"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Web / mobile products",
+    "E-commerce",
+    "Growth / marketing",
+    "Recommendation systems"
+  ],
+  "related": [
+    "feature-flags",
+    "canary-release",
+    "blue-green-deployment",
+    "metrics",
+    "slo-sli"
+  ],
+  "competing": [
+    "canary-release"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "platform-level"
+    },
+    "cpp": {
+      "lvl": "AWKWARD",
+      "id": 1,
+      "note": "platform-level"
+    },
+    "cs": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "flag / experiment platforms"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "experiment platforms"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "flag SDKs"
+    }
+  }
+}

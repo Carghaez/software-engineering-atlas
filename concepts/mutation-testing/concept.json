@@ -1,0 +1,75 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "mutation-testing",
+  "name": "Mutation Testing",
+  "type": "Testing technique",
+  "secondary": [
+    "Verification technique"
+  ],
+  "domain": "testing",
+  "family": "Test quality",
+  "def": "Measures test-suite quality by introducing small code faults and checking tests catch them.",
+  "problem": "Expose weak tests and false confidence that line coverage alone hides.",
+  "mechanism": "Tools mutate the code (flip operators, drop statements); a mutant \"survives\" if no test fails, revealing gaps in assertions.",
+  "benefits": [
+    "Reveals tests that don’t actually assert behaviour",
+    "Stronger signal than coverage %",
+    "Pinpoints weak spots"
+  ],
+  "limits": [
+    "Computationally expensive (run suite per mutant)",
+    "Equivalent mutants cause false survivors",
+    "Slow on large suites"
+  ],
+  "failures": [
+    "Treating coverage as quality without this check",
+    "Ignoring surviving mutants"
+  ],
+  "whenNot": [
+    "Very large suites without incremental tooling",
+    "Early prototypes"
+  ],
+  "myths": [
+    "\"High coverage = good tests\" — mutation testing routinely disproves this"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Critical software",
+    "Libraries"
+  ],
+  "complexity": null,
+  "related": [
+    "tdd",
+    "property-based-testing"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "Medium",
+  "langs": {
+    "c": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "Mull"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "Mull/Dextool"
+    },
+    "cs": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "Stryker.NET"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "PIT"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "cargo-mutants"
+    }
+  }
+}

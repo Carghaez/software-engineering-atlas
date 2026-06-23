@@ -1,0 +1,81 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "graph-dfs",
+  "name": "Depth-First Search",
+  "type": "Algorithm",
+  "secondary": [
+    "Graph algorithm"
+  ],
+  "domain": "algos",
+  "family": "Graph traversal",
+  "def": "Explores as far as possible along each branch before backtracking, via stack/recursion.",
+  "problem": "Traverse, detect cycles, topologically order, and find components/bridges in graphs.",
+  "mechanism": "Recurse (or use an explicit stack) into an unvisited neighbour until stuck, then backtrack; entry/exit times power many derived algorithms.",
+  "benefits": [
+    "O(V+E); low memory on sparse graphs",
+    "Foundation for topo-sort, SCC, cycle detection",
+    "Simple recursion"
+  ],
+  "limits": [
+    "Not shortest paths",
+    "Recursion depth → stack overflow on deep graphs"
+  ],
+  "failures": [
+    "Stack overflow on deep/large graphs (use explicit stack)",
+    "Missing visited set → infinite loops on cycles"
+  ],
+  "whenNot": [
+    "Shortest paths (BFS/Dijkstra)",
+    "Very deep graphs with recursion"
+  ],
+  "myths": [
+    "\"DFS finds shortest paths\" — it does not in general"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Compilers",
+    "Build systems",
+    "Graph analytics"
+  ],
+  "complexity": {
+    "Time": "O(V+E)",
+    "Space": "O(V)"
+  },
+  "related": [
+    "graph-bfs",
+    "topological-sort",
+    "backtracking"
+  ],
+  "competing": [
+    "graph-bfs"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "recursion/stack"
+    },
+    "cpp": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "recursion"
+    },
+    "cs": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "recursion"
+    },
+    "java": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "recursion"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "petgraph"
+    }
+  }
+}

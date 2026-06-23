@@ -1,0 +1,74 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "pattern-matching",
+  "name": "Pattern Matching",
+  "type": "Language idiom",
+  "secondary": [
+    "Functional abstraction"
+  ],
+  "domain": "fp",
+  "family": "Control / destructuring",
+  "def": "Control flow that matches a value against structural patterns and binds parts of it.",
+  "problem": "Branch on the shape/variant of data and destructure it safely and exhaustively.",
+  "mechanism": "Patterns match variants, tuples, and nested fields, binding sub-values; exhaustiveness checking forces handling every case.",
+  "benefits": [
+    "Exhaustiveness catches unhandled cases at compile time",
+    "Concise destructuring",
+    "Pairs perfectly with algebraic data types"
+  ],
+  "limits": [
+    "Limited or absent in C/older Java",
+    "Guards/complex patterns can get dense"
+  ],
+  "failures": [
+    "Non-exhaustive matches with catch-all hiding new variants",
+    "Order-dependent overlapping patterns"
+  ],
+  "whenNot": [
+    "Simple boolean conditions"
+  ],
+  "myths": [
+    "\"Just a switch statement\" — it also destructures and checks exhaustiveness"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Compilers",
+    "Functional code",
+    "Protocol parsing"
+  ],
+  "complexity": null,
+  "related": [
+    "algebraic-data-types",
+    "option-maybe"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "switch on tag only"
+    },
+    "cpp": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "std::visit on variant"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "switch expressions/patterns"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "switch patterns (21+)"
+    },
+    "rust": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "match, exhaustive"
+    }
+  }
+}

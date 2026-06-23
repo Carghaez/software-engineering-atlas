@@ -1,0 +1,82 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "rabin-karp",
+  "name": "Rabin-Karp",
+  "type": "Algorithm",
+  "secondary": [
+    "String algorithm",
+    "Randomised algorithm"
+  ],
+  "domain": "algos",
+  "family": "String matching",
+  "def": "Substring search using a rolling hash to compare windows in O(1) amortised per step.",
+  "problem": "Efficient multiple-pattern and plagiarism-style matching where hashing windows beats char-by-char.",
+  "mechanism": "Hash the pattern and each text window with a rolling hash updated in O(1); on hash match, verify the actual characters.",
+  "benefits": [
+    "Great for multi-pattern search (hash set)",
+    "O(1) rolling window update",
+    "Simple"
+  ],
+  "limits": [
+    "Hash collisions force verification",
+    "Worst case O(nm) with bad hashing",
+    "Modulus/overflow care"
+  ],
+  "failures": [
+    "Weak hash → many collisions / DoS",
+    "Forgetting to verify on hash match"
+  ],
+  "whenNot": [
+    "Single small pattern (KMP/Boyer-Moore simpler)"
+  ],
+  "myths": [
+    "\"Hash match means string match\" — must verify; collisions happen"
+  ],
+  "use": "Indirect",
+  "sectors": [
+    "Plagiarism detection",
+    "Multi-pattern search",
+    "Dedup"
+  ],
+  "complexity": {
+    "Time": "O(n+m) avg, O(nm) worst",
+    "Space": "O(1)"
+  },
+  "related": [
+    "kmp",
+    "boyer-moore",
+    "hash-table"
+  ],
+  "competing": [
+    "kmp"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "manual"
+    },
+    "cpp": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "manual"
+    },
+    "cs": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "manual"
+    },
+    "java": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "manual"
+    },
+    "rust": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "manual"
+    }
+  }
+}

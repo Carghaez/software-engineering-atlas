@@ -1,0 +1,79 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "logic-programming",
+  "name": "Logic Programming",
+  "type": "Programming paradigm",
+  "secondary": [
+    "Declarative programming",
+    "Constraint programming"
+  ],
+  "domain": "paradigms",
+  "family": "Declarative",
+  "def": "Programs as facts and rules; computation is automated logical inference / search for satisfying answers.",
+  "problem": "Solve relational and combinatorial problems by stating constraints and letting a solver search.",
+  "mechanism": "A resolution engine (e.g. Prolog) unifies goals against rules and backtracks; constraint logic adds domain solvers.",
+  "benefits": [
+    "Extremely concise for search/relational problems",
+    "Bidirectional relations, automatic backtracking",
+    "Declarative knowledge representation"
+  ],
+  "limits": [
+    "Performance hard to predict/control",
+    "Niche outside AI/verification",
+    "Steep mental model for imperative devs"
+  ],
+  "failures": [
+    "Non-terminating search from bad rule ordering",
+    "Exponential blow-up without cuts/constraints"
+  ],
+  "whenNot": [
+    "Performance-critical or stateful systems",
+    "Teams lacking solver expertise"
+  ],
+  "myths": [
+    "\"Dead paradigm\" — alive in Datalog, type checkers, and config analysis"
+  ],
+  "use": "Indirect",
+  "sectors": [
+    "AI/expert systems",
+    "Static analysis",
+    "Databases (Datalog)"
+  ],
+  "complexity": null,
+  "related": [
+    "declarative",
+    "backtracking"
+  ],
+  "competing": [
+    "procedural"
+  ],
+  "maturity": "Mature",
+  "confidence": "Medium",
+  "langs": {
+    "c": {
+      "lvl": "UNSUITABLE",
+      "id": 0,
+      "note": "not idiomatic"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 0,
+      "note": "rare embedded engines"
+    },
+    "cs": {
+      "lvl": "ECO",
+      "id": 0,
+      "note": "rare libs"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "Drools / tuProlog"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "crepe / ascent Datalog"
+    }
+  }
+}

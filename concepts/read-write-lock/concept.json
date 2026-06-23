@@ -1,0 +1,93 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "read-write-lock",
+  "name": "Read-Write Lock",
+  "type": "Synchronisation mechanism",
+  "secondary": [],
+  "aliases": [
+    "RW lock",
+    "Shared/exclusive lock",
+    "RWMutex"
+  ],
+  "x": {
+    "coordination": "Allows many concurrent readers OR one exclusive writer. Readers share access; a writer excludes everyone. Fairness policy decides reader vs writer priority.",
+    "hazards": [
+      "Writer starvation under a steady stream of readers (reader-preferring)",
+      "Higher overhead than a plain mutex",
+      "Reader-to-writer upgrade can deadlock",
+      "False sharing on the lock’s internal counters"
+    ]
+  },
+  "domain": "concurrency",
+  "family": "Mutual exclusion",
+  "def": "A lock distinguishing shared (read) from exclusive (write) access, letting concurrent readers proceed together while serialising writers.",
+  "problem": "A plain mutex serialises read-mostly data needlessly; readers do not conflict with one another.",
+  "mechanism": "Tracks reader count and writer state; multiple readers acquire shared mode simultaneously, while a writer needs exclusive mode and waits for readers to drain. A fairness policy (reader- or writer-preferring) prevents one side from starving the other.",
+  "benefits": [
+    "Higher read throughput for read-mostly data",
+    "Clear shared vs exclusive intent",
+    "Standard in most runtimes"
+  ],
+  "limits": [
+    "More overhead than a mutex (worse if writes are common)",
+    "Starvation risk depending on policy",
+    "Upgrade/downgrade is tricky"
+  ],
+  "failures": [
+    "Writer starvation in reader-preferring locks",
+    "Deadlock when a reader tries to upgrade to a writer",
+    "Using it where reads are not actually dominant"
+  ],
+  "whenNot": [
+    "Write-heavy or balanced workloads (a mutex is simpler/faster)",
+    "Very short critical sections (mutex overhead is lower)"
+  ],
+  "myths": [
+    "\"RW locks are always faster for reads\" — under writes or contention they often lose to a plain mutex or RCU"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Databases / caches",
+    "Config / registry data",
+    "Read-mostly shared state"
+  ],
+  "related": [
+    "mutex",
+    "rcu",
+    "atomics-cas",
+    "condition-variable"
+  ],
+  "competing": [
+    "mutex",
+    "rcu"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "pthread_rwlock"
+    },
+    "cpp": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "std::shared_mutex"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "ReaderWriterLockSlim"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "ReentrantReadWriteLock / StampedLock"
+    },
+    "rust": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "RwLock"
+    }
+  }
+}

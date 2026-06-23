@@ -1,0 +1,80 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "hash-table",
+  "name": "Hash Table",
+  "type": "Data structure",
+  "secondary": [
+    "Abstract data type"
+  ],
+  "domain": "structures",
+  "family": "Associative",
+  "def": "A map from keys to values giving expected O(1) lookup via a hash function and bucket array.",
+  "problem": "Constant-time membership and key→value retrieval over an unordered domain.",
+  "mechanism": "Hashes the key to a bucket index; collisions resolved by chaining or open addressing. Load factor triggers rehash into a larger table.",
+  "benefits": [
+    "Expected O(1) insert/lookup/delete",
+    "Simple, ubiquitous, well-optimised in std libs"
+  ],
+  "limits": [
+    "No ordered traversal",
+    "Worst case O(n) under adversarial/poor hashing",
+    "Rehash spikes; pointer-chasing in chained variants"
+  ],
+  "failures": [
+    "Hash flooding (algorithmic complexity DoS) with attacker-chosen keys",
+    "Mutating a key after insertion corrupts the bucket"
+  ],
+  "whenNot": [
+    "Range queries or ordered iteration needed (use a tree/B-tree)",
+    "Tiny n where a linear scan beats hashing overhead"
+  ],
+  "myths": [
+    "\"O(1) always\" — only expected/amortised; depends on hash quality and load factor"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "All sectors"
+  ],
+  "complexity": {
+    "Lookup": "O(1) avg / O(n) worst",
+    "Insert": "O(1) amortised",
+    "Space": "O(n)"
+  },
+  "related": [
+    "bloom-filter",
+    "dynamic-array"
+  ],
+  "competing": [
+    "red-black-tree",
+    "b-tree"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "hand-rolled / uthash"
+    },
+    "cpp": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "unordered_map (node-based)"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "Dictionary<K,V>"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "HashMap"
+    },
+    "rust": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "HashMap (SipHash default)"
+    }
+  }
+}

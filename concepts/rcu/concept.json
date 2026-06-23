@@ -1,0 +1,78 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "rcu",
+  "name": "Read-Copy-Update (RCU)",
+  "type": "Synchronisation mechanism",
+  "secondary": [
+    "Concurrency model"
+  ],
+  "domain": "concurrency",
+  "family": "Non-blocking",
+  "def": "A scheme giving wait-free reads by updating a copy and reclaiming the old version after a grace period.",
+  "problem": "Make read-mostly shared data scale to many cores with near-zero reader overhead.",
+  "mechanism": "Readers proceed without locks; writers publish a new version atomically and defer freeing the old until all pre-existing readers finish (a grace period).",
+  "benefits": [
+    "Wait-free, near-zero-cost reads",
+    "Excellent read-heavy scalability",
+    "No reader locks"
+  ],
+  "limits": [
+    "Writers are heavier; reclamation complexity",
+    "Grace-period tracking machinery",
+    "Write-heavy loads lose"
+  ],
+  "failures": [
+    "Freeing memory before readers finish (premature reclamation)",
+    "Grace-period bugs"
+  ],
+  "whenNot": [
+    "Write-heavy data; simple low-contention cases"
+  ],
+  "myths": [
+    "\"RCU is lock-free for writers too\" — writers typically still synchronise"
+  ],
+  "use": "Indirect",
+  "sectors": [
+    "Linux kernel",
+    "Databases",
+    "Runtimes"
+  ],
+  "complexity": null,
+  "related": [
+    "lock-free",
+    "immutability",
+    "atomics-cas"
+  ],
+  "competing": [
+    "mutex"
+  ],
+  "maturity": "Mature",
+  "confidence": "Medium",
+  "langs": {
+    "c": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "Linux RCU / liburcu"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "folly / liburcu"
+    },
+    "cs": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "GC approximates"
+    },
+    "java": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "GC + copy-on-write"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "crossbeam epoch (related)"
+    }
+  }
+}

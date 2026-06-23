@@ -1,0 +1,74 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "dependency-inversion",
+  "name": "Dependency Inversion Principle",
+  "type": "Design principle",
+  "secondary": [],
+  "domain": "architecture",
+  "family": "SOLID",
+  "def": "Depend on abstractions, not concretions; high-level policy should not depend on low-level detail.",
+  "problem": "Decouple business policy from volatile implementation details (DBs, frameworks, IO).",
+  "mechanism": "Both high- and low-level modules depend on an interface owned by the high-level module; concrete implementations are injected.",
+  "benefits": [
+    "Swap implementations freely",
+    "Testable core (mock the abstraction)",
+    "Stable high-level policy"
+  ],
+  "limits": [
+    "Indirection & wiring overhead",
+    "Abstraction explosion if overdone",
+    "Runtime wiring errors"
+  ],
+  "failures": [
+    "High-level code importing concrete DB classes",
+    "Leaky abstractions exposing details"
+  ],
+  "whenNot": [
+    "Stable single-implementation dependencies"
+  ],
+  "myths": [
+    "\"DIP = dependency injection\" — DI is one technique to achieve DIP"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Enterprise",
+    "Testable systems",
+    "Frameworks"
+  ],
+  "complexity": null,
+  "related": [
+    "dependency-injection",
+    "hexagonal-architecture",
+    "open-closed-principle"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "fn pointers/structs"
+    },
+    "cpp": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "interfaces/templates"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "interfaces + DI"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "interfaces + DI"
+    },
+    "rust": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "traits + generics"
+    }
+  }
+}

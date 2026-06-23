@@ -1,0 +1,79 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "garbage-collection",
+  "name": "Garbage Collection",
+  "type": "Resource-management technique",
+  "secondary": [],
+  "domain": "memory",
+  "family": "Automatic memory",
+  "def": "Automatic reclamation of memory no longer reachable by the program.",
+  "problem": "Eliminate manual free() and the use-after-free/double-free/leak bugs it causes.",
+  "mechanism": "A tracing collector marks reachable objects from roots and reclaims the rest; generational collectors exploit \"most objects die young\", with compaction to reduce fragmentation.",
+  "benefits": [
+    "No manual frees → fewer memory bugs",
+    "Compaction avoids fragmentation",
+    "Frees developers from lifetime bookkeeping"
+  ],
+  "limits": [
+    "Pause times / latency jitter",
+    "Memory overhead (headroom, headers)",
+    "Non-deterministic timing of cleanup"
+  ],
+  "failures": [
+    "GC pauses violating latency SLOs",
+    "\"Leaks\" via lingering references; finaliser misuse"
+  ],
+  "whenNot": [
+    "Hard real-time / tight latency tails",
+    "Severe memory constraints (embedded)"
+  ],
+  "myths": [
+    "\"GC means no memory leaks\" — reachable-but-unused references still leak"
+  ],
+  "use": "Indirect",
+  "sectors": [
+    "Enterprise",
+    "Web",
+    "Mobile",
+    "Most managed apps"
+  ],
+  "complexity": null,
+  "related": [
+    "reference-counting",
+    "ownership-borrowing",
+    "raii"
+  ],
+  "competing": [
+    "ownership-borrowing",
+    "raii"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ECO",
+      "id": 0,
+      "note": "Boehm GC (rare)"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 0,
+      "note": "not idiomatic"
+    },
+    "cs": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "generational CLR GC"
+    },
+    "java": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "G1/ZGC/Shenandoah"
+    },
+    "rust": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "ownership instead"
+    }
+  }
+}

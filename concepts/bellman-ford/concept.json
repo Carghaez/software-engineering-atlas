@@ -1,0 +1,80 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "bellman-ford",
+  "name": "Bellman-Ford",
+  "type": "Algorithm",
+  "secondary": [
+    "Graph algorithm",
+    "Dynamic programming"
+  ],
+  "domain": "algos",
+  "family": "Graph / shortest path",
+  "def": "Single-source shortest paths that tolerates negative edge weights and detects negative cycles.",
+  "problem": "Shortest paths when edges can be negative — where Dijkstra is incorrect.",
+  "mechanism": "Relax all edges V−1 times; a further relaxation that still improves a distance reveals a negative cycle.",
+  "benefits": [
+    "Handles negative edges",
+    "Detects negative cycles",
+    "Simple; basis of distance-vector routing"
+  ],
+  "limits": [
+    "O(V·E) — slower than Dijkstra",
+    "Not for dense huge graphs"
+  ],
+  "failures": [
+    "Missing the V-th pass cycle check",
+    "Assuming termination with negative cycles"
+  ],
+  "whenNot": [
+    "Non-negative weights (Dijkstra is faster)"
+  ],
+  "myths": [
+    "\"Always use Dijkstra\" — Dijkstra is simply wrong with negative edges"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Networking (RIP)",
+    "Finance (arbitrage)",
+    "Routing"
+  ],
+  "complexity": {
+    "Time": "O(V·E)",
+    "Space": "O(V)"
+  },
+  "related": [
+    "dijkstra",
+    "dynamic-programming"
+  ],
+  "competing": [
+    "dijkstra"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "manual"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "Boost.Graph"
+    },
+    "cs": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "manual"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "JGraphT"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "petgraph"
+    }
+  }
+}

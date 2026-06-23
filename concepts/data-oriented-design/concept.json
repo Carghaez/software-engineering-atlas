@@ -1,0 +1,82 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "data-oriented-design",
+  "name": "Data-Oriented Design",
+  "type": "Programming paradigm",
+  "secondary": [
+    "Data-layout technique",
+    "Performance-optimisation technique"
+  ],
+  "domain": "paradigms",
+  "family": "Performance-centric",
+  "def": "Designs code around how data is laid out and accessed, optimising for cache and bulk transformation.",
+  "problem": "Beat memory-latency bottlenecks by shaping data for sequential, cache-friendly, vectorisable access.",
+  "mechanism": "Group hot fields contiguously (Structure of Arrays), process in batches, minimise pointer chasing and per-object polymorphism in hot loops.",
+  "benefits": [
+    "Large speedups from cache locality & SIMD",
+    "Predictable, measurable performance",
+    "Scales with core/SIMD width"
+  ],
+  "limits": [
+    "Less intuitive than object models",
+    "Refactoring data layout is invasive",
+    "Premature application hurts clarity"
+  ],
+  "failures": [
+    "Optimising cold paths for no gain",
+    "Layout churn breaking many call sites"
+  ],
+  "whenNot": [
+    "Cold/IO-bound code where layout is irrelevant",
+    "Small data sets that fit trivially in cache"
+  ],
+  "myths": [
+    "\"DOD = ECS\" — ECS is one application; DOD is the broader principle"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Game engines",
+    "HPC",
+    "Trading",
+    "Media processing"
+  ],
+  "complexity": null,
+  "related": [
+    "structure-of-arrays",
+    "cache-blocking",
+    "simd",
+    "ecs"
+  ],
+  "competing": [
+    "oop"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "explicit layout control"
+    },
+    "cpp": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "full layout control"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "structs, spans"
+    },
+    "java": {
+      "lvl": "AWKWARD",
+      "id": 1,
+      "note": "object headers fight it"
+    },
+    "rust": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "repr(C), slices"
+    }
+  }
+}

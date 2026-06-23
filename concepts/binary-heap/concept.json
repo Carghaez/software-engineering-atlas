@@ -1,0 +1,104 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "binary-heap",
+  "name": "Binary Heap (Priority Queue)",
+  "type": "Data structure",
+  "secondary": [
+    "Abstract data type"
+  ],
+  "domain": "structures",
+  "family": "Tree / heap",
+  "def": "A complete binary tree, stored in an array, maintaining the heap order so the min/max is at the root.",
+  "problem": "Repeatedly extract the highest-priority element and insert new ones efficiently.",
+  "mechanism": "Array-embedded complete tree; sift-up on insert and sift-down on extract restore the parent ≤/≥ child invariant in O(log n).",
+  "benefits": [
+    "O(log n) insert/extract, O(1) peek",
+    "Array-backed → good locality, no pointers",
+    "Builds in O(n)"
+  ],
+  "limits": [
+    "No efficient search/arbitrary delete (O(n))",
+    "Not stable; no ordered traversal",
+    "decrease-key needs a position map"
+  ],
+  "failures": [
+    "Stale entries when decrease-key unsupported (use lazy deletion)",
+    "Comparator inconsistency corrupting order"
+  ],
+  "whenNot": [
+    "Need sorted iteration or fast membership",
+    "Frequent decrease-key (consider a Fibonacci/pairing heap)"
+  ],
+  "myths": [
+    "\"A heap is sorted\" — only the root is ordered; the rest is partially ordered"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Schedulers",
+    "Dijkstra/A*",
+    "Event simulation"
+  ],
+  "complexity": {
+    "Peek": "O(1)",
+    "Insert": "O(log n)",
+    "Extract-min": "O(log n)",
+    "Build": "O(n)",
+    "Space": "O(n)"
+  },
+  "related": [
+    "dijkstra",
+    "queue-adt",
+    "fibonacci-heap"
+  ],
+  "competing": [
+    "red-black-tree"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "x": {
+    "invariant": "Every parent is ≤ (min-heap) or ≥ (max-heap) its children; the tree is complete, so it packs into a contiguous array with no gaps.",
+    "operations": [
+      "peek min/max (O(1))",
+      "insert / sift-up (O(log n))",
+      "extract-min/max / sift-down (O(log n))",
+      "heapify a whole array (O(n))"
+    ],
+    "memoryOverhead": "Essentially none beyond the array — children of i live at 2i+1, 2i+2; no per-node pointers.",
+    "locality": "Good for the array, but sift paths jump by powers of two, so deep heaps still incur cache misses.",
+    "mutationModel": "In-place mutable; decrease-key requires an external index→position map.",
+    "concurrency": "Not thread-safe; concurrent priority queues use skip lists or fine-grained locking instead.",
+    "implementations": [
+      "C++ std::priority_queue",
+      "Java PriorityQueue",
+      "Rust BinaryHeap",
+      "Python heapq"
+    ]
+  },
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "array + sift"
+    },
+    "cpp": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "priority_queue; make_heap"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "PriorityQueue<T,P> (.NET 6+)"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "PriorityQueue"
+    },
+    "rust": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "BinaryHeap"
+    }
+  }
+}

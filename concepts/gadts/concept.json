@@ -1,0 +1,76 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "gadts",
+  "name": "Generalised Algebraic Data Types",
+  "type": "Type-system technique",
+  "secondary": [
+    "Functional abstraction"
+  ],
+  "domain": "types",
+  "family": "Advanced types",
+  "def": "ADTs whose constructors can refine the result type, enabling type-safe interpreters and DSLs.",
+  "problem": "Encode invariants (e.g. a well-typed expression tree) so the type checker rules out ill-typed terms.",
+  "mechanism": "Each constructor may specialise the type parameter (Expr<Int> vs Expr<Bool>), so matching a constructor learns extra type equalities.",
+  "benefits": [
+    "Type-safe ASTs/interpreters",
+    "Make illegal terms unrepresentable",
+    "Stronger than plain ADTs"
+  ],
+  "limits": [
+    "Few mainstream languages support them",
+    "Type inference weakens",
+    "Steep learning curve"
+  ],
+  "failures": [
+    "Encoding leaks where unsupported",
+    "Over-engineering simple data"
+  ],
+  "whenNot": [
+    "Most application data (plain ADTs suffice)"
+  ],
+  "myths": [
+    "\"GADTs are common\" — outside Haskell/OCaml/Scala they are rare or only emulated"
+  ],
+  "use": "Indirect",
+  "sectors": [
+    "Compilers",
+    "DSLs",
+    "Research"
+  ],
+  "complexity": null,
+  "related": [
+    "algebraic-data-types",
+    "dependent-types",
+    "phantom-types"
+  ],
+  "competing": [],
+  "maturity": "Emerging",
+  "confidence": "Medium",
+  "langs": {
+    "c": {
+      "lvl": "UNSUITABLE",
+      "id": 0,
+      "note": "n/a"
+    },
+    "cpp": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "template tricks"
+    },
+    "cs": {
+      "lvl": "UNSUITABLE",
+      "id": 0,
+      "note": "no"
+    },
+    "java": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "sealed approx"
+    },
+    "rust": {
+      "lvl": "AWKWARD",
+      "id": 1,
+      "note": "enums + traits approximate"
+    }
+  }
+}

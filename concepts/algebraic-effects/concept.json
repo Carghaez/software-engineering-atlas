@@ -1,0 +1,79 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "algebraic-effects",
+  "name": "Algebraic Effects & Handlers",
+  "type": "Functional abstraction",
+  "secondary": [
+    "Error-handling technique",
+    "Concurrency model"
+  ],
+  "domain": "fp",
+  "family": "Effect system",
+  "def": "A mechanism to declare effectful operations and interpret them later with installable handlers.",
+  "problem": "Compose effects (state, exceptions, async, generators) more flexibly than monad transformers.",
+  "mechanism": "Code performs abstract effect operations; a surrounding handler resumes the computation (via delimited continuations), choosing how each effect behaves.",
+  "benefits": [
+    "Compose effects without transformer stacks",
+    "Separate effect use from interpretation",
+    "Powers async/generators uniformly"
+  ],
+  "limits": [
+    "Cutting-edge; limited language support",
+    "Continuation cost & mental model",
+    "Tooling immature"
+  ],
+  "failures": [
+    "Unhandled effects at runtime",
+    "Surprising control flow via resumes"
+  ],
+  "whenNot": [
+    "Mainstream production code today (mostly research/experimental)"
+  ],
+  "myths": [
+    "\"Algebraic effects are just exceptions\" — handlers can resume, not only abort"
+  ],
+  "use": "Indirect",
+  "sectors": [
+    "Research",
+    "Compilers",
+    "Effect-typed languages"
+  ],
+  "complexity": null,
+  "related": [
+    "monad",
+    "monad-transformers",
+    "continuation-passing-style"
+  ],
+  "competing": [
+    "monad-transformers"
+  ],
+  "maturity": "Emerging",
+  "confidence": "Low",
+  "langs": {
+    "c": {
+      "lvl": "UNSUITABLE",
+      "id": 0,
+      "note": "n/a"
+    },
+    "cpp": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "research only"
+    },
+    "cs": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "no"
+    },
+    "java": {
+      "lvl": "ENCODABLE",
+      "id": 0,
+      "note": "Loom continuations approximate"
+    },
+    "rust": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "no native support"
+    }
+  }
+}

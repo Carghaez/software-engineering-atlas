@@ -1,0 +1,82 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "b-tree",
+  "name": "B-Tree / B+ Tree",
+  "type": "Data structure",
+  "secondary": [],
+  "domain": "structures",
+  "family": "Balanced search tree",
+  "def": "A high-fanout balanced tree keeping many keys per node to minimise I/O and cache misses.",
+  "problem": "Ordered indexing over data too large for cache or memory, where each node fetch is expensive.",
+  "mechanism": "Nodes hold up to B−1 keys and B children sized to a disk page / cache line. B+ trees keep all values in leaves linked for range scans.",
+  "benefits": [
+    "Few levels → few I/Os per lookup",
+    "Excellent for disk and SSD page access",
+    "Efficient range scans (B+ leaf links)"
+  ],
+  "limits": [
+    "Complex split/merge logic",
+    "Write amplification under random inserts",
+    "In-memory point lookups lose to hash tables"
+  ],
+  "failures": [
+    "Page splits causing fragmentation",
+    "Concurrent updates need careful latching/locking"
+  ],
+  "whenNot": [
+    "Pure in-memory, unordered workloads",
+    "Append-mostly write-heavy loads (consider LSM)"
+  ],
+  "myths": [
+    "\"B = binary\" — B is the branching factor, often hundreds"
+  ],
+  "use": "Indirect",
+  "sectors": [
+    "Databases",
+    "Filesystems",
+    "Storage engines"
+  ],
+  "complexity": {
+    "Search": "O(log n)",
+    "Insert": "O(log n)",
+    "Range scan": "O(log n + k)",
+    "Space": "O(n)"
+  },
+  "related": [
+    "lsm-tree",
+    "red-black-tree"
+  ],
+  "competing": [
+    "lsm-tree",
+    "hash-table"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "SQLite/Postgres internals"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "engine-internal"
+    },
+    "cs": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "DB layer only"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "DB / index libs"
+    },
+    "rust": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "BTreeMap/BTreeSet"
+    }
+  }
+}

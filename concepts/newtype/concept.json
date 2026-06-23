@@ -1,0 +1,75 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "newtype",
+  "name": "Newtypes & Semantic Types",
+  "type": "Type-system technique",
+  "secondary": [
+    "Defensive-programming practice"
+  ],
+  "domain": "types",
+  "family": "Type modelling",
+  "def": "Wrapping a primitive in a distinct zero-cost type to give it meaning and prevent mix-ups.",
+  "problem": "Stop \"primitive obsession\" bugs — passing a UserId where an OrderId is expected, or metres for feet.",
+  "mechanism": "Define a one-field wrapper type that is distinct to the type checker but compiles to the underlying representation (zero cost when the language allows).",
+  "benefits": [
+    "Compile-time prevention of unit/ID mix-ups",
+    "Self-documenting domain types",
+    "Often zero runtime cost"
+  ],
+  "limits": [
+    "Boilerplate to forward operations",
+    "Erased languages may box",
+    "Can over-proliferate"
+  ],
+  "failures": [
+    "Bypassing with raw conversions",
+    "Boxing overhead where not zero-cost"
+  ],
+  "whenNot": [
+    "Truly interchangeable primitives"
+  ],
+  "myths": [
+    "\"Newtypes cost performance\" — in C++/Rust they are typically zero-cost"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Domain modelling",
+    "Finance",
+    "Embedded (units)"
+  ],
+  "complexity": null,
+  "related": [
+    "phantom-types",
+    "algebraic-data-types"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "struct wrapper, manual"
+    },
+    "cpp": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "strong typedef wrappers"
+    },
+    "cs": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "readonly struct"
+    },
+    "java": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "wrapper class (boxed)"
+    },
+    "rust": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "tuple struct newtype"
+    }
+  }
+}

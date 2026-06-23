@@ -1,0 +1,81 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "kmp",
+  "name": "Knuth-Morris-Pratt",
+  "type": "Algorithm",
+  "secondary": [
+    "String algorithm"
+  ],
+  "domain": "algos",
+  "family": "String matching",
+  "def": "Linear-time substring search that never re-examines text characters, using a prefix-failure table.",
+  "problem": "Find a pattern in text in O(n+m) without the quadratic backtracking of naive search.",
+  "mechanism": "Precompute a failure function (longest proper prefix that is also a suffix) so mismatches shift the pattern without rescanning matched text.",
+  "benefits": [
+    "Guaranteed O(n+m)",
+    "No text backtracking (streamable)",
+    "Deterministic"
+  ],
+  "limits": [
+    "Preprocessing of the pattern",
+    "Boyer-Moore often faster in practice for large alphabets"
+  ],
+  "failures": [
+    "Off-by-one in the failure table",
+    "Assuming sublinear average (it is linear, not sublinear)"
+  ],
+  "whenNot": [
+    "Large-alphabet text where Boyer-Moore skips faster"
+  ],
+  "myths": [
+    "\"KMP is the fastest matcher\" — Boyer-Moore/its variants often win in practice"
+  ],
+  "use": "Indirect",
+  "sectors": [
+    "Text processing",
+    "Bioinformatics",
+    "grep-like tools"
+  ],
+  "complexity": {
+    "Time": "O(n+m)",
+    "Space": "O(m)"
+  },
+  "related": [
+    "boyer-moore",
+    "rabin-karp",
+    "aho-corasick"
+  ],
+  "competing": [
+    "boyer-moore",
+    "rabin-karp"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "manual"
+    },
+    "cpp": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "manual; search()"
+    },
+    "cs": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "manual"
+    },
+    "java": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "manual"
+    },
+    "rust": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "manual"
+    }
+  }
+}

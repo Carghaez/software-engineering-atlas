@@ -1,0 +1,77 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "spmd",
+  "name": "SPMD (Single Program, Multiple Data)",
+  "type": "Parallel-computing model",
+  "secondary": [
+    "Hardware-execution model"
+  ],
+  "domain": "hardware",
+  "family": "Data parallelism",
+  "def": "The same program runs on many processing elements, each over its own data partition.",
+  "problem": "Scale one algorithm across many cores/nodes/GPU lanes by partitioning the data.",
+  "mechanism": "Each instance has an ID/rank used to index its data slice; instances run independently and synchronise at barriers/collectives (MPI, OpenMP, CUDA grids).",
+  "benefits": [
+    "Scales from cores to clusters to GPUs",
+    "Single codebase per element",
+    "Maps to SIMT/MPI naturally"
+  ],
+  "limits": [
+    "Load imbalance across partitions",
+    "Communication/sync overhead",
+    "Divergent control hurts (on GPUs)"
+  ],
+  "failures": [
+    "Skewed partitions idling workers",
+    "Excessive synchronisation/communication"
+  ],
+  "whenNot": [
+    "Inherently sequential or tiny problems"
+  ],
+  "myths": [
+    "\"SPMD = SIMD\" — SPMD is a programming model; instances can diverge, unlike lockstep SIMD"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "HPC",
+    "GPU computing",
+    "Scientific simulation"
+  ],
+  "complexity": null,
+  "related": [
+    "simd",
+    "gpu-computing",
+    "mapreduce",
+    "bulk-synchronous-parallel"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ECO",
+      "id": 3,
+      "note": "MPI / OpenMP"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 3,
+      "note": "MPI / CUDA / SYCL"
+    },
+    "cs": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "rare"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "MPI bindings"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "rsmpi / rayon (intra-node)"
+    }
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "unit-testing",
+  "name": "Unit Testing",
+  "type": "Testing technique",
+  "secondary": [],
+  "domain": "testing",
+  "family": "Functional testing",
+  "def": "Testing the smallest isolated units of code (functions/classes) in isolation.",
+  "problem": "Catch defects early and lock in behaviour of individual components for safe refactoring.",
+  "mechanism": "Arrange-act-assert: set up inputs, call the unit, assert outputs/effects; dependencies are stubbed/mocked to isolate the unit.",
+  "benefits": [
+    "Fast, pinpointed feedback",
+    "Refactoring safety net",
+    "Documents intended behaviour"
+  ],
+  "limits": [
+    "Misses integration/interaction bugs",
+    "Over-mocking tests the mocks, not reality",
+    "Brittle if coupled to implementation"
+  ],
+  "failures": [
+    "Mock-heavy tests verifying nothing real",
+    "Testing private implementation details"
+  ],
+  "whenNot": [
+    "Glue code dominated by external interactions (favour integration tests)"
+  ],
+  "myths": [
+    "\"100% unit coverage = bug-free\" — coverage ≠ correctness; mutation testing disproves it"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "All sectors"
+  ],
+  "complexity": null,
+  "related": [
+    "tdd",
+    "integration-testing",
+    "mutation-testing",
+    "property-based-testing"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "Unity/CMocka"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "GoogleTest/Catch2"
+    },
+    "cs": {
+      "lvl": "ECO",
+      "id": 3,
+      "note": "xUnit/NUnit"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 3,
+      "note": "JUnit"
+    },
+    "rust": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "built-in #[test]"
+    }
+  }
+}

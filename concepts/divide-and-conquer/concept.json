@@ -1,0 +1,76 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "divide-and-conquer",
+  "name": "Divide and Conquer",
+  "type": "Algorithmic paradigm",
+  "secondary": [],
+  "domain": "algos",
+  "family": "Recursive paradigm",
+  "def": "Splits a problem into independent subproblems, solves recursively, then combines results.",
+  "problem": "Break a large problem into smaller, independent instances that are cheaper to solve and merge.",
+  "mechanism": "Recursively partition until a base case, solve directly, and combine. Runtime follows the Master Theorem T(n)=aT(n/b)+f(n).",
+  "benefits": [
+    "Maps naturally onto parallelism (independent subproblems)",
+    "Often optimal asymptotics (sorting, FFT)",
+    "Clear recursive structure"
+  ],
+  "limits": [
+    "Recursion overhead and stack usage",
+    "Combine step can dominate",
+    "Poor fit when subproblems overlap (use DP)"
+  ],
+  "failures": [
+    "Missing/incorrect base case → infinite recursion",
+    "Unbalanced splits degrading to O(n²)"
+  ],
+  "whenNot": [
+    "Overlapping subproblems (DP) or trivially sequential work",
+    "Tiny inputs where recursion overhead dominates"
+  ],
+  "myths": [
+    "\"Always parallel-friendly\" — only when subproblems are truly independent"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "All sectors"
+  ],
+  "complexity": {
+    "Note": "Per Master Theorem, e.g. O(n log n) for mergesort"
+  },
+  "related": [
+    "dynamic-programming",
+    "quicksort"
+  ],
+  "competing": [
+    "dynamic-programming"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "NATIVE",
+      "id": 2,
+      "note": "recursion"
+    },
+    "cpp": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "recursion + std algos"
+    },
+    "cs": {
+      "lvl": "NATIVE",
+      "id": 2,
+      "note": "recursion / PLINQ"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "ForkJoinPool"
+    },
+    "rust": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "recursion + rayon::join"
+    }
+  }
+}

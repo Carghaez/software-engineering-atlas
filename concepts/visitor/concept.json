@@ -1,0 +1,76 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "visitor",
+  "name": "Visitor",
+  "type": "Design pattern",
+  "secondary": [],
+  "domain": "architecture",
+  "family": "GoF · Behavioural",
+  "def": "Separates an algorithm from the object structure it operates on, adding operations without editing the elements.",
+  "problem": "Add new operations over a fixed set of element types without modifying those types.",
+  "mechanism": "Elements accept a visitor and call back the type-specific visit method (double dispatch); new operations = new visitors.",
+  "benefits": [
+    "Add operations without touching elements",
+    "Gathers a scattered algorithm in one place",
+    "Type-specific dispatch"
+  ],
+  "limits": [
+    "Adding element types breaks all visitors",
+    "Verbose double-dispatch boilerplate",
+    "Breaks encapsulation"
+  ],
+  "failures": [
+    "Frequent new element types → visitor churn",
+    "Accidental missing visit method"
+  ],
+  "whenNot": [
+    "Element set changes often (operations stable instead)"
+  ],
+  "myths": [
+    "\"Always use Visitor for trees\" — pattern matching on sum types makes it largely unnecessary"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Compilers",
+    "AST processing",
+    "Serialisation"
+  ],
+  "complexity": null,
+  "related": [
+    "composite",
+    "pattern-matching",
+    "algebraic-data-types"
+  ],
+  "competing": [
+    "pattern-matching"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "manual dispatch"
+    },
+    "cpp": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "double dispatch / std::visit"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "double dispatch"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "classic; sealed+switch now"
+    },
+    "rust": {
+      "lvl": "AWKWARD",
+      "id": 1,
+      "note": "match on enums replaces it"
+    }
+  }
+}

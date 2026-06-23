@@ -1,0 +1,76 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "cache-oblivious",
+  "name": "Cache-Oblivious Algorithms",
+  "type": "Performance-optimisation technique",
+  "secondary": [
+    "Algorithmic paradigm"
+  ],
+  "domain": "hardware",
+  "family": "Locality optimisation",
+  "def": "Algorithms that achieve optimal cache use across all cache sizes without knowing the parameters.",
+  "problem": "Get good locality on any memory hierarchy without per-machine tuning of block sizes.",
+  "mechanism": "Recursive divide-and-conquer keeps shrinking the working set so it eventually fits each cache level automatically (e.g. cache-oblivious matrix multiply).",
+  "benefits": [
+    "Portable locality — no tuning constants",
+    "Optimal across all cache levels",
+    "Robust to hardware changes"
+  ],
+  "limits": [
+    "Recursion overhead and constants",
+    "Often beaten by hand-tuned blocking on a known machine",
+    "Harder to implement"
+  ],
+  "failures": [
+    "Recursion overhead dominating small inputs"
+  ],
+  "whenNot": [
+    "When you can tune cache-blocking for the exact target"
+  ],
+  "myths": [
+    "\"Cache-oblivious beats cache-aware\" — tuned blocking usually wins on a known machine"
+  ],
+  "use": "Indirect",
+  "sectors": [
+    "HPC",
+    "Libraries",
+    "Numerics"
+  ],
+  "complexity": null,
+  "related": [
+    "cache-blocking",
+    "divide-and-conquer"
+  ],
+  "competing": [
+    "cache-blocking"
+  ],
+  "maturity": "Mature",
+  "confidence": "Medium",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "manual recursion"
+    },
+    "cpp": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "manual"
+    },
+    "cs": {
+      "lvl": "ENCODABLE",
+      "id": 0,
+      "note": "rare"
+    },
+    "java": {
+      "lvl": "ENCODABLE",
+      "id": 0,
+      "note": "rare"
+    },
+    "rust": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "manual"
+    }
+  }
+}

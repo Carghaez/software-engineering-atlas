@@ -1,0 +1,75 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "secure-by-design",
+  "name": "Secure by Design",
+  "type": "Security practice",
+  "secondary": [
+    "Design principle"
+  ],
+  "domain": "security",
+  "family": "Secure design",
+  "def": "Building security into architecture and design from the start, not bolted on later.",
+  "problem": "Avoid costly, weak retrofitted security by making it a first-class design concern.",
+  "mechanism": "Apply secure defaults, least privilege, fail-safe defaults, minimal attack surface and threat modelling throughout design and review.",
+  "benefits": [
+    "Cheaper than retrofitting",
+    "Fewer systemic flaws",
+    "Security as a property, not a patch"
+  ],
+  "limits": [
+    "Requires security expertise up front",
+    "Can slow early delivery",
+    "Hard to quantify ROI"
+  ],
+  "failures": [
+    "Security as a late \"phase\"",
+    "Insecure defaults requiring opt-in hardening"
+  ],
+  "whenNot": [
+    "Never skip; scale rigour to risk"
+  ],
+  "myths": [
+    "\"We will add security later\" — late security is expensive and weaker"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "All sectors",
+    "Critical infrastructure"
+  ],
+  "complexity": null,
+  "related": [
+    "threat-modeling",
+    "defense-in-depth",
+    "least-privilege"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "process"
+    },
+    "cpp": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "process"
+    },
+    "cs": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "process + secure defaults"
+    },
+    "java": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "process"
+    },
+    "rust": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "memory-safe defaults help"
+    }
+  }
+}

@@ -1,0 +1,78 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "segment-tree",
+  "name": "Segment Tree",
+  "type": "Data structure",
+  "secondary": [],
+  "domain": "structures",
+  "family": "Tree / range-query",
+  "def": "A binary tree over array ranges supporting O(log n) range queries and updates for associative ops.",
+  "problem": "Answer range aggregates (sum, min, max, gcd) with updates, including range updates via lazy propagation.",
+  "mechanism": "Each node aggregates a contiguous range; queries split into O(log n) covering nodes. Lazy propagation defers range updates until needed.",
+  "benefits": [
+    "Any associative aggregate (min, max, gcd, …)",
+    "Range update + range query with lazy propagation",
+    "O(log n) operations"
+  ],
+  "limits": [
+    "~2–4× the array in memory",
+    "More complex than a Fenwick tree",
+    "Constant factors higher"
+  ],
+  "failures": [
+    "Lazy-propagation bugs (forgetting to push down)",
+    "Building over a non-associative op"
+  ],
+  "whenNot": [
+    "Simple invertible prefix sums (Fenwick is leaner)"
+  ],
+  "myths": [
+    "\"Overkill always\" — for range-min/range-update it is the standard tool"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Competitive programming",
+    "Range analytics",
+    "Geometry"
+  ],
+  "complexity": {
+    "Query/update": "O(log n)",
+    "Build": "O(n)",
+    "Space": "O(n)"
+  },
+  "related": [
+    "fenwick-tree"
+  ],
+  "competing": [
+    "fenwick-tree"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "array"
+    },
+    "cpp": {
+      "lvl": "ENCODABLE",
+      "id": 3,
+      "note": "idiomatic in CP"
+    },
+    "cs": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "array"
+    },
+    "java": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "array"
+    },
+    "rust": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "Vec"
+    }
+  }
+}

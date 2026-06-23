@@ -1,0 +1,82 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "immutability",
+  "name": "Immutability",
+  "type": "Functional abstraction",
+  "secondary": [
+    "Resource-management technique",
+    "Defensive-programming practice"
+  ],
+  "applies": [
+    "paradigms",
+    "practices",
+    "data structures"
+  ],
+  "domain": "fp",
+  "family": "Core FP",
+  "def": "Values that cannot change after construction; updates produce new values.",
+  "problem": "Eliminate a whole class of aliasing and concurrency bugs by forbidding in-place mutation.",
+  "mechanism": "Fields are read-only; \"modification\" returns a new instance, often sharing structure with the original (persistent structures).",
+  "benefits": [
+    "Safe sharing across threads without locks",
+    "Simpler reasoning; trivial undo/snapshot",
+    "Enables structural sharing"
+  ],
+  "limits": [
+    "Allocation/GC pressure for naive copies",
+    "Some algorithms need mutation for speed"
+  ],
+  "failures": [
+    "Deep-copy storms in hot paths",
+    "\"Immutable\" wrappers over mutable internals"
+  ],
+  "whenNot": [
+    "Tight numeric loops needing in-place updates",
+    "Memory-constrained devices with churny updates"
+  ],
+  "myths": [
+    "\"Immutable means copying everything\" — structural sharing avoids that"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Concurrency",
+    "Frontend state",
+    "Finance/audit"
+  ],
+  "complexity": null,
+  "related": [
+    "persistent-data-structures",
+    "pure-functions",
+    "ownership-borrowing"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "const; weak guarantees"
+    },
+    "cpp": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "const, const-correctness"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "readonly, records"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "final, records"
+    },
+    "rust": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "immutable by default"
+    }
+  }
+}

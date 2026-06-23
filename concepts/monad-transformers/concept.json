@@ -1,0 +1,77 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "monad-transformers",
+  "name": "Monad Transformers",
+  "type": "Functional abstraction",
+  "secondary": [
+    "Type-system technique"
+  ],
+  "domain": "fp",
+  "family": "Compositional abstraction",
+  "def": "Constructs that stack multiple monadic effects (state + error + IO) into one combined monad.",
+  "problem": "Use several effects together when each is a separate monad that does not compose automatically.",
+  "mechanism": "A transformer (e.g. StateT, ReaderT) wraps an inner monad, threading both effects; a stack of transformers yields one monad with all the effects.",
+  "benefits": [
+    "Compose multiple effects",
+    "Reuse standard effect building blocks",
+    "Type-tracked effects"
+  ],
+  "limits": [
+    "Stacks get unwieldy and slow",
+    "Steep learning curve",
+    "Lift boilerplate; HKT-dependent"
+  ],
+  "failures": [
+    "Deep stacks becoming unreadable",
+    "Performance overhead per layer"
+  ],
+  "whenNot": [
+    "Mainstream OO/imperative code (effects handled directly)",
+    "Where algebraic effects are available"
+  ],
+  "myths": [
+    "\"Necessary for any FP\" — only relevant in HKT-rich languages (Haskell/Scala)"
+  ],
+  "use": "Indirect",
+  "sectors": [
+    "Haskell/Scala codebases",
+    "Compilers"
+  ],
+  "complexity": null,
+  "related": [
+    "monad",
+    "algebraic-effects"
+  ],
+  "competing": [
+    "algebraic-effects"
+  ],
+  "maturity": "Mature",
+  "confidence": "Low",
+  "langs": {
+    "c": {
+      "lvl": "UNSUITABLE",
+      "id": 0,
+      "note": "n/a"
+    },
+    "cpp": {
+      "lvl": "UNSUITABLE",
+      "id": 0,
+      "note": "no HKT"
+    },
+    "cs": {
+      "lvl": "UNSUITABLE",
+      "id": 0,
+      "note": "no HKT"
+    },
+    "java": {
+      "lvl": "UNSUITABLE",
+      "id": 0,
+      "note": "no HKT"
+    },
+    "rust": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "no HKT; impractical"
+    }
+  }
+}

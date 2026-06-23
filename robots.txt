@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://carghaez.github.io/software-engineering-atlas/sitemap.xml

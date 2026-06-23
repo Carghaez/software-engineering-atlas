@@ -1,11 +1,46 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Software Engineering Techniques Atlas — data structures, algorithms, paradigms & patterns</title>
+<meta name="description" content="An evidence-cited atlas of software engineering techniques: data structures, algorithms, paradigms, concurrency, design patterns, testing and more — each with definitions, trade-offs, complexity and per-language (C, C++, C#, Java, Rust) support.">
+<link rel="canonical" href="https://carghaez.github.io/software-engineering-atlas/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Software Engineering Techniques Atlas">
+<meta property="og:title" content="Software Engineering Techniques Atlas">
+<meta property="og:description" content="An evidence-cited atlas of software engineering techniques — data structures, algorithms, paradigms, concurrency, design patterns, testing — with trade-offs, complexity and per-language support.">
+<meta property="og:url" content="https://carghaez.github.io/software-engineering-atlas/">
+<meta property="og:image" content="https://carghaez.github.io/software-engineering-atlas/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Software Engineering Techniques Atlas">
+<meta name="twitter:description" content="An evidence-cited atlas of software engineering techniques with trade-offs, complexity and per-language support.">
+<meta name="twitter:image" content="https://carghaez.github.io/software-engineering-atlas/og-image.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Software Engineering Techniques Atlas",
+  "url": "https://carghaez.github.io/software-engineering-atlas/",
+  "description": "An evidence-cited atlas of software engineering techniques: data structures, algorithms, paradigms, concurrency, design patterns, testing and more, with trade-offs, complexity and per-language (C, C++, C#, Java, Rust) support.",
+  "author": {
+    "@type": "Person",
+    "name": "Gaetano Pietro Paolo Carpinato",
+    "url": "https://www.linkedin.com/in/gaetanocarpinato",
+    "sameAs": ["https://www.linkedin.com/in/gaetanocarpinato", "https://github.com/Carghaez"]
+  }
+}
+</script>
 <script src="./support.js"></script>
 </head>
 <body>
+<noscript>
+  <div style="max-width:820px;margin:0 auto;padding:24px 20px;font-family:system-ui,sans-serif;color:#22262d">
+    <h1>Software Engineering Techniques Atlas</h1>
+    <p>An evidence-cited atlas of software engineering techniques — data structures, algorithms, paradigms, concurrency, design patterns, testing and more — each with definitions, trade-offs, complexity and per-language (C, C++, C#, Java, Rust) support.</p>
+    <p>The interactive explorer needs JavaScript. <a href="./c/">Browse all concepts as static pages &rarr;</a></p>
+  </div>
+</noscript>
 <x-dc>
 <helmet>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -21,15 +56,37 @@
   .atlas-scroll::-webkit-scrollbar-thumb{background:#d2d2cb;border-radius:6px;border:2px solid #f1f1ee}
   @keyframes drawerIn{from{transform:translateX(26px);opacity:0}to{transform:translateX(0);opacity:1}}
   @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+  /* Hamburger button: shown only on small screens */
+  .atlas-burger{display:none;flex:none;align-items:center;justify-content:center;width:38px;height:38px;border:1px solid #e0e0d9;border-radius:8px;background:#fafaf7;cursor:pointer;font-size:18px;line-height:1;color:#42464d}
+  .atlas-nav-backdrop{display:none}
+  @media (max-width:760px){
+    .atlas-shell{height:auto !important;min-height:100vh;overflow:visible !important}
+    .atlas-header{padding:12px 16px 11px !important}
+    .atlas-burger{display:inline-flex}
+    .atlas-search{width:100% !important}
+    /* domains sidebar becomes a slide-in drawer */
+    .atlas-sidebar{position:fixed !important;left:0;top:0;height:100vh !important;width:82vw !important;max-width:320px;z-index:60;transform:translateX(-100%);transition:transform .2s ease;box-shadow:6px 0 30px rgba(24,27,34,.16)}
+    .atlas-sidebar.open{transform:translateX(0)}
+    .atlas-nav-backdrop.open{display:block;position:fixed;inset:0;background:rgba(22,24,30,.30);z-index:55;animation:fadeIn .15s ease}
+    /* Atlas-Maps sub-nav: full width, horizontal scroll */
+    .atlas-subnav{width:100% !important;height:auto !important;display:flex !important;flex-direction:row !important;overflow-x:auto !important;border-right:none !important;border-bottom:1px solid #eaeae4}
+    /* concept detail drawer: full width */
+    .atlas-drawer{width:100vw !important}
+    /* card grid: single column */
+    .atlas-cards{grid-template-columns:1fr !important}
+    .atlas-footer{padding:9px 16px !important;gap:6px 12px !important}
+  }
 </style>
 </helmet>
 
-<div style="height:100vh;display:flex;flex-direction:column;overflow:hidden;color:#22262d">
+<div class="atlas-shell" style="height:100vh;display:flex;flex-direction:column;overflow:hidden;color:#22262d">
 
-  <header style="flex:none;display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;padding:16px 28px 15px;background:#ffffff;border-bottom:1px solid #e4e4de;z-index:20">
+  <header class="atlas-header" style="flex:none;display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;padding:16px 28px 15px;background:#ffffff;border-bottom:1px solid #e4e4de;z-index:20">
+    <button class="atlas-burger" onClick="{{ toggleNav }}" aria-label="Toggle domains menu">&#9776;</button>
     <div style="display:flex;flex-direction:column;gap:3px">
       <h1 style="margin:0;font:600 20px/1.15 'IBM Plex Sans';letter-spacing:-.01em;color:#181b21">Software Engineering Techniques Atlas</h1>
-      <div style="font:500 11.5px 'IBM Plex Mono';letter-spacing:.02em;color:#8b9098">Complete within Coverage Manifest v1.1 &mdash; 22 June 2026 &middot; <span style="color:#aeb2b9">{{ total }} concepts &middot; 13 domains &middot; 5 languages</span></div>
+      <div style="font:500 11.5px 'IBM Plex Mono';letter-spacing:.02em;color:#8b9098">A reference map of software-engineering techniques &mdash; <span style="color:#aeb2b9">{{ total }} concepts across 13 domains and 5 languages</span></div>
+      <div style="font:500 11px 'IBM Plex Mono';letter-spacing:.02em;color:#aeb2b9">by <a href="https://www.linkedin.com/in/gaetanocarpinato" target="_blank" rel="noopener" style="color:#6b7078;text-decoration:none;font-weight:600">Gaetano Pietro Paolo Carpinato</a></div>
     </div>
     <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">
       <div style="display:flex;gap:5px;background:#f3f3ef;padding:4px;border-radius:9px;border:1px solid #e6e6e0">
@@ -40,7 +97,7 @@
       </div>
       <div style="position:relative;display:flex;align-items:center">
         <span style="position:absolute;left:11px;font:500 12px 'IBM Plex Mono';color:#aeb2b9;pointer-events:none">/</span>
-        <input value="{{ query }}" onChange="{{ onSearch }}" placeholder="search concepts, types, families…" style="width:280px;padding:9px 12px 9px 26px;border:1px solid #e0e0d9;border-radius:8px;background:#fafaf7;font:400 13px 'IBM Plex Sans';color:#22262d;outline:none" />
+        <input class="atlas-search" value="{{ query }}" onChange="{{ onSearch }}" placeholder="search concepts, types, families…" style="width:280px;padding:9px 12px 9px 26px;border:1px solid #e0e0d9;border-radius:8px;background:#fafaf7;font:400 13px 'IBM Plex Sans';color:#22262d;outline:none" />
       </div>
     </div>
   </header>
@@ -48,7 +105,8 @@
   <div style="flex:1;display:flex;min-height:0">
 
     <!-- SIDEBAR -->
-    <aside class="atlas-scroll" style="flex:none;width:266px;background:#fbfbf8;border-right:1px solid #e6e6e0;overflow-y:auto;padding:16px 14px 28px">
+    <div class="atlas-nav-backdrop {{ navOpen }}" onClick="{{ closeNav }}"></div>
+    <aside class="atlas-scroll atlas-sidebar {{ navOpen }}" style="flex:none;width:266px;background:#fbfbf8;border-right:1px solid #e6e6e0;overflow-y:auto;padding:16px 14px 28px">
       <div style="font:600 10px 'IBM Plex Mono';letter-spacing:.09em;text-transform:uppercase;color:#a4a8af;padding:2px 8px 9px">Domains</div>
       <button onClick="{{ clearDomain }}" style="width:100%;display:flex;align-items:center;gap:10px;padding:8px 10px;margin-bottom:3px;border:none;border-left:3px solid {{ allEdge }};border-radius:6px;background:{{ allBg }};cursor:pointer;font:{{ allFw }} 13px 'IBM Plex Sans';color:{{ allCol }}">
         <span style="width:9px;height:9px;border-radius:2px;background:linear-gradient(135deg,#c2553f,#3aa06b);flex:none"></span>
@@ -91,7 +149,7 @@
               <button onClick="{{ clearDomain }}" style="font:500 11.5px 'IBM Plex Mono';color:#6b7078;background:#efefe9;border:1px solid #e0e0d9;border-radius:6px;padding:4px 10px;cursor:pointer">clear filter &times;</button>
             </sc-if>
           </div>
-          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax({{ gridMin }},1fr));gap:14px">
+          <div class="atlas-cards" style="display:grid;grid-template-columns:repeat(auto-fill,minmax({{ gridMin }},1fr));gap:14px">
             <sc-for list="{{ cards }}" as="card" hint-placeholder-count="9">
               <button onClick="{{ card.open }}" style="text-align:left;cursor:pointer;background:#ffffff;border:1px solid #e7e7e1;border-radius:10px;border-top:3px solid {{ card.accent }};padding:15px 16px 14px;display:flex;flex-direction:column;gap:9px;transition:box-shadow .15s ease,transform .15s ease,border-color .15s ease" style-hover="box-shadow:0 7px 24px rgba(28,32,40,.11);transform:translateY(-2px);border-color:#d7d7d0">
                 <div style="display:flex;align-items:center;justify-content:space-between;gap:8px">
@@ -178,7 +236,7 @@
       <!-- ATLAS MAPS -->
       <sc-if value="{{ isPages }}" hint-placeholder-val="{{ false }}">
         <div style="display:flex;min-height:100%">
-          <div class="atlas-scroll" style="flex:none;width:212px;border-right:1px solid #eaeae4;background:#fbfbf8;padding:18px 12px;overflow-y:auto">
+          <div class="atlas-scroll atlas-subnav" style="flex:none;width:212px;border-right:1px solid #eaeae4;background:#fbfbf8;padding:18px 12px;overflow-y:auto">
             <div style="font:600 10px 'IBM Plex Mono';letter-spacing:.09em;text-transform:uppercase;color:#a4a8af;padding:0 8px 9px">Maps &amp; matrices</div>
             <sc-for list="{{ pageNav }}" as="pg" hint-placeholder-count="13">
               <button onClick="{{ pg.pick }}" style="width:100%;text-align:left;border:none;border-radius:6px;padding:8px 10px;margin-bottom:2px;cursor:pointer;background:{{ pg.bg }};font:{{ pg.fw }} 12.5px 'IBM Plex Sans';color:{{ pg.col }}">{{ pg.nav }}</button>
@@ -316,10 +374,21 @@
     </main>
   </div>
 
+  <!-- FOOTER -->
+  <footer class="atlas-footer" style="flex:none;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:9px 28px;background:#ffffff;border-top:1px solid #e4e4de;font:500 11.5px 'IBM Plex Mono';color:#8b9098;z-index:20">
+    <div>Built by <a href="https://www.linkedin.com/in/gaetanocarpinato" target="_blank" rel="noopener" style="color:#3f5b78;text-decoration:none;font-weight:600">Gaetano Pietro Paolo Carpinato</a></div>
+    <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+      <a href="https://www.linkedin.com/in/gaetanocarpinato" target="_blank" rel="noopener" style="color:#6b7078;text-decoration:none">LinkedIn</a>
+      <a href="https://github.com/Carghaez" target="_blank" rel="noopener" style="color:#6b7078;text-decoration:none">GitHub</a>
+      <a href="https://github.com/Carghaez/software-engineering-atlas" target="_blank" rel="noopener" style="color:#6b7078;text-decoration:none">Source</a>
+      <span style="color:#aeb2b9">Code MIT &middot; Content CC BY 4.0</span>
+    </div>
+  </footer>
+
   <!-- DETAIL DRAWER -->
   <sc-if value="{{ detail }}" hint-placeholder-val="{{ false }}">
     <div onClick="{{ closeBackdrop }}" style="position:fixed;inset:0;background:rgba(22,24,30,.30);z-index:49;animation:fadeIn .15s ease"></div>
-    <aside class="atlas-scroll" style="position:fixed;top:0;right:0;height:100vh;width:min(560px,95vw);background:#ffffff;border-left:1px solid #e2e2db;box-shadow:-10px 0 40px rgba(24,27,34,.16);z-index:50;overflow-y:auto;animation:drawerIn .22s cubic-bezier(.22,.61,.36,1)">
+    <aside class="atlas-scroll atlas-drawer" style="position:fixed;top:0;right:0;height:100vh;width:min(560px,95vw);background:#ffffff;border-left:1px solid #e2e2db;box-shadow:-10px 0 40px rgba(24,27,34,.16);z-index:50;overflow-y:auto;animation:drawerIn .22s cubic-bezier(.22,.61,.36,1)">
       <div style="position:sticky;top:0;background:#ffffff;border-bottom:1px solid #eeeee8;padding:16px 24px 14px;z-index:2">
         <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:14px">
           <div style="display:flex;flex-direction:column;gap:7px">
@@ -469,13 +538,67 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;100%&quot;,&quot;height&quot;:&quot;100%&quot;},&quot;density&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;cozy&quot;,&quot;compact&quot;],&quot;default&quot;:&quot;cozy&quot;,&quot;tsType&quot;:&quot;'cozy'|'compact'&quot;},&quot;initialView&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;explorer&quot;,&quot;map&quot;,&quot;heatmap&quot;],&quot;default&quot;:&quot;explorer&quot;,&quot;tsType&quot;:&quot;'explorer'|'map'|'heatmap'&quot;}}">
 class Component extends DCLogic {
-  state = { loaded:false, mod:null, view:(this.props.initialView||'explorer'), query:'', domain:null, selected:null };
+  state = { loaded:false, mod:null, view:(this.props.initialView||'explorer'), query:'', domain:null, selected:null, mobileNav:false };
 
   async componentDidMount(){
+    this._defaultTitle = document.title;
+    this._defaultDesc = (document.querySelector('meta[name="description"]')||{}).content || '';
+    this._onPop = ()=>this.setState(this._readUrl());
+    window.addEventListener('popstate', this._onPop);
     try {
       const mod = await import('./concepts.js');
-      this.setState({ mod, loaded:true });
+      this.setState(Object.assign({ mod, loaded:true }, this._readUrl()));
     } catch(e){ console.error('Atlas data load failed', e); }
+  }
+
+  componentWillUnmount(){ if(this._onPop) window.removeEventListener('popstate', this._onPop); }
+
+  componentDidUpdate(){
+    if(!this.state.loaded) return;
+    const selected = this.state.selected;
+    // The dc-runtime passes only prevProps to componentDidUpdate (no prevState),
+    // so track the previously-open concept ourselves to decide push vs replace.
+    const changedSelect = selected !== this._lastSelected;
+    this._lastSelected = selected;
+    this._syncUrl(changedSelect);
+    const { mod } = this.state;
+    const c = (mod && selected) ? mod.CONCEPTS.find(k=>k.id===selected) : null;
+    if(c){
+      document.title = c.name + ' — Software Engineering Atlas';
+      this._setMeta(c.def || this._defaultDesc);
+    } else {
+      document.title = this._defaultTitle;
+      this._setMeta(this._defaultDesc);
+    }
+  }
+
+  _readUrl(){
+    const p = new URLSearchParams(location.search), out = {};
+    const c = p.get('c'); if(c!==null) out.selected = c || null;
+    const v = p.get('view'); if(v && ['explorer','map','heatmap','pages'].includes(v)) out.view = v;
+    const d = p.get('domain'); if(d!==null) out.domain = d || null;
+    const q = p.get('q'); if(q!==null) out.query = q || '';
+    return out;
+  }
+
+  _syncUrl(push){
+    const { view, query, domain, selected } = this.state;
+    const p = new URLSearchParams();
+    if(selected) p.set('c', selected);
+    if(view && view!=='explorer') p.set('view', view);
+    if(domain) p.set('domain', domain);
+    if(query) p.set('q', query);
+    const qs = p.toString();
+    const target = location.pathname + (qs?('?'+qs):'') + location.hash;
+    const current = location.pathname + location.search + location.hash;
+    if(target===current) return;
+    if(push) history.pushState(null, '', target); else history.replaceState(null, '', target);
+  }
+
+  _setMeta(txt){
+    let m = document.querySelector('meta[name="description"]');
+    if(!m){ m = document.createElement('meta'); m.setAttribute('name','description'); document.head.appendChild(m); }
+    m.setAttribute('content', txt);
   }
 
   _tab(active){
@@ -723,8 +846,11 @@ class Component extends DCLogic {
       setHeat:()=>this.setState({view:'heatmap'}),
       setPages:()=>this.setState({view:'pages'}),
       onSearch:(e)=>this.setState({query:e.target.value, view:'explorer'}),
-      clearDomain:()=>this.setState({domain:null}),
+      clearDomain:()=>this.setState({domain:null, mobileNav:false}),
       closeBackdrop:()=>this.setState({selected:null}),
+      navOpen: this.state.mobileNav ? 'open' : '',
+      toggleNav:()=>this.setState({mobileNav:!this.state.mobileNav}),
+      closeNav:()=>this.setState({mobileNav:false}),
       isExplorer:loaded && view==='explorer',
       isMap:loaded && view==='map',
       isHeat:loaded && view==='heatmap',
@@ -750,7 +876,7 @@ class Component extends DCLogic {
         fw: active ? '600' : '500',
         col: active ? '#1f232b' : '#5c616a',
         edge: active ? domainColor(d.id) : 'transparent',
-        pick:()=>this.setState({domain: this.state.domain===d.id?null:d.id, view:'explorer'})
+        pick:()=>this.setState({domain: this.state.domain===d.id?null:d.id, view:'explorer', mobileNav:false})
       };
     });
 

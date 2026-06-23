@@ -1,0 +1,81 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "tamper-detection",
+  "name": "Tamper Detection",
+  "type": "Security practice",
+  "secondary": [],
+  "aliases": [
+    "Integrity verification",
+    "Anti-tamper"
+  ],
+  "domain": "security",
+  "family": "Integrity",
+  "def": "Mechanisms that detect (and sometimes respond to) unauthorised modification of code, data, configuration, or hardware.",
+  "problem": "Attackers who reach code, storage, logs, or devices can alter them; without detection, the change is silent and trusted.",
+  "mechanism": "Compute and verify integrity proofs: cryptographic hashes / MACs, digital signatures, append-only and hash-chained logs (Merkle trees), file-integrity monitoring, and physical tamper-evident seals or sensors that wipe secrets on intrusion.",
+  "benefits": [
+    "Surfaces unauthorised changes quickly",
+    "Protects audit logs and configuration integrity",
+    "Deters and contains physical tampering"
+  ],
+  "limits": [
+    "Detects, does not prevent, modification",
+    "Key/secret protection for MACs is itself a problem",
+    "Performance cost of continuous verification"
+  ],
+  "failures": [
+    "Storing the integrity key alongside the data it protects",
+    "Alert fatigue from noisy file-integrity monitors",
+    "Verifying at load but not at runtime"
+  ],
+  "whenNot": [
+    "Low-value data where integrity monitoring overhead is unjustified"
+  ],
+  "myths": [
+    "\"Hashing data makes it tamper-proof\" — unkeyed hashes detect accidental, not adversarial, change unless signed/MACed"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Finance / audit",
+    "Critical infrastructure",
+    "Embedded / hardware",
+    "Compliance"
+  ],
+  "related": [
+    "merkle-tree",
+    "code-signing",
+    "audit-logging",
+    "secure-boot",
+    "crdt"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "hashing / HMAC libs"
+    },
+    "cpp": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "crypto libs"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "System.Security.Cryptography"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "MessageDigest / Mac"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "sha2 / hmac crates"
+    }
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "liskov-substitution",
+  "name": "Liskov Substitution Principle",
+  "type": "Design principle",
+  "secondary": [
+    "Type-system technique"
+  ],
+  "domain": "architecture",
+  "family": "SOLID",
+  "def": "Subtypes must be usable anywhere their base type is, without breaking expectations.",
+  "problem": "Prevent inheritance/subtyping that silently violates the contract callers rely on.",
+  "mechanism": "Subtypes must not strengthen preconditions or weaken postconditions/invariants; behavioural compatibility, not just signature compatibility.",
+  "benefits": [
+    "Safe polymorphism",
+    "Reliable contracts across hierarchies",
+    "Reasoning about base type holds"
+  ],
+  "limits": [
+    "Behavioural compatibility is subtle",
+    "Classic violations (Square extends Rectangle)",
+    "Hard to enforce mechanically"
+  ],
+  "failures": [
+    "Subclass throwing on inherited operations",
+    "Overrides that change semantics"
+  ],
+  "whenNot": [
+    "When composition fits better than inheritance"
+  ],
+  "myths": [
+    "\"If it compiles, LSP holds\" — it is about behaviour, not just types"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "OO systems",
+    "Libraries"
+  ],
+  "complexity": null,
+  "related": [
+    "subtype-polymorphism",
+    "composition-over-inheritance",
+    "design-by-contract"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "Medium",
+  "langs": {
+    "c": {
+      "lvl": "UNSUITABLE",
+      "id": 0,
+      "note": "n/a"
+    },
+    "cpp": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "discipline"
+    },
+    "cs": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "discipline"
+    },
+    "java": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "discipline"
+    },
+    "rust": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "traits sidestep inheritance"
+    }
+  }
+}

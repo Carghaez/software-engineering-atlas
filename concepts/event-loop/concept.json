@@ -1,0 +1,78 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "event-loop",
+  "name": "Event Loop / Reactor",
+  "type": "Concurrency model",
+  "secondary": [
+    "Architectural pattern"
+  ],
+  "domain": "concurrency",
+  "family": "Asynchrony",
+  "def": "A single-threaded loop that waits for I/O readiness and dispatches handlers as events arrive.",
+  "problem": "Serve many concurrent connections on few threads without per-connection thread cost.",
+  "mechanism": "A readiness selector (epoll/kqueue/IOCP) reports ready file descriptors; the loop runs the associated callbacks, never blocking on a single connection.",
+  "benefits": [
+    "Massive I/O concurrency on one/few threads",
+    "No per-connection thread memory",
+    "Predictable, lock-light"
+  ],
+  "limits": [
+    "Any blocking/CPU-heavy handler stalls everything",
+    "Callback complexity",
+    "Hard to use all cores (need multiple loops)"
+  ],
+  "failures": [
+    "A slow synchronous handler freezing the loop",
+    "CPU-bound work starving I/O"
+  ],
+  "whenNot": [
+    "CPU-bound workloads (use thread pools)"
+  ],
+  "myths": [
+    "\"Single-threaded means slow\" — event loops handle huge I/O concurrency efficiently"
+  ],
+  "use": "Indirect",
+  "sectors": [
+    "Servers (Node, nginx)",
+    "GUIs",
+    "Networking"
+  ],
+  "complexity": null,
+  "related": [
+    "async-await",
+    "event-driven",
+    "futures-promises"
+  ],
+  "competing": [
+    "threads"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "epoll/kqueue; libuv/libev"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 3,
+      "note": "asio/libuv"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "async I/O over IOCP"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "NIO selectors / Netty"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 3,
+      "note": "tokio/mio"
+    }
+  }
+}

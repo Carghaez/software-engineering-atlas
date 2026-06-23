@@ -1,0 +1,103 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "strongly-connected-components",
+  "name": "Strongly Connected Components",
+  "type": "Algorithm",
+  "secondary": [
+    "Graph algorithm"
+  ],
+  "aliases": [
+    "SCC",
+    "Tarjan / Kosaraju"
+  ],
+  "x": {
+    "io": "A directed graph → its partition into maximal sets where every vertex reaches every other.",
+    "preconditions": [
+      "Directed graph in adjacency form"
+    ],
+    "correctness": [
+      "Each component is maximal and mutually reachable",
+      "Condensation of components is a DAG"
+    ],
+    "stability": "Deterministic given a fixed adjacency order.",
+    "parallelisable": "Tarjan/Kosaraju are serial DFS; parallel SCC (e.g. Forward-Backward) exists for large graphs.",
+    "dataStructures": [
+      "explicit/implicit DFS stack",
+      "low-link values",
+      "vertex index array"
+    ]
+  },
+  "domain": "algos",
+  "family": "Graph / connectivity",
+  "def": "Linear-time algorithms (Tarjan, Kosaraju) that partition a directed graph into maximal mutually-reachable components.",
+  "problem": "Find cycles / mutual reachability in a directed graph and collapse them into a DAG for further analysis.",
+  "mechanism": "Tarjan runs one DFS tracking discovery indices and low-link values, popping a component when a root is found. Kosaraju does two passes (DFS, then DFS on the transposed graph in finish-time order).",
+  "benefits": [
+    "O(V+E) linear time",
+    "Yields the condensation DAG for downstream ordering",
+    "Detects directed cycles / deadlock graphs"
+  ],
+  "limits": [
+    "Tarjan recursion can overflow the stack on deep graphs",
+    "Two-pass Kosaraju needs the transpose graph"
+  ],
+  "failures": [
+    "Recursive DFS stack overflow on huge graphs (use explicit stack)",
+    "Mishandling self-loops / single-vertex components"
+  ],
+  "whenNot": [
+    "Undirected connectivity (use union-find / BFS)",
+    "Only cycle existence needed (a simpler DFS suffices)"
+  ],
+  "myths": [
+    "\"SCC needs all-pairs reachability\" — it is linear, not quadratic"
+  ],
+  "use": "Indirect",
+  "sectors": [
+    "Compilers (dependency cycles)",
+    "Build systems",
+    "Static analysis",
+    "Social / web graphs"
+  ],
+  "complexity": {
+    "Time": "O(V+E)",
+    "Space": "O(V)"
+  },
+  "related": [
+    "graph-dfs",
+    "topological-sort",
+    "union-find"
+  ],
+  "competing": [
+    "graph-dfs"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "manual"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "Boost.Graph"
+    },
+    "cs": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "manual"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "JGraphT"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "petgraph"
+    }
+  }
+}

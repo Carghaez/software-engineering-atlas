@@ -1,0 +1,73 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "interface-segregation",
+  "name": "Interface Segregation Principle",
+  "type": "Design principle",
+  "secondary": [],
+  "domain": "architecture",
+  "family": "SOLID",
+  "def": "Clients should not be forced to depend on methods they do not use.",
+  "problem": "Avoid fat interfaces that couple clients to behaviour irrelevant to them.",
+  "mechanism": "Split large interfaces into small, role-focused ones so each client depends only on what it needs.",
+  "benefits": [
+    "Lower coupling; easier mocking",
+    "Focused contracts",
+    "Independent evolution"
+  ],
+  "limits": [
+    "Interface proliferation",
+    "Finding the right granularity",
+    "Composition overhead"
+  ],
+  "failures": [
+    "Fat \"manager\" interfaces",
+    "Dozens of one-method interfaces (over-segregation)"
+  ],
+  "whenNot": [
+    "Small, cohesive interfaces already"
+  ],
+  "myths": [
+    "\"More interfaces is always cleaner\" — over-segregation fragments the design"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Enterprise",
+    "Frameworks"
+  ],
+  "complexity": null,
+  "related": [
+    "single-responsibility",
+    "dependency-inversion",
+    "typeclasses-traits"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "Medium",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "discipline"
+    },
+    "cpp": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "small abstract classes"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "small interfaces"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "small interfaces"
+    },
+    "rust": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "small traits idiomatic"
+    }
+  }
+}

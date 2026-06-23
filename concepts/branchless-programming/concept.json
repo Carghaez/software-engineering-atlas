@@ -1,0 +1,78 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "branchless-programming",
+  "name": "Branchless Programming",
+  "type": "Performance-optimisation technique",
+  "secondary": [
+    "Hardware-execution model"
+  ],
+  "domain": "hardware",
+  "family": "Micro-optimisation",
+  "def": "Replacing data-dependent branches with arithmetic, masks or conditional moves to avoid misprediction.",
+  "problem": "Eliminate branch-misprediction stalls in hot, unpredictable inner loops.",
+  "mechanism": "Compute both paths and select with bit masks / cmov / predication instead of branching, so the pipeline never mispredicts.",
+  "benefits": [
+    "Removes misprediction stalls (~15–20 cycles each)",
+    "Enables SIMD (uniform control flow)",
+    "Constant-time (security relevant)"
+  ],
+  "limits": [
+    "Computes work on both paths (can be slower)",
+    "Harder to read and maintain",
+    "Only wins when branches are truly unpredictable"
+  ],
+  "failures": [
+    "Branchless rewrite slower than a predictable branch",
+    "Obscured logic introducing bugs"
+  ],
+  "whenNot": [
+    "Highly predictable branches (predictor handles them)",
+    "Cold code"
+  ],
+  "myths": [
+    "\"Branchless is always faster\" — only for unpredictable, hot branches"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "HFT",
+    "Codecs",
+    "Crypto",
+    "Databases"
+  ],
+  "complexity": null,
+  "related": [
+    "simd",
+    "auto-vectorization",
+    "constant-time-programming"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "NATIVE",
+      "id": 2,
+      "note": "masks, cmov via ternary"
+    },
+    "cpp": {
+      "lvl": "NATIVE",
+      "id": 2,
+      "note": "bit tricks; std::min/max"
+    },
+    "cs": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "JIT may help"
+    },
+    "java": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "JIT-dependent"
+    },
+    "rust": {
+      "lvl": "NATIVE",
+      "id": 2,
+      "note": "masks; bool as u*"
+    }
+  }
+}

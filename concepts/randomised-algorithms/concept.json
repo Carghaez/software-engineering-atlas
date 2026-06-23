@@ -1,0 +1,104 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "randomised-algorithms",
+  "name": "Randomised Algorithms",
+  "type": "Algorithmic paradigm",
+  "secondary": [],
+  "aliases": [
+    "Probabilistic algorithms",
+    "Monte Carlo / Las Vegas"
+  ],
+  "x": {
+    "io": "Problem instance + a source of random bits → an answer that is fast in expectation (Las Vegas) or correct with high probability (Monte Carlo).",
+    "preconditions": [
+      "A good source of randomness",
+      "Tolerance for probabilistic guarantees (Monte Carlo) or variable runtime (Las Vegas)"
+    ],
+    "correctness": [
+      "Las Vegas: always correct, runtime is a random variable",
+      "Monte Carlo: bounded error probability, can be driven down by repetition"
+    ],
+    "stability": "Non-deterministic across runs; reproducible only with a fixed seed.",
+    "parallelisable": "Often embarrassingly so (independent trials, sampling).",
+    "dataStructures": [
+      "hash tables (universal hashing)",
+      "sketches",
+      "treaps / skip lists"
+    ]
+  },
+  "domain": "algos",
+  "family": "Strategy / chance",
+  "def": "Algorithms that use random choices to gain simplicity, speed, or strong average-case behaviour, trading determinism for probabilistic guarantees.",
+  "problem": "Beat the worst case of deterministic methods, break adversarial input patterns, or simplify a hard algorithm.",
+  "mechanism": "Injects randomness into the procedure — random pivots (quicksort), random sampling (Monte Carlo integration, reservoir sampling), universal hashing, or randomised data structures (skip lists, treaps). Error/runtime is analysed in expectation.",
+  "benefits": [
+    "Often simpler and faster than deterministic equivalents",
+    "Defeats adversarial / worst-case inputs",
+    "Embarrassingly parallel trials"
+  ],
+  "limits": [
+    "Probabilistic guarantees, not certainties (Monte Carlo)",
+    "Quality depends on randomness source",
+    "Hard to reproduce / debug without seeding"
+  ],
+  "failures": [
+    "Weak / predictable RNG breaks the guarantees (and security)",
+    "Treating expected runtime as a hard bound"
+  ],
+  "whenNot": [
+    "Hard determinism / reproducibility required",
+    "No tolerance for any error probability and Monte Carlo is the only option"
+  ],
+  "myths": [
+    "\"Randomised means unreliable\" — error bounds can be made astronomically small by repetition"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Cryptography",
+    "Databases",
+    "Machine learning",
+    "Scientific computing"
+  ],
+  "complexity": {
+    "Time": "Expected / w.h.p. bounds",
+    "Error": "Tunable (Monte Carlo)"
+  },
+  "related": [
+    "quicksort",
+    "skip-list",
+    "count-min-sketch",
+    "bloom-filter"
+  ],
+  "competing": [
+    "dynamic-programming"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "rand; seed care"
+    },
+    "cpp": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "<random> engines"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "Random / RandomNumberGenerator"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "java.util.random"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 3,
+      "note": "rand crate"
+    }
+  }
+}

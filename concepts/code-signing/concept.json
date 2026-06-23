@@ -1,0 +1,77 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "code-signing",
+  "name": "Code Signing & Reproducible Builds",
+  "type": "Security practice",
+  "secondary": [
+    "Build or deployment practice"
+  ],
+  "domain": "security",
+  "family": "Build integrity",
+  "def": "Cryptographically signing artifacts and producing bit-identical builds to prove integrity and provenance.",
+  "problem": "Let consumers verify software has not been tampered with and came from the claimed source.",
+  "mechanism": "Sign artifacts with a private key; verifiers check the signature. Reproducible builds make the same source yield byte-identical output, so signatures are independently verifiable.",
+  "benefits": [
+    "Tamper detection / provenance",
+    "Independent verification (reproducible builds)",
+    "Trust in the supply chain"
+  ],
+  "limits": [
+    "Key management is critical",
+    "Reproducibility is hard (timestamps, paths)",
+    "Revocation/rotation complexity"
+  ],
+  "failures": [
+    "Leaked/stolen signing keys",
+    "Non-reproducible builds preventing verification"
+  ],
+  "whenNot": [
+    "Internal throwaway artifacts"
+  ],
+  "myths": [
+    "\"Signed means safe\" — it proves origin/integrity, not that the code is benign"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "OS/distros",
+    "App stores",
+    "OSS",
+    "Enterprise"
+  ],
+  "complexity": null,
+  "related": [
+    "supply-chain-security",
+    "secret-management",
+    "merkle-tree"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "toolchain + signing"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "toolchain"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "Authenticode / strong naming"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "jarsigner"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "cargo + sigstore"
+    }
+  }
+}

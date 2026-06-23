@@ -1,0 +1,109 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "predication",
+  "name": "Predication / Masking",
+  "type": "Hardware-execution model",
+  "secondary": [
+    "Performance-optimisation technique"
+  ],
+  "aliases": [
+    "Masked execution",
+    "Branch predication",
+    "If-conversion"
+  ],
+  "x": {
+    "executionModel": "Conditional work is executed on all lanes but committed only where a per-lane predicate (mask) is true, replacing data-dependent branches with masked operations.",
+    "dataOrg": "Works on vectors with a parallel boolean mask; SoA / uniform layouts maximise useful lanes.",
+    "hwConstraints": "Both branches’ work may be computed; benefit depends on branch cost vs mask waste and on hardware mask support (AVX-512 k-masks, SVE, GPU predicate registers).",
+    "compilerSupport": "Compilers if-convert small branches automatically; intrinsics expose masks explicitly.",
+    "portability": "Native masks on AVX-512/SVE/GPUs; emulated (blend) on older SIMD.",
+    "expectedBenefit": "Removes unpredictable branches from hot loops, keeping the pipeline / warp full.",
+    "bottlenecks": [
+      "Executing both paths wastes work when masks are sparse",
+      "Mask-register pressure",
+      "Blend emulation cost on older ISAs"
+    ],
+    "divergenceRisks": [
+      "Heavy divergence makes predication slower than branching",
+      "Side-effecting work under a false mask",
+      "Tail handling"
+    ],
+    "workloadShapes": "Short conditionals in tight numeric loops, GPU kernels with mild divergence."
+  },
+  "domain": "hardware",
+  "family": "Control-flow vectorisation",
+  "def": "Turning data-dependent branches into branchless masked operations, so SIMD lanes or GPU threads stay in lockstep by computing conditionally and committing per-lane.",
+  "problem": "Branches inside vectorised / SIMT loops cause misprediction or warp divergence, stalling the pipeline.",
+  "mechanism": "Instead of branching, both outcomes are computed and a per-lane predicate mask selects which results are kept (or which lanes write). This keeps the vector/warp converged at the cost of doing some discarded work.",
+  "benefits": [
+    "Eliminates unpredictable branches in hot loops",
+    "Keeps SIMD/SIMT lanes converged",
+    "Deterministic, pipeline-friendly timing"
+  ],
+  "limits": [
+    "May compute both paths (wasted work)",
+    "Loses badly under heavy divergence",
+    "Needs hardware mask support to be cheap"
+  ],
+  "failures": [
+    "Predicating expensive both-paths where a branch would skip work",
+    "Executing side effects on masked-off lanes"
+  ],
+  "whenNot": [
+    "Branches are well-predicted and skip large work",
+    "Highly divergent control flow (let it branch)"
+  ],
+  "myths": [
+    "\"Branchless is always faster\" — predication wastes work; it wins only when branches are costly/divergent"
+  ],
+  "use": "Both",
+  "sectors": [
+    "Graphics / GPU",
+    "HPC",
+    "DSP / media",
+    "Cryptography (constant-time)"
+  ],
+  "complexity": {
+    "Cost": "Both-paths work × lanes",
+    "Benefit": "No branch misprediction"
+  },
+  "related": [
+    "branchless-programming",
+    "simd",
+    "gpu-computing",
+    "constant-time-programming",
+    "auto-vectorization"
+  ],
+  "competing": [
+    "branchless-programming"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "mask intrinsics / if-conversion"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "intrinsics / std::simd masks"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 1,
+      "note": "Vector conditional select"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "Vector API masks"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "core::simd masks"
+    }
+  }
+}

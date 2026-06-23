@@ -1,0 +1,76 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "authorization",
+  "name": "Authorization (Access Control)",
+  "type": "Security practice",
+  "secondary": [
+    "Design principle"
+  ],
+  "domain": "security",
+  "family": "Access control",
+  "def": "Deciding what an authenticated entity is permitted to do.",
+  "problem": "Enforce that subjects only perform actions and access resources they are entitled to.",
+  "mechanism": "Policy models — role-based (RBAC), attribute-based (ABAC), or capability-based — evaluate subject, action and resource against rules at each access.",
+  "benefits": [
+    "Enforces least privilege",
+    "Centralised, auditable policy",
+    "Flexible models (RBAC/ABAC)"
+  ],
+  "limits": [
+    "Policy sprawl/role explosion",
+    "Performance of fine-grained checks",
+    "Hard to test exhaustively"
+  ],
+  "failures": [
+    "Missing checks (broken access control — OWASP #1)",
+    "Client-side-only enforcement; IDOR"
+  ],
+  "whenNot": [
+    "Single-user / no privilege distinctions"
+  ],
+  "myths": [
+    "\"Hiding the UI button is authorisation\" — enforcement must be server-side on every request"
+  ],
+  "use": "Both",
+  "sectors": [
+    "Web",
+    "Enterprise",
+    "Cloud",
+    "Fintech"
+  ],
+  "complexity": null,
+  "related": [
+    "authentication",
+    "least-privilege"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "libs"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "libs"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "policy-based authz"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 3,
+      "note": "Spring Security"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "casbin / oso"
+    }
+  }
+}

@@ -1,0 +1,76 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "static-analysis",
+  "name": "Static Analysis",
+  "type": "Verification technique",
+  "secondary": [
+    "Security practice",
+    "Debugging or observability technique"
+  ],
+  "domain": "testing",
+  "family": "Code analysis",
+  "def": "Analysing source/binaries without executing them to find bugs, smells and vulnerabilities.",
+  "problem": "Catch defects, unsafe patterns and security issues early and automatically, before runtime.",
+  "mechanism": "Linters, type/flow analysis, taint tracking and abstract interpretation reason over code paths to flag likely defects.",
+  "benefits": [
+    "Catches bugs pre-runtime, in CI",
+    "Scales across whole codebases",
+    "Enforces standards consistently"
+  ],
+  "limits": [
+    "False positives cause alert fatigue",
+    "Sound analyses can be slow/noisy",
+    "Misses runtime/logic bugs"
+  ],
+  "failures": [
+    "Suppressing warnings wholesale (defeats it)",
+    "Drowning in false positives → ignored"
+  ],
+  "whenNot": [
+    "As the sole quality gate (combine with tests)"
+  ],
+  "myths": [
+    "\"No false positives\" — sound tools over-approximate by design"
+  ],
+  "use": "Indirect",
+  "sectors": [
+    "All sectors",
+    "Security-critical"
+  ],
+  "complexity": null,
+  "related": [
+    "fuzz-testing",
+    "model-checking",
+    "supply-chain-security"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ECO",
+      "id": 3,
+      "note": "clang-tidy/Coverity"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 3,
+      "note": "clang-tidy/PVS"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "Roslyn analyzers"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 3,
+      "note": "SpotBugs/SonarQube"
+    },
+    "rust": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "clippy; borrow checker"
+    }
+  }
+}

@@ -1,0 +1,80 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "reactive-programming",
+  "name": "Reactive Programming",
+  "type": "Programming paradigm",
+  "secondary": [
+    "Dataflow programming",
+    "Event-driven programming"
+  ],
+  "domain": "paradigms",
+  "family": "Dataflow / event",
+  "def": "Models computation as asynchronous streams of values with declarative propagation of change.",
+  "problem": "Coordinate asynchronous, event-driven data flows without manual callback wiring and state tangles.",
+  "mechanism": "Observables/streams emit events; operators (map, filter, merge, debounce) compose pipelines; subscribers react. Backpressure governs fast producers.",
+  "benefits": [
+    "Composable async pipelines",
+    "Declarative event coordination",
+    "Built-in backpressure (reactive streams)"
+  ],
+  "limits": [
+    "Steep learning curve; debugging stack traces are opaque",
+    "Easy to leak subscriptions",
+    "Overkill for simple flows"
+  ],
+  "failures": [
+    "Unbounded buffering when backpressure ignored",
+    "Subscription/resource leaks"
+  ],
+  "whenNot": [
+    "Simple request/response logic",
+    "Teams unfamiliar with the operator zoo"
+  ],
+  "myths": [
+    "\"Reactive = fast\" — it manages async complexity, not raw speed"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Frontend (UI)",
+    "Streaming backends",
+    "IoT/telemetry"
+  ],
+  "complexity": null,
+  "related": [
+    "async-await",
+    "functional-programming",
+    "csp-channels"
+  ],
+  "competing": [
+    "async-await"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "manual"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "RxCpp"
+    },
+    "cs": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "Rx.NET / IObservable"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "Reactor / RxJava"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "futures streams"
+    }
+  }
+}

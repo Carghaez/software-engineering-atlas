@@ -1,0 +1,77 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "event-sourcing",
+  "name": "Event Sourcing",
+  "type": "Architectural pattern",
+  "secondary": [
+    "Distributed-systems pattern"
+  ],
+  "domain": "architecture",
+  "family": "State management",
+  "def": "Persisting state as an append-only log of events, deriving current state by replaying them.",
+  "problem": "Retain a complete, auditable history and reconstruct any past state, not just the latest snapshot.",
+  "mechanism": "Every change is an immutable event appended to a log; current state is a left-fold over events, often with snapshots to bound replay cost.",
+  "benefits": [
+    "Full audit trail / temporal queries",
+    "Rebuild state and derive new projections",
+    "Natural fit with CQRS and messaging"
+  ],
+  "limits": [
+    "Event schema evolution is hard",
+    "Eventual consistency for read models",
+    "Replay cost without snapshots; high complexity"
+  ],
+  "failures": [
+    "Breaking changes to historical event schemas",
+    "Unbounded replay without snapshots"
+  ],
+  "whenNot": [
+    "Simple CRUD with no audit/history needs",
+    "Teams unprepared for eventual consistency"
+  ],
+  "myths": [
+    "\"Event sourcing = message queue\" — it is a system of record, not transport"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Fintech",
+    "E-commerce",
+    "Audit-heavy domains"
+  ],
+  "complexity": null,
+  "related": [
+    "cqrs",
+    "hexagonal-architecture",
+    "immutability"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "Medium",
+  "langs": {
+    "c": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "rare"
+    },
+    "cpp": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "rare"
+    },
+    "cs": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "EventStoreDB / Marten"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "Axon / Kafka"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "cqrs-es"
+    }
+  }
+}

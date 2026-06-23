@@ -1,0 +1,87 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "threads",
+  "name": "Threads",
+  "type": "Concurrency model",
+  "secondary": [
+    "Parallel-computing model"
+  ],
+  "x": {
+    "coordination": "OS-scheduled kernel threads share one address space; they coordinate through shared memory plus synchronisation primitives (mutexes, atomics, condition variables).",
+    "hazards": [
+      "Data races on unsynchronised shared mutable state",
+      "Deadlock / livelock from inconsistent lock ordering",
+      "Priority inversion and starvation",
+      "Oversubscription thrashing the scheduler"
+    ]
+  },
+  "domain": "concurrency",
+  "family": "Shared-memory",
+  "def": "Independently-scheduled execution flows within a process sharing its address space.",
+  "problem": "Run work concurrently and exploit multiple cores within one process.",
+  "mechanism": "The OS schedules kernel threads onto cores; threads share memory, requiring synchronisation for shared mutable state.",
+  "benefits": [
+    "True parallelism on multicore",
+    "Mature OS/library support",
+    "Direct shared-memory communication"
+  ],
+  "limits": [
+    "Shared mutable state → data races, deadlocks",
+    "High per-thread memory (MB stacks)",
+    "Context-switch and contention costs"
+  ],
+  "failures": [
+    "Data races / torn reads without synchronisation",
+    "Deadlocks, priority inversion, thread leaks"
+  ],
+  "whenNot": [
+    "Massive I/O concurrency (use async)",
+    "Tasks needing millions of units (use lightweight tasks)"
+  ],
+  "myths": [
+    "\"More threads = faster\" — oversubscription thrashes the scheduler"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "All sectors"
+  ],
+  "complexity": null,
+  "related": [
+    "mutex",
+    "async-await",
+    "work-stealing"
+  ],
+  "competing": [
+    "async-await",
+    "actors"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "pthreads / C11 threads"
+    },
+    "cpp": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "std::thread, jthread"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "Thread; Tasks preferred"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "Thread; virtual threads"
+    },
+    "rust": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "std::thread; Send/Sync"
+    }
+  }
+}

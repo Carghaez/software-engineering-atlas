@@ -1,0 +1,79 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "aho-corasick",
+  "name": "Aho-Corasick",
+  "type": "Algorithm",
+  "secondary": [
+    "String algorithm"
+  ],
+  "domain": "algos",
+  "family": "String matching",
+  "def": "Matches many patterns at once in linear time using a trie augmented with failure links.",
+  "problem": "Scan text once for thousands of keywords simultaneously (filters, IDS, dictionaries).",
+  "mechanism": "Build a trie of all patterns, add failure links (like KMP across the trie), then run the text through the automaton emitting all matches.",
+  "benefits": [
+    "O(n + matches) for any number of patterns",
+    "Single pass over text",
+    "Foundation of multi-keyword scanners"
+  ],
+  "limits": [
+    "Automaton memory grows with pattern set",
+    "Build cost upfront"
+  ],
+  "failures": [
+    "Memory blow-up with huge pattern sets",
+    "Failure-link construction bugs"
+  ],
+  "whenNot": [
+    "Single pattern (KMP suffices)"
+  ],
+  "myths": [
+    "\"Just run KMP per pattern\" — that is O(k·n); Aho-Corasick is one pass"
+  ],
+  "use": "Indirect",
+  "sectors": [
+    "Intrusion detection",
+    "Content filters",
+    "Bioinformatics"
+  ],
+  "complexity": {
+    "Time": "O(n + Σm + matches)",
+    "Space": "O(Σm)"
+  },
+  "related": [
+    "trie",
+    "kmp"
+  ],
+  "competing": [
+    "kmp"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "manual"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "manual / libs"
+    },
+    "cs": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "libs"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "libs"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "aho-corasick crate"
+    }
+  }
+}

@@ -1,0 +1,108 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "rrb-tree",
+  "name": "RRB Tree (Relaxed Radix Balanced)",
+  "type": "Data structure",
+  "secondary": [
+    "Persistent structure",
+    "Sequence"
+  ],
+  "aliases": [
+    "RRB vector",
+    "Relaxed radix balanced tree"
+  ],
+  "x": {
+    "invariant": "a wide (radix 32) balanced tree of array chunks; \"relaxed\" nodes carry a size table so concat/split need not perfectly fill nodes.",
+    "operations": [
+      "index / update (O(log32 n) ≈ O(1))",
+      "push/pop end (amortised O(1))",
+      "concat (O(log n))",
+      "split / slice (O(log n))"
+    ],
+    "memoryOverhead": "Leaf chunks of ~32 elements plus internal index nodes; structural sharing across versions.",
+    "locality": "Good within a 32-element leaf chunk; tree walk between chunks.",
+    "mutationModel": "Persistent immutable vector; supports fast functional concat/slice that a plain persistent vector cannot.",
+    "concurrency": "Immutable snapshots share freely across threads; transients accelerate batch building.",
+    "implementations": [
+      "Scala Vector (2.13+)",
+      "Clojure-style vectors",
+      "Rust im::Vector"
+    ]
+  },
+  "domain": "structures",
+  "family": "Sequence / persistent",
+  "def": "A persistent indexed sequence (immutable vector) that adds efficient concatenation and slicing on top of the radix-balanced trie used for functional vectors.",
+  "problem": "An immutable list with near-O(1) random access AND fast concat/split — the two are hard to get together.",
+  "mechanism": "Stores elements in radix-32 leaf chunks under a balanced tree; \"relaxed\" nodes keep a size table so concatenated subtrees need not be perfectly full, making concat/slice logarithmic.",
+  "benefits": [
+    "Near-O(1) index and update",
+    "Logarithmic concat and slice",
+    "Persistent with structural sharing"
+  ],
+  "limits": [
+    "Larger constants than a flat dynamic array",
+    "Implementation complexity (size tables, rebalancing)",
+    "Cache misses across chunks"
+  ],
+  "failures": [
+    "Naive rebalancing can degrade to deep trees",
+    "Allocation pressure under heavy updates"
+  ],
+  "whenNot": [
+    "Mutable single-owner sequence (use a dynamic array)",
+    "Tiny collections"
+  ],
+  "myths": [
+    "\"Functional vectors can’t concat fast\" — RRB makes it O(log n)"
+  ],
+  "use": "Indirect",
+  "sectors": [
+    "Functional languages / runtimes",
+    "Editors / immutable document models"
+  ],
+  "complexity": {
+    "Access": "O(log₃₂ n)",
+    "Update": "O(log₃₂ n)",
+    "Concat": "O(log n)",
+    "Space": "O(n)"
+  },
+  "related": [
+    "persistent-data-structures",
+    "hamt",
+    "dynamic-array",
+    "immutability"
+  ],
+  "competing": [
+    "dynamic-array",
+    "linked-list"
+  ],
+  "maturity": "Mature",
+  "confidence": "Medium",
+  "langs": {
+    "c": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "rare"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "immer flex-vector"
+    },
+    "cs": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "ImmutableList (different impl)"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "vavr / scala Vector"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "im::Vector"
+    }
+  }
+}

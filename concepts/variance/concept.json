@@ -1,0 +1,71 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "variance",
+  "name": "Variance (Co/Contra/Invariance)",
+  "type": "Type-system technique",
+  "secondary": [],
+  "domain": "types",
+  "family": "Polymorphism",
+  "def": "How subtyping of components relates to subtyping of generic containers/functions.",
+  "problem": "Decide safely when List<Cat> may be used as List<Animal> (and for function parameters).",
+  "mechanism": "Covariance preserves direction (producers/outputs), contravariance reverses it (consumers/inputs), invariance forbids substitution; mutable containers must be invariant.",
+  "benefits": [
+    "Safe, flexible generic substitution",
+    "Prevents unsound array/store bugs",
+    "Clear producer/consumer rules"
+  ],
+  "limits": [
+    "Conceptually tricky; varies by language",
+    "Wrong variance → unsoundness or rigidity"
+  ],
+  "failures": [
+    "Covariant mutable arrays (Java ArrayStoreException)",
+    "Over-restrictive invariance blocking valid use"
+  ],
+  "whenNot": [
+    "Non-generic code"
+  ],
+  "myths": [
+    "\"Covariance is always safe\" — it is unsafe for mutable/writable positions"
+  ],
+  "use": "Indirect",
+  "sectors": [
+    "Library/API design",
+    "Generics-heavy code"
+  ],
+  "complexity": null,
+  "related": [
+    "parametric-polymorphism",
+    "subtype-polymorphism"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "UNSUITABLE",
+      "id": 0,
+      "note": "n/a"
+    },
+    "cpp": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "templates invariant"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "in/out variance"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "? extends / ? super"
+    },
+    "rust": {
+      "lvl": "STD",
+      "id": 1,
+      "note": "inferred variance"
+    }
+  }
+}

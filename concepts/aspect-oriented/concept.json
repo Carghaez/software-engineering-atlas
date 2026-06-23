@@ -1,0 +1,76 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "aspect-oriented",
+  "name": "Aspect-Oriented Programming",
+  "type": "Programming paradigm",
+  "secondary": [
+    "Programming style"
+  ],
+  "domain": "paradigms",
+  "family": "Modularity",
+  "def": "Modularises cross-cutting concerns (logging, security, transactions) into aspects woven into code.",
+  "problem": "Avoid scattering and tangling of concerns that cut across many modules.",
+  "mechanism": "Aspects define advice (extra behaviour) at join points selected by pointcuts; a weaver injects them at compile, load, or run time.",
+  "benefits": [
+    "Removes boilerplate for cross-cutting concerns",
+    "Centralises logging/security/tx",
+    "Cleaner core logic"
+  ],
+  "limits": [
+    "Hidden control flow — hard to follow",
+    "Debugging woven code is opaque",
+    "Overuse causes \"spooky action\""
+  ],
+  "failures": [
+    "Implicit behaviour surprising maintainers",
+    "Pointcut fragility on refactor"
+  ],
+  "whenNot": [
+    "Concerns that are local, not cross-cutting",
+    "Teams unfamiliar with weaving"
+  ],
+  "myths": [
+    "\"AOP is dead\" — it lives on in Spring AOP, interceptors and middleware"
+  ],
+  "use": "Indirect",
+  "sectors": [
+    "Enterprise (Spring)",
+    "Frameworks",
+    "Instrumentation"
+  ],
+  "complexity": null,
+  "related": [
+    "metaprogramming",
+    "dependency-injection"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "Medium",
+  "langs": {
+    "c": {
+      "lvl": "UNSUITABLE",
+      "id": 0,
+      "note": "n/a"
+    },
+    "cpp": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "rare"
+    },
+    "cs": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "PostSharp / interceptors"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "AspectJ / Spring AOP"
+    },
+    "rust": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "macros approximate"
+    }
+  }
+}

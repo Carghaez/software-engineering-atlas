@@ -1,0 +1,78 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "imperative-programming",
+  "name": "Imperative Programming",
+  "type": "Programming paradigm",
+  "secondary": [],
+  "domain": "paradigms",
+  "family": "Imperative",
+  "def": "Programs as sequences of statements that change program state via explicit commands.",
+  "problem": "Express computation as a step-by-step recipe that maps directly onto how the machine executes.",
+  "mechanism": "Variables hold mutable state; assignment, conditionals, loops and jumps drive control flow that mutates state over time.",
+  "benefits": [
+    "Direct, predictable mapping to hardware",
+    "Fine-grained performance control",
+    "Universally understood"
+  ],
+  "limits": [
+    "Mutable state complicates reasoning & concurrency",
+    "Order-dependence; hidden coupling",
+    "Scales poorly without higher structure"
+  ],
+  "failures": [
+    "State spaghetti as programs grow",
+    "Aliasing bugs from shared mutable state"
+  ],
+  "whenNot": [
+    "Highly concurrent shared state; declarative-friendly domains"
+  ],
+  "myths": [
+    "\"Imperative = procedural\" — procedural and OO are structured forms of the imperative model"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Systems",
+    "Embedded",
+    "Performance code",
+    "Everywhere"
+  ],
+  "complexity": null,
+  "related": [
+    "procedural",
+    "structured-programming",
+    "functional-programming"
+  ],
+  "competing": [
+    "declarative",
+    "functional-programming"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "core model"
+    },
+    "cpp": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "core model"
+    },
+    "cs": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "core model"
+    },
+    "java": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "core model"
+    },
+    "rust": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "core model"
+    }
+  }
+}

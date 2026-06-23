@@ -1,0 +1,79 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "structure-of-arrays",
+  "name": "Structure of Arrays (SoA)",
+  "type": "Data-layout technique",
+  "secondary": [
+    "Performance-optimisation technique"
+  ],
+  "domain": "memory",
+  "family": "Data layout",
+  "def": "Storing each field in its own contiguous array instead of an array of whole structs (AoS).",
+  "problem": "Maximise cache utilisation and enable SIMD when code processes one field across many items.",
+  "mechanism": "Transpose AoS {x,y,z}[] into SoA {x[], y[], z[]}; iterating a single field touches only contiguous, vectorisable memory.",
+  "benefits": [
+    "Only-needed fields fill cache lines",
+    "Natural fit for SIMD/auto-vectorisation",
+    "Higher effective bandwidth"
+  ],
+  "limits": [
+    "Per-entity access is scattered across arrays",
+    "Less intuitive; verbose to mutate one entity",
+    "Keeping arrays in sync is error-prone"
+  ],
+  "failures": [
+    "Index desynchronisation across arrays",
+    "Cache thrash when whole-entity access dominates"
+  ],
+  "whenNot": [
+    "Whole-object access patterns dominate (AoS wins)",
+    "Small datasets in cache anyway"
+  ],
+  "myths": [
+    "\"SoA is always faster\" — AoS wins when you touch all fields of one item"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Game engines",
+    "HPC",
+    "ML",
+    "Simulation"
+  ],
+  "complexity": null,
+  "related": [
+    "data-oriented-design",
+    "simd",
+    "cache-blocking",
+    "ecs"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "parallel arrays"
+    },
+    "cpp": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "parallel vectors"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "struct arrays / spans"
+    },
+    "java": {
+      "lvl": "AWKWARD",
+      "id": 1,
+      "note": "object model fights it"
+    },
+    "rust": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "parallel Vecs; soa-derive"
+    }
+  }
+}

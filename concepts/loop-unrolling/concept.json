@@ -1,0 +1,74 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "loop-unrolling",
+  "name": "Loop Unrolling & Fusion",
+  "type": "Performance-optimisation technique",
+  "secondary": [],
+  "domain": "hardware",
+  "family": "Loop optimisation",
+  "def": "Restructuring loops — replicating bodies (unroll) or merging loops (fusion) — to cut overhead and improve reuse.",
+  "problem": "Reduce per-iteration branch/counter overhead and expose ILP/vectorisation; reuse loaded data across fused loops.",
+  "mechanism": "Unrolling processes several elements per iteration (fewer branches, more independent ops); fusion merges loops over the same range so data is touched once.",
+  "benefits": [
+    "Fewer branches; more ILP/vectorisation",
+    "Better cache reuse (fusion)",
+    "Often done by the compiler"
+  ],
+  "limits": [
+    "Code bloat / I-cache pressure (over-unrolling)",
+    "Fusion can increase register pressure",
+    "Compiler may already do it"
+  ],
+  "failures": [
+    "Over-unrolling thrashing the instruction cache",
+    "Manual unrolling defeating the optimiser"
+  ],
+  "whenNot": [
+    "Cold loops; when the compiler already handles it"
+  ],
+  "myths": [
+    "\"Unrolling is always faster\" — past a point it bloats code and hurts"
+  ],
+  "use": "Both",
+  "sectors": [
+    "HPC",
+    "Numerics",
+    "Codecs"
+  ],
+  "complexity": null,
+  "related": [
+    "auto-vectorization",
+    "simd",
+    "cache-blocking"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "#pragma unroll; -funroll"
+    },
+    "cpp": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "compiler + pragmas"
+    },
+    "cs": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "JIT decides"
+    },
+    "java": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "JIT decides"
+    },
+    "rust": {
+      "lvl": "STD",
+      "id": 1,
+      "note": "LLVM unrolls"
+    }
+  }
+}

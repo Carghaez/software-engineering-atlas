@@ -1,0 +1,74 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "lenses-optics",
+  "name": "Lenses & Optics",
+  "type": "Functional abstraction",
+  "secondary": [],
+  "domain": "fp",
+  "family": "Composition",
+  "def": "Composable, first-class accessors for getting/updating parts of immutable nested structures.",
+  "problem": "Update deeply-nested immutable data without verbose manual copying at every level.",
+  "mechanism": "A lens bundles a getter and an immutable \"setter\" (returning a new whole); lenses, prisms and traversals compose to focus arbitrarily deep.",
+  "benefits": [
+    "Concise deep immutable updates",
+    "Composable focus into structures",
+    "Reusable, type-safe accessors"
+  ],
+  "limits": [
+    "Heavy abstraction for simple cases",
+    "Library/HKT dependency",
+    "Performance of repeated copies"
+  ],
+  "failures": [
+    "Over-engineering shallow updates",
+    "Allocation churn on hot paths"
+  ],
+  "whenNot": [
+    "Shallow data; mutable structures"
+  ],
+  "myths": [
+    "\"Optics are only academic\" — practical in Redux/immer-style state and Scala/Haskell"
+  ],
+  "use": "Indirect",
+  "sectors": [
+    "Frontend state",
+    "Functional code",
+    "Config"
+  ],
+  "complexity": null,
+  "related": [
+    "immutability",
+    "persistent-data-structures",
+    "function-composition"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "Medium",
+  "langs": {
+    "c": {
+      "lvl": "UNSUITABLE",
+      "id": 0,
+      "note": "n/a"
+    },
+    "cpp": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "rare"
+    },
+    "cs": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "with-expressions partial"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "functional-java"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "lens crates"
+    }
+  }
+}

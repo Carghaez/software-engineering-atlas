@@ -1,0 +1,75 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "escape-analysis",
+  "name": "Escape Analysis",
+  "type": "Performance-optimisation technique",
+  "secondary": [
+    "Resource-management technique"
+  ],
+  "domain": "memory",
+  "family": "Compiler optimisation",
+  "def": "Compiler/runtime analysis determining whether an object outlives its scope, enabling stack allocation.",
+  "problem": "Avoid heap allocation (and GC pressure) for objects that never escape their creating method.",
+  "mechanism": "If an object provably does not escape (not returned, stored globally, or shared), the compiler can stack-allocate it, scalar-replace its fields, or elide locks.",
+  "benefits": [
+    "Removes heap allocations & GC pressure",
+    "Enables scalar replacement / lock elision",
+    "Zero source changes"
+  ],
+  "limits": [
+    "Conservative — many objects still escape",
+    "Opaque (hard to know if it fired)",
+    "Limited across call boundaries"
+  ],
+  "failures": [
+    "Relying on it for predictable performance",
+    "Patterns that defeat the analysis (escaping refs)"
+  ],
+  "whenNot": [
+    "Cannot be controlled directly; write escape-friendly code"
+  ],
+  "myths": [
+    "\"The JVM stack-allocates objects\" — only via escape analysis, and not guaranteed"
+  ],
+  "use": "Indirect",
+  "sectors": [
+    "Managed runtimes",
+    "Compilers",
+    "Performance code"
+  ],
+  "complexity": null,
+  "related": [
+    "garbage-collection",
+    "stack-vs-heap"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "UNSUITABLE",
+      "id": 0,
+      "note": "manual allocation"
+    },
+    "cpp": {
+      "lvl": "STD",
+      "id": 1,
+      "note": "allocation elision (limited)"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 1,
+      "note": "JIT; Span stackalloc"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "HotSpot escape analysis"
+    },
+    "rust": {
+      "lvl": "STD",
+      "id": 1,
+      "note": "explicit; LLVM helps"
+    }
+  }
+}

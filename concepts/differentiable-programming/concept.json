@@ -1,0 +1,76 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "differentiable-programming",
+  "name": "Differentiable Programming",
+  "type": "Programming paradigm",
+  "secondary": [
+    "Domain-specific engineering technique"
+  ],
+  "domain": "paradigms",
+  "family": "Numerical / ML",
+  "def": "Writes programs whose outputs can be automatically differentiated end-to-end with respect to inputs.",
+  "problem": "Optimise arbitrary numeric programs (not just neural nets) via gradients computed automatically.",
+  "mechanism": "Automatic differentiation (forward/reverse mode) records operations and applies the chain rule to produce exact gradients of whole programs.",
+  "benefits": [
+    "Exact gradients without manual derivation",
+    "Generalises deep learning to any program",
+    "Composable with optimisers"
+  ],
+  "limits": [
+    "Control flow / mutation complicate AD",
+    "Memory cost of reverse-mode tapes",
+    "Numerical pitfalls"
+  ],
+  "failures": [
+    "Non-differentiable ops breaking the graph",
+    "Tape memory blow-up on long programs"
+  ],
+  "whenNot": [
+    "Non-numeric or non-optimisation code"
+  ],
+  "myths": [
+    "\"Differentiable programming = deep learning\" — DL is one application of a broader idea"
+  ],
+  "use": "Indirect",
+  "sectors": [
+    "ML/AI",
+    "Scientific computing",
+    "Robotics",
+    "Graphics"
+  ],
+  "complexity": null,
+  "related": [
+    "gradient-descent",
+    "probabilistic-programming"
+  ],
+  "competing": [],
+  "maturity": "Emerging",
+  "confidence": "Medium",
+  "langs": {
+    "c": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "rare"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "libtorch / Enzyme"
+    },
+    "cs": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "libs"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "DL4J"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "candle / burn"
+    }
+  }
+}

@@ -1,0 +1,103 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "cuckoo-filter",
+  "name": "Cuckoo Filter",
+  "type": "Probabilistic structure",
+  "secondary": [
+    "Data structure"
+  ],
+  "aliases": [
+    "Approximate set membership"
+  ],
+  "x": {
+    "invariant": "each element maps to two candidate buckets; a fingerprint lives in one of them; buckets hold a small number of fingerprint slots.",
+    "operations": [
+      "insert (O(1) amortised, may relocate)",
+      "lookup (O(1), two bucket probes)",
+      "delete (O(1) — unlike a Bloom filter)"
+    ],
+    "memoryOverhead": "A few bits per element above the information-theoretic bound; competitive with Bloom at low false-positive rates and supports deletion.",
+    "locality": "Two bucket probes per query; cache-friendlier than a Bloom filter with many hash probes.",
+    "mutationModel": "Mutable; insertion can fail (cascade of relocations) when load factor is too high → resize/rebuild.",
+    "concurrency": "Not thread-safe by default; relocation makes lock-free variants hard.",
+    "implementations": [
+      "efficient/cuckoofilter (C++)",
+      "various Go/Rust/Java ports"
+    ]
+  },
+  "domain": "structures",
+  "family": "Probabilistic / membership",
+  "def": "A compact approximate-membership structure that, unlike a Bloom filter, supports deletion and gives better locality at low false-positive rates.",
+  "problem": "Test set membership in far less space than the keys, while still being able to remove items.",
+  "mechanism": "Stores a short fingerprint of each key in one of two candidate buckets (cuckoo hashing). On insertion conflict it evicts and relocates existing fingerprints; lookup probes both buckets.",
+  "benefits": [
+    "Supports deletion (Bloom does not)",
+    "Better cache locality (two probes)",
+    "Lower space than Bloom at low FP rates"
+  ],
+  "limits": [
+    "Insertion can fail at high load → must resize",
+    "Fixed fingerprint size bounds capacity",
+    "Duplicate inserts limited by slot count"
+  ],
+  "failures": [
+    "Insertion livelock when overfull (relocation cascade)",
+    "False positives still possible by design"
+  ],
+  "whenNot": [
+    "Deletion never needed and Bloom is simpler",
+    "Exact membership required (use a hash set)"
+  ],
+  "myths": [
+    "\"No false positives\" — it is still probabilistic, just deletable"
+  ],
+  "use": "Indirect",
+  "sectors": [
+    "Databases",
+    "Caches / CDNs",
+    "Networking"
+  ],
+  "complexity": {
+    "Lookup": "O(1)",
+    "Insert": "O(1) amortised",
+    "Delete": "O(1)",
+    "Space": "O(n)"
+  },
+  "related": [
+    "bloom-filter",
+    "hash-table",
+    "count-min-sketch"
+  ],
+  "competing": [
+    "bloom-filter"
+  ],
+  "maturity": "Mature",
+  "confidence": "Medium",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "hand-rolled"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "efficient/cuckoofilter"
+    },
+    "cs": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "ports"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "ports"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "cuckoofilter crate"
+    }
+  }
+}

@@ -1,0 +1,79 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "proxy",
+  "name": "Proxy",
+  "type": "Design pattern",
+  "secondary": [
+    "Distributed-systems pattern"
+  ],
+  "domain": "architecture",
+  "family": "GoF · Structural",
+  "def": "A stand-in that controls access to another object, adding behaviour around it transparently.",
+  "problem": "Intercept access for lazy loading, caching, access control, or remote calls without changing the client.",
+  "mechanism": "The proxy implements the same interface as the real subject and forwards calls, adding logic (virtual, protection, remote, caching proxies).",
+  "benefits": [
+    "Transparent cross-cutting control",
+    "Lazy / remote / cached access",
+    "Access control"
+  ],
+  "limits": [
+    "Hidden latency/behaviour",
+    "Indirection complexity",
+    "Consistency with the real subject"
+  ],
+  "failures": [
+    "Surprising performance from hidden remote/lazy proxies",
+    "Proxy diverging from subject contract"
+  ],
+  "whenNot": [
+    "When direct access has no cross-cutting concern"
+  ],
+  "myths": [
+    "\"Proxy and Decorator are interchangeable\" — proxy controls access; decorator adds behaviour"
+  ],
+  "use": "Both",
+  "sectors": [
+    "ORMs (lazy load)",
+    "RPC stubs",
+    "Caching",
+    "Security"
+  ],
+  "complexity": null,
+  "related": [
+    "decorator",
+    "circuit-breaker",
+    "aspect-oriented"
+  ],
+  "competing": [
+    "decorator"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "wrapper"
+    },
+    "cpp": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "wrapper class"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "DispatchProxy / Castle"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "dynamic proxies"
+    },
+    "rust": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "wrapping type / Deref"
+    }
+  }
+}

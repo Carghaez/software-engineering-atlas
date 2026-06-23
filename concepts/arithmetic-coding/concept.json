@@ -1,0 +1,99 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "arithmetic-coding",
+  "name": "Arithmetic Coding",
+  "type": "Algorithm",
+  "secondary": [],
+  "aliases": [
+    "Range coding (variant)"
+  ],
+  "x": {
+    "io": "A symbol stream + a probability model → a single fractional number (bitstream) approaching the entropy bound.",
+    "preconditions": [
+      "A probability model of the source (static or adaptive)",
+      "Encoder and decoder share the identical model"
+    ],
+    "correctness": [
+      "Decoder reconstructs symbols exactly given the same model",
+      "Approaches Shannon entropy as message length grows"
+    ],
+    "stability": "Deterministic given the model; bit-exact decode required.",
+    "parallelisable": "Inherently serial within a stream; parallelism via independent blocks.",
+    "dataStructures": [
+      "cumulative frequency table",
+      "adaptive model / context tree"
+    ]
+  },
+  "domain": "algos",
+  "family": "Compression / entropy coding",
+  "def": "An entropy-coding method that encodes an entire message as a single fractional number in [0,1), achieving compression closer to the entropy limit than Huffman coding.",
+  "problem": "Squeeze a source toward its theoretical entropy bound, including symbols whose ideal code length is fractional bits.",
+  "mechanism": "Repeatedly subdivides the current interval in proportion to each symbol’s probability; the final interval identifies the message. Adaptive models update probabilities as symbols are seen. Range coding is an integer-arithmetic variant.",
+  "benefits": [
+    "Near-optimal: handles fractional bits per symbol",
+    "Beats Huffman on skewed / adaptive sources",
+    "Clean separation of model and coder"
+  ],
+  "limits": [
+    "Slower and more complex than Huffman",
+    "Historically patent-encumbered (now expired)",
+    "Requires exact-precision arithmetic to avoid drift"
+  ],
+  "failures": [
+    "Model mismatch between encoder/decoder → corruption",
+    "Precision / renormalisation bugs desynchronise the stream"
+  ],
+  "whenNot": [
+    "Throughput-critical paths where Huffman/ANS is fast enough",
+    "No good probability model available"
+  ],
+  "myths": [
+    "\"Huffman is optimal\" — it is optimal only for integer bit lengths; arithmetic coding does better"
+  ],
+  "use": "Indirect",
+  "sectors": [
+    "Image / video codecs",
+    "Archive formats",
+    "Modern compressors"
+  ],
+  "complexity": {
+    "Time": "O(n) symbols",
+    "Ratio": "≈ entropy bound"
+  },
+  "related": [
+    "huffman-coding",
+    "lz77"
+  ],
+  "competing": [
+    "huffman-coding"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "codec internals"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "codec libs"
+    },
+    "cs": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "manual"
+    },
+    "java": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "manual"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "crates"
+    }
+  }
+}

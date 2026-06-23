@@ -1,0 +1,74 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "chain-of-responsibility",
+  "name": "Chain of Responsibility",
+  "type": "Design pattern",
+  "secondary": [],
+  "domain": "architecture",
+  "family": "GoF · Behavioural",
+  "def": "Passes a request along a chain of handlers until one handles it.",
+  "problem": "Decouple sender from receiver when any of several handlers might process a request.",
+  "mechanism": "Each handler either processes the request or forwards it to the next; the chain is configured at runtime (the basis of middleware pipelines).",
+  "benefits": [
+    "Decouples sender from handler",
+    "Runtime-configurable pipeline",
+    "Single-responsibility handlers"
+  ],
+  "limits": [
+    "Request may go unhandled",
+    "Hard to trace which handler acted",
+    "Order dependence"
+  ],
+  "failures": [
+    "Dropped requests with no terminal handler",
+    "Performance from long chains"
+  ],
+  "whenNot": [
+    "Exactly one known handler"
+  ],
+  "myths": [
+    "\"Niche pattern\" — it is exactly how HTTP middleware / filters work"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Web middleware",
+    "Event handling",
+    "Logging pipelines"
+  ],
+  "complexity": null,
+  "related": [
+    "decorator",
+    "command",
+    "event-driven"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "handler list"
+    },
+    "cpp": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "handler chain"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "middleware pipeline"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "servlet filters"
+    },
+    "rust": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "tower layers / middleware"
+    }
+  }
+}

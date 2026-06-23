@@ -1,0 +1,77 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "fenwick-tree",
+  "name": "Fenwick Tree (BIT)",
+  "type": "Data structure",
+  "secondary": [],
+  "domain": "structures",
+  "family": "Tree / prefix-sum",
+  "def": "A compact array structure giving O(log n) prefix-sum queries and point updates.",
+  "problem": "Maintain running aggregates (sums, counts) over a mutable array with both fast update and query.",
+  "mechanism": "Each index stores a partial sum over a range determined by its lowest set bit; queries and updates walk by adding/subtracting that bit.",
+  "benefits": [
+    "O(log n) update and prefix query",
+    "Just an array — tiny, cache-friendly",
+    "Simple, short implementation"
+  ],
+  "limits": [
+    "Only invertible aggregates (sum, xor) easily",
+    "Range-update needs a second tree or trick",
+    "Less general than a segment tree"
+  ],
+  "failures": [
+    "Off-by-one (1-indexed convention)",
+    "Using it for non-invertible ops like max"
+  ],
+  "whenNot": [
+    "Non-invertible range queries (use a segment tree)"
+  ],
+  "myths": [
+    "\"Same as a segment tree\" — Fenwick is smaller/faster but less general"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Competitive programming",
+    "Analytics",
+    "Inversion counting"
+  ],
+  "complexity": {
+    "Update/query": "O(log n)",
+    "Space": "O(n)"
+  },
+  "related": [
+    "segment-tree"
+  ],
+  "competing": [
+    "segment-tree"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "array + bit tricks"
+    },
+    "cpp": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "array"
+    },
+    "cs": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "array"
+    },
+    "java": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "array"
+    },
+    "rust": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "Vec"
+    }
+  }
+}

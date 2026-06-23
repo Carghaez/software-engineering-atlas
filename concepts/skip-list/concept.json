@@ -1,0 +1,83 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "skip-list",
+  "name": "Skip List",
+  "type": "Data structure",
+  "secondary": [
+    "Probabilistic structure",
+    "Concurrent data structure"
+  ],
+  "domain": "structures",
+  "family": "Probabilistic ordered",
+  "def": "A layered linked list giving expected O(log n) ordered search via randomised express lanes.",
+  "problem": "An ordered map with logarithmic operations that is far simpler to make lock-free than a balanced tree.",
+  "mechanism": "Each node is promoted to higher levels with probability p; searches descend express lanes then drop down, halving the span at each level on average.",
+  "benefits": [
+    "Expected O(log n) without rotations",
+    "Far simpler concurrent/lock-free implementation than trees",
+    "Easy range queries"
+  ],
+  "limits": [
+    "Probabilistic — rare bad layouts degrade performance",
+    "Pointer-heavy, poor cache locality",
+    "Higher memory overhead"
+  ],
+  "failures": [
+    "Weak RNG → degenerate level distribution",
+    "Worst case O(n) (unbounded but unlikely)"
+  ],
+  "whenNot": [
+    "Tight cache/memory budgets",
+    "Deterministic worst-case guarantees required"
+  ],
+  "myths": [
+    "\"Guaranteed O(log n)\" — it is expected, not guaranteed"
+  ],
+  "use": "Indirect",
+  "sectors": [
+    "Databases (Redis, RocksDB memtable)",
+    "Concurrent maps"
+  ],
+  "complexity": {
+    "Search": "O(log n) exp",
+    "Insert": "O(log n) exp",
+    "Space": "O(n)"
+  },
+  "related": [
+    "red-black-tree",
+    "lock-free"
+  ],
+  "competing": [
+    "red-black-tree",
+    "b-tree"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "Redis zset"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "folly ConcurrentSkipList"
+    },
+    "cs": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "custom"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "ConcurrentSkipListMap"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "crossbeam-skiplist"
+    }
+  }
+}

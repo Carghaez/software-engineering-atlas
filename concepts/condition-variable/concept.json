@@ -1,0 +1,73 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "condition-variable",
+  "name": "Condition Variable / Monitor",
+  "type": "Synchronisation mechanism",
+  "secondary": [],
+  "domain": "concurrency",
+  "family": "Lock-based",
+  "def": "A primitive letting threads wait for a condition and be notified when it may have changed.",
+  "problem": "Block efficiently until some shared state predicate becomes true, without busy-waiting.",
+  "mechanism": "Under a held lock, wait atomically releases it and sleeps; notify/notifyAll wakes waiters, which re-check the predicate in a loop (guard against spurious wakeups).",
+  "benefits": [
+    "Efficient blocking (no spin)",
+    "Clean producer/consumer signalling",
+    "Pairs with a mutex (monitor)"
+  ],
+  "limits": [
+    "Spurious wakeups require predicate loops",
+    "Lost-wakeup bugs if signalled outside lock",
+    "Thundering herd on notifyAll"
+  ],
+  "failures": [
+    "Using if instead of while around wait",
+    "Missed notification (signal before wait)"
+  ],
+  "whenNot": [
+    "Simple counting (semaphore) or one-shot (latch)"
+  ],
+  "myths": [
+    "\"wait returns only when notified\" — spurious wakeups happen; always re-check the predicate"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Producer/consumer",
+    "Schedulers",
+    "Runtimes"
+  ],
+  "complexity": null,
+  "related": [
+    "mutex",
+    "semaphore"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "pthread_cond"
+    },
+    "cpp": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "std::condition_variable"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "Monitor.Wait/Pulse"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "wait/notify; Condition"
+    },
+    "rust": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "Condvar"
+    }
+  }
+}

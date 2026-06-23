@@ -1,0 +1,77 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "greedy",
+  "name": "Greedy Algorithm",
+  "type": "Algorithmic paradigm",
+  "secondary": [],
+  "domain": "algos",
+  "family": "Optimisation paradigm",
+  "def": "Builds a solution by repeatedly taking the locally optimal choice.",
+  "problem": "Reach a global optimum cheaply when local optimal choices provably compose to it.",
+  "mechanism": "At each step pick the best immediate option per a selection rule; correctness requires the greedy-choice property and optimal substructure (often proven via matroids/exchange arguments).",
+  "benefits": [
+    "Very fast, often O(n log n)",
+    "Simple to implement",
+    "Optimal for matroid-structured problems"
+  ],
+  "limits": [
+    "Only correct when the greedy property holds",
+    "Easy to apply incorrectly and get suboptimal results"
+  ],
+  "failures": [
+    "Confidently wrong answers when greedy property fails",
+    "No backtracking to recover from a bad early choice"
+  ],
+  "whenNot": [
+    "Problems needing global search (use DP/branch & bound)",
+    "When the greedy property is unproven"
+  ],
+  "myths": [
+    "\"Greedy is just a heuristic\" — for matroids it is provably optimal"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Scheduling",
+    "Compression (Huffman)",
+    "Networking"
+  ],
+  "complexity": {
+    "Note": "Often O(n log n) (sort + scan)"
+  },
+  "related": [
+    "dynamic-programming",
+    "dijkstra"
+  ],
+  "competing": [
+    "dynamic-programming"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "NATIVE",
+      "id": 2,
+      "note": "sort + scan"
+    },
+    "cpp": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "std algos"
+    },
+    "cs": {
+      "lvl": "NATIVE",
+      "id": 2,
+      "note": "LINQ + sort"
+    },
+    "java": {
+      "lvl": "NATIVE",
+      "id": 2,
+      "note": "sort + iterate"
+    },
+    "rust": {
+      "lvl": "NATIVE",
+      "id": 2,
+      "note": "sort + iterators"
+    }
+  }
+}

@@ -1,0 +1,76 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "stack-vs-heap",
+  "name": "Stack vs Heap Allocation",
+  "type": "Resource-management technique",
+  "secondary": [
+    "Performance-optimisation technique"
+  ],
+  "domain": "memory",
+  "family": "Allocation",
+  "def": "Stack allocation is automatic, LIFO and ultra-fast; heap allocation is dynamic, flexible and slower.",
+  "problem": "Choose where data lives based on lifetime, size and performance needs.",
+  "mechanism": "The stack grows/shrinks with call frames (pointer bump, freed on return); the heap is managed by an allocator for objects outliving a frame or sized at runtime.",
+  "benefits": [
+    "Stack: near-free alloc/free, great locality",
+    "Heap: dynamic size & lifetime",
+    "Clear trade-off model"
+  ],
+  "limits": [
+    "Stack: limited size, frame-scoped lifetime",
+    "Heap: alloc cost, fragmentation, management",
+    "Stack overflow on deep/large frames"
+  ],
+  "failures": [
+    "Large arrays on the stack → overflow",
+    "Returning pointers to stack locals (dangling)"
+  ],
+  "whenNot": [
+    "Stack for objects outliving the call; heap for tiny short-lived values"
+  ],
+  "myths": [
+    "\"Heap is always slow\" — pooled/arena heap allocation can rival the stack"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Systems",
+    "Embedded",
+    "Performance code"
+  ],
+  "complexity": null,
+  "related": [
+    "arena-allocation",
+    "raii",
+    "escape-analysis"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "explicit stack/heap"
+    },
+    "cpp": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "explicit; RAII"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "struct=stack, class=heap; stackalloc"
+    },
+    "java": {
+      "lvl": "AWKWARD",
+      "id": 1,
+      "note": "objects on heap; escape analysis"
+    },
+    "rust": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "explicit; Box for heap"
+    }
+  }
+}

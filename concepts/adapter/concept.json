@@ -1,0 +1,76 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "adapter",
+  "name": "Adapter",
+  "type": "Design pattern",
+  "secondary": [],
+  "domain": "architecture",
+  "family": "GoF · Structural",
+  "def": "Wraps an interface to make an incompatible class usable where another interface is expected.",
+  "problem": "Integrate existing/third-party classes whose interface does not match what a client needs.",
+  "mechanism": "An adapter implements the target interface and translates its calls to the adaptee’s API.",
+  "benefits": [
+    "Reuse incompatible code",
+    "Isolate third-party APIs",
+    "No change to the adaptee"
+  ],
+  "limits": [
+    "Extra indirection layer",
+    "Leaky adaptation can mislead",
+    "Adapter sprawl"
+  ],
+  "failures": [
+    "Adapters that leak the adaptee’s semantics",
+    "Stacking adapters on adapters"
+  ],
+  "whenNot": [
+    "When you control and can change the interface directly"
+  ],
+  "myths": [
+    "\"Adapter and Facade are the same\" — adapter converts one interface; facade simplifies many"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Integration",
+    "Frameworks",
+    "Ports & adapters"
+  ],
+  "complexity": null,
+  "related": [
+    "facade",
+    "hexagonal-architecture",
+    "decorator"
+  ],
+  "competing": [
+    "facade"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "wrapper fns"
+    },
+    "cpp": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "wrapper class"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "wrapper class"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "common"
+    },
+    "rust": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "newtype + trait impl"
+    }
+  }
+}

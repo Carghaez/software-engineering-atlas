@@ -1,0 +1,91 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "spinlock",
+  "name": "Spinlock",
+  "type": "Synchronisation mechanism",
+  "secondary": [],
+  "aliases": [
+    "Busy-wait lock"
+  ],
+  "x": {
+    "coordination": "Mutual exclusion by busy-waiting: a thread repeatedly tests an atomic flag (with CAS / test-and-set) until it acquires the lock, never sleeping.",
+    "hazards": [
+      "Wasted cycles while spinning (no useful work)",
+      "Disastrous if the holder is preempted (priority inversion / convoy)",
+      "Cache-line contention / coherence traffic under load",
+      "Must not be held across blocking or long sections"
+    ]
+  },
+  "domain": "concurrency",
+  "family": "Mutual exclusion",
+  "def": "A lock that acquires by busy-waiting on an atomic flag rather than sleeping, trading CPU cycles for ultra-low latency on very short critical sections.",
+  "problem": "For tiny critical sections, the cost of parking/waking a thread (a sleeping mutex) exceeds the wait itself.",
+  "mechanism": "Acquirers loop on an atomic test-and-set / CAS until the flag is free. Good implementations spin on a local cached read (test-and-test-and-set), add backoff, and may fall back to sleeping under contention.",
+  "benefits": [
+    "Minimal latency for short, uncontended sections",
+    "No syscall / context-switch on the fast path",
+    "Useful in interrupt / kernel contexts where sleeping is forbidden"
+  ],
+  "limits": [
+    "Burns CPU while waiting",
+    "Pathological if the holder is descheduled",
+    "Poor under high contention"
+  ],
+  "failures": [
+    "Holding a spinlock across I/O or a long computation",
+    "Priority inversion when a low-priority holder is preempted",
+    "Convoy / lock-step thrashing on contended cache lines"
+  ],
+  "whenNot": [
+    "Long or blocking critical sections (use a mutex)",
+    "User space with unpredictable scheduling and high contention"
+  ],
+  "myths": [
+    "\"Spinlocks are faster than mutexes\" — only for very short, low-contention sections"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Kernels / drivers",
+    "Lock-free building blocks",
+    "Low-latency systems"
+  ],
+  "related": [
+    "mutex",
+    "atomics-cas",
+    "memory-ordering",
+    "lock-free",
+    "false-sharing"
+  ],
+  "competing": [
+    "mutex"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "atomic_flag spin"
+    },
+    "cpp": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "atomic_flag / atomic spin"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "SpinLock"
+    },
+    "java": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "Atomic spin (rare)"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "spin crate; std parks"
+    }
+  }
+}

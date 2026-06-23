@@ -1,0 +1,12 @@
+{
+  "name": "software-engineering-atlas",
+  "version": "1.0.0",
+  "description": "Static site generator for the Software Engineering Techniques Atlas",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "assemble": "node assemble.mjs",
+    "build": "node assemble.mjs && node build.mjs",
+    "test": "node --test"
+  }
+}

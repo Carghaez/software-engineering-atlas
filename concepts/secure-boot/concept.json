@@ -1,0 +1,80 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "secure-boot",
+  "name": "Secure Boot",
+  "type": "Security practice",
+  "secondary": [],
+  "aliases": [
+    "Verified boot",
+    "Measured boot (related)"
+  ],
+  "domain": "security",
+  "family": "Platform integrity",
+  "def": "A boot process that cryptographically verifies each stage before executing it, establishing a chain of trust from immutable hardware up to the OS.",
+  "problem": "Malware that subverts firmware/bootloader (bootkits, rootkits) loads before the OS and any defences, making it nearly invisible.",
+  "mechanism": "A hardware root of trust verifies the firmware’s signature, which verifies the bootloader, which verifies the kernel — each link checked before control passes. Measured boot additionally records hashes in a TPM for later attestation.",
+  "benefits": [
+    "Blocks unsigned / tampered boot code",
+    "Roots trust in immutable hardware",
+    "Enables remote attestation of platform state"
+  ],
+  "limits": [
+    "Key management / revocation complexity",
+    "Can hinder legitimate custom OS / dual-boot",
+    "Trust depends on the vendor key hierarchy"
+  ],
+  "failures": [
+    "Leaked / mis-scoped signing keys undermining the chain",
+    "Misconfiguration locking out legitimate software",
+    "Trusting firmware that itself is vulnerable"
+  ],
+  "whenNot": [
+    "Threat model excludes physical / boot-level attackers and the friction is unjustified"
+  ],
+  "myths": [
+    "\"Secure boot stops all malware\" — it protects the boot chain, not runtime exploitation"
+  ],
+  "use": "Indirect",
+  "sectors": [
+    "OS / platforms",
+    "Embedded / IoT",
+    "Mobile / consoles",
+    "Datacentre"
+  ],
+  "related": [
+    "code-signing",
+    "tamper-detection",
+    "supply-chain-security",
+    "defense-in-depth"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "firmware / UEFI"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "firmware"
+    },
+    "cs": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "consumes, not implements"
+    },
+    "java": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "consumes"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "firmware / bootloaders"
+    }
+  }
+}

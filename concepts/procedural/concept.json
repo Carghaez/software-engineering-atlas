@@ -1,0 +1,81 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "procedural",
+  "name": "Procedural Programming",
+  "type": "Programming paradigm",
+  "secondary": [
+    "Imperative programming",
+    "Structured programming"
+  ],
+  "domain": "paradigms",
+  "family": "Imperative",
+  "def": "Structures code as procedures/functions operating on shared data with explicit control flow.",
+  "problem": "Decompose a task into a sequence of reusable routines acting on passed-in or global data.",
+  "mechanism": "Functions, loops, conditionals and explicit state mutation; data and behaviour are typically separate.",
+  "benefits": [
+    "Direct mapping to the machine model — predictable performance",
+    "Simple, low conceptual overhead",
+    "Easy to profile and reason about cost"
+  ],
+  "limits": [
+    "Global/shared mutable state scales poorly",
+    "Weak encapsulation of invariants",
+    "Cross-cutting concerns are awkward"
+  ],
+  "failures": [
+    "Spaghetti control flow as size grows",
+    "Hidden coupling through shared globals"
+  ],
+  "whenNot": [
+    "Large domains needing strong encapsulation",
+    "Highly concurrent shared-state systems"
+  ],
+  "myths": [
+    "\"Outdated\" — still dominant in systems, embedded and kernels"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Systems",
+    "Embedded",
+    "Kernels",
+    "Performance code"
+  ],
+  "complexity": null,
+  "related": [
+    "oop",
+    "structure-of-arrays"
+  ],
+  "competing": [
+    "oop",
+    "functional-programming"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "the C model"
+    },
+    "cpp": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "free functions"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "static methods"
+    },
+    "java": {
+      "lvl": "AWKWARD",
+      "id": 1,
+      "note": "static-only classes"
+    },
+    "rust": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "free functions + modules"
+    }
+  }
+}

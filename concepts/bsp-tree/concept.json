@@ -1,0 +1,85 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "bsp-tree",
+  "name": "BSP Tree (Binary Space Partitioning)",
+  "type": "Data structure",
+  "secondary": [
+    "Spatial structure"
+  ],
+  "domain": "structures",
+  "family": "Spatial",
+  "def": "A binary tree that recursively splits space by arbitrary (often non-axis-aligned) hyperplanes, ordering geometry for visibility and spatial queries.",
+  "problem": "Partition and order polygons in a scene — classically exact back-to-front visibility without a depth buffer.",
+  "mechanism": "Each node holds a splitting plane; geometry is partitioned into front/back half-spaces (splitting any polygon that straddles the plane), recursively, until leaves hold convex regions. Traversing relative to the viewpoint yields a strict back-to-front (or front-to-back) order.",
+  "benefits": [
+    "Exact, view-independent visibility ordering from a precomputed tree",
+    "Handles arbitrary, non-axis-aligned geometry",
+    "Fast point-location and inside/outside tests; underpins CSG"
+  ],
+  "limits": [
+    "Expensive to build; splitting straddling polygons inflates their count",
+    "Static — rebuilding for dynamic geometry is costly",
+    "Plane-selection heuristic dominates quality (balance vs splits)"
+  ],
+  "failures": [
+    "Poor split choices bloating the tree with fragments",
+    "Numerical robustness when classifying coplanar geometry"
+  ],
+  "whenNot": [
+    "Highly dynamic scenes (use a BVH or spatial hash)",
+    "Axis-aligned point queries where a k-d tree or grid is simpler"
+  ],
+  "myths": [
+    "\"BSP trees died with Doom/Quake\" — they live on in collision, CSG and visibility (PVS) preprocessing"
+  ],
+  "use": "Indirect",
+  "sectors": [
+    "Game engines (Doom/Quake lineage)",
+    "CAD / CSG",
+    "Collision detection",
+    "Rendering preprocessing"
+  ],
+  "complexity": {
+    "Build": "O(n log n)–O(n²)",
+    "Point-location": "O(log n)",
+    "Traversal": "O(n)",
+    "Space": "O(n) (more with splits)"
+  },
+  "related": [
+    "kd-tree",
+    "r-tree",
+    "quadtree-octree"
+  ],
+  "competing": [
+    "kd-tree"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "manual; engine code"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "engine / CGAL; CSG libs"
+    },
+    "cs": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "manual / engine"
+    },
+    "java": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "manual"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "csg / engine crates"
+    }
+  }
+}

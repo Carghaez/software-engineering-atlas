@@ -1,0 +1,77 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "clean-architecture",
+  "name": "Clean / Onion Architecture",
+  "type": "Architectural pattern",
+  "secondary": [
+    "Design principle"
+  ],
+  "domain": "architecture",
+  "family": "Layering",
+  "def": "Concentric layers with dependencies pointing inward toward framework-independent domain entities.",
+  "problem": "Protect core business rules from frameworks, UI and databases so they can evolve independently.",
+  "mechanism": "Entities and use-cases at the centre; outer rings (adapters, frameworks) depend inward via interfaces (dependency rule). I/O is pushed to the edges.",
+  "benefits": [
+    "Framework/DB independence of core",
+    "Highly testable domain",
+    "Long-lived, adaptable systems"
+  ],
+  "limits": [
+    "Significant boilerplate/mapping",
+    "Overkill for simple apps",
+    "Learning curve"
+  ],
+  "failures": [
+    "Mapping fatigue across rings",
+    "Domain leaking framework types"
+  ],
+  "whenNot": [
+    "CRUD apps, prototypes, short-lived tools"
+  ],
+  "myths": [
+    "\"Clean Architecture is always better\" — its ceremony rarely pays off for simple systems"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Enterprise",
+    "Long-lived backends"
+  ],
+  "complexity": null,
+  "related": [
+    "hexagonal-architecture",
+    "layered-architecture",
+    "dependency-inversion"
+  ],
+  "competing": [
+    "layered-architecture"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "rare"
+    },
+    "cpp": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "rare"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "very common"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "common"
+    },
+    "rust": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "traits as boundaries"
+    }
+  }
+}

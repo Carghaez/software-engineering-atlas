@@ -1,0 +1,81 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "privacy-by-design",
+  "name": "Privacy by Design",
+  "type": "Security practice",
+  "secondary": [],
+  "aliases": [
+    "PbD",
+    "Data protection by design"
+  ],
+  "domain": "security",
+  "family": "Secure design",
+  "def": "Embedding privacy protections into systems from the outset — data minimisation, purpose limitation, and user control — rather than bolting them on afterward.",
+  "problem": "Privacy added late is superficial; systems that collect and retain data by default create breach risk and regulatory exposure (GDPR/CCPA).",
+  "mechanism": "Collect only what is needed (minimisation), use it only for declared purposes, default to the most private settings, anonymise / pseudonymise where possible, set retention limits with deletion, and make privacy a first-class requirement and default in the design.",
+  "benefits": [
+    "Reduces breach impact and regulatory risk",
+    "Builds user trust",
+    "Cheaper than retrofitting privacy controls"
+  ],
+  "limits": [
+    "Tension with analytics / data-hungry features",
+    "Anonymisation is hard (re-identification risk)",
+    "Cross-team / legal coordination needed"
+  ],
+  "failures": [
+    "\"Anonymised\" data that is re-identifiable",
+    "Consent theatre with privacy-hostile defaults",
+    "Indefinite retention of unneeded data"
+  ],
+  "whenNot": [
+    "Systems handling no personal data (still good hygiene)"
+  ],
+  "myths": [
+    "\"Privacy and functionality are zero-sum\" — minimisation often improves both security and clarity"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Consumer / SaaS",
+    "Healthcare / finance",
+    "AdTech",
+    "Any PII-handling system"
+  ],
+  "related": [
+    "least-privilege",
+    "secret-management",
+    "threat-modeling",
+    "secure-by-design",
+    "audit-logging"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "discipline"
+    },
+    "cpp": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "discipline"
+    },
+    "cs": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "discipline + libs"
+    },
+    "java": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "discipline + libs"
+    },
+    "rust": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "discipline + types"
+    }
+  }
+}

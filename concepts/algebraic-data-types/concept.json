@@ -1,0 +1,77 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "algebraic-data-types",
+  "name": "Algebraic Data Types",
+  "type": "Type-system technique",
+  "secondary": [
+    "Functional abstraction"
+  ],
+  "domain": "fp",
+  "family": "Type modelling",
+  "def": "Composite types built from sums (variants/OR) and products (tuples/structs/AND).",
+  "problem": "Model data so that only valid states are representable, with compiler-checked case handling.",
+  "mechanism": "Sum types (tagged unions) enumerate alternatives; product types combine fields; pattern matching deconstructs them exhaustively.",
+  "benefits": [
+    "Make illegal states unrepresentable",
+    "Exhaustive matching catches missing cases",
+    "Clear, self-documenting domain models"
+  ],
+  "limits": [
+    "Adding a variant ripples through matches (often a feature)",
+    "Awkward to encode in C/older Java"
+  ],
+  "failures": [
+    "Boolean/flag soup instead of proper sums",
+    "Catch-all matches hiding new variants"
+  ],
+  "whenNot": [
+    "Open extensibility of variants needed (consider OOP/visitors)"
+  ],
+  "myths": [
+    "\"ADT = abstract data type\" — here it means algebraic data type"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Compilers",
+    "Protocols",
+    "Domain modelling"
+  ],
+  "complexity": null,
+  "related": [
+    "pattern-matching",
+    "option-maybe",
+    "result-either"
+  ],
+  "competing": [
+    "oop"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "tagged union (enum+union)"
+    },
+    "cpp": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "std::variant"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "records + sealed hierarchies"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "sealed + records"
+    },
+    "rust": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "enum with data"
+    }
+  }
+}

@@ -1,0 +1,106 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "hamt",
+  "name": "Hash Array Mapped Trie (HAMT)",
+  "type": "Data structure",
+  "secondary": [
+    "Persistent structure",
+    "Abstract data type"
+  ],
+  "aliases": [
+    "Ideal hash tree"
+  ],
+  "x": {
+    "invariant": "a trie keyed on slices of the hash; each node holds a bitmap + a packed array of only the populated children.",
+    "operations": [
+      "lookup (O(log32 n) ≈ O(1))",
+      "insert / update (path-copy, O(log32 n))",
+      "delete (O(log32 n))"
+    ],
+    "memoryOverhead": "Bitmap + compact child array per node; structural sharing keeps update cost to one root-to-leaf path.",
+    "locality": "Shallow (radix 32) so few indirections, but pointer-chasing between nodes.",
+    "mutationModel": "Persistent / immutable: updates return a new root sharing all untouched subtrees; the old version stays valid.",
+    "concurrency": "Immutable versions are trivially safe to share across threads; transient (mutable) builders speed up bulk loads.",
+    "implementations": [
+      "Clojure / Scala persistent maps",
+      "Rust im / rpds",
+      "Java/Scala vavr"
+    ]
+  },
+  "domain": "structures",
+  "family": "Associative / persistent",
+  "def": "A persistent map/set implemented as a wide trie over key hashes, giving near-O(1) lookups with cheap immutable updates via structural sharing.",
+  "problem": "An immutable map that can be \"updated\" cheaply without copying the whole structure.",
+  "mechanism": "Consumes the key hash 5 bits at a time to index a 32-way node; a per-node bitmap stores only populated slots compactly. Updates copy only the path from root to the changed leaf.",
+  "benefits": [
+    "Persistent: O(1)-ish copy with structural sharing",
+    "Near-constant lookup (shallow, radix 32)",
+    "Backs efficient immutable collections"
+  ],
+  "limits": [
+    "Higher constants than a mutable hash table",
+    "Pointer-chasing hurts cache locality",
+    "Hash collisions need collision nodes"
+  ],
+  "failures": [
+    "Poor hash distribution deepens collision chains",
+    "Allocation churn under update-heavy loops"
+  ],
+  "whenNot": [
+    "Single-threaded mutable workload where a plain hash table wins",
+    "Memory-tight hot paths"
+  ],
+  "myths": [
+    "\"Immutable means slow\" — sharing makes updates cheap, not full copies"
+  ],
+  "use": "Indirect",
+  "sectors": [
+    "Functional languages / runtimes",
+    "Compilers",
+    "Concurrent caches"
+  ],
+  "complexity": {
+    "Lookup": "O(log₃₂ n)",
+    "Insert": "O(log₃₂ n)",
+    "Space": "O(n)"
+  },
+  "related": [
+    "persistent-data-structures",
+    "hash-table",
+    "immutability",
+    "rrb-tree"
+  ],
+  "competing": [
+    "hash-table",
+    "red-black-tree"
+  ],
+  "maturity": "Mature",
+  "confidence": "Medium",
+  "langs": {
+    "c": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "rare"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "immer"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "System.Collections.Immutable"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "vavr / clojure"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "im / rpds"
+    }
+  }
+}

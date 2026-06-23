@@ -1,0 +1,74 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "mutex",
+  "name": "Mutex / Locks",
+  "type": "Synchronisation mechanism",
+  "secondary": [],
+  "domain": "concurrency",
+  "family": "Lock-based",
+  "def": "A primitive ensuring mutually-exclusive access to shared data by one thread at a time.",
+  "problem": "Prevent data races on shared mutable state by serialising access to a critical section.",
+  "mechanism": "Acquiring blocks until the lock is free; the holder runs the critical section and releases. Variants: recursive, timed, read-write, spin.",
+  "benefits": [
+    "Simple, well-understood model",
+    "Correct when consistently applied",
+    "Composable with condition variables"
+  ],
+  "limits": [
+    "Deadlock, contention, priority inversion",
+    "Serialises → limits scalability",
+    "Forgotten unlock / wrong lock ordering"
+  ],
+  "failures": [
+    "Deadlock from inconsistent lock ordering",
+    "Holding locks across blocking calls"
+  ],
+  "whenNot": [
+    "Ultra-low-latency or signal contexts (consider lock-free)",
+    "Read-mostly data (consider RCU/RW-lock)"
+  ],
+  "myths": [
+    "\"Locks are slow\" — uncontended locks are cheap; contention is the cost"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "All concurrent software"
+  ],
+  "complexity": null,
+  "related": [
+    "lock-free",
+    "threads"
+  ],
+  "competing": [
+    "lock-free"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "pthread_mutex"
+    },
+    "cpp": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "std::mutex + lock_guard"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "lock / Monitor"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "synchronized, ReentrantLock"
+    },
+    "rust": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "Mutex<T> guards data"
+    }
+  }
+}

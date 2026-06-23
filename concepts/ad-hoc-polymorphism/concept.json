@@ -1,0 +1,88 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "ad-hoc-polymorphism",
+  "name": "Ad-hoc Polymorphism",
+  "type": "Type-system technique",
+  "secondary": [],
+  "aliases": [
+    "Overloading",
+    "Typeclass-style dispatch"
+  ],
+  "x": {
+    "laws": [
+      "One name, several type-specific implementations selected by argument type(s)",
+      "Resolution may be static (overload, traits) or dynamic",
+      "Distinct from parametric polymorphism (one impl for all types)"
+    ],
+    "encoding": "Function/operator overloading (C++, C#, Java), trait/typeclass instances (Rust traits, Haskell classes). C lacks overloading (use _Generic or distinct names)."
+  },
+  "domain": "types",
+  "family": "Reuse & dispatch",
+  "def": "Polymorphism where a single name has multiple type-specific implementations chosen by the operand types — overloading and typeclass/trait dispatch.",
+  "problem": "Use one intuitive name (+, print, to_string) across unrelated types without a single uniform implementation.",
+  "mechanism": "The compiler (or instance resolution) selects the implementation matching the argument types. Overloading resolves syntactically; typeclasses/traits resolve by satisfying an interface for the type. Contrast parametric polymorphism, which has one body for all types.",
+  "benefits": [
+    "Natural, reusable names across types",
+    "Extensible via new instances/overloads",
+    "Static dispatch → zero-cost in many languages"
+  ],
+  "limits": [
+    "Overload resolution can be surprising",
+    "Ambiguity / coherence issues",
+    "Implicit selection hurts readability when abused"
+  ],
+  "failures": [
+    "Overload sets that pick an unexpected candidate",
+    "Conflicting / orphan typeclass instances"
+  ],
+  "whenNot": [
+    "Behaviour should be uniform across types (use generics)",
+    "Excessive overloading obscures intent"
+  ],
+  "myths": [
+    "\"Polymorphism = inheritance\" — ad-hoc (overloading/traits) is a distinct, often static form"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "All statically-typed ecosystems",
+    "Numeric / DSL libraries"
+  ],
+  "related": [
+    "subtype-polymorphism",
+    "parametric-polymorphism",
+    "typeclasses-traits"
+  ],
+  "competing": [
+    "parametric-polymorphism",
+    "subtype-polymorphism"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "_Generic / distinct names"
+    },
+    "cpp": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "overloading / templates"
+    },
+    "cs": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "overloading"
+    },
+    "java": {
+      "lvl": "NATIVE",
+      "id": 2,
+      "note": "overloading"
+    },
+    "rust": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "trait impls"
+    }
+  }
+}

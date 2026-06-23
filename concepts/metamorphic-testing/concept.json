@@ -1,0 +1,92 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "metamorphic-testing",
+  "name": "Metamorphic Testing",
+  "type": "Testing technique",
+  "secondary": [],
+  "aliases": [
+    "Metamorphic relations testing"
+  ],
+  "x": {
+    "defectClass": "Bugs in programs with no easy oracle, found via violated relations between related inputs/outputs.",
+    "oracle": "Metamorphic relations — invariants linking the outputs of related inputs (e.g. sin(x)=sin(π−x); sorting a permuted list gives the same multiset).",
+    "automationLevel": "High once relations are defined — transform inputs and check the relation automatically.",
+    "blindSpots": [
+      "Bugs that satisfy all chosen relations escape",
+      "Quality depends entirely on the relations devised",
+      "Does not pin absolute correctness, only relative"
+    ],
+    "cost": "Medium — designing good metamorphic relations is the effort.",
+    "lifecycleStage": "Development / testing ML, scientific, and oracle-poor software."
+  },
+  "domain": "testing",
+  "family": "Relation-based testing",
+  "def": "Testing software that lacks a clear oracle by checking that transforming an input changes the output in a predictable, required way (a metamorphic relation).",
+  "problem": "For many programs (ML models, scientific code, search) you cannot state the exact correct output, so example-based assertions are impossible.",
+  "mechanism": "Identify metamorphic relations — properties linking the outputs of related inputs (e.g. scaling all features should not change a classifier’s label; reversing a route gives the same distance). Generate input pairs and assert the relation holds.",
+  "benefits": [
+    "Tests programs with no explicit oracle",
+    "Catches subtle logic / numerical bugs",
+    "Complements property-based testing"
+  ],
+  "limits": [
+    "Only as good as the relations chosen",
+    "Proves relative, not absolute, correctness",
+    "Relation design needs domain insight"
+  ],
+  "failures": [
+    "Weak relations that any buggy program satisfies",
+    "Mistaking relation-passing for full correctness"
+  ],
+  "whenNot": [
+    "A precise oracle is available (assert it directly)",
+    "No meaningful invariants between inputs"
+  ],
+  "myths": [
+    "\"Untestable software exists\" — metamorphic relations test many oracle-free programs"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Machine learning",
+    "Scientific computing",
+    "Search / recommendation",
+    "Compilers"
+  ],
+  "related": [
+    "property-based-testing",
+    "differential-testing",
+    "fuzz-testing"
+  ],
+  "competing": [
+    "property-based-testing"
+  ],
+  "maturity": "Established",
+  "confidence": "Medium",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "harness"
+    },
+    "cpp": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "harness"
+    },
+    "cs": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "test harness"
+    },
+    "java": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "test harness"
+    },
+    "rust": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "proptest + relations"
+    }
+  }
+}

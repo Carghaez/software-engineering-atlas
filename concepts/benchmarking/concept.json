@@ -1,0 +1,76 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "benchmarking",
+  "name": "Benchmarking & Microbenchmarking",
+  "type": "Debugging or observability technique",
+  "secondary": [
+    "Performance-optimisation technique"
+  ],
+  "domain": "observability",
+  "family": "Performance measurement",
+  "def": "Systematically measuring performance of code under controlled conditions.",
+  "problem": "Quantify performance and detect regressions with statistical rigour, not guesswork.",
+  "mechanism": "A harness runs warm-up then many timed iterations, controls noise, and reports distributions; microbenchmarks isolate a single operation (carefully, to avoid dead-code elimination).",
+  "benefits": [
+    "Objective performance numbers",
+    "Catches regressions in CI",
+    "Compares alternatives fairly"
+  ],
+  "limits": [
+    "Microbenchmarks mislead (unrealistic isolation)",
+    "JIT warm-up / DCE pitfalls",
+    "Lab ≠ production"
+  ],
+  "failures": [
+    "Compiler optimising away the measured work",
+    "Drawing system conclusions from micro numbers"
+  ],
+  "whenNot": [
+    "Before there is a measured perf concern"
+  ],
+  "myths": [
+    "\"This microbenchmark proves X is faster\" — micro results rarely predict real-system performance"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Libraries",
+    "HPC",
+    "Performance-critical code"
+  ],
+  "complexity": null,
+  "related": [
+    "profiling",
+    "flame-graphs",
+    "load-testing"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "Google Benchmark"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 3,
+      "note": "Google Benchmark"
+    },
+    "cs": {
+      "lvl": "ECO",
+      "id": 3,
+      "note": "BenchmarkDotNet"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 3,
+      "note": "JMH"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 3,
+      "note": "criterion"
+    }
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "audit-logging",
+  "name": "Audit Logging",
+  "type": "Security practice",
+  "secondary": [
+    "Debugging or observability technique"
+  ],
+  "domain": "security",
+  "family": "Accountability",
+  "def": "Recording an immutable, attributable trail of security-relevant actions.",
+  "problem": "Enable forensics, compliance and detection by knowing who did what, when.",
+  "mechanism": "Append security events (auth, access, changes) with actor, action, resource and timestamp to a tamper-evident, access-controlled store; never log secrets/PII.",
+  "benefits": [
+    "Forensics & incident response",
+    "Compliance evidence (who/what/when)",
+    "Detects misuse"
+  ],
+  "limits": [
+    "Storage/retention cost",
+    "PII/secret leakage risk",
+    "Tamper-resistance is hard"
+  ],
+  "failures": [
+    "Logging sensitive data (passwords, tokens)",
+    "Mutable logs an attacker can erase"
+  ],
+  "whenNot": [
+    "Trivial systems with no security-relevant actions"
+  ],
+  "myths": [
+    "\"Application logs are audit logs\" — audit logs need integrity, attribution and retention guarantees"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Fintech",
+    "Healthcare",
+    "Enterprise",
+    "Regulated"
+  ],
+  "complexity": null,
+  "related": [
+    "structured-logging",
+    "authentication",
+    "distributed-tracing"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "manual"
+    },
+    "cpp": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "manual"
+    },
+    "cs": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "Serilog + sinks"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "logback + SIEM"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "tracing + sinks"
+    }
+  }
+}

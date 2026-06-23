@@ -1,0 +1,81 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "persistent-data-structures",
+  "name": "Persistent Data Structures",
+  "type": "Data structure",
+  "secondary": [
+    "Functional abstraction"
+  ],
+  "domain": "fp",
+  "family": "Immutable structures",
+  "def": "Immutable structures that preserve previous versions on update via structural sharing.",
+  "problem": "Provide cheap immutable \"updates\" and historical versions without full copies.",
+  "mechanism": "Updates create new nodes only along the changed path (e.g. HAMTs, RRB-trees), sharing untouched subtrees with prior versions.",
+  "benefits": [
+    "O(log n) updates with shared structure",
+    "Free snapshots / time travel / undo",
+    "Safe concurrent reads without locks"
+  ],
+  "limits": [
+    "Log-factor and constant overhead vs mutable",
+    "Pointer indirection hurts cache locality",
+    "Higher memory churn"
+  ],
+  "failures": [
+    "Using them in hot numeric loops",
+    "Retaining old versions → memory leaks"
+  ],
+  "whenNot": [
+    "Single-threaded mutation-heavy hot paths"
+  ],
+  "myths": [
+    "\"Persistent = saved to disk\" — here it means version-persistent in memory"
+  ],
+  "use": "Indirect",
+  "sectors": [
+    "Functional langs",
+    "Frontend state (Immutable.js)",
+    "Editors/VCS"
+  ],
+  "complexity": {
+    "Update": "O(log n)",
+    "Access": "O(log n)",
+    "Space": "O(log n) per version"
+  },
+  "related": [
+    "immutability",
+    "functional-programming"
+  ],
+  "competing": [
+    "dynamic-array"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "manual; rare"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "immer"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "System.Collections.Immutable"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "Vavr / PCollections"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "im / rpds crates"
+    }
+  }
+}

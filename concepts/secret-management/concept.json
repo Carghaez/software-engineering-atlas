@@ -1,0 +1,76 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "secret-management",
+  "name": "Secret & Key Management",
+  "type": "Security practice",
+  "secondary": [
+    "Build or deployment practice"
+  ],
+  "domain": "security",
+  "family": "Cryptographic hygiene",
+  "def": "Securely storing, distributing, rotating and revoking secrets and cryptographic keys.",
+  "problem": "Keep credentials and keys out of code/config and control their lifecycle.",
+  "mechanism": "A vault/KMS/HSM stores secrets encrypted, issues short-lived dynamic credentials, enforces access policy, rotates keys, and audits access.",
+  "benefits": [
+    "No secrets in source/config",
+    "Rotation & revocation",
+    "Audit trail; least-privilege access"
+  ],
+  "limits": [
+    "Bootstrapping (the vault’s own auth)",
+    "Operational complexity",
+    "Single point of failure if central"
+  ],
+  "failures": [
+    "Secrets committed to git history",
+    "Long-lived static keys never rotated"
+  ],
+  "whenNot": [
+    "No secrets to manage (rare)"
+  ],
+  "myths": [
+    "\"Encrypting the config file is enough\" — key management is the actual hard part"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Cloud",
+    "Fintech",
+    "Any production system"
+  ],
+  "complexity": null,
+  "related": [
+    "supply-chain-security",
+    "least-privilege",
+    "constant-time-programming"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "KMS/HSM APIs"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "KMS/HSM"
+    },
+    "cs": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "Azure Key Vault SDK"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "Vault / KMS SDK"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "vault / KMS crates"
+    }
+  }
+}

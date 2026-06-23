@@ -1,0 +1,78 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "rate-limiting",
+  "name": "Rate Limiting & Load Shedding",
+  "type": "Reliability or resilience practice",
+  "secondary": [
+    "Distributed-systems pattern",
+    "Security practice"
+  ],
+  "domain": "reliability",
+  "family": "Resilience",
+  "def": "Capping request rate (rate limiting) and dropping excess work under overload (load shedding).",
+  "problem": "Protect a service from overload, abuse and cascading failure when demand exceeds capacity.",
+  "mechanism": "Token-bucket/leaky-bucket meters allow N requests per interval; beyond capacity, low-priority requests are shed (rejected fast) to keep the system healthy.",
+  "benefits": [
+    "Prevents overload collapse",
+    "Fair resource allocation; abuse defence",
+    "Keeps latency bounded under spikes"
+  ],
+  "limits": [
+    "Rejecting legitimate traffic at the limit",
+    "Distributed rate limiting is hard (shared counters)",
+    "Tuning thresholds"
+  ],
+  "failures": [
+    "Global limit enforced per-node (too lax)",
+    "Shedding high-value over low-value work"
+  ],
+  "whenNot": [
+    "Under-utilised internal systems with no abuse risk"
+  ],
+  "myths": [
+    "\"Rate limiting and load shedding are the same\" — one caps rate, the other drops under stress"
+  ],
+  "use": "Both",
+  "sectors": [
+    "APIs",
+    "Cloud",
+    "Fintech",
+    "Gateways"
+  ],
+  "complexity": null,
+  "related": [
+    "bulkhead",
+    "circuit-breaker",
+    "backpressure"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "manual"
+    },
+    "cpp": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "manual"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "System.Threading.RateLimiting"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "Bucket4j / Resilience4j"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "governor / tower"
+    }
+  }
+}

@@ -1,0 +1,105 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "sparse-set",
+  "name": "Sparse Set",
+  "type": "Data structure",
+  "secondary": [
+    "Concurrent data structure"
+  ],
+  "aliases": [
+    "Sparse-dense set"
+  ],
+  "x": {
+    "invariant": "a dense array of present keys plus a sparse array mapping key→index into the dense array; the two stay mutually consistent.",
+    "operations": [
+      "insert (O(1))",
+      "remove (O(1), swap-with-last)",
+      "contains (O(1))",
+      "iterate present elements (O(k), contiguous)"
+    ],
+    "memoryOverhead": "A sparse array sized to the key domain (can be large) plus a dense array sized to the live count.",
+    "locality": "Excellent: iteration walks the contiguous dense array; ideal for SIMD and cache prefetch.",
+    "mutationModel": "Mutable in place; removal swaps the last element into the hole (does not preserve order).",
+    "concurrency": "Not thread-safe by default; per-archetype use in ECS is typically single-writer.",
+    "implementations": [
+      "EnTT / Flecs (ECS)",
+      "Bevy / hecs component storage"
+    ]
+  },
+  "domain": "structures",
+  "family": "Associative / set",
+  "def": "An integer-keyed set/map giving O(1) insert, remove and membership with contiguous, cache-friendly iteration — the backbone of many ECS component stores.",
+  "problem": "Track a dynamic subset of small integer ids (entities) with fast add/remove and fast dense iteration.",
+  "mechanism": "Keeps a dense array of live keys and a sparse lookup array (key→dense index). Removal swaps the last dense element into the gap and fixes its sparse entry, all in O(1).",
+  "benefits": [
+    "O(1) insert / remove / membership",
+    "Contiguous iteration → great locality & SIMD",
+    "No per-element allocation"
+  ],
+  "limits": [
+    "Sparse array sized to the key domain (memory)",
+    "Iteration order is unstable after removals",
+    "Keys must be small integers"
+  ],
+  "failures": [
+    "Huge key domain wastes the sparse array",
+    "Forgetting to fix the swapped element corrupts the set"
+  ],
+  "whenNot": [
+    "Keys are arbitrary / large (use a hash set)",
+    "Stable iteration order required"
+  ],
+  "myths": [
+    "\"Same as a bitset\" — it also gives O(1) dense iteration of present keys"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Game engines (ECS)",
+    "Compilers (liveness sets)",
+    "Graph algorithms"
+  ],
+  "complexity": {
+    "Insert": "O(1)",
+    "Delete": "O(1)",
+    "Membership": "O(1)",
+    "Space": "O(domain + n)"
+  },
+  "related": [
+    "ecs",
+    "dynamic-array",
+    "structure-of-arrays",
+    "hash-table"
+  ],
+  "competing": [
+    "hash-table"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "two arrays"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 3,
+      "note": "EnTT / Flecs"
+    },
+    "cs": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "ECS frameworks"
+    },
+    "java": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "manual"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 3,
+      "note": "hecs / Bevy"
+    }
+  }
+}

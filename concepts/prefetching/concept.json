@@ -1,0 +1,76 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "prefetching",
+  "name": "Data Prefetching",
+  "type": "Performance-optimisation technique",
+  "secondary": [
+    "Hardware-execution model"
+  ],
+  "domain": "hardware",
+  "family": "Locality optimisation",
+  "def": "Loading data into cache before it is needed to hide memory latency.",
+  "problem": "Avoid CPU stalls waiting on memory by overlapping fetch with computation.",
+  "mechanism": "Hardware prefetchers detect strided access; software prefetch intrinsics or restructured access patterns hint upcoming loads ahead of use.",
+  "benefits": [
+    "Hides DRAM latency on predictable access",
+    "Big wins on streaming/strided loops",
+    "Cheap when the pattern is regular"
+  ],
+  "limits": [
+    "Useless/harmful on random access",
+    "Manual prefetch is easy to get wrong",
+    "Cache pollution if over-prefetched"
+  ],
+  "failures": [
+    "Prefetching wrong addresses → wasted bandwidth",
+    "Pointer-chasing defeats hardware prefetch"
+  ],
+  "whenNot": [
+    "Irregular/pointer-heavy access patterns"
+  ],
+  "myths": [
+    "\"Manual prefetch always helps\" — the hardware prefetcher often does better; manual can hurt"
+  ],
+  "use": "Both",
+  "sectors": [
+    "HPC",
+    "Databases",
+    "Game engines"
+  ],
+  "complexity": null,
+  "related": [
+    "cache-blocking",
+    "structure-of-arrays",
+    "simd"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "__builtin_prefetch"
+    },
+    "cpp": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "_mm_prefetch"
+    },
+    "cs": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "no direct control"
+    },
+    "java": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "JIT/hardware only"
+    },
+    "rust": {
+      "lvl": "STD",
+      "id": 1,
+      "note": "core::arch prefetch"
+    }
+  }
+}

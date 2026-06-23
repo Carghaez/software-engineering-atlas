@@ -1,0 +1,76 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "chaos-engineering",
+  "name": "Chaos Engineering",
+  "type": "Reliability or resilience practice",
+  "secondary": [
+    "Testing technique"
+  ],
+  "domain": "reliability",
+  "family": "Resilience validation",
+  "def": "Deliberately injecting failures into production-like systems to validate resilience.",
+  "problem": "Discover hidden weaknesses before real incidents by experimentally breaking things.",
+  "mechanism": "Form a hypothesis about steady state, inject controlled faults (kill nodes, add latency, drop packets) with a blast-radius limit, and verify the system holds.",
+  "benefits": [
+    "Finds real failure modes proactively",
+    "Builds confidence in resilience",
+    "Validates runbooks/alerts"
+  ],
+  "limits": [
+    "Risk of real customer impact",
+    "Needs strong observability first",
+    "Cultural/organisational buy-in"
+  ],
+  "failures": [
+    "Experiments without blast-radius limits",
+    "Running before basic resilience exists"
+  ],
+  "whenNot": [
+    "Immature systems lacking monitoring/redundancy"
+  ],
+  "myths": [
+    "\"Chaos engineering means breaking things randomly\" — it is controlled, hypothesis-driven experiments"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Cloud",
+    "SRE",
+    "Large-scale services"
+  ],
+  "complexity": null,
+  "related": [
+    "circuit-breaker",
+    "bulkhead",
+    "canary-release"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "infra-level"
+    },
+    "cpp": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "infra-level"
+    },
+    "cs": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "Simmy + infra"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "Chaos Monkey"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "infra-level"
+    }
+  }
+}

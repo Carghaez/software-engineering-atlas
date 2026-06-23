@@ -1,0 +1,79 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "backpressure",
+  "name": "Backpressure",
+  "type": "Synchronisation mechanism",
+  "secondary": [
+    "Reliability or resilience practice",
+    "Concurrency model"
+  ],
+  "domain": "concurrency",
+  "family": "Flow control",
+  "def": "A flow-control mechanism letting consumers signal producers to slow down when overwhelmed.",
+  "problem": "Prevent fast producers from exhausting memory/queues when consumers cannot keep up.",
+  "mechanism": "Bounded buffers, credit/demand signalling (reactive streams), or blocking on full channels propagate slowdown upstream to the producer.",
+  "benefits": [
+    "Bounds memory under load",
+    "Prevents queue blow-up / OOM",
+    "Graceful degradation"
+  ],
+  "limits": [
+    "Adds latency; design complexity",
+    "Must propagate end-to-end",
+    "Can deadlock if cyclic"
+  ],
+  "failures": [
+    "Unbounded buffers ignoring backpressure → OOM",
+    "Dropping data silently when full"
+  ],
+  "whenNot": [
+    "Low, bounded throughput where overflow is impossible"
+  ],
+  "myths": [
+    "\"Just add a bigger buffer\" — that defers, not solves, the imbalance"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Streaming",
+    "Networking",
+    "Messaging",
+    "Reactive systems"
+  ],
+  "complexity": null,
+  "related": [
+    "reactive-programming",
+    "ring-buffer",
+    "csp-channels",
+    "rate-limiting"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "bounded queues"
+    },
+    "cpp": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "bounded queues"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "Channels bounded; TPL Dataflow"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "Reactive Streams"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "bounded mpsc"
+    }
+  }
+}

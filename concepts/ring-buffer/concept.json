@@ -1,0 +1,81 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "ring-buffer",
+  "name": "Ring Buffer",
+  "type": "Data structure",
+  "secondary": [
+    "Concurrent data structure"
+  ],
+  "domain": "structures",
+  "family": "Linear / bounded",
+  "def": "A fixed-capacity FIFO over a circular array using head/tail indices modulo capacity.",
+  "problem": "Bounded, allocation-free producer/consumer queue with predictable latency.",
+  "mechanism": "Two indices advance modulo capacity; full/empty distinguished by counts or one wasted slot. SPSC variants are lock-free with acquire/release fences.",
+  "benefits": [
+    "Zero per-item allocation; constant memory",
+    "Cache-friendly, predictable latency",
+    "Lock-free SPSC is trivial and fast"
+  ],
+  "limits": [
+    "Fixed capacity → must handle full (block/drop/overwrite)",
+    "MPMC variants are subtle and contention-prone"
+  ],
+  "failures": [
+    "Index wrap / off-by-one corrupting data",
+    "False sharing of head/tail on the same cache line"
+  ],
+  "whenNot": [
+    "Unbounded or highly variable throughput",
+    "When backpressure semantics must be rich"
+  ],
+  "myths": [
+    "\"Lock-free is always faster\" — under heavy contention it can be slower than a mutexed queue"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Embedded",
+    "Audio/DSP",
+    "Networking",
+    "Game engines"
+  ],
+  "complexity": {
+    "Push": "O(1)",
+    "Pop": "O(1)",
+    "Space": "O(capacity)"
+  },
+  "related": [
+    "dynamic-array",
+    "lock-free",
+    "false-sharing"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 3,
+      "note": "idiomatic in embedded"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "boost::lockfree"
+    },
+    "cs": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "Channels / custom"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "Disruptor; Array*Queue"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "ringbuf / crossbeam"
+    }
+  }
+}

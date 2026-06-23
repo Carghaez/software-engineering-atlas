@@ -1,0 +1,100 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "stream-processing",
+  "name": "Stream-Oriented Programming",
+  "type": "Programming style",
+  "secondary": [
+    "Dataflow"
+  ],
+  "aliases": [
+    "Stream-oriented",
+    "Continuous processing"
+  ],
+  "x": {
+    "corePrinciples": [
+      "Treat data as unbounded sequences",
+      "Operators transform streams lazily",
+      "Time, windowing and backpressure are first-class"
+    ],
+    "controlDataFlow": "Data flows through a graph of operators (map/filter/window/join); processing is push or pull with backpressure.",
+    "preferredAbstractions": [
+      "streams / observables",
+      "windowing operators",
+      "stateful aggregations",
+      "backpressure / flow control"
+    ],
+    "suitableProjects": "Real-time analytics, event processing, log/metric pipelines, and continuous ETL."
+  },
+  "domain": "paradigms",
+  "family": "Dataflow / continuous",
+  "def": "A style that models computation over unbounded, possibly real-time sequences of data, using lazy operators with windowing and backpressure.",
+  "problem": "Batch thinking does not fit data that arrives continuously and must be processed with bounded memory and latency.",
+  "mechanism": "Builds a dataflow graph of stream operators; events flow through transformations and time/count windows, with backpressure to bound buffering. Stateful operators maintain aggregates across the stream.",
+  "benefits": [
+    "Low-latency, continuous results",
+    "Bounded memory via windowing / backpressure",
+    "Composable operator graphs"
+  ],
+  "limits": [
+    "Event-time vs processing-time complexity",
+    "Exactly-once semantics are hard",
+    "State management / checkpointing overhead"
+  ],
+  "failures": [
+    "Unbounded state growth in keyed aggregations",
+    "Ignoring out-of-order / late events"
+  ],
+  "whenNot": [
+    "One-off batch jobs",
+    "Tiny data that fits a simple loop"
+  ],
+  "myths": [
+    "\"Streaming is just fast batch\" — windowing, watermarks and ordering make it a distinct model"
+  ],
+  "use": "Indirect",
+  "sectors": [
+    "Real-time analytics",
+    "Observability",
+    "Fraud detection",
+    "IoT"
+  ],
+  "related": [
+    "streaming-algorithms",
+    "reactive-programming",
+    "backpressure",
+    "mapreduce",
+    "event-driven"
+  ],
+  "competing": [
+    "mapreduce"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "rare"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "libs"
+    },
+    "cs": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "Rx / TPL Dataflow"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 3,
+      "note": "Kafka Streams / Flink"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "timely / tokio-stream"
+    }
+  }
+}

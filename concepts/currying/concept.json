@@ -1,0 +1,76 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "currying",
+  "name": "Currying & Partial Application",
+  "type": "Functional abstraction",
+  "secondary": [
+    "Language idiom"
+  ],
+  "domain": "fp",
+  "family": "Composition",
+  "def": "Transforming a multi-argument function into a chain of single-argument functions, or fixing some arguments.",
+  "problem": "Specialise general functions and build pipelines by supplying arguments incrementally.",
+  "mechanism": "Currying turns f(a,b,c) into f(a)(b)(c); partial application fixes some args, returning a function of the rest (via closures/binders).",
+  "benefits": [
+    "Specialise/configure functions cleanly",
+    "Composes well in pipelines",
+    "Reduces repetition"
+  ],
+  "limits": [
+    "Allocation per partial closure",
+    "Obscure for unfamiliar readers",
+    "Verbose without language sugar"
+  ],
+  "failures": [
+    "Over-currying hurting readability",
+    "Capturing large state in binders"
+  ],
+  "whenNot": [
+    "Simple direct calls"
+  ],
+  "myths": [
+    "\"Currying and partial application are the same\" — currying restructures arity; partial application fixes args"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Functional code",
+    "APIs",
+    "DSLs"
+  ],
+  "complexity": null,
+  "related": [
+    "higher-order-functions",
+    "closures",
+    "function-composition"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "manual"
+    },
+    "cpp": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "std::bind / lambdas"
+    },
+    "cs": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "closures"
+    },
+    "java": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "closures"
+    },
+    "rust": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "closures / move"
+    }
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "probabilistic-programming",
+  "name": "Probabilistic Programming",
+  "type": "Programming paradigm",
+  "secondary": [
+    "Declarative programming",
+    "Domain-specific engineering technique"
+  ],
+  "domain": "paradigms",
+  "family": "Declarative / statistical",
+  "def": "Expresses statistical models as programs, with inference handled automatically by the runtime.",
+  "problem": "Specify and fit complex probabilistic models without hand-coding inference algorithms.",
+  "mechanism": "Programs declare random variables and observations; an inference engine (MCMC, variational) computes posteriors over them.",
+  "benefits": [
+    "Separates model from inference",
+    "Rapid Bayesian modelling",
+    "Composable random variables"
+  ],
+  "limits": [
+    "Inference can be slow / not converge",
+    "Steep statistical learning curve",
+    "Niche tooling"
+  ],
+  "failures": [
+    "Non-converging samplers",
+    "Mis-specified priors/models"
+  ],
+  "whenNot": [
+    "Non-statistical logic; latency-critical paths"
+  ],
+  "myths": [
+    "\"It is just random number generation\" — the point is automated posterior inference"
+  ],
+  "use": "Indirect",
+  "sectors": [
+    "Data science",
+    "Finance",
+    "Research",
+    "ML"
+  ],
+  "complexity": null,
+  "related": [
+    "declarative",
+    "differentiable-programming"
+  ],
+  "competing": [],
+  "maturity": "Emerging",
+  "confidence": "Medium",
+  "langs": {
+    "c": {
+      "lvl": "UNSUITABLE",
+      "id": 0,
+      "note": "n/a"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "Stan backend"
+    },
+    "cs": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "Infer.NET"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 0,
+      "note": "rare"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "experimental crates"
+    }
+  }
+}

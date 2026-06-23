@@ -1,0 +1,84 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "linked-list",
+  "name": "Linked List",
+  "type": "Data structure",
+  "secondary": [
+    "Abstract data type"
+  ],
+  "domain": "structures",
+  "family": "Linear / sequential",
+  "def": "A sequence of nodes each holding a value and a pointer to the next (and optionally previous) node.",
+  "problem": "O(1) insertion/removal at a known position without shifting elements, when indices are not needed.",
+  "mechanism": "Nodes are individually heap-allocated and linked by pointers; singly-linked lists chain forward, doubly-linked also backward for O(1) removal given a node.",
+  "benefits": [
+    "O(1) splice/insert/remove at a held node",
+    "Stable references — no reallocation invalidation",
+    "Grows without copying"
+  ],
+  "limits": [
+    "O(n) indexing and search",
+    "Terrible cache locality (pointer chasing)",
+    "Per-node allocation + pointer overhead"
+  ],
+  "failures": [
+    "Cache-miss-bound traversal far slower than arrays",
+    "Dangling/cyclic pointers; lost-node leaks"
+  ],
+  "whenNot": [
+    "Indexed access or iteration speed matters (use a dynamic array)",
+    "Almost always — arrays win in practice"
+  ],
+  "myths": [
+    "\"Lists beat arrays for inserts\" — array shifts are usually faster than the cache misses lists incur"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Allocators / free lists",
+    "Kernels",
+    "LRU caches"
+  ],
+  "complexity": {
+    "Access": "O(n)",
+    "Search": "O(n)",
+    "Insert/erase (at node)": "O(1)",
+    "Space": "O(n)"
+  },
+  "related": [
+    "dynamic-array",
+    "deque",
+    "object-pool"
+  ],
+  "competing": [
+    "dynamic-array"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "manual; intrusive lists common"
+    },
+    "cpp": {
+      "lvl": "STD",
+      "id": 1,
+      "note": "std::list/forward_list (rarely used)"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 1,
+      "note": "LinkedList<T>"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 1,
+      "note": "LinkedList"
+    },
+    "rust": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "ownership makes them painful; use Vec"
+    }
+  }
+}

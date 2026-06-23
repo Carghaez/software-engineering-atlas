@@ -1,0 +1,76 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "timeouts",
+  "name": "Timeouts & Deadlines",
+  "type": "Reliability or resilience practice",
+  "secondary": [
+    "Distributed-systems pattern"
+  ],
+  "domain": "reliability",
+  "family": "Resilience",
+  "def": "Bounding how long an operation may take before it is aborted.",
+  "problem": "Prevent indefinite blocking on slow/hung dependencies from cascading into resource exhaustion.",
+  "mechanism": "Attach a deadline to each call; on expiry cancel the operation and return an error. Deadlines propagate across service calls (deadline budgets).",
+  "benefits": [
+    "Bounds latency and resource holding",
+    "Prevents hung-call pileups",
+    "Enables predictable failure"
+  ],
+  "limits": [
+    "Too-tight timeouts cause false failures",
+    "Cancelling non-cancellable work leaks",
+    "Tuning is workload-sensitive"
+  ],
+  "failures": [
+    "No timeout → threads/connections pile up forever",
+    "Retrying after a timeout while the original still runs"
+  ],
+  "whenNot": [
+    "Purely local, guaranteed-bounded operations"
+  ],
+  "myths": [
+    "\"A timeout cancels the work\" — often it just stops waiting; the work may continue"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Distributed systems",
+    "Networking",
+    "Cloud"
+  ],
+  "complexity": null,
+  "related": [
+    "retry-backoff",
+    "circuit-breaker",
+    "idempotency"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "select / SO_TIMEOUT"
+    },
+    "cpp": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "future wait_for"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 3,
+      "note": "CancellationToken + timeout"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "Future.get(timeout)"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 3,
+      "note": "tokio::time::timeout"
+    }
+  }
+}

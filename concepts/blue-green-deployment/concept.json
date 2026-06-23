@@ -1,0 +1,78 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "blue-green-deployment",
+  "name": "Blue-Green Deployment",
+  "type": "Build or deployment practice",
+  "secondary": [
+    "Reliability or resilience practice"
+  ],
+  "domain": "observability",
+  "family": "Release engineering",
+  "def": "Maintaining two production environments and switching traffic between them for zero-downtime releases.",
+  "problem": "Deploy and roll back instantly without downtime or in-place upgrade risk.",
+  "mechanism": "Deploy the new version to the idle (\"green\") environment, validate it, then flip the router from \"blue\" to \"green\"; roll back by flipping back.",
+  "benefits": [
+    "Zero-downtime cutover",
+    "Instant rollback (flip back)",
+    "Validate in prod-like env first"
+  ],
+  "limits": [
+    "Double the infrastructure cost",
+    "DB schema/state compatibility across both",
+    "Long-lived connections to drain"
+  ],
+  "failures": [
+    "Incompatible DB migrations between blue/green",
+    "Stateful sessions lost on switch"
+  ],
+  "whenNot": [
+    "Cost-sensitive small systems (canary may fit better)"
+  ],
+  "myths": [
+    "\"Blue-green = canary\" — blue-green flips all traffic; canary shifts a fraction gradually"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Cloud",
+    "SaaS",
+    "High-availability services"
+  ],
+  "complexity": null,
+  "related": [
+    "canary-release",
+    "feature-flags",
+    "graceful-degradation"
+  ],
+  "competing": [
+    "canary-release"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "infra-level"
+    },
+    "cpp": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "infra-level"
+    },
+    "cs": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "infra/cloud"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "infra/cloud"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "infra-level"
+    }
+  }
+}

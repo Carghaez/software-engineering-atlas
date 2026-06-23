@@ -1,0 +1,75 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "least-privilege",
+  "name": "Principle of Least Privilege",
+  "type": "Security practice",
+  "secondary": [
+    "Design principle"
+  ],
+  "domain": "security",
+  "family": "Access control",
+  "def": "Granting each component only the minimum permissions it needs to do its job.",
+  "problem": "Limit the blast radius when a component is compromised or misbehaves.",
+  "mechanism": "Scope credentials, capabilities and access narrowly; deny by default and grant explicitly; separate duties.",
+  "benefits": [
+    "Contains breach impact",
+    "Reduces attack surface",
+    "Limits accidental damage"
+  ],
+  "limits": [
+    "Operational friction (access requests)",
+    "Privilege creep over time",
+    "Hard to map minimal sets precisely"
+  ],
+  "failures": [
+    "Over-broad \"admin\" roles for convenience",
+    "Stale permissions never revoked"
+  ],
+  "whenNot": [
+    "Never a reason to skip; only the rigor scales with risk"
+  ],
+  "myths": [
+    "\"Least privilege kills productivity\" — automation/JIT access reconciles both"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Cloud",
+    "Security",
+    "Any multi-component system"
+  ],
+  "complexity": null,
+  "related": [
+    "defense-in-depth",
+    "threat-modeling"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "seccomp/capabilities (OS)"
+    },
+    "cpp": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "OS sandboxing"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "CAS legacy; OS/identity"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 1,
+      "note": "SecurityManager deprecated; OS-level"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "capability crates; OS"
+    }
+  }
+}

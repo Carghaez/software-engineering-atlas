@@ -1,0 +1,93 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "epoch-reclamation",
+  "name": "Epoch-Based Reclamation",
+  "type": "Synchronisation mechanism",
+  "secondary": [
+    "Concurrent data structure"
+  ],
+  "aliases": [
+    "EBR",
+    "Quiescent-state reclamation (related)"
+  ],
+  "x": {
+    "coordination": "Threads enter a global epoch counter on each operation; retired nodes are tagged with the current epoch and freed only after all threads have advanced past it (no thread can still hold an old reference).",
+    "hazards": [
+      "A stalled thread pins the epoch, blocking all reclamation (memory growth)",
+      "Per-operation epoch enter/exit cost",
+      "Choosing reclamation frequency vs memory use",
+      "Correctness hinges on epoch fences"
+    ]
+  },
+  "domain": "concurrency",
+  "family": "Nonblocking reclamation",
+  "def": "A safe-memory-reclamation scheme that batches frees by global epochs: retired memory is reclaimed only once every thread has moved past the epoch in which it was retired.",
+  "problem": "Lock-free structures need to free nodes safely without per-pointer bookkeeping; hazard pointers add per-access overhead.",
+  "mechanism": "A global epoch advances periodically. Each thread announces the epoch it is operating in on entry. Retired nodes are queued by epoch and freed when all threads have observed a newer epoch, guaranteeing no live reference remains.",
+  "benefits": [
+    "Very low per-operation overhead (vs hazard pointers)",
+    "Amortised batch reclamation",
+    "Simple fast path"
+  ],
+  "limits": [
+    "A stalled/blocked thread stalls reclamation → unbounded memory",
+    "Not wait-free reclamation",
+    "Less suitable when threads can sleep arbitrarily"
+  ],
+  "failures": [
+    "A thread parked inside an epoch pinning memory indefinitely",
+    "Missing fences on epoch entry/exit causing UAF"
+  ],
+  "whenNot": [
+    "Threads may block for long inside critical sections",
+    "Hard memory bounds required (prefer hazard pointers)"
+  ],
+  "myths": [
+    "\"Epochs and hazard pointers are interchangeable\" — epochs are cheaper but vulnerable to stalled threads"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Lock-free libraries",
+    "Databases / runtimes",
+    "Rust concurrency crates"
+  ],
+  "related": [
+    "rcu",
+    "hazard-pointers",
+    "lock-free",
+    "atomics-cas"
+  ],
+  "competing": [
+    "hazard-pointers",
+    "rcu"
+  ],
+  "maturity": "Established",
+  "confidence": "Medium",
+  "langs": {
+    "c": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "liburcu"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "folly / libcds"
+    },
+    "cs": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "GC instead"
+    },
+    "java": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "GC instead"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 3,
+      "note": "crossbeam-epoch"
+    }
+  }
+}

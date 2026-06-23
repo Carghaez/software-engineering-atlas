@@ -1,0 +1,108 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "simd",
+  "name": "SIMD",
+  "type": "Hardware-execution model",
+  "secondary": [
+    "Parallel-computing model",
+    "Performance-optimisation technique"
+  ],
+  "applies": [
+    "algorithms",
+    "data structures",
+    "hardware execution"
+  ],
+  "x": {
+    "executionModel": "A single instruction applies the same operation across every lane of a vector register (e.g. 8× float32 in a 256-bit AVX register), within one core.",
+    "dataOrg": "Wants contiguous, aligned, Structure-of-Arrays data so adjacent lanes read adjacent elements; AoS layouts force gather/scatter that erodes the benefit.",
+    "hwConstraints": "Register width and instruction set vary by target (SSE / AVX / AVX-512 / NEON / SVE); alignment and tail handling are required, and AVX-512 can downclock the core.",
+    "compilerSupport": "Auto-vectorisation (fragile), OpenMP simd pragmas, portable wrappers (std::simd), or hand-written platform intrinsics.",
+    "portability": "Intrinsics are ISA-specific; portable-SIMD layers trade some peak throughput for cross-target code.",
+    "expectedBenefit": "Typically 2–16× on arithmetic-dense, branch-light kernels with good layout; near zero or negative otherwise.",
+    "bottlenecks": [
+      "Memory bandwidth on low arithmetic-intensity kernels",
+      "Misaligned / unaligned loads",
+      "Setup and tail overhead on short arrays"
+    ],
+    "divergenceRisks": [
+      "Data-dependent branches force masking/blending or serialise lanes",
+      "Gather/scatter latency on irregular access"
+    ],
+    "workloadShapes": "Dense numeric loops, image/audio/video codecs, physics, ML kernels, columnar database scans."
+  },
+  "domain": "hardware",
+  "family": "Data parallelism",
+  "def": "Single Instruction, Multiple Data: one instruction operates on a vector of lanes simultaneously.",
+  "problem": "Increase arithmetic throughput on regular, data-parallel work without more threads.",
+  "mechanism": "Vector registers (SSE/AVX/NEON) hold N elements; a single op processes all lanes. Requires aligned, contiguous, SoA-friendly data and uniform control flow.",
+  "benefits": [
+    "4–16× throughput on suitable kernels",
+    "No threading/synchronisation overhead",
+    "Energy-efficient per element"
+  ],
+  "limits": [
+    "Needs data-parallel, branch-light kernels",
+    "Portability across ISAs/widths is painful",
+    "Gather/scatter and misalignment kill gains"
+  ],
+  "failures": [
+    "Divergent branches forcing masking/serialisation",
+    "SoA refactor required; AoS data stalls",
+    "Slower than scalar on tiny/irregular data"
+  ],
+  "whenNot": [
+    "Control-heavy or pointer-chasing code",
+    "Tiny datasets where setup cost dominates"
+  ],
+  "myths": [
+    "\"SIMD = multithreading\" — it is per-core data parallelism, orthogonal to threads",
+    "\"The compiler always vectorises\" — it often cannot prove safety"
+  ],
+  "use": "Both",
+  "sectors": [
+    "Media/codecs",
+    "HPC",
+    "ML kernels",
+    "Game engines",
+    "Trading"
+  ],
+  "complexity": null,
+  "related": [
+    "auto-vectorization",
+    "structure-of-arrays",
+    "gpu-computing",
+    "branchless-programming"
+  ],
+  "competing": [
+    "gpu-computing"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "intrinsics <immintrin.h>"
+    },
+    "cpp": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "intrinsics; std::simd (C++26)"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "System.Numerics / Vector<T>"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 1,
+      "note": "Vector API (incubator)"
+    },
+    "rust": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "core::arch; portable_simd (nightly)"
+    }
+  }
+}

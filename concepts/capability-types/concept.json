@@ -1,0 +1,89 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "capability-types",
+  "name": "Capability Types",
+  "type": "Type-system technique",
+  "secondary": [],
+  "aliases": [
+    "Capability-based types",
+    "Object capabilities (typed)"
+  ],
+  "x": {
+    "laws": [
+      "Authority is conveyed only by holding a capability value",
+      "No ambient authority: code cannot act without a capability in scope",
+      "Capabilities are unforgeable and explicitly passed"
+    ],
+    "encoding": "Unforgeable tokens / handles whose type grants a specific permission; passed explicitly. Approximated by sealed handle types, effect/permission markers, or Rust ownership of resource handles."
+  },
+  "domain": "types",
+  "family": "Resources & effects",
+  "def": "A discipline where the right to perform an operation is represented by a typed, unforgeable value, so code can only do what it has been explicitly handed the capability for.",
+  "problem": "Ambient authority (any code can open files, network, etc.) makes least-privilege hard to enforce and reason about.",
+  "mechanism": "Permissions become first-class typed values that must be passed to the code that uses them. Without the capability in scope, the operation is not expressible — turning authorisation into a static, compositional property.",
+  "benefits": [
+    "Least privilege by construction",
+    "Authority is explicit and auditable in signatures",
+    "No ambient global authority to abuse"
+  ],
+  "limits": [
+    "Pervasive parameter threading",
+    "Few languages enforce it natively",
+    "Retrofitting onto ambient-authority APIs is hard"
+  ],
+  "failures": [
+    "Leaking a powerful capability widely (over-granting)",
+    "Smuggling authority via globals, defeating the model"
+  ],
+  "whenNot": [
+    "Small programs where ambient authority is acceptable",
+    "Ecosystems built entirely on ambient APIs"
+  ],
+  "myths": [
+    "\"ACLs and capabilities are the same\" — capabilities bind authority to a held value, not to identity checks at the door"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Security-critical systems",
+    "Sandboxes / plugins",
+    "Operating systems (seL4)"
+  ],
+  "related": [
+    "least-privilege",
+    "sandboxing",
+    "linear-affine-types",
+    "ownership-borrowing"
+  ],
+  "competing": [
+    "authorization"
+  ],
+  "maturity": "Established",
+  "confidence": "Medium",
+  "langs": {
+    "c": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "handles, unenforced"
+    },
+    "cpp": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "move-only handle types"
+    },
+    "cs": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "sealed handles"
+    },
+    "java": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "sealed handles"
+    },
+    "rust": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "owned handles + move"
+    }
+  }
+}

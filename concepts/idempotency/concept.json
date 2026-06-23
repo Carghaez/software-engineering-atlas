@@ -1,0 +1,77 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "idempotency",
+  "name": "Idempotency",
+  "type": "Reliability or resilience practice",
+  "secondary": [
+    "Distributed-systems pattern",
+    "Design principle"
+  ],
+  "domain": "reliability",
+  "family": "Correctness under retries",
+  "def": "Designing operations so that applying them multiple times has the same effect as applying them once.",
+  "problem": "Make retries, redeliveries and duplicate requests safe in unreliable distributed systems.",
+  "mechanism": "Use idempotency keys, conditional writes, upserts, or natural set-semantics so repeats are detected/absorbed without side effects.",
+  "benefits": [
+    "Retries become safe",
+    "Tolerates at-least-once delivery",
+    "Simplifies failure recovery"
+  ],
+  "limits": [
+    "Requires dedup storage / keys",
+    "Some operations are inherently non-idempotent",
+    "Key lifecycle/expiry management"
+  ],
+  "failures": [
+    "Duplicate charges/sends from non-idempotent writes",
+    "Idempotency keys colliding or expiring early"
+  ],
+  "whenNot": [
+    "Purely local, exactly-once in-process logic"
+  ],
+  "myths": [
+    "\"GET is idempotent so my API is\" — write paths need explicit design"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Fintech",
+    "Messaging",
+    "APIs",
+    "Cloud"
+  ],
+  "complexity": null,
+  "related": [
+    "retry-backoff",
+    "circuit-breaker"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "design discipline"
+    },
+    "cpp": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "design discipline"
+    },
+    "cs": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "design + store"
+    },
+    "java": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "design + store"
+    },
+    "rust": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "design + store"
+    }
+  }
+}

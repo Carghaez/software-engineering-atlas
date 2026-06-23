@@ -1,0 +1,76 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "slab-buddy-allocation",
+  "name": "Slab & Buddy Allocation",
+  "type": "Resource-management technique",
+  "secondary": [
+    "Performance-optimisation technique"
+  ],
+  "domain": "memory",
+  "family": "Custom allocation",
+  "def": "Allocator designs: slabs serve fixed-size objects from caches; buddy splits/merges power-of-two blocks.",
+  "problem": "Allocate efficiently with low fragmentation for kernel/system workloads.",
+  "mechanism": "Slab pre-allocates caches of same-size objects (fast reuse, cache-warm); buddy maintains free lists of power-of-two blocks, splitting and coalescing on demand.",
+  "benefits": [
+    "Slab: O(1) typed alloc, low fragmentation, cache warmth",
+    "Buddy: fast split/coalesce; bounded external fragmentation"
+  ],
+  "limits": [
+    "Slab: per-size caches; tuning",
+    "Buddy: internal fragmentation (rounding up to powers of two)"
+  ],
+  "failures": [
+    "Buddy rounding wasting up to ~2× memory",
+    "Slab cache bloat for many sizes"
+  ],
+  "whenNot": [
+    "Application code where the general allocator suffices"
+  ],
+  "myths": [
+    "\"One allocator fits all\" — kernels use specialised allocators per workload"
+  ],
+  "use": "Indirect",
+  "sectors": [
+    "Kernels (Linux)",
+    "Allocators",
+    "Embedded"
+  ],
+  "complexity": null,
+  "related": [
+    "arena-allocation",
+    "object-pool",
+    "stack-vs-heap"
+  ],
+  "competing": [
+    "arena-allocation"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "kernel slab; jemalloc"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "custom / tcmalloc"
+    },
+    "cs": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "GC-managed"
+    },
+    "java": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "GC-managed"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "custom allocators"
+    }
+  }
+}

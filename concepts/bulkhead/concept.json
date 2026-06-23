@@ -1,0 +1,75 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "bulkhead",
+  "name": "Bulkhead Isolation",
+  "type": "Distributed-systems pattern",
+  "secondary": [
+    "Reliability or resilience practice"
+  ],
+  "domain": "reliability",
+  "family": "Resilience",
+  "def": "Partitioning resources (pools, threads, connections) so a failure in one cannot exhaust the whole system.",
+  "problem": "Stop one overloaded dependency or tenant from consuming all shared resources and taking everything down.",
+  "mechanism": "Allocate separate, bounded resource pools per dependency/tenant (like a ship’s watertight compartments); saturation is confined to its compartment.",
+  "benefits": [
+    "Contains failures to one partition",
+    "Protects critical paths from noisy neighbours",
+    "Predictable resource caps"
+  ],
+  "limits": [
+    "Lower utilisation (reserved capacity idles)",
+    "Sizing each pool is hard",
+    "More configuration/complexity"
+  ],
+  "failures": [
+    "Pools too small → self-inflicted rejections",
+    "Shared dependency defeating the isolation"
+  ],
+  "whenNot": [
+    "Single-tenant, low-criticality systems"
+  ],
+  "myths": [
+    "\"Bulkheads waste resources\" — the reserved slack is the insurance you’re buying"
+  ],
+  "use": "Both",
+  "sectors": [
+    "Cloud",
+    "Microservices",
+    "Multi-tenant SaaS"
+  ],
+  "complexity": null,
+  "related": [
+    "circuit-breaker",
+    "retry-backoff"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "AWKWARD",
+      "id": 0,
+      "note": "manual"
+    },
+    "cpp": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "separate pools"
+    },
+    "cs": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "Polly Bulkhead"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "Resilience4j Bulkhead"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "semaphores / tower"
+    }
+  }
+}

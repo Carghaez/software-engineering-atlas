@@ -1,0 +1,94 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "kleisli-composition",
+  "name": "Kleisli Composition",
+  "type": "Functional abstraction",
+  "secondary": [],
+  "aliases": [
+    "Fish operator (>=>)",
+    "Monadic function composition"
+  ],
+  "x": {
+    "formalRole": "Composition of monadic functions a → M b: the analogue of ∘ for effectful arrows in a monad’s Kleisli category.",
+    "compositionRule": "(>=>) : (a → M b) → (b → M c) → (a → M c) = λx. f x >>= g.",
+    "laws": [
+      "left identity: pure >=> f = f",
+      "right identity: f >=> pure = f",
+      "associativity: (f >=> g) >=> h = f >=> (g >=> h)"
+    ],
+    "encoding": "Wherever bind/flatMap exists: chain functions returning Option/Result/Task/Stream. Explicit >=> in Haskell/Scala; bind-chains elsewhere.",
+    "useCases": "Building validation / parsing / effectful pipelines from small a→M b steps without manual unwrapping.",
+    "misuseRisks": [
+      "Deeply nested binds instead of named Kleisli steps",
+      "Reaching for it where a pure composition suffices"
+    ]
+  },
+  "domain": "fp",
+  "family": "Algebraic composition",
+  "def": "The composition operator for functions that return values in a monadic context (a → M b), letting effectful steps chain as cleanly as pure function composition.",
+  "problem": "Compose a sequence of computations each of which may fail / be async / carry context, without manual unwrap-and-rewrap.",
+  "mechanism": "Defines (>=>) so that f >=> g threads the monad: run f, bind its result into g. The monad laws make this composition associative with pure as identity — a category of \"Kleisli arrows\".",
+  "benefits": [
+    "Point-free composition of effectful steps",
+    "Inherits the monad’s short-circuiting / context",
+    "Laws guarantee safe refactoring"
+  ],
+  "limits": [
+    "Requires a monad instance",
+    "Readability suffers if overused point-free",
+    "Stacking effects needs transformers"
+  ],
+  "failures": [
+    "Confusing argument order of >=> ",
+    "Mixing incompatible monads without lifting"
+  ],
+  "whenNot": [
+    "Pure functions (use ordinary composition)",
+    "Single step (just call bind directly)"
+  ],
+  "myths": [
+    "\"Monads don’t compose\" — Kleisli arrows compose; it’s arbitrary monad *stacks* that need transformers"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Functional codebases",
+    "Parsing / validation",
+    "Effect pipelines"
+  ],
+  "related": [
+    "monad",
+    "function-composition",
+    "monad-transformers",
+    "result-either"
+  ],
+  "competing": [],
+  "maturity": "Established",
+  "confidence": "Medium",
+  "langs": {
+    "c": {
+      "lvl": "UNSUITABLE",
+      "id": 0,
+      "note": "n/a"
+    },
+    "cpp": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "and_then chains"
+    },
+    "cs": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "LINQ SelectMany / Bind"
+    },
+    "java": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "flatMap chains"
+    },
+    "rust": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "and_then chains"
+    }
+  }
+}

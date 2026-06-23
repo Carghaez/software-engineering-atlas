@@ -1,0 +1,93 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "writer-monad",
+  "name": "Writer Monad",
+  "type": "Functional abstraction",
+  "secondary": [],
+  "aliases": [
+    "Accumulator monad"
+  ],
+  "x": {
+    "formalRole": "Models a computation that produces a value alongside an accumulated monoidal output (log).",
+    "compositionRule": "Writer w a ≅ (a, w) with w a monoid; bind combines outputs via mappend.",
+    "laws": [
+      "Monad laws hold given a lawful monoid for w (associativity + identity of mappend)"
+    ],
+    "encoding": "A value paired with an accumulating log; requires a monoid (string, list, sum). Often replaced by returning a tuple or a structured log.",
+    "useCases": "Collecting logs, metrics, or traces purely without side-effecting I/O during computation.",
+    "misuseRisks": [
+      "Using a non-associative or costly accumulator (e.g. string ++ in a loop)",
+      "Accumulating large logs in memory"
+    ]
+  },
+  "domain": "fp",
+  "family": "Effect encoding",
+  "def": "A monad that threads an accumulated monoidal output (such as a log) alongside the main result, purely and without I/O.",
+  "problem": "Accumulate auxiliary output (logs, metrics) through a computation without resorting to mutation or side effects.",
+  "mechanism": "Pairs each value with a monoid value; bind runs the next step and mappends its output to the accumulated one. The monoid laws make accumulation associative with an identity (empty log).",
+  "benefits": [
+    "Pure accumulation of logs / metrics",
+    "Composable via the monoid",
+    "Separates result from its trace"
+  ],
+  "limits": [
+    "Lazy accumulation can leak memory",
+    "Inefficient monoids (string concat) are slow",
+    "Less ergonomic than structured logging frameworks"
+  ],
+  "failures": [
+    "Space leak from un-forced accumulation",
+    "Using a non-monoid as the output type"
+  ],
+  "whenNot": [
+    "Real logging with levels/sinks (use a logger)",
+    "Large outputs where streaming is needed"
+  ],
+  "myths": [
+    "\"Writer is for logging in production\" — it is mostly a teaching/pure-accumulation device"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Functional codebases",
+    "Interpreters",
+    "Teaching"
+  ],
+  "related": [
+    "monad",
+    "monoid",
+    "reader-monad",
+    "state-monad"
+  ],
+  "competing": [
+    "structured-logging"
+  ],
+  "maturity": "Established",
+  "confidence": "Medium",
+  "langs": {
+    "c": {
+      "lvl": "UNSUITABLE",
+      "id": 0,
+      "note": "n/a"
+    },
+    "cpp": {
+      "lvl": "ENCODABLE",
+      "id": 0,
+      "note": "return tuple"
+    },
+    "cs": {
+      "lvl": "ENCODABLE",
+      "id": 0,
+      "note": "return tuple"
+    },
+    "java": {
+      "lvl": "ENCODABLE",
+      "id": 0,
+      "note": "return tuple"
+    },
+    "rust": {
+      "lvl": "ENCODABLE",
+      "id": 1,
+      "note": "return (val, log)"
+    }
+  }
+}

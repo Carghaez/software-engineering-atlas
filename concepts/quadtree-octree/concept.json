@@ -1,0 +1,84 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "quadtree-octree",
+  "name": "Quadtree / Octree",
+  "type": "Data structure",
+  "secondary": [
+    "Spatial structure"
+  ],
+  "domain": "structures",
+  "family": "Spatial",
+  "def": "A tree that recursively subdivides space into four (2-D quadtree) or eight (3-D octree) equal quadrants/octants.",
+  "problem": "Index points or regions in 2-D/3-D for range, nearest-neighbour and collision queries, adapting resolution to data density.",
+  "mechanism": "Each node covers an axis-aligned box; when it exceeds a capacity it splits into 4 (quad) or 8 (oct) equal children, so dense regions subdivide deeply while sparse regions stay shallow.",
+  "benefits": [
+    "Simple, adaptive spatial subdivision",
+    "Fast range / neighbour / collision pruning",
+    "Natural for level-of-detail and view culling"
+  ],
+  "limits": [
+    "Wastes nodes on highly non-uniform data",
+    "Axis-aligned, fixed splits (less adaptive than a k-d tree)",
+    "Depth blows up for tightly clustered points"
+  ],
+  "failures": [
+    "Degenerate deep trees from coincident points",
+    "Boundary objects duplicated across cells"
+  ],
+  "whenNot": [
+    "High-dimensional data (use a k-d tree / ANN)",
+    "Indexing extents on disk (use an R-tree)"
+  ],
+  "myths": [
+    "\"An octree is just a 3-D quadtree\" — same idea, but fan-out and memory scale very differently"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Games / graphics (culling, LOD)",
+    "Collision detection",
+    "GIS",
+    "Particle / N-body simulation"
+  ],
+  "complexity": {
+    "Build": "O(n log n)",
+    "Query": "O(log n) avg",
+    "Space": "O(n)"
+  },
+  "related": [
+    "kd-tree",
+    "bsp-tree",
+    "r-tree"
+  ],
+  "competing": [
+    "kd-tree"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ENCODABLE",
+      "id": 2,
+      "note": "manual; common in engines"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "engine / PCL"
+    },
+    "cs": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "engine (Unity)"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "libs"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "crates"
+    }
+  }
+}

@@ -1,0 +1,74 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "crash-reporting",
+  "name": "Crash Reporting & Core Dumps",
+  "type": "Debugging or observability technique",
+  "secondary": [],
+  "domain": "observability",
+  "family": "Failure diagnostics",
+  "def": "Automatically capturing diagnostic state when a program crashes for later analysis.",
+  "problem": "Diagnose field crashes you cannot reproduce, with the context needed to fix them.",
+  "mechanism": "On a fatal fault, capture a stack trace / core dump / minidump (plus breadcrumbs and metadata) and upload it to a service that symbolicates and aggregates by signature.",
+  "benefits": [
+    "Diagnose un-reproducible field crashes",
+    "Aggregates by frequency/impact",
+    "Symbolicated stacks speed fixes"
+  ],
+  "limits": [
+    "PII in dumps (privacy)",
+    "Symbol management for symbolication",
+    "Dump size/upload cost"
+  ],
+  "failures": [
+    "Missing debug symbols → unreadable stacks",
+    "Leaking sensitive memory in dumps"
+  ],
+  "whenNot": [
+    "Trivial local tools"
+  ],
+  "myths": [
+    "\"Logs are enough for crashes\" — a core dump captures state logs never recorded"
+  ],
+  "use": "Indirect",
+  "sectors": [
+    "Desktop/mobile apps",
+    "Games",
+    "Services"
+  ],
+  "complexity": null,
+  "related": [
+    "structured-logging",
+    "sanitizers",
+    "distributed-tracing"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "core dumps / Breakpad"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 3,
+      "note": "Breakpad / Crashpad / Sentry"
+    },
+    "cs": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "Sentry / minidumps"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "crash logs / Sentry"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "minidumper / Sentry"
+    }
+  }
+}

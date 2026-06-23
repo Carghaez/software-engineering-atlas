@@ -1,0 +1,79 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "fft",
+  "name": "Fast Fourier Transform",
+  "type": "Algorithm",
+  "secondary": [
+    "Divide and conquer",
+    "Numerical algorithm"
+  ],
+  "domain": "algos",
+  "family": "Numerical / signal",
+  "def": "Computes the discrete Fourier transform in O(n log n) instead of O(n²).",
+  "problem": "Transform between time and frequency domains efficiently — signal processing, convolution, big-number multiply.",
+  "mechanism": "Recursively splits the DFT into even/odd subproblems (Cooley-Tukey), reusing symmetry of roots of unity to combine in linear time.",
+  "benefits": [
+    "O(n log n) vs O(n²) naive DFT",
+    "Fast convolution / polynomial multiply",
+    "Ubiquitous in DSP"
+  ],
+  "limits": [
+    "Best with power-of-two sizes",
+    "Floating-point error accumulation",
+    "Non-trivial to implement well"
+  ],
+  "failures": [
+    "Numerical instability at large n",
+    "Wrong normalisation/scaling conventions"
+  ],
+  "whenNot": [
+    "Tiny transforms (direct DFT fine)"
+  ],
+  "myths": [
+    "\"FFT is a transform\" — it is a fast algorithm for computing the DFT"
+  ],
+  "use": "Indirect",
+  "sectors": [
+    "Audio/DSP",
+    "Imaging",
+    "Comms",
+    "Scientific computing"
+  ],
+  "complexity": {
+    "Time": "O(n log n)",
+    "Space": "O(n)"
+  },
+  "related": [
+    "divide-and-conquer"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "FFTW"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "FFTW / pocketfft"
+    },
+    "cs": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "Math.NET"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 1,
+      "note": "JTransforms"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "rustfft"
+    }
+  }
+}

@@ -1,0 +1,74 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "flame-graphs",
+  "name": "Flame Graphs",
+  "type": "Debugging or observability technique",
+  "secondary": [
+    "Performance-optimisation technique"
+  ],
+  "domain": "observability",
+  "family": "Performance visualisation",
+  "def": "A visualisation of stacked sampled call stacks where width encodes time spent.",
+  "problem": "Make profiler output legible by showing at a glance which call paths dominate cost.",
+  "mechanism": "Aggregated stack samples are drawn as nested bars; the x-axis is proportion of samples (not time order), so wide frames are the hot paths.",
+  "benefits": [
+    "Instantly surfaces dominant paths",
+    "Scales to deep stacks",
+    "De-facto standard, tool-supported"
+  ],
+  "limits": [
+    "Aggregated — hides time ordering",
+    "Sampling can miss brief spikes",
+    "Misreading x-axis as timeline"
+  ],
+  "failures": [
+    "Treating x-axis as chronological",
+    "Acting on under-sampled noise"
+  ],
+  "whenNot": [
+    "Need temporal/event ordering (use a trace timeline)"
+  ],
+  "myths": [
+    "\"Flame graph x-axis is time\" — it is proportion of samples, not chronology"
+  ],
+  "use": "Indirect",
+  "sectors": [
+    "Performance engineering",
+    "SRE"
+  ],
+  "complexity": null,
+  "related": [
+    "profiling",
+    "distributed-tracing"
+  ],
+  "competing": [],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "perf + FlameGraph"
+    },
+    "cpp": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "perf + FlameGraph"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "PerfView/speedscope"
+    },
+    "java": {
+      "lvl": "ECO",
+      "id": 3,
+      "note": "async-profiler"
+    },
+    "rust": {
+      "lvl": "ECO",
+      "id": 2,
+      "note": "cargo flamegraph"
+    }
+  }
+}

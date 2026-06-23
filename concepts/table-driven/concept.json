@@ -1,0 +1,97 @@
+{
+  "$schema": "../../schema/concept.schema.json",
+  "id": "table-driven",
+  "name": "Table-Driven Programming",
+  "type": "Programming style",
+  "secondary": [
+    "Data-oriented"
+  ],
+  "aliases": [
+    "Lookup-table-driven",
+    "Data-directed"
+  ],
+  "x": {
+    "corePrinciples": [
+      "Encode decisions as data in tables, not branches",
+      "A small generic interpreter walks the table",
+      "Behaviour changes by editing data"
+    ],
+    "controlDataFlow": "A generic loop indexes a table (by key, state, or input) to decide what to do, instead of long if/switch chains.",
+    "preferredAbstractions": [
+      "lookup tables / maps",
+      "state-transition tables",
+      "dispatch tables / jump tables"
+    ],
+    "suitableProjects": "Parsers, protocol/state machines, validation, pricing/eligibility rules, and configuration-driven behaviour."
+  },
+  "domain": "paradigms",
+  "family": "Data-oriented",
+  "def": "A style that replaces sprawling conditional logic with data in tables interpreted by small generic code.",
+  "problem": "Long if/else or switch chains are hard to read, extend, and verify for completeness.",
+  "mechanism": "Moves the branching decision into a table (lookup map, state-transition matrix, or dispatch table); compact generic code reads the table to drive behaviour. New cases become new rows, not new code.",
+  "benefits": [
+    "Compact, uniform logic",
+    "New cases = data edits, not code changes",
+    "Easier to verify coverage of cases"
+  ],
+  "limits": [
+    "Indirection can obscure simple logic",
+    "Table can grow large / sparse",
+    "Harder to express irregular special cases"
+  ],
+  "failures": [
+    "Missing table entries → silent default behaviour",
+    "Desync between table and the code interpreting it"
+  ],
+  "whenNot": [
+    "A couple of branches (plain if/switch is clearer)",
+    "Highly irregular per-case behaviour"
+  ],
+  "myths": [
+    "\"Tables are always cleaner than branches\" — only when cases are regular and numerous"
+  ],
+  "use": "Direct",
+  "sectors": [
+    "Compilers / parsers",
+    "Protocol stacks",
+    "Embedded",
+    "Game logic"
+  ],
+  "related": [
+    "pattern-matching",
+    "data-oriented-design",
+    "strategy-pattern"
+  ],
+  "competing": [
+    "strategy-pattern"
+  ],
+  "maturity": "Mature",
+  "confidence": "High",
+  "langs": {
+    "c": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "function-pointer tables"
+    },
+    "cpp": {
+      "lvl": "NATIVE",
+      "id": 3,
+      "note": "arrays / maps of fns"
+    },
+    "cs": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "Dictionary dispatch"
+    },
+    "java": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "EnumMap / maps"
+    },
+    "rust": {
+      "lvl": "STD",
+      "id": 2,
+      "note": "match / fn tables"
+    }
+  }
+}
