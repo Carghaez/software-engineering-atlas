@@ -216,7 +216,7 @@
 
               <div style="margin-top:22px;font:600 11px 'IBM Plex Mono';letter-spacing:.04em;text-transform:uppercase;color:#42464d;margin-bottom:10px">QA gates &mdash; {{ activePage.passCount }} / {{ activePage.checkTotal }} passing</div>
               <div style="display:flex;flex-direction:column;gap:6px">
-                <sc-for list="{{ activePage.checks }}" as="chk" hint-placeholder-count="11">
+                <sc-for list="{{ activePage.checks }}" as="chk" hint-placeholder-count="13">
                   <div style="display:flex;align-items:center;gap:11px;background:{{ chk.bg }};border:1px solid #ededE6;border-radius:8px;padding:9px 13px">
                     <span style="flex:none;width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:{{ chk.color }};color:#fff;font:600 12px 'IBM Plex Mono'">{{ chk.mark }}</span>
                     <span style="flex:1;font:500 12.5px 'IBM Plex Sans';color:#2a2e35">{{ chk.label }}</span>
@@ -275,6 +275,23 @@
               <div style="font:400 11px/1.5 'IBM Plex Sans';color:#9aa0a8;margin-top:8px">0 = rarely used &middot; 1 = present &middot; 2 = common &middot; 3 = a primary language of the field. Scores cover only C / C++ / C# / Java / Rust.</div>
             </sc-if>
 
+            <sc-if value="{{ activePage.isSources }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;flex-direction:column;gap:9px;margin-top:18px">
+                <sc-for list="{{ activePage.sources }}" as="src" hint-placeholder-count="14">
+                  <div style="background:#ffffff;border:1px solid #e7e7e1;border-radius:10px;padding:13px 16px">
+                    <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+                      <span style="font:600 10.5px 'IBM Plex Mono';letter-spacing:.02em;padding:3px 9px;border-radius:5px;background:#eef2f6;border:1px solid #dce3ea;color:#3f5b78">{{ src.key }}</span>
+                      <span style="font:600 13px 'IBM Plex Sans';color:#1c1f26">{{ src.label }}</span>
+                    </div>
+                    <div style="font:400 12px/1.5 'IBM Plex Sans';color:#6b7078;margin-top:6px">{{ src.scope }}</div>
+                    <sc-if value="{{ src.hasUrl }}" hint-placeholder-val="{{ false }}">
+                      <a href="{{ src.url }}" target="_blank" rel="noopener" style="font:500 11.5px 'IBM Plex Mono';color:#3f5b78;text-decoration:none;margin-top:6px;display:inline-block">{{ src.url }}</a>
+                    </sc-if>
+                  </div>
+                </sc-for>
+              </div>
+            </sc-if>
+
             <sc-if value="{{ activePage.isMatrix }}" hint-placeholder-val="{{ false }}">
               <div style="margin-top:18px;border:1px solid #e7e7e1;border-radius:10px;overflow:hidden;background:#ffffff">
                 <div style="display:grid;grid-template-columns:{{ activePage.grid }};background:#f5f5f0;border-bottom:1px solid #e7e7e1">
@@ -325,7 +342,7 @@
           </sc-if>
         </div>
         <sc-if value="{{ detail.lowConf }}" hint-placeholder-val="{{ false }}">
-          <div style="margin-top:9px;font:500 11px/1.45 'IBM Plex Sans';padding:7px 10px;border-radius:6px;background:#fbf1e6;color:#996212">&#9888; Lower-confidence entry &mdash; language &amp; idiomaticity calls are informed estimates, not citations.</div>
+          <div style="margin-top:9px;font:500 11px/1.45 'IBM Plex Sans';padding:7px 10px;border-radius:6px;background:#fbf1e6;color:#996212">&#9888; Lower-confidence entry &mdash; idiomaticity &amp; prevalence calls are informed estimates. See the cited sources below for the support baseline.</div>
         </sc-if>
         <sc-if value="{{ detail.hasAliases }}" hint-placeholder-val="{{ false }}">
           <div style="margin-top:8px;font:400 11px 'IBM Plex Mono';color:#9aa0a8">aka: {{ detail.aliasText }}</div>
@@ -430,6 +447,18 @@
                 <span style="font:500 11px 'IBM Plex Mono';padding:4px 9px;border-radius:5px;background:#eef0f1;color:#5c616a">{{ sec }}</span>
               </sc-for>
             </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ detail.hasSources }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top:22px">
+            <div style="font:600 11px 'IBM Plex Mono';letter-spacing:.04em;text-transform:uppercase;color:#42464d;margin-bottom:9px">Evidence &amp; sources</div>
+            <div style="display:flex;gap:7px;flex-wrap:wrap">
+              <sc-for list="{{ detail.sources }}" as="src" hint-placeholder-count="3">
+                <a href="{{ src.url }}" target="_blank" rel="noopener" title="{{ src.scope }}" style="text-decoration:none;font:600 10.5px 'IBM Plex Mono';letter-spacing:.02em;padding:4px 9px;border-radius:5px;background:#eef2f6;border:1px solid #dce3ea;color:#3f5b78">{{ src.key }}</a>
+              </sc-for>
+            </div>
+            <div style="font:400 10.5px/1.5 'IBM Plex Sans';color:#9aa0a8;margin-top:7px">Authoritative references backing this entry's support claims. Contextual scores remain self-assessed; lower-confidence entries are flagged above.</div>
           </div>
         </sc-if>
       </div>
@@ -587,6 +616,8 @@ class Component extends DCLogic {
       blocks, langMatrix,
       related:(c.related||[]).map(relChip), hasRelated:(c.related||[]).length>0,
       competing:(c.competing||[]).map(relChip), hasCompeting:(c.competing||[]).length>0,
+      sources:(mod.conceptSources?mod.conceptSources(c):[]).map(s=>({ key:s.key, label:s.label, url:s.url, scope:s.scope, hasUrl:!!s.url })),
+      hasSources:(mod.conceptSources?mod.conceptSources(c):[]).length>0,
       close:()=>this.setState({selected:null})
     };
   }
@@ -600,7 +631,11 @@ class Component extends DCLogic {
 
   _resolvePage(p, mod){
     if(!p) return null;
-    const base = { id:p.id, title:p.title, intro:p.intro, isClusters:p.kind==='clusters', isMatrix:p.kind==='matrix', isLangIndustry:p.kind==='langindustry', isQa:p.kind==='qa' };
+    const base = { id:p.id, title:p.title, intro:p.intro, isClusters:p.kind==='clusters', isMatrix:p.kind==='matrix', isLangIndustry:p.kind==='langindustry', isQa:p.kind==='qa', isSources:p.kind==='sources' };
+    if(p.kind==='sources'){
+      base.sources=(mod.SOURCES||[]).map(s=>({ key:s.key, label:s.label, url:s.url, scope:s.scope, hasUrl:!!s.url }));
+      return base;
+    }
     if(p.kind==='qa'){
       const C=mod.CONCEPTS, ids=C.map(c=>c.id), idset=new Set(ids);
       const domains=mod.DOMAINS.map(d=>({ label:d.label, color:mod.domainColor(d.id), count:C.filter(c=>c.domain===d.id).length }));
@@ -615,18 +650,31 @@ class Component extends DCLogic {
       const dup=ids.filter((id,i)=>ids.indexOf(id)!==i);
       const cxBad=C.filter(c=>c.complexity && !['ds','algo','hardware'].includes(mod.TEMPLATE_MAP[c.type]));
       const noteBad=C.filter(c=>mod.LANGS.some(l=>{const v=c.langs[l.id]||{}; return (v.id>=2)&&!v.note;}));
+      // computed semantic gates (were previously asserted true)
+      const paraBad=C.filter(c=>c.domain==='paradigms' && (c.type==='Algorithm'||c.type==='Algorithmic paradigm'));
+      const monadEx=C.find(c=>c.id==='monad'); const fpOk=!!(monadEx&&monadEx.x&&monadEx.x.formalRole&&monadEx.x.encoding);
+      const simdDistinct = idset.has('simd') && idset.has('threads') && idset.has('gpu-computing');
+      const prinBad=C.filter(c=>c.type==='Design principle' && !((c.limits&&c.limits.length)||(c.whenNot&&c.whenNot.length)));
+      const srcBad=C.filter(c=>!(mod.conceptSources?mod.conceptSources(c):[]).length);
+      // chip / relationship cross-reference integrity (beyond related/competing)
+      const chipRefs=new Set();
+      (mod.RELATIONSHIPS||[]).forEach(r=>(r.nodes||[]).forEach(n=>{if(n.id)chipRefs.add(n.id);}));
+      (mod.PAGES||[]).forEach(p=>{ (p.groups||[]).forEach(g=>(g.ids||[]).forEach(i=>chipRefs.add(i))); (p.rows||[]).forEach(row=>{if(row.id)chipRefs.add(row.id);}); });
+      const chipBad=[...chipRefs].filter(i=>!idset.has(i));
       const mk=(label,pass,detail)=>({label,pass,detail,mark:pass?'\u2713':'\u2717',color:pass?'#1f8a5b':'#b3402e',bg:pass?'color-mix(in oklch, #1f8a5b 11%, white)':'color-mix(in oklch, #b3402e 11%, white)'});
       base.checks=[
         mk('Every entry has a valid primary concept type', badType.length===0, badType.length?badType.length+' invalid':'all '+C.length+' valid'),
         mk('Every type maps to a type-specific card template', badType.length===0, '8 templates + generic fallback'),
         mk('No duplicate concept IDs', dup.length===0, dup.length?dup.length+' duplicates':'all unique'),
         mk('All related / competing cross-references resolve', badRefs.length===0, badRefs.length?badRefs.length+' broken':'0 broken'),
+        mk('All relationship & atlas-map chips resolve to a card', chipBad.length===0, chipBad.length?chipBad.length+' dangling':chipRefs.size+' chip refs OK'),
         mk('Complexity shown only where semantically meaningful', cxBad.length===0, cxBad.length?cxBad.length+' misplaced':'data-structure & algorithm cards only'),
         mk('Every idiomaticity score \u22652 carries a mechanism note', noteBad.length===0, noteBad.length?noteBad.length+' missing':'all annotated'),
-        mk('Paradigms not misclassified as algorithms', true, 'paradigms typed as Programming paradigm / style'),
-        mk('Mathematical abstractions distinguished from language encodings', true, 'e.g. Monad: formal role vs per-language encoding'),
-        mk('SIMD distinguished from multithreading & GPU SIMT', true, 'separate cards + SIMD/CPU/GPU map'),
-        mk('Subjective principles labelled contextual, not universal', true, 'principle cards state trade-offs & misuse'),
+        mk('Every entry cites \u22651 evidence source', srcBad.length===0, srcBad.length?srcBad.length+' uncited':'all '+C.length+' cited'),
+        mk('Paradigms not misclassified as algorithms', paraBad.length===0, paraBad.length?paraBad.length+' miscategorised':'paradigm domain has no algorithm-typed cards'),
+        mk('Mathematical abstractions distinguished from language encodings', fpOk, fpOk?'e.g. Monad: formal role vs per-language encoding':'monad exemplar missing formal role / encoding'),
+        mk('SIMD distinguished from multithreading & GPU SIMT', simdDistinct, simdDistinct?'separate cards + SIMD/CPU/GPU map':'missing a distinct card'),
+        mk('Subjective principles labelled contextual, not universal', prinBad.length===0, prinBad.length?prinBad.length+' without trade-offs':'principle cards state trade-offs & misuse'),
         mk('Low-confidence claims visibly flagged', true, base.lowConf.length+' entries flagged in-card'),
       ];
       base.passCount=base.checks.filter(c=>c.pass).length;

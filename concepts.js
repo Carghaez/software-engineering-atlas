@@ -61,6 +61,50 @@ export const LANGS = [
   { id:'rust', label:'Rust' },
 ];
 
+// Evidence sources — official standards / language docs / security & reliability guidance.
+// Derived from the Foundation deck's source key (slide 28). `key` is the short label shown on cards.
+export const SOURCES = [
+  { id:'SPEC',             key:'SPEC',       label:'Coverage Manifest v1.1',           url:'',                                                                          scope:'Taxonomy, coverage gates, card templates, language rules, QA requirements (user-supplied).' },
+  { id:'WG14',             key:'WG14',       label:'ISO C — WG14',                     url:'https://www.open-std.org/jtc1/sc22/wg14/',                                  scope:'C language standards and committee documents (C23 baseline).' },
+  { id:'CPPWD',            key:'C++WD',      label:'C++ working draft — WG21',         url:'https://eel.is/c++draft/',                                                  scope:'C++ working draft and WG21 proposals (C++23 + labelled WD features).' },
+  { id:'CSHARP',           key:'CSHARP',     label:'C# / .NET docs',                   url:'https://learn.microsoft.com/dotnet/csharp/',                                scope:'C# specification and .NET runtime / library documentation (C# 14).' },
+  { id:'JLS25',            key:'JLS25',      label:'Java Language Spec SE 25',         url:'https://docs.oracle.com/javase/specs/jls/se25/',                            scope:'Java Language Specification and Java SE 25 APIs.' },
+  { id:'RUST',             key:'RUST',       label:'Rust reference & std',             url:'https://doc.rust-lang.org/reference/',                                      scope:'Rust language reference and standard library (stable as of 2026-06).' },
+  { id:'OPENMP6',          key:'OPENMP6',    label:'OpenMP specification',             url:'https://www.openmp.org/specifications/',                                    scope:'Shared-memory parallelism, tasks, SIMD, offload, and memory model.' },
+  { id:'CUDA13',           key:'CUDA13',     label:'CUDA programming guide',           url:'https://docs.nvidia.com/cuda/cuda-c-programming-guide/',                    scope:'GPU programming model, SIMT, memory coalescing, performance.' },
+  { id:'OPENJDK_VECTOR',   key:'OPENJDK-VECTOR', label:'Java Vector API (JEP 508)',   url:'https://openjdk.org/jeps/508',                                              scope:'Java Vector API status and intent.' },
+  { id:'DOTNET_INTRINSICS',key:'DOTNET-INTRINSICS', label:'.NET hardware intrinsics', url:'https://learn.microsoft.com/dotnet/api/system.runtime.intrinsics',          scope:'C# / .NET hardware intrinsics and SIMD vector types.' },
+  { id:'NIST_SSDF',        key:'NIST-SSDF',  label:'NIST SSDF v1.1',                   url:'https://csrc.nist.gov/pubs/sp/800/218/final',                               scope:'Secure Software Development Framework (SP 800-218).' },
+  { id:'OWASP_ASVS',       key:'OWASP-ASVS', label:'OWASP ASVS',                       url:'https://owasp.org/www-project-application-security-verification-standard/', scope:'Application security verification controls.' },
+  { id:'AZURE_PATTERNS',   key:'AZURE-PATTERNS', label:'Azure cloud design patterns', url:'https://learn.microsoft.com/azure/architecture/patterns/',                  scope:'Circuit breaker, bulkhead, retry, throttling, and other cloud resilience patterns.' },
+  { id:'GOOGLE_SRE',       key:'GOOGLE-SRE', label:'Google SRE workbook',              url:'https://sre.google/workbook/',                                              scope:'SLIs, SLOs, error budgets, alerting, operational feedback.' },
+];
+export const SOURCE_MAP = Object.fromEntries(SOURCES.map(s => [s.id, s]));
+
+// Default evidence sources per domain, taken from each domain page's source key in the deck.
+// A concept may override/extend with its own `sources:[...]` of source ids.
+export const DOMAIN_SOURCES = {
+  structures:   ['WG14','CPPWD','CSHARP','JLS25','RUST'],
+  algos:        ['WG14','CPPWD','CSHARP','JLS25','RUST'],
+  paradigms:    ['CPPWD','CSHARP','JLS25','RUST','WG14'],
+  fp:           ['CPPWD','CSHARP','JLS25','RUST'],
+  types:        ['CPPWD','CSHARP','JLS25','RUST','WG14'],
+  concurrency:  ['CPPWD','CSHARP','JLS25','RUST','WG14','OPENMP6'],
+  hardware:     ['OPENMP6','CUDA13','DOTNET_INTRINSICS','OPENJDK_VECTOR','CPPWD','RUST'],
+  memory:       ['WG14','CPPWD','CSHARP','JLS25','RUST'],
+  reliability:  ['AZURE_PATTERNS','GOOGLE_SRE'],
+  architecture: ['AZURE_PATTERNS'],
+  testing:      ['OWASP_ASVS'],
+  security:     ['NIST_SSDF','OWASP_ASVS'],
+  observability:['GOOGLE_SRE','OWASP_ASVS'],
+};
+
+// Resolve the evidence sources backing a concept: explicit `sources` override, else the domain default.
+export const conceptSources = (c) => {
+  const ids = (c && c.sources && c.sources.length) ? c.sources : (DOMAIN_SOURCES[c && c.domain] || []);
+  return ids.map(id => SOURCE_MAP[id]).filter(Boolean);
+};
+
 // Cross-category relationship chains — the centrepiece. node.id links to a concept when present.
 export const RELATIONSHIPS = [
   {
