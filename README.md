@@ -113,6 +113,11 @@ sitemap.xml       All crawlable URLs
 code-index.json   Which concepts/languages have code (the SPA fetches this)
 ```
 
+## Contributing
+
+See **[CONTRIBUTING.md](./CONTRIBUTING.md)** to run it locally and add concepts or code, and
+**[AGENT.md](./AGENT.md)** for the architecture invariants (useful for both humans and AI agents).
+
 ## License
 
 - **Code** (everything that runs the app) — [MIT](./LICENSE).
