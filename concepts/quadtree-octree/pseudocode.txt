@@ -1,0 +1,18 @@
+# Quadtree (2-D) / octree (3-D): recursively split space into 4 / 8 children
+
+structure Node:
+    bounds                                 # this region's box
+    points (up to CAPACITY)
+    children[4]   # or [8] for an octree; created on subdivision
+
+function insert(node, p):
+    if p not inside node.bounds: return false
+    if node has spare capacity and is not yet divided:
+        add p to node.points; return true
+    if not divided: subdivide(node)        # carve into 4 (or 8) child quadrants
+    for each child:
+        if insert(child, p): return true
+    return false
+
+# Adaptive: dense regions subdivide deeply, empty space stays a single node, and
+# range / nearest queries prune whole quadrants that can't contain a hit.

@@ -1,0 +1,20 @@
+# k-d tree: BST over k-dimensional points; split on a cycling axis per level
+
+function build(points, depth):
+    if points empty: return NULL
+    axis = depth mod k
+    sort points by coordinate[axis]; median = middle point
+    node.point = median; node.axis = axis
+    node.left  = build(points below median, depth + 1)
+    node.right = build(points above median, depth + 1)
+    return node
+
+function nearest(node, query, best):       # best = closest point found so far
+    if node is NULL: return
+    consider node.point; update best if closer
+    diff = query[node.axis] - node.point[node.axis]
+    near = diff < 0 ? node.left  : node.right
+    far  = diff < 0 ? node.right : node.left
+    nearest(near, query, best)             # most promising side first
+    if diff^2 < dist2(best, query):        # the splitting plane is within range
+        nearest(far, query, best)          # the other side may hold something closer

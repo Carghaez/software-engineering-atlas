@@ -1,0 +1,17 @@
+# A* search: Dijkstra guided toward the goal by an admissible heuristic
+
+function a_star(start, goal, h):          # h(n) = admissible estimate of cost n->goal
+    g[start] = 0                          # best known cost from start
+    open = priority queue keyed by f = g + h
+    push (h(start), start)
+    while open not empty:
+        u = pop node with smallest f
+        if u == goal: return g[u]
+        for each neighbour v of u with edge cost w:
+            tentative = g[u] + w
+            if tentative < g[v]:
+                g[v] = tentative
+                push (tentative + h(v), v)    # promising path to v
+    return NO_PATH
+# h = 0 makes it Dijkstra; an admissible h never overestimates, so A* stays optimal
+# while exploring far fewer nodes.
