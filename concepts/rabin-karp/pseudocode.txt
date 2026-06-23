@@ -1,0 +1,15 @@
+# Rabin-Karp: substring search with a rolling polynomial hash (avg O(n+m))
+
+function search(text, pattern):
+    m = len(pattern); n = len(text)
+    ph = hash(pattern[0..m])              # hash of the pattern
+    wh = hash(text[0..m])                 # hash of the first window
+    for i in 0 .. n-m:
+        if wh == ph and text[i..i+m] == pattern:   # verify on a hash hit
+            return i                                # (guards against collisions)
+        if i < n-m:
+            wh = roll(wh, text[i], text[i+m])       # drop left char, add next char
+    return NOT_FOUND
+
+# roll: new = ((old - left * base^(m-1)) * base + right) mod prime
+# Many windows share work, so total hashing is O(n) instead of O(n*m).

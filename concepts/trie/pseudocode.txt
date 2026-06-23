@@ -1,0 +1,21 @@
+# Trie (prefix tree): keys stored along paths, sharing common prefixes
+
+structure Node:
+    children    # map: character -> Node
+    is_end      # true if a key terminates here
+
+function insert(root, word):
+    node = root
+    for ch in word:
+        if ch not in node.children:
+            node.children[ch] = new Node
+        node = node.children[ch]
+    node.is_end = true
+
+function contains(root, word):
+    node = root
+    for ch in word:
+        if ch not in node.children:
+            return false
+        node = node.children[ch]
+    return node.is_end           # for a prefix query, just return true here instead

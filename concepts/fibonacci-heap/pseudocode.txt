@@ -1,0 +1,25 @@
+# Fibonacci heap: amortised O(1) insert / merge / decrease-key; O(log n) extract-min
+
+structure FibHeap:
+    min         # pointer to the minimum root
+    roots       # circular doubly linked list of tree roots
+
+function insert(h, key):
+    add a single-node tree to h.roots         # lazy: no consolidation yet
+    if key < h.min.key: h.min = the new node
+
+function merge(h1, h2):
+    concatenate the two root lists; keep the smaller min   # O(1)
+
+function extract_min(h):
+    move h.min's children into the root list
+    remove h.min
+    consolidate: link roots of equal degree until all degrees are unique
+    reset h.min to the smallest remaining root
+    return the old minimum
+
+function decrease_key(h, x, k):
+    x.key = k
+    if x < its parent:
+        cut x into the root list; cascade-cut marked ancestors   # bounds tree shape
+    if k < h.min.key: h.min = x

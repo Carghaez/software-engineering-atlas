@@ -1,0 +1,21 @@
+# Knuth-Morris-Pratt: substring search in O(n+m) via a prefix-failure table
+
+function build_lps(pattern):              # lps[i] = length of the longest proper
+    lps[0] = 0                            # prefix of pattern[0..i] that is also a suffix
+    k = 0
+    for i in 1 .. m-1:
+        while k > 0 and pattern[i] != pattern[k]:
+            k = lps[k-1]                  # fall back within the pattern
+        if pattern[i] == pattern[k]: k = k + 1
+        lps[i] = k
+    return lps
+
+function search(text, pattern):
+    lps = build_lps(pattern)
+    k = 0                                 # chars matched so far
+    for i in 0 .. n-1:
+        while k > 0 and text[i] != pattern[k]:
+            k = lps[k-1]                  # reuse the table; never re-scan text
+        if text[i] == pattern[k]: k = k + 1
+        if k == m: return i - m + 1       # full match
+    return NOT_FOUND

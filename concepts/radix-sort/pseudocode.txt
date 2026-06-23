@@ -1,0 +1,17 @@
+# Radix sort (LSD): stable counting-sort by each digit, least significant first
+
+function radix_sort(a, base = 10):
+    max_val = max(a)
+    exp = 1
+    while max_val / exp > 0:               # one pass per digit position
+        counting_sort_by_digit(a, exp, base)
+        exp = exp * base
+    # once the most significant digit is processed, a is fully sorted
+
+function counting_sort_by_digit(a, exp, base):
+    count[0 .. base-1] = 0
+    for x in a: count[(x / exp) mod base] += 1
+    prefix-sum count -> starting index of each bucket
+    for x in a (left to right):            # left-to-right keeps it STABLE,
+        output[count[(x/exp) mod base]++] = x   # which radix sort depends on
+    copy output back into a

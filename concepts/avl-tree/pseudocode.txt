@@ -1,0 +1,20 @@
+# AVL tree: self-balancing BST; sibling subtree heights differ by at most 1
+
+function insert(node, key):
+    if node is NULL: return new Node(key)             # height 1
+    if key < node.key: node.left  = insert(node.left, key)
+    else:              node.right = insert(node.right, key)
+    update_height(node)                                # 1 + max(child heights)
+    return rebalance(node)
+
+function rebalance(node):
+    bf = height(node.left) - height(node.right)        # balance factor
+    if bf > 1:                                          # left-heavy
+        if height(node.left.left) < height(node.left.right):
+            node.left = rotate_left(node.left)          # left-right case
+        return rotate_right(node)
+    if bf < -1:                                         # right-heavy
+        if height(node.right.right) < height(node.right.left):
+            node.right = rotate_right(node.right)       # right-left case
+        return rotate_left(node)
+    return node                                         # within balance
