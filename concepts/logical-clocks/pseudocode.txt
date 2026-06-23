@@ -1,0 +1,13 @@
+# Lamport logical clock: a counter giving a consistent "happens-before" order
+# without synchronised physical time
+
+on a local event or a send:
+    t = t + 1                              # advance my clock
+    # a sent message carries the sender's current t
+
+on receiving a message stamped ts:
+    t = max(t, ts) + 1                     # jump ahead of the sender, then tick
+
+# Guarantee: if event A happens-before B (same process, or send->receive),
+# then clock(A) < clock(B). The converse need not hold: equal/independent
+# events may be concurrent. (Vector clocks capture concurrency exactly.)

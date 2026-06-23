@@ -1,0 +1,15 @@
+# Two-phase commit (2PC): atomic commit across participants via a coordinator
+
+# Phase 1 — PREPARE (voting):
+    coordinator -> every participant: "prepare"
+    each participant: durably log undo/redo, then reply YES (ready) or NO
+
+# Phase 2 — DECIDE:
+    if all replies are YES:
+        coordinator -> all: "commit"   ; each applies and acks
+    else:
+        coordinator -> all: "abort"    ; each rolls back
+
+# Atomicity: all participants commit, or all abort — never a split outcome.
+# Weakness: if the coordinator crashes between phases, prepared participants
+# block (holding locks) until it recovers.

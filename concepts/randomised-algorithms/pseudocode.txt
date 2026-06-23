@@ -1,0 +1,15 @@
+# Randomised algorithms: inject randomness for simple code + good EXPECTED time
+# Example: randomised quickselect — expected O(n) k-th smallest element
+
+function quickselect(a, k):
+    lo = 0; hi = n - 1
+    while lo < hi:
+        pivot = a[ random index in lo..hi ]    # random pivot dodges worst cases
+        p = partition(a, lo, hi, pivot)         # p = pivot's final sorted index
+        if p == k: return a[p]
+        if p < k:  lo = p + 1                    # k-th lies to the right
+        else:      hi = p - 1                    # k-th lies to the left
+    return a[lo]
+
+# A fixed pivot can be forced into O(n^2) by adversarial input; choosing the pivot
+# at random makes that vanishingly unlikely, giving O(n) expected time on ANY input.
