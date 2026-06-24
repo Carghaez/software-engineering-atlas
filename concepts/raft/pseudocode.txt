@@ -1,0 +1,18 @@
+Raft (leader election + log replication):
+
+election (per term):
+    a follower whose timeout fires becomes a candidate, term += 1
+    it votes for itself and asks every peer for a vote
+    a node grants AT MOST ONE vote per term (first-come)
+    candidate with a MAJORITY of votes -> leader for that term
+    # any two majorities overlap, so a term has at most one leader (safety)
+
+replication (leader):
+    on client command: append {term, command} to local log
+    send AppendEntries to followers; they append if their log matches
+    once a MAJORITY have stored an entry, it is COMMITTED
+    leader advances commitIndex; followers apply committed entries in order
+
+failure handling:
+    heartbeats reset follower timeouts; a silent leader triggers a new election
+    higher term seen -> step down to follower

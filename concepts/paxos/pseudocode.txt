@@ -1,0 +1,17 @@
+Single-decree Paxos (choose one value among unreliable nodes):
+
+proposer(n, v):                      # n = unique, increasing proposal number
+    phase 1 - PREPARE(n) to acceptors
+        collect promises from a MAJORITY
+        if any promise carries an already-accepted (n', v'):
+            v = value with the highest such n'    # adopt it (safety rule)
+    phase 2 - ACCEPT(n, v) to acceptors
+        if a MAJORITY accept -> v is CHOSEN
+
+acceptor state: promised, acceptedN, acceptedV
+    on PREPARE(n):  if n > promised: promised = n; reply (acceptedN, acceptedV)
+    on ACCEPT(n,v): if n >= promised: acceptedN = n; acceptedV = v; reply ok
+
+# Because any two majorities intersect, once a value is chosen every higher
+# proposal re-proposes that same value: at most one value is ever chosen.
+# Multi-Paxos elects a stable leader to skip phase 1 per log entry.

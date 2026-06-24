@@ -1,0 +1,16 @@
+Streaming model: see each item once, in order, in sublinear memory ->
+an approximate aggregate. Example: Boyer-Moore majority vote (O(1) memory),
+which finds an element occurring > n/2 times in a single pass.
+
+majority(stream):
+    cand = null; count = 0
+    for x in stream:                 # one pass, two words of state
+        if count == 0: cand = x      # adopt a new candidate
+        if x == cand: count += 1
+        else:         count -= 1     # pairs of distinct items cancel out
+    return cand                      # the >n/2 element, if one exists
+
+# A true majority survives all cancellations. A verification pass can confirm
+# the count, since a single counter only PROVES a candidate, never disproves.
+# Generalises to Misra-Gries (k counters) for heavy hitters; other sketches
+# (Count-Min, HyperLogLog, reservoir sampling) cover other (eps, delta) queries.
