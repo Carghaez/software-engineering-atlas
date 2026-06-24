@@ -1,0 +1,18 @@
+R-tree (balanced tree of minimum bounding rectangles for spatial queries):
+
+each node stores child MBRs (minimum bounding rectangles) covering its subtree;
+leaves store the data rectangles. Like a B-tree, it stays balanced on insert.
+
+windowQuery(node, W):
+    for child in node:
+        if child.MBR overlaps W:                 # else PRUNE the whole subtree
+            if node is leaf: report child if it overlaps W
+            else:            windowQuery(child, W)
+
+insert(rect):
+    descend choosing the child whose MBR needs the least enlargement
+    add to a leaf; if it overflows, SPLIT and propagate the new MBR upward
+
+# Overlapping sibling MBRs are allowed (unlike a k-d tree), so split quality
+# (minimising overlap/area) drives query speed. Great for range + nearest
+# queries on 2-D/3-D boxes; the basis of many spatial database indexes.

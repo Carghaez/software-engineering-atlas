@@ -1,0 +1,18 @@
+Binary Space Partitioning (recursively split space by hyperplanes):
+
+build(polygons):
+    pick one polygon's plane as the splitter
+    front = polygons wholly in front; back = polygons wholly behind
+    (polygons straddling the plane are SPLIT in two)
+    return Node(plane, build(front), build(back))
+
+# Signature use: exact back-to-front (painter's) ordering from any viewpoint,
+# with no per-frame sorting:
+paint(node, viewer):
+    if viewer is in FRONT of node.plane:
+        paint(node.back);  draw(node.poly);  paint(node.front)
+    else:
+        paint(node.front); draw(node.poly);  paint(node.back)
+
+# Visiting the far side first guarantees nearer surfaces overdraw farther ones.
+# Classic in Doom/Quake; also used for CSG and point/region classification.

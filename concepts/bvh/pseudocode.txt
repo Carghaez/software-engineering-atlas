@@ -1,0 +1,17 @@
+Bounding Volume Hierarchy (accelerate ray / point / overlap queries):
+
+build(objects):
+    box = AABB enclosing all objects
+    if few enough objects: return Leaf(box, objects)
+    axis = longest extent of box
+    split objects by centroid along axis        # heuristic: SAH in production
+    return Inner(box, build(left), build(right))
+
+query(node, p):
+    if p NOT in node.box: return MISS           # prune the whole subtree
+    if node is Leaf: test p against its objects
+    else: query(node.left, p) or query(node.right, p)
+
+# The enclosing box lets a miss reject an entire subtree in one test, turning
+# O(n) brute force into ~O(log n). Tree shape depends only on the split
+# heuristic; correctness depends only on boxes enclosing their children.
