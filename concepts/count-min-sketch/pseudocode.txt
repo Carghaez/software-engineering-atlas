@@ -1,0 +1,13 @@
+CountMinSketch(d rows, w columns):
+    count = d x w grid of zeros        # d independent hash functions
+
+    add(item):
+        for r in 0..d-1:
+            count[r][ h_r(item) mod w ] += 1
+
+    estimate(item):                    # never underestimates
+        return min over r in 0..d-1 of count[r][ h_r(item) mod w ]
+
+# Each collision can only ADD to a cell, so taking the min across rows
+# yields an overestimate bounded by error e with probability 1 - delta
+# when w = ceil(e/epsilon) and d = ceil(ln(1/delta)).

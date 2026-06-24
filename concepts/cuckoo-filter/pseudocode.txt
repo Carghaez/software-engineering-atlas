@@ -1,0 +1,20 @@
+CuckooFilter(numBuckets, slotsPerBucket):
+    fingerprint(x) = nonzero low bits of hash(x)
+    i1(x) = hash(x) mod numBuckets
+    i2(x) = (i1 XOR hash(fingerprint)) mod numBuckets   # partial-key cuckoo
+
+    insert(x):
+        f = fingerprint(x)
+        if a slot is free in bucket i1 or i2: store f, done
+        b = pick(i1, i2)                  # both full -> relocate
+        repeat up to maxKicks:
+            swap f with a random fingerprint in bucket b
+            b = (b XOR hash(f)) mod numBuckets   # evicted f's other home
+            if a slot is free in b: store f, done
+        return failure                    # too full -> resize/rebuild
+
+    lookup(x):  f = fingerprint(x); return f in bucket i1 or bucket i2
+    delete(x):  remove one copy of fingerprint(x) from bucket i1 or i2
+
+# Storing only fingerprints (not keys) keeps it compact; the two-home
+# invariant means delete just clears a slot -- a Bloom filter cannot.

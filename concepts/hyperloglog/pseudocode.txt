@@ -1,0 +1,18 @@
+HyperLogLog(p):                        # m = 2^p registers, all zero
+    add(item):
+        x   = hash64(item)
+        idx = top p bits of x           # which register
+        w   = remaining bits of x
+        rho = position of leftmost 1-bit in w (leading zeros + 1)
+        reg[idx] = max(reg[idx], rho)
+
+    estimate():
+        Z = sum over j of 2^(-reg[j])   # harmonic-mean denominator
+        E = alpha_m * m^2 / Z
+        if E <= 2.5*m and V = #zero registers > 0:
+            E = m * ln(m / V)           # linear-counting small-range fix
+        return E
+
+# alpha_m ~= 0.7213 / (1 + 1.079/m).  Standard error ~= 1.04/sqrt(m):
+# a few KB of registers estimates billions of distinct items within a few %.
+# Registers merge by element-wise max, so sketches union across shards.
