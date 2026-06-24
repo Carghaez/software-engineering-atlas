@@ -1,0 +1,18 @@
+Branch and bound (0/1 knapsack, maximising value under a weight cap):
+
+best = 0
+dfs(i, weight, value):
+    best = max(best, value)               # current node is a feasible packing
+    if i == n: return
+    if bound(i, weight, value) <= best:   # optimistic estimate can't beat best
+        return                            # -> PRUNE this whole subtree
+    if weight + w[i] <= cap:
+        dfs(i+1, weight + w[i], value + v[i])   # branch: take item i
+    dfs(i+1, weight, value)                      # branch: skip item i
+
+bound(i, weight, value):                  # admissible upper bound
+    fill remaining capacity FRACTIONALLY with items i.. (sorted by value/weight)
+    return value + that fractional gain    # >= any integral completion
+
+# The bound must never underestimate the true optimum, or valid solutions get
+# pruned. Tighter (still admissible) bounds prune more of the search tree.

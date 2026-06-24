@@ -1,0 +1,14 @@
+DPLL (decide satisfiability of a CNF formula):
+
+solve(assignment):
+    propagate unit clauses; if a clause is empty (all literals false) -> conflict
+    if a conflict occurred:        return UNSAT for this branch
+    if every variable is assigned: return SAT (a model)
+    pick an unassigned variable x
+    return solve(assignment + {x = true})        # branch
+        or solve(assignment + {x = false})       # backtrack
+
+# A clause is violated only when ALL its literals are already false; a clause
+# with any unassigned literal is still open. Branching + early conflict checks
+# (the "backtracking with pruning" core) is what every modern CDCL solver
+# extends with clause learning and non-chronological backtracking.

@@ -1,0 +1,18 @@
+Aho-Corasick (match a whole dictionary in one pass over the text):
+
+build(patterns):
+    trie: insert every pattern; mark output count at each terminal node
+    BFS from the root to add FAILURE links:
+        fail(node) = longest proper suffix of node's path that is also a
+                     trie node  (root if none)
+        out(node) += out(fail(node))   # inherit shorter matches sharing a suffix
+
+search(text):
+    s = root
+    for ch in text:
+        while s != root and s has no child ch:  s = fail(s)   # follow failures
+        s = child(s, ch)  or root
+        report out(s) matches ending here
+
+# A failure link is the multi-pattern analogue of the KMP prefix function.
+# Time = O(text + total pattern length + matches), independent of dictionary size.
