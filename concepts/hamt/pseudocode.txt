@@ -1,0 +1,20 @@
+HAMT - Hash Array Mapped Trie (a persistent map):
+
+a node is either a Leaf(key, value) or a Branch(bitmap, children[]):
+    bitmap   = 32-bit mask of which of 32 child slots are occupied
+    children = COMPACT array (only occupied slots), so no space wasted
+
+slot(key, shift) = (hash(key) >> shift) & 31      # 5 bits of the hash per level
+posInArray       = popcount(bitmap & (slotBit - 1))   # rank of this slot
+
+get(node, key, shift):
+    Leaf -> return value if keys match else MISS
+    Branch -> if slotBit not in bitmap: MISS
+              else recurse into children[posInArray] with shift + 5
+
+insert(node, key, val, shift):   # returns a NEW node (immutable)
+    copy the touched node; set/replace one child; share all other subtrees
+    two keys colliding in a slot -> push both down into a new Branch (shift+5)
+
+# Structural sharing: an update copies only the path from root to the changed
+# leaf (O(log32 n) nodes); every other subtree is reused by reference.

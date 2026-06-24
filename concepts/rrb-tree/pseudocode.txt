@@ -1,0 +1,15 @@
+RRB tree - Relaxed Radix Balanced tree (a persistent vector):
+
+a wide trie (branching factor 32) storing elements at the leaves. Index i is
+split into radix digits; each digit picks a child:
+    get(i): walk digits of i from the root to a leaf, return the slot
+    update(i, x): copy ONLY the nodes on the path root..leaf, reusing the rest
+    push/pop at the tail: amortised O(1) via a small tail buffer
+
+# "Relaxed" nodes carry a cumulative-size table, so a node's children may be
+# slightly under-full. That relaxation makes CONCAT and SPLIT O(log n) instead
+# of O(n) -- the key advantage over a strict radix-balanced (Clojure) vector --
+# while keeping get/update at O(log32 n) ~ effectively constant.
+
+# Persistence falls out of path-copying: every version shares all untouched
+# subtrees, so old versions stay valid and cheap to keep.

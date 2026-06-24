@@ -1,0 +1,15 @@
+CRDT - Conflict-free Replicated Data Type (here: a G-Counter):
+
+state-based CRDT = a value in a join-semilattice with a merge that is
+    commutative, associative, and idempotent
+-> replicas that exchange state in ANY order/any number of times CONVERGE.
+
+G-Counter (grow-only counter):
+    state    = map replicaId -> count   (each replica only bumps its OWN entry)
+    inc(r)   = count[r] += 1
+    value    = sum of all counts
+    merge(a, b) = elementwise MAX over replicaIds      # the lattice join
+
+# Because merge is max: re-delivering or reordering updates can't change the
+# result (idempotent + commutative), so no coordination/locking is needed.
+# Variants: PN-Counter (two G-Counters for decrement), G-Set / OR-Set, LWW-Register.
