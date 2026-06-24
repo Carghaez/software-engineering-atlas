@@ -1,0 +1,14 @@
+MapReduce (parallel batch computation over a cluster):
+
+map(key, value)      -> emit zero or more (k2, v2) pairs    # runs on each shard
+shuffle              -> group all v2 by k2 across the cluster
+reduce(k2, [v2...])  -> emit the aggregated result for k2   # runs per key
+
+# Example - word count:
+map(docId, text):     for w in words(text): emit(w, 1)
+reduce(word, counts): emit(word, sum(counts))
+
+# The framework handles partitioning, parallelism, data movement (shuffle),
+# and fault tolerance (re-run failed tasks); the user writes only map + reduce.
+# map and reduce must be side-effect-free so tasks can be retried/duplicated.
+# combiners (a local pre-reduce) cut shuffle traffic when reduce is associative.

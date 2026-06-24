@@ -1,0 +1,13 @@
+LSM-tree - Log-Structured Merge tree (write-optimised key-value store):
+
+put(k, v):  write into an in-memory, sorted MEMTABLE (and a write-ahead log)
+flush():    when the memtable is full, write it out as an immutable, sorted
+            SSTable (a "run") and start a fresh memtable
+get(k):     check the memtable first, then SSTables NEWEST -> OLDEST;
+            the first hit wins (newer writes shadow older ones)
+delete(k):  write a tombstone marker (a deletion is just another newer write)
+compaction: periodically merge SSTables, dropping shadowed/tombstoned keys
+
+# Turns random writes into sequential ones (fast ingest); reads may touch
+# several runs, so Bloom filters per SSTable skip runs that lack the key.
+# Powers RocksDB, LevelDB, Cassandra, ScyllaDB.

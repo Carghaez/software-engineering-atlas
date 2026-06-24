@@ -1,0 +1,23 @@
+Arithmetic coding (compress a message to one number in [0, 1)):
+
+model: each symbol s owns a sub-interval [cumLo(s), cumHi(s)) of [0,1)
+       sized to its probability.
+
+encode(message):
+    low, high = 0, 1
+    for s in message:
+        range = high - low
+        high  = low + range * cumHi(s)        # narrow to s's slice
+        low   = low + range * cumLo(s)
+    emit any number inside [low, high)         # shorter for likelier messages
+
+decode(code, length):
+    low, high = 0, 1
+    repeat length times:
+        v = (code - low) / (high - low)        # where does code sit now?
+        s = symbol whose [cumLo,cumHi) contains v
+        output s; narrow [low,high) by s exactly as the encoder did
+
+# More probable symbols take bigger slices -> fewer bits, approaching the
+# Shannon entropy. Real coders use integer range-rescaling with carry handling
+# to avoid floating-point precision limits on long messages.

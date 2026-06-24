@@ -1,0 +1,15 @@
+Approximation algorithm: a polynomial-time algorithm that returns a solution
+provably within a factor of optimal for an NP-hard problem.
+
+Example: 2-approximation for Vertex Cover (NP-hard) via maximal matching:
+    cover = {}
+    for each edge (u, v):
+        if neither u nor v is in cover:
+            add BOTH u and v to cover        # this edge enters a matching
+    return cover
+
+# Why <= 2*OPT: the picked edges form a MATCHING (no shared endpoints); any
+# valid cover must include >= 1 endpoint of each, so OPT >= matchingSize, while
+# our cover = 2 * matchingSize. Hence cover <= 2 * OPT.
+# Approximation ratio rho means: cost(approx) <= rho * cost(OPT) for all inputs.
+# Other staples: greedy Set Cover (ln n), Christofides metric-TSP (3/2).
